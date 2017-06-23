@@ -1,5 +1,5 @@
 /**
- * @file ComponentWrapper.jsx
+ * @file Editor.jsx
  * @author denglingbo
  *
  * Des
@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ComponentWrapper extends Component {
+class Editor extends Component {
     constructor(props) {
         super(props);
 
@@ -22,11 +22,10 @@ class ComponentWrapper extends Component {
     }
 
     render() {
-        const { children, guid } = this.props;
+        const { guid } = this.props;
 
         return (
             <div>
-                <div>{children}</div>
                 <div>{guid}</div>
                 <div
                     data-guid={guid}
@@ -39,9 +38,8 @@ class ComponentWrapper extends Component {
     }
 }
 
-ComponentWrapper.propTypes = {
+Editor.propTypes = {
     cid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    children: PropTypes.node.isRequired,
 }
 
-export default ComponentWrapper;
+export default Editor;

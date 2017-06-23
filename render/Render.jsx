@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { Button } from 'antd';
-import WrapperEditor from './container/WrapperEditor';
+import WrapperEditor from './container/Editor';
 
 class Render {
 
@@ -18,17 +18,20 @@ class Render {
     static Editor(props) {
         const { data, removeComponent } = props;
 
-        if (!data || !data.component) {
+        if (!data || !data.editComponent) {
             return null;
         }
 
+        const Comp = data.editComponent;
+        // const Comp = data.viewComponent;
+
         return (
-            <WrapperEditor
-                guid={data.guid}
-                onRemoveComponent={removeComponent}
-            >
-                <data.component />
-            </WrapperEditor>
+            <Comp>
+                <WrapperEditor
+                    guid={data.guid}
+                    onRemoveComponent={removeComponent}
+                />
+            </Comp>
         )
     }
 
@@ -47,6 +50,13 @@ class Render {
                     onClick={props.addComponent}
                 >
                     添加楼层
+                </Button>
+                <Button
+                    data-cid="2"
+                    data-type="fixer"
+                    onClick={props.addComponent}
+                >
+                    添加底部 Fixer
                 </Button>
                 <Button
                     onClick={props.saveData}
