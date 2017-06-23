@@ -5,9 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
-import { Button } from 'antd';
-import EditorWrapper from '../common/container/EditorWrapper';
-import Render from '../render';
+import { Module, Render } from '../render';
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +13,7 @@ class App extends Component {
 
         this.addComponent = ::this.addComponent;
         this.removeComponent = ::this.removeComponent;
-        this.save = ::this.save;
+        this.saveData = ::this.saveData;
 
         this.state = {
             // data: []
@@ -35,8 +33,8 @@ class App extends Component {
         };
     }
 
-    componentWillMount() {
-        Render.components(this.state.data)
+    componentDidMount() {
+        Module.all(this.state.data)
             .then(values => {
                 this.setState({
                     data: values,
@@ -52,7 +50,7 @@ class App extends Component {
         const cid = event.currentTarget.getAttribute('data-cid');
         const type = event.currentTarget.getAttribute('data-type');
 
-        Render.createComponent(cid, type)
+        Module.create(cid, type)
             .then(value => {
                 this.setState({
                     data: this.state.data.concat(value),
@@ -61,27 +59,19 @@ class App extends Component {
     }
 
     /**
-     * 移除组件
+     * 移除渲染的组件
      * @param guid
      */
     removeComponent(guid) {
-        const { data } = this.state;
-
-        data.forEach((App, index) => {
-            if (App.guid.toString() === guid.toString()) {
-                data.splice(index, 1);
-            }
-        });
-
         this.setState({
-            data,
+            data: Module.remove(guid, this.state.data)
         });
     }
 
     /**
      * 储存数据
      */
-    save() {
+    saveData() {
         console.log(JSON.stringify(this.state.data))
     }
 
@@ -90,37 +80,17 @@ class App extends Component {
 
         return (
             <div>
-                <div>
-                    <Button
-                        data-cid="3"
-                        data-type="floor"
-                        onClick={this.addComponent}
-                    >
-                        添加楼层
-                    </Button>
-                    <Button
-                        onClick={this.save}
-                    >
-                        保存
-                    </Button>
-                </div>
-                <div>
-                    {data.map(item => {
-                        if (!item.component) {
-                            return null;
-                        }
-
-                        return (
-                            <EditorWrapper
-                                key={item.guid}
-                                guid={item.guid}
-                                onRemoveComponent={this.removeComponent}
-                            >
-                                <item.component />
-                            </EditorWrapper>
-                        )
-                    })}
-                </div>
+                <Render.TopController
+                    addComponent={this.addComponent}
+                    saveData={this.saveData}
+                />
+                {data.map(item => (
+                    <Render.Editor
+                        key={item.guid}
+                        data={item}
+                        removeComponent={this.removeComponent}
+                    />
+                ))}
             </div>
         );
     }

@@ -5,7 +5,6 @@
  * Des
  */
 import React, { Component } from 'react';
-import componentBaiscInfo from '../../common/decorators/componentBaiscInfo';
 import './index.scss';
 
 class component extends Component {
