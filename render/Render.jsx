@@ -18,12 +18,35 @@ class Render {
     static Editor(props) {
         const { data, removeComponent } = props;
 
-        if (!data || !data.editComponent) {
+        if (!data || !data.Editor) {
             return null;
         }
 
-        const Comp = data.editComponent;
-        // const Comp = data.viewComponent;
+        const Comp = data.Editor;
+
+        return (
+            <Comp>
+                <WrapperEditor
+                    guid={data.guid}
+                    onRemoveComponent={removeComponent}
+                />
+            </Comp>
+        )
+    }
+
+    /**
+     * 渲染浏览者模式
+     * @param props
+     * @constructor
+     */
+    static Viewer(props) {
+        const { data, removeComponent } = props;
+
+        if (!data || !data.Viewer) {
+            return null;
+        }
+
+        const Comp = data.Viewer;
 
         return (
             <Comp>

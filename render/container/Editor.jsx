@@ -21,6 +21,8 @@ class Editor extends Component {
         this.props.onRemoveComponent(guid);
     }
 
+    componentDidMount() {}
+
     render() {
         const { guid } = this.props;
 
