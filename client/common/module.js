@@ -3,8 +3,9 @@
  * @author denglingbo
  *
  */
-import { findComponents } from '../components';
-import Utils from '../common/util/util';
+import { findComponents } from '../components/index';
+import Panel from '../common/render/panel/Panel';
+import utils from './util/util';
 
 class Module {
     /**
@@ -17,12 +18,16 @@ class Module {
 
         data.forEach(item => {
             promiseList.push(new Promise((resolve) => {
-                findComponents(item.cid, (module) => {
+                findComponents(item.name, module => {
                     import(`../components/${module.name}/index`)
-                        .then((App) => {
+                        .then(App => {
                             return resolve({
+                                // 返回数据
                                 ...item,
-                                ...App,
+                                // 返回模块配置
+                                module: {...module},
+                                // 返回组件
+                                Component: App.default,
                             });
                         })
                 });
@@ -35,23 +40,23 @@ class Module {
 
     /**
      * 创建组件
-     * @param cid
-     * @param type
+     * @param moduleName
      * @return {Promise}
      */
-    static create(cid, type) {
+    static create(moduleName) {
         return new Promise((resolve) => {
-            findComponents(cid, (module) => {
-                import(`../components/${module.name}/index`)
-                    .then((App) => {
+            findComponents(moduleName, (module) => {
+                import(`../components/${module.file}/index`)
+                    .then(App => {
                         return resolve({
                             // 保存模块 ID
-                            cid,
+                            cid: module.id,
                             // 保存 guid，用作 key
-                            guid: Utils.guid(),
-                            // 组件类型
-                            type,
-                            ...App,
+                            guid: utils.guid(),
+                            // 返回模块配置
+                            module: {...module},
+                            // 返回组件
+                            Component: App.default,
                         });
                     })
             });
@@ -65,14 +70,10 @@ class Module {
      * @return {*}
      */
     static remove(guid, data) {
-        const temp = data;
-        temp.forEach((item, index) => {
-            if (item.guid.toString() === guid.toString()) {
-                temp.splice(index, 1);
-            }
-        });
+        // 通知 panel 删除编辑菜单
+        Panel.delete(guid);
 
-        return temp;
+        return utils.deleteByGuid(data, guid);
     }
 }
 

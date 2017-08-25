@@ -4,11 +4,6 @@
  *
  * Des
  */
-import Editor from './Editor';
-import Viewer from './Viewer';
 import './index.scss';
 
-export {
-    Editor,
-    Viewer,
-};
+export default from './Tab';

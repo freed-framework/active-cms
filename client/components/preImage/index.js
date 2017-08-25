@@ -4,6 +4,8 @@
  *
  * Des
  */
+
+import PreImage from './App';
 import './index.scss';
 
-export default from './Fixer';
+export default PreImage;

@@ -1,0 +1,14 @@
+.as-panel {
+    border: 1px solid #eee;
+    background: #fff;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    &-item {
+
+        &-hide {
+            display: none;
+        }
+    }
+}

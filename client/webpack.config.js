@@ -18,7 +18,8 @@ var webpackConfig = {
             'react',
             'react-dom',
         ],
-        index: './editor/index',
+        editor: './editor/index',
+        viewer: './viewer/index',
     },
     output: {
         publicPath: '/',
@@ -38,9 +39,16 @@ var webpackConfig = {
         }),
 
         new HtmlWebPlugin({
-            filename: 'index.html',
+            filename: 'editor.html',
             template: './editor/index.html',
-            chunks: ['vendor', 'index'],
+            chunks: ['vendor', 'editor'],
+            inject: 'body',
+        }),
+
+        new HtmlWebPlugin({
+            filename: 'viewer.html',
+            template: './viewer/index.html',
+            chunks: ['vendor', 'viewer'],
             inject: 'body',
         }),
 
