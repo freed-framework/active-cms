@@ -5,7 +5,4 @@
  * Des
  */
 
-import PreImage from './App';
-import './index.scss';
-
-export default PreImage;
+export default from './PreImage';

@@ -1,0 +1,8 @@
+.as-editor {
+    opacity: 0.6;
+
+    &-active {
+        opacity: 1;
+        box-shadow: 0 0 8px -4px #999;
+    }
+}

@@ -1,5 +1,5 @@
 /**
- * @file App.jsx
+ * @file PreImage.jsx
  * @author denglingbo
  *
  * Des
@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Slider, Popover, Icon, message } from 'antd';
 import BasicInfo from './BasicInfo';
+import './app.scss';
 
 class PreImage extends Component {
     constructor(props) {

@@ -8,8 +8,8 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import mitt from 'mitt';
 import utils from '../../util/util';
-import Buttons from '../container/Buttons';
-import TopController from '../TopController';
+import Bar from '../components/Bar';
+import CommonButtons from '../components/CommonButtons';
 import './panel.scss';
 
 const emitter = mitt();
@@ -25,6 +25,7 @@ class Panel extends PureComponent {
         this._data = {};
 
         this.state = {
+            activeId: null,
             data: [],
         }
     }
@@ -36,11 +37,15 @@ class Panel extends PureComponent {
         emitter.emit('active', guid);
     }
 
-    static add = ({ guid, menus }) => {
-        emitter.emit('add', {
-            guid,
-            menus
-        });
+    /**
+     * 添加组件
+     * @param props
+     *  props.guid
+     *  props.menus
+     *  props.module
+     */
+    static add = (props) => {
+        emitter.emit('add', {...props});
     }
 
     static delete = (guid) => {
@@ -86,15 +91,17 @@ class Panel extends PureComponent {
     /**
      * 保存到 _data 中
      */
-    mittAdd = ({ guid, menus }) => {
-        if (this._data[guid] === undefined) {
-            this._data[guid] = {
-                guid,
-                menus,
+    mittAdd = (props) => {
+        if (this._data[props.guid] === undefined) {
+            this._data[props.guid] = {
+                ...props
             };
         }
     }
 
+    /**
+     * 删除
+     */
     mittDelete = (guid) => {
         if (this._data[guid]) {
             delete this._data[guid];
@@ -110,9 +117,9 @@ class Panel extends PureComponent {
         const { data, activeId } = this.state;
 
         return (
-            <div className="as-panel">
+            <div className="as-panel-layout">
 
-                <TopController />
+                <CommonButtons />
 
                 {data.map(item => {
                     const clsPanelItem = classNames('as-panel-item', {
@@ -124,13 +131,29 @@ class Panel extends PureComponent {
                             key={item.guid}
                             className={clsPanelItem}
                         >
+                            {/* title 栏 */}
                             <div>
-                                {Buttons.delete(item.guid)}
+                                {Bar.delete(item.guid)}
                             </div>
-                            {Buttons.getList({
-                                guid: item.guid,
-                                menus: item.menus,
-                            })}
+
+                            {/* 可添加子组件栏 */}
+                            <div>
+                                <div>可添加子组件:</div>
+                                {Bar.menus({
+                                    guid: item.guid,
+                                    menus: item.module.menus,
+                                })}
+                            </div>
+
+                            {/* 属性编辑栏 */}
+                            <div>
+                                <div>组件属性编辑:</div>
+                                {Bar.edit({
+                                    guid: item.guid,
+                                    editable: item.module.editable,
+                                    style: item.style,
+                                })}
+                            </div>
                         </div>
                     )
                 })}

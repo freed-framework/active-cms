@@ -6,17 +6,20 @@
  */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Panel from '../panel/Panel';
+import Panel from '../panel';
+import { activeComponent } from '../../../editor/App';
 
 class Editor extends PureComponent {
     componentDidMount() {
-        const { guid, menus } = this.props;
         Panel.add({
-            guid,
-            menus,
+            ...this.props
         });
     }
 
+    /**
+     * 展示激活的组件编辑器
+     * @param event
+     */
     handleClick = (event) => {
         event.stopPropagation();
 
@@ -24,17 +27,20 @@ class Editor extends PureComponent {
 
         if (guid) {
             Panel.active(guid);
+            activeComponent(guid);
         }
     }
 
     render() {
+        const { className, guid, children } = this.props;
+
         return (
             <div
-                className="as-controller"
-                data-guid={this.props.guid}
+                className={`as-editor ${className}`}
+                data-guid={guid}
                 onClick={this.handleClick}
             >
-                {this.props.children}
+                {children}
             </div>
         )
     }
@@ -42,11 +48,9 @@ class Editor extends PureComponent {
 
 Editor.propTypes = {
     guid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    menus: PropTypes.arrayOf(PropTypes.string),
 }
 
 Editor.defaultProps = {
-    menus: [],
 }
 
 export default Editor;

@@ -12,6 +12,12 @@ export const modules = [
         name: 'floor',
         file: 'floor',
         menus: ['pre-image', 'tab'],
+        editable: {
+            layout: {
+                width: true,
+                height: true,
+            }
+        },
     },
     // tab 组件
     {
@@ -19,6 +25,12 @@ export const modules = [
         name: 'tab',
         file: 'tab',
         menus: [],
+        editable: {
+            title: {
+                width: true,
+                height: true,
+            }
+        }
     },
     // 浮动组件
     {

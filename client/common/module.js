@@ -3,39 +3,47 @@
  * @author denglingbo
  *
  */
+import React, { Component } from 'react';
+import { fromJS } from 'immutable';
 import { findComponents } from '../components/index';
-import Panel from '../common/render/panel/Panel';
+import Panel from '../common/render/panel';
 import utils from './util/util';
 
 class Module {
     /**
-     * 通过 data 数据中的 componentId 查找所有组件并封装返回
-     * @param data [{ cid: xxx, ... }, ...]
-     * @return {Promise.<*>}
+     * 异步加载组件
+     * @param item
      */
-    static all(data) {
-        const promiseList = [];
+    static asyncComponent(item) {
+        // 如果已经有组件被创建，则直接 resolve
+        if (item.App || item.module) {
+            return Promise.resolve(item);
+        }
 
-        data.forEach(item => {
-            promiseList.push(new Promise((resolve) => {
-                findComponents(item.name, module => {
-                    import(`../components/${module.name}/index`)
-                        .then(App => {
-                            return resolve({
-                                // 返回数据
-                                ...item,
-                                // 返回模块配置
-                                module: {...module},
-                                // 返回组件
-                                Component: App.default,
-                            });
-                        })
-                });
-            }))
+        return new Promise((resolve) => {
+            findComponents(item.name, module => {
+                import(`../components/${module.name}/index`)
+                    .then(App => {
+                        return resolve({
+                            // 返回数据
+                            ...item,
+                            // 返回模块配置
+                            module: {...module},
+                            // 返回组件
+                            App: App.default,
+                        });
+                    })
+            });
+        })
+    }
 
-        });
-
-        return Promise.all(promiseList);
+    /**
+     * 获取组件
+     * @param item
+     * @return {*}
+     */
+    static get(item) {
+        return this.asyncComponent(item);
     }
 
     /**
@@ -56,11 +64,34 @@ class Module {
                             // 返回模块配置
                             module: {...module},
                             // 返回组件
-                            Component: App.default,
+                            App: App.default,
                         });
                     })
             });
         })
+    }
+
+    /**
+     * 编辑模块
+     * @param guid
+     * @param data
+     * @param attr
+     * @param value
+     * @return {any|*}
+     */
+    static edit(guid, data, attr, value) {
+        let $new = fromJS({});
+        const $data = fromJS(data);
+
+        utils.find($data, guid, ($finder, deep) => {
+            const setBy = deep.concat(['style', attr]);
+
+            $new = $data.setIn(setBy, value);
+        }, {
+            findBy: 'guid',
+        })
+
+        return $new.toJS();
     }
 
     /**

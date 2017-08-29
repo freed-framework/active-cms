@@ -9,8 +9,9 @@ import _ from 'lodash';
 import { fromJS } from 'immutable';
 import utils from '../common/util/util';
 import module from '../common/module';
-import { TopController, Editor, Panel } from '../common/render';
+import { Editor, Panel } from '../common/render';
 import mitt from 'mitt';
+import './app.scss';
 
 const emitter = mitt();
 
@@ -28,13 +29,29 @@ export const deleteComponent = (event) => {
  * @param event
  */
 export const addComponent = (event) => {
-    const cname = event.currentTarget.getAttribute('data-name');
     const guid = event.currentTarget.getAttribute('data-guid');
+    const cname = event.currentTarget.getAttribute('data-name');
 
     emitter.emit('add', {
         cname,
         guid,
     });
+}
+
+export const editComponent = (event) => {
+    const guid = event.currentTarget.getAttribute('data-guid');
+    const attr = event.currentTarget.getAttribute('data-attr');
+    const value = event.currentTarget.value;
+
+    emitter.emit('edit', {
+        guid,
+        attr,
+        value,
+    })
+}
+
+export const activeComponent = (guid) => {
+    emitter.emit('active', guid);
 }
 
 /**
@@ -81,19 +98,23 @@ class App extends Component {
         super(props);
 
         this.state = {
-            data: [{
-                name: 'floor',
-                guid: 'ddddds11-1ead-43ae-b6de-e6debb958b08',
-                props: {
-                    style: {},
-                    // ...
+            data: [
+                {
+                    name: 'floor',
+                    guid: 'ddddds11-1ead-43ae-b6de-e6debb958b08',
+                    style: {
+                        height: 100
+                    },
+                    // children: [],
                 },
-                // children: [],
-            },
+                {
+                    name: 'floor',
+                    guid: '237d6d2c-1034-4f76-a5c8-6678b9a3cb78',
+                    style: {
+                        height: 60
+                    },
+                },
                 // {
-                //     name: 'floor',
-                //     guid: '237d6d2c-1034-4f76-a5c8-6678b9a3cb78'
-                // }, {
                 //     name: 'floor',
                 //     guid: 'f1327a51-1ead-43ae-b6de-e6debb958b08'
                 // }
@@ -102,21 +123,15 @@ class App extends Component {
 
         this.mittDelete = ::this.mittDelete;
         this.mittAdd = ::this.mittAdd;
+        this.mittEdit = ::this.mittEdit;
+        this.mittActive = ::this.mittActive;
         this.mittSave = ::this.mittSave;
 
         emitter.on('delete', this.mittDelete);
         emitter.on('add', this.mittAdd);
+        emitter.on('edit', this.mittEdit);
+        emitter.on('active', this.mittActive);
         emitter.on('save', this.mittSave);
-    }
-
-    componentDidMount() {
-        // 这个位置给 data 添加上组件方法
-        module.all(this.state.data)
-            .then(values => {
-                this.setState({
-                    data: values,
-                })
-            });
     }
 
     componentWillUnmount() {
@@ -141,8 +156,6 @@ class App extends Component {
      * @param guid
      */
     mittAdd({ cname, guid }) {
-        const data = this.state.data;
-
         module.create(cname)
             .then(value => {
                 if (guid) {
@@ -157,25 +170,39 @@ class App extends Component {
             });
     }
 
+    /**
+     * 编辑组件属性
+     * @param guid
+     * @param attr
+     * @param value
+     */
+    mittEdit({ guid, attr, value }) {
+        this.setState({
+            data: module.edit(guid, this.state.data, attr, value),
+        })
+    }
+
+    mittActive(guid) {
+        this.setState({
+            activeId: guid,
+        })
+    }
+
     mittSave() {
         console.log(JSON.stringify(this.state.data))
     }
 
     render() {
-        const { data } = this.state;
-
         return (
             <div>
+                {/* 右侧的控制面板 */}
                 <Panel />
 
-                {data.map(item => {
-                    return (
-                        <Editor
-                            key={item.guid}
-                            data={item}
-                        />
-                    );
-                })}
+                {/* 模块 */}
+                <Editor
+                    activeId={this.state.activeId}
+                    data={this.state.data}
+                />
             </div>
         );
     }

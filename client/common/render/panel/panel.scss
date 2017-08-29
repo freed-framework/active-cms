@@ -1,11 +1,17 @@
-.as-panel {
-    border: 1px solid #eee;
+.as-panel-layout {
     background: #fff;
     position: fixed;
     right: 0;
     top: 0;
+    bottom: 0;
+    border-left: 1px solid #eee;
+    box-shadow: -3px 0 8px -4px #ccc;
+    padding: 15px;
+    width: 300px;
+    height: 100%;
+    transition: all .2s;
 
-    &-item {
+    .as-panel-item {
 
         &-hide {
             display: none;

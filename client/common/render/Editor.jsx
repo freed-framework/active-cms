@@ -6,55 +6,62 @@
  */
 import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
-import EditorWrapper from './container/Wrap';
+import EditorWrapper from './components/Wrap';
+import Lazyer from '../Lazyer';
+import './editor.scss';
 
 class Editor extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
+            activeId: props.data,
             data: props.data,
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!Immutable.is(nextProps.data, this.state.data)) {
-            console.log(nextProps.data)
+        if (!Immutable.is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,
             });
         }
+        if (nextProps.activeId !== this.props.activeId) {
+            this.setState({
+                activeId: nextProps.activeId,
+            });
+        }
     }
 
-    /**
-     * Loop
-     * @param data
-     * @return {XML}
-     */
-    loop(data) {
-        if (!data.module) {
-            return null;
-        }
+    loop(data, activeId) {
+        return data.map(item => {
 
-        const children = data.children;
-        const menus = data.module.menus;
-        const Component = data.Component;
-
-        return (
-            <EditorWrapper
-                key={data.guid}
-                guid={data.guid}
-                menus={menus}
-            >
-                <Component>
-                    {children && children.map(item => this.loop(item))}
-                </Component>
-            </EditorWrapper>
-        )
+            return (
+                <div
+                    key={item.guid}
+                >
+                    <Lazyer item={item}>
+                        {mod => (
+                            <EditorWrapper
+                                key={mod.guid}
+                                className={mod.guid === activeId ? 'as-editor-active' : ''}
+                                style={mod.style}
+                                guid={mod.guid}
+                                module={mod.module}
+                            >
+                                <mod.App style={mod.style}>
+                                    {mod.children && this.loop(mod.children, activeId)}
+                                </mod.App>
+                            </EditorWrapper>
+                        )}
+                    </Lazyer>
+                </div>
+            )
+        })
     }
 
     render() {
-        const { data } = this.state;
+        const { data, activeId } = this.state;
 
         if (!data) {
             return null;
@@ -62,7 +69,7 @@ class Editor extends PureComponent {
 
         return (
             <div>
-                {this.loop(data)}
+                {this.loop(data, activeId)}
             </div>
         )
     }

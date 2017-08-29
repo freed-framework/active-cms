@@ -14,44 +14,27 @@ class App extends Component {
 
         this.state = {
             // data: []
-            data: [
-                {
-                    "guid": "ddddds11-1ead-43ae-b6de-e6debb958b08",
-                    "name": "floor",
-                },
-                {
-                    "guid": "237d6d2c-1034-4f76-a5c8-6678b9a3cb78",
-                    "name": "floor",
-                },
-                {
-                    "guid": "f1327a51-1ead-43ae-b6de-e6debb958b08",
-                    "name": "floor",
-                }
-            ]
+            // data: [
+            //     {
+            //         "guid": "ddddds11-1ead-43ae-b6de-e6debb958b08",
+            //         "name": "floor",
+            //     },
+            //     {
+            //         "guid": "237d6d2c-1034-4f76-a5c8-6678b9a3cb78",
+            //         "name": "floor",
+            //     },
+            //     {
+            //         "guid": "f1327a51-1ead-43ae-b6de-e6debb958b08",
+            //         "name": "floor",
+            //     }
+            // ],
+            data: [{"name":"floor","guid":"ddddds11-1ead-43ae-b6de-e6debb958b08","style":{"height":100}},{"name":"floor","guid":"237d6d2c-1034-4f76-a5c8-6678b9a3cb78","style":{"height":60}}],
         };
     }
 
-    componentDidMount() {
-        module.all(this.state.data)
-            .then(values => {
-                this.setState({
-                    data: values,
-                })
-            })
-    }
-
     render() {
-        const { data } = this.state;
-
         return (
-            <div>
-                {data.map((item, index) => (
-                    <Viewer
-                        key={index}
-                        data={item}
-                    />
-                ))}
-            </div>
+            <Viewer data={this.state.data} />
         );
     }
 }

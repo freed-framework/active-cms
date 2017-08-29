@@ -5,6 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
+import './tab.scss';
 
 class Tab extends Component {
     constructor(props) {

@@ -1,14 +1,14 @@
 /**
- * @file TopController.jsx
+ * @file CommonButtons.jsx
  * @author denglingbo
  *
  * Des
  */
 import React from 'react';
 import { Button } from 'antd';
-import { addComponent, saveData } from '../../editor/App';
+import { addComponent, saveData } from '../../../editor/App';
 
-const TopController = () => {
+const CommonButtons = () => {
     return (
         <div>
             <Button
@@ -32,4 +32,4 @@ const TopController = () => {
     )
 }
 
-export default TopController;
+export default CommonButtons;

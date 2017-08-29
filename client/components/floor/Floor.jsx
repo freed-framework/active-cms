@@ -5,11 +5,19 @@
  * Des
  */
 import React, { PureComponent } from 'react';
+import './floor.scss';
 
 class Floor extends PureComponent {
     render() {
+        const { style } = this.props;
+
         return (
-            <div className="as-floor">
+            <div
+                className="as-floor"
+                style={{
+                    ...style
+                }}
+            >
                 floor layout
 
                 {this.props.children}
