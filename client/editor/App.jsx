@@ -195,14 +195,16 @@ class App extends Component {
     render() {
         return (
             <div>
+                {/* 模块 */}
+                <div className="as-editor-layout">
+                    <Editor
+                        activeId={this.state.activeId}
+                        data={this.state.data}
+                    />
+                </div>
+
                 {/* 右侧的控制面板 */}
                 <Panel />
-
-                {/* 模块 */}
-                <Editor
-                    activeId={this.state.activeId}
-                    data={this.state.data}
-                />
             </div>
         );
     }
