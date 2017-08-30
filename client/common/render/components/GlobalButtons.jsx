@@ -1,5 +1,5 @@
 /**
- * @file CommonButtons.jsx
+ * @file GlobalButtons.jsx
  * @author denglingbo
  *
  * Des
@@ -8,7 +8,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { addComponent, saveData } from '../../../editor/App';
 
-const CommonButtons = () => {
+const GlobalButtons = () => {
     return (
         <div>
             <Button
@@ -26,10 +26,10 @@ const CommonButtons = () => {
             <Button
                 onClick={saveData}
             >
-                保存
+                保存数据
             </Button>
         </div>
     )
 }
 
-export default CommonButtons;
+export default GlobalButtons;

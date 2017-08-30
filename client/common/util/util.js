@@ -56,7 +56,7 @@ class utils {
         if (val == null) {
             return callback(null);
         }
-
+console.log($arr.toJS())
         $arr.forEach((item, i) => {
             const $child = item.get(opts.childKey);
             let v = '';
@@ -98,7 +98,7 @@ class utils {
      * @param guid
      * @return {any|*}
      */
-    static deleteByGuid (data, guid) {
+    static deleteByGuid(data, guid) {
         let $new = fromJS({});
         const $data = fromJS(data);
 

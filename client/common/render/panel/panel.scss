@@ -1,19 +1,22 @@
-.as-panel-layout {
-    background: #fff;
-    position: fixed;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-left: 1px solid #eee;
-    box-shadow: -3px 0 8px -4px #ccc;
-    padding: 15px;
-    width: 300px;
-    height: 100%;
-    transition: all .2s;
-    z-index: 9;
+.as-panel {
 
-    .as-panel-item {
+    /* 外部容器 */
+    &-layout {
+        background: #fff;
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        box-shadow: -2px 0 6px -4px #999;
+        padding: 15px;
+        width: 300px;
+        height: 100%;
+        transition: all .2s;
+        z-index: 9;
+    }
 
+    /* 每一个目标的编辑容器 */
+    &-item {
         &-hide {
             display: none;
         }

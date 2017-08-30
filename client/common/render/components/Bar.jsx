@@ -9,7 +9,6 @@ import { deleteComponent, addComponent } from '../../../editor/App';
 import { findComponents } from '../../../components/index';
 import { Button } from 'antd';
 import PropsEdit from './PropsEdit';
-import './controller.scss';
 
 class Bar {
     /**

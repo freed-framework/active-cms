@@ -147,6 +147,10 @@ class App extends Component {
     mittDelete(guid) {
         this.setState({
             data: module.remove(guid, this.state.data),
+        }, () => {
+
+            // 通知 panel 删除编辑菜单
+            Panel.delete(guid);
         });
     }
 

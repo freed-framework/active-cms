@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import mitt from 'mitt';
 import utils from '../../util/util';
 import Bar from '../components/Bar';
-import CommonButtons from '../components/CommonButtons';
+import GlobalButtons from '../components/GlobalButtons';
 import './panel.scss';
 
 const emitter = mitt();
@@ -26,7 +26,7 @@ class Panel extends PureComponent {
 
         this.state = {
             activeId: null,
-            data: [],
+            data: {},
         }
     }
 
@@ -77,14 +77,9 @@ class Panel extends PureComponent {
      */
     mittActive = (guid) => {
         if (this._data[guid]) {
-            const props = {
+            this.setState({
                 activeId: guid,
-                ...(!this.isExit(guid) && {
-                    data: this.state.data.concat([this._data[guid]])
-                })
-            }
-
-            this.setState(props);
+            });
         }
     }
 
@@ -96,6 +91,10 @@ class Panel extends PureComponent {
             this._data[props.guid] = {
                 ...props
             };
+
+            this.setState({
+                data: this._data,
+            })
         }
     }
 
@@ -108,7 +107,7 @@ class Panel extends PureComponent {
 
             this.setState({
                 activeId: null,
-                data: utils.deleteByGuid(this.state.data, guid),
+                data: this._data,
             })
         }
     }
@@ -118,10 +117,15 @@ class Panel extends PureComponent {
 
         return (
             <div className="as-panel-layout">
+                {/* 标题栏 */}
+                <div className="as-panel-title">
+                    <span>编辑面板</span>
+                </div>
 
-                <CommonButtons />
+                <GlobalButtons />
 
-                {data.map(item => {
+                {Object.keys(data).map(k => {
+                    const item = data[k];
                     const clsPanelItem = classNames('as-panel-item', {
                         'as-panel-item-hide': activeId !== item.guid,
                     });
@@ -131,7 +135,8 @@ class Panel extends PureComponent {
                             key={item.guid}
                             className={clsPanelItem}
                         >
-                            {/* title 栏 */}
+
+                            {/* 目标栏 */}
                             <div>
                                 {Bar.delete(item.guid)}
                             </div>
