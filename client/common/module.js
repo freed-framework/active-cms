@@ -101,9 +101,6 @@ class Module {
      * @return {*}
      */
     static remove(guid, data) {
-        // 通知 panel 删除编辑菜单
-        // Panel.delete(guid);
-
         return utils.deleteByGuid(data, guid);
     }
 }

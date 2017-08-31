@@ -34,30 +34,26 @@ class Editor extends PureComponent {
     }
 
     loop(data, activeId) {
-        return data.map(item => {
-
-            return (
-                <div
-                    key={item.guid}
-                >
-                    <Lazyer item={item}>
-                        {mod => (
-                            <EditorWrapper
-                                key={mod.guid}
-                                className={mod.guid === activeId ? 'as-editor-active' : ''}
-                                style={mod.style}
-                                guid={mod.guid}
-                                module={mod.module}
-                            >
-                                <mod.App style={mod.style}>
-                                    {mod.children && this.loop(mod.children, activeId)}
-                                </mod.App>
-                            </EditorWrapper>
-                        )}
-                    </Lazyer>
-                </div>
-            )
-        })
+        return data.map(item => (
+            <Lazyer
+                key={item.guid}
+                item={item}
+            >
+                {mod => (
+                    <EditorWrapper
+                        key={mod.guid}
+                        className={mod.guid === activeId ? 'as-editor-active' : ''}
+                        style={mod.style}
+                        guid={mod.guid}
+                        module={mod.module}
+                    >
+                        <mod.App style={mod.style}>
+                            {mod.children && this.loop(mod.children, activeId)}
+                        </mod.App>
+                    </EditorWrapper>
+                )}
+            </Lazyer>
+        ))
     }
 
     render() {

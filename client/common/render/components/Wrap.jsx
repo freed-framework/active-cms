@@ -6,6 +6,7 @@
  */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'antd';
 import Panel from '../panel';
 import { activeComponent } from '../../../editor/App';
 
@@ -40,7 +41,8 @@ class Editor extends PureComponent {
                 data-guid={guid}
                 onClick={this.handleClick}
             >
-                {children}
+                <div className="as-editor-flag"><Icon type="edit" /></div>
+                <div>{children}</div>
             </div>
         )
     }
