@@ -13,9 +13,12 @@ export const modules = [
         file: 'floor',
         menus: ['pre-image', 'tab'],
         editable: {
-            layout: {
+            box: {
                 width: true,
                 height: true,
+                background: true,
+                border: true,
+                'background-size': true
             }
         },
     },
