@@ -8,8 +8,8 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { Icon } from 'antd';
 import mitt from 'mitt';
-import Bar from '../components/Bar';
-import GlobalButtons from '../components/GlobalButtons';
+import Bar from '../bar';
+import GlobalButtons from '../globalButtons';
 import './panel.scss';
 
 const emitter = mitt();
@@ -80,6 +80,7 @@ class Panel extends PureComponent {
         if (this._data[guid]) {
             this.setState({
                 activeId: guid,
+                isVisible: true,
             });
         }
     }
@@ -139,47 +140,52 @@ class Panel extends PureComponent {
                     <span className="as-panel-title-text">编辑面板</span>
                 </div>
 
-                <GlobalButtons />
+                <div className="as-panel-main">
+                    {/* 通用按钮 */}
+                    <GlobalButtons />
 
-                {Object.keys(data).map(k => {
-                    const item = data[k];
+                    {/* 每一个组件的编辑器 */}
+                    {Object.keys(data).map(k => {
+                        const item = data[k];
 
-                    const clsPanelItem = classNames('as-panel-item', {
-                        'as-panel-item-hide': activeId !== item.guid,
-                    });
+                        const clsPanelItem = classNames('as-panel-item', {
+                            'as-panel-item-hide': activeId !== item.guid,
+                        });
 
-                    return (
-                        <div
-                            key={item.guid}
-                            className={clsPanelItem}
-                        >
+                        return (
+                            <div
+                                key={item.guid}
+                                className={clsPanelItem}
+                            >
 
-                            {/* 目标栏 */}
-                            <div>
-                                {Bar.delete(item.guid)}
+                                {/* 目标栏 */}
+                                <div>
+                                    {Bar.delete(item.guid)}
+                                </div>
+
+                                {/* 可添加子组件栏 */}
+                                <div>
+                                    <div>可添加子组件:</div>
+                                    {Bar.menus({
+                                        guid: item.guid,
+                                        menus: item.module.menus,
+                                    })}
+                                </div>
+
+                                {/* 属性编辑栏 */}
+                                <div>
+                                    <div>组件属性编辑:</div>
+                                    {Bar.edit({
+                                        guid: item.guid,
+                                        editable: item.module.editable,
+                                        style: item.style,
+                                    })}
+                                </div>
                             </div>
+                        )
+                    })}
+                </div>
 
-                            {/* 可添加子组件栏 */}
-                            <div>
-                                <div>可添加子组件:</div>
-                                {Bar.menus({
-                                    guid: item.guid,
-                                    menus: item.module.menus,
-                                })}
-                            </div>
-
-                            {/* 属性编辑栏 */}
-                            <div>
-                                <div>组件属性编辑:</div>
-                                {Bar.edit({
-                                    guid: item.guid,
-                                    editable: item.module.editable,
-                                    style: item.style,
-                                })}
-                            </div>
-                        </div>
-                    )
-                })}
             </div>
         );
     }

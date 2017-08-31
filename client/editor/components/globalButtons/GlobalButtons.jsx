@@ -6,7 +6,7 @@
  */
 import React from 'react';
 import { Button } from 'antd';
-import { addComponent, saveData } from '../../../editor/App';
+import { addComponent, saveData } from '../../App';
 
 const GlobalButtons = () => {
     return (

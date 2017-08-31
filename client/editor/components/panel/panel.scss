@@ -1,43 +1,57 @@
 .as-panel {
-
+    $layoutWidth: 300px;
     /* 外部容器 */
     &-layout {
-        background: #fff;
+        background: #ededed;
         position: fixed;
-        right: -285px;
+        right: -$layoutWidth;
         top: 0;
         bottom: 0;
         box-shadow: -2px 0 6px -4px #999;
         padding: 0;
-        width: 300px;
+        width: $layoutWidth;
         height: 100%;
         transition: all .2s;
         z-index: 9;
 
         &-visible {
             right: 0;
+
+            .as-panel-title-button {
+                left: 0;
+                background: #bbb;
+            }
         }
     }
 
+    $buttonWidth: 15px;
     &-title {
-        border-bottom: 1px solid #e1e1e1;
         margin-bottom: 15px;
+        background: #bbb;
+        color: #fff;
 
         &-button {
+            position: absolute;
+            left: -$buttonWidth;
             display: inline-block;
-            background: #e1e1e1;
-            width: 15px;
+            background: #000;
+            width: $buttonWidth;
             height: 30px;
             line-height: 30px;
             text-align: center;
+            transition: all .2s;
         }
 
         &-text {
-            padding: 0 5px;
+            padding: 0 5px 5px 20px;
             height: 30px;
             line-height: 30px;
             display: inline-block;
         }
+    }
+
+    &-main {
+        padding: 0 15px;
     }
 
     /* 每一个目标的编辑容器 */

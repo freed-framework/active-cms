@@ -5,8 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
-import module from '../common/module';
-import { Viewer } from '../common/render';
+import Lazyer from '../common/Lazyer';
 
 class App extends Component {
     constructor(props) {
@@ -32,9 +31,33 @@ class App extends Component {
         };
     }
 
+    loop(data) {
+        return data.map(item => (
+            <div
+                key={item.guid}
+            >
+                <Lazyer item={item}>
+                    {mod => (
+                        <mod.App style={item.style}>
+                            {item.children && this.loop(item.children)}
+                        </mod.App>
+                    )}
+                </Lazyer>
+            </div>
+        ));
+    }
+
     render() {
+        const { data } = this.state;
+
+        if (!data) {
+            return null;
+        }
+
         return (
-            <Viewer data={this.state.data} />
+            <div>
+                {this.loop(data)}
+            </div>
         );
     }
 }

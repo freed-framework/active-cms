@@ -5,10 +5,10 @@
  * Des
  */
 import React  from 'react';
-import { deleteComponent, addComponent } from '../../../editor/App';
+import { deleteComponent, addComponent } from '../../App';
 import { findComponents } from '../../../components/index';
 import { Button } from 'antd';
-import PropsEdit from './PropsEdit';
+import PropsEdit from '../propEdit/PropsEdit';
 
 class Bar {
     /**

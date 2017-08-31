@@ -5,11 +5,10 @@
  * Des
  */
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { fromJS } from 'immutable';
 import utils from '../common/util/util';
 import module from '../common/module';
-import { Editor, Panel } from '../common/render';
+import { Editor, Panel } from './components';
 import mitt from 'mitt';
 import './app.scss';
 

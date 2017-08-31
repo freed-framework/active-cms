@@ -5,7 +5,8 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../../editor/App';
+import { editComponent } from '../../App';
+import './propsEdit.scss';
 
 class PropsEdit extends PureComponent {
     constructor(props) {
@@ -33,6 +34,7 @@ class PropsEdit extends PureComponent {
             <div>
                 <label htmlFor="">{type}</label>
                 <input
+                    type="text"
                     data-guid={guid}
                     data-attr={type}
                     onChange={this.handleChange}

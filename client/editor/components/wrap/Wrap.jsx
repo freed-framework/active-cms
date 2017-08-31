@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 import Panel from '../panel';
-import { activeComponent } from '../../../editor/App';
+import { activeComponent } from '../../App';
 
 class Editor extends PureComponent {
     componentDidMount() {

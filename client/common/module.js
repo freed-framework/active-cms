@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
 import { findComponents } from '../components/index';
-import Panel from '../common/render/panel';
+import Panel from '../editor/components/panel';
 import utils from './util/util';
 
 class Module {

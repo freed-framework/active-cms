@@ -6,8 +6,8 @@
  */
 import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
-import EditorWrapper from './components/Wrap';
-import Lazyer from '../Lazyer';
+import EditorWrapper from '../wrap/Wrap';
+import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
 
 class Editor extends PureComponent {
