@@ -39,7 +39,7 @@ class Bar {
      * @param style
      * @return {XML}
      */
-    static edit({ guid, editable, style = {} }) {
+    static edit({ guid, editable = {}, style = {} }) {
         return (
             <div>
                 {Object.keys(editable).map((key, index) => {

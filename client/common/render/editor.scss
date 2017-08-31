@@ -1,8 +1,25 @@
 .as-editor {
-    opacity: 0.6;
+    position: relative;
+
+    &-flag {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #000;
+        color: #fff;
+        opacity: 0.8;
+        border-radius: 0 4px 4px 0;
+        display: none;
+    }
 
     &-active {
-        opacity: 1;
-        box-shadow: 0 0 8px -4px #999;
+
+        .as-editor-flag {
+            display: block;
+        }
     }
 }

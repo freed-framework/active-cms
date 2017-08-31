@@ -6,8 +6,8 @@
  */
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
+import { Icon } from 'antd';
 import mitt from 'mitt';
-import utils from '../../util/util';
 import Bar from '../components/Bar';
 import GlobalButtons from '../components/GlobalButtons';
 import './panel.scss';
@@ -25,6 +25,7 @@ class Panel extends PureComponent {
         this._data = {};
 
         this.state = {
+            isVisible: false,
             activeId: null,
             data: {},
         }
@@ -112,20 +113,37 @@ class Panel extends PureComponent {
         }
     }
 
+    handlePanelVisible = () => {
+        this.setState({
+            isVisible: !this.state.isVisible,
+        })
+    }
+
     render() {
-        const { data, activeId } = this.state;
+        const { data, activeId, isVisible } = this.state;
+
+        const clsLayout = classNames('as-panel-layout', {
+            'as-panel-layout-visible': isVisible
+        })
 
         return (
-            <div className="as-panel-layout">
+            <div className={clsLayout}>
                 {/* 标题栏 */}
                 <div className="as-panel-title">
-                    <span>编辑面板</span>
+                    <span
+                        className="as-panel-title-button"
+                        onClick={this.handlePanelVisible}
+                    >
+                        <Icon type={`verticle-${isVisible ? 'left' : 'right'}`} />
+                    </span>
+                    <span className="as-panel-title-text">编辑面板</span>
                 </div>
 
                 <GlobalButtons />
 
                 {Object.keys(data).map(k => {
                     const item = data[k];
+
                     const clsPanelItem = classNames('as-panel-item', {
                         'as-panel-item-hide': activeId !== item.guid,
                     });

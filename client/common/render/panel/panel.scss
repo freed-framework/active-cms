@@ -4,15 +4,40 @@
     &-layout {
         background: #fff;
         position: fixed;
-        right: 0;
+        right: -285px;
         top: 0;
         bottom: 0;
         box-shadow: -2px 0 6px -4px #999;
-        padding: 15px;
+        padding: 0;
         width: 300px;
         height: 100%;
         transition: all .2s;
         z-index: 9;
+
+        &-visible {
+            right: 0;
+        }
+    }
+
+    &-title {
+        border-bottom: 1px solid #e1e1e1;
+        margin-bottom: 15px;
+
+        &-button {
+            display: inline-block;
+            background: #e1e1e1;
+            width: 15px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        &-text {
+            padding: 0 5px;
+            height: 30px;
+            line-height: 30px;
+            display: inline-block;
+        }
     }
 
     /* 每一个目标的编辑容器 */
