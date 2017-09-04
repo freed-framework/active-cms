@@ -4,6 +4,7 @@
  *
  * Des
  */
+
 import React, { Component } from 'react';
 import Immutable from 'immutable';
 import Module from './module';
@@ -46,7 +47,6 @@ class Lazyer extends Component {
         if (!this.state.mod) {
             return false;
         }
-
         return this.props.children(this.state.mod);
     }
 }

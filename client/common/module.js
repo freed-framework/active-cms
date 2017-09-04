@@ -21,18 +21,15 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            findComponents(item.name, module => {
-                import(`../components/${module.name}/index`)
-                    .then(App => {
-                        return resolve({
-                            // 返回数据
-                            ...item,
-                            // 返回模块配置
-                            module: {...module},
-                            // 返回组件
-                            App: App.default,
-                        });
-                    })
+            findComponents(item.name, function (module) {
+                return resolve({
+                    // 返回数据
+                    ...item,
+                    // 返回模块配置
+                    module: {...module},
+                    // 返回组件
+                    App: module.App,
+                });
             });
         })
     }
@@ -54,19 +51,14 @@ class Module {
     static create(moduleName) {
         return new Promise((resolve) => {
             findComponents(moduleName, (module) => {
-                import(`../components/${module.file}/index`)
-                    .then(App => {
-                        return resolve({
-                            // 保存模块 ID
-                            cid: module.id,
-                            // 保存 guid，用作 key
-                            guid: utils.guid(),
-                            // 返回模块配置
-                            module: {...module},
-                            // 返回组件
-                            App: App.default,
-                        });
-                    })
+                return resolve({
+                    // 返回数据
+                    ...item,
+                    // 返回模块配置
+                    module: {...module},
+                    // 返回组件
+                    App: module.App,
+                });
             });
         })
     }

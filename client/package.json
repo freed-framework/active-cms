@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
-    "lint": "eslint src --ext '.js,.jsx'"
+    "lint": "eslint src --ext '.js,.jsx'",
+    "pre": "webpack -p --progress && next",
+    "server": "webpack --progress && node-dev server",
+    "production": "webpack -p --progress && node-dev server"
   },
   "pre-commit": [
     "pre-commit"
@@ -19,6 +22,7 @@
     "immutable": "^3.8.1",
     "mitt": "^1.1.2",
     "react": "^15.4.2",
+    "react-color": "^2.13.5",
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
@@ -52,8 +56,10 @@
     "html-webpack-plugin": "^2.28.0",
     "imports-loader": "^0.7.0",
     "json-loader": "^0.5.4",
+    "jsx-loader": "^0.13.2",
     "less-loader": "^4.0.4",
     "lodash": "^4.17.4",
+    "next": "^3.2.1",
     "node-sass": "^4.5.2",
     "path": "^0.12.7",
     "pre-commit": "^1.2.2",
@@ -63,6 +69,7 @@
     "sass-loader": "^6.0.3",
     "step": "^1.0.0",
     "style-loader": "^0.17.0",
+    "url-loader": "^0.5.9",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.5"
   },

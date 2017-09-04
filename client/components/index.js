@@ -4,6 +4,10 @@
  *
  */
 import _ from 'lodash';
+import Fixer from './fixer';
+import Floor from './floor';
+import PreImage from './preImage';
+import Tab from './tab';
 
 export const modules = [
     // 楼层组件
@@ -21,6 +25,7 @@ export const modules = [
                 'background-size': true
             }
         },
+        App: Floor
     },
     // tab 组件
     {
@@ -33,7 +38,8 @@ export const modules = [
                 width: true,
                 height: true,
             }
-        }
+        },
+        App: Tab
     },
     // 浮动组件
     {
@@ -41,12 +47,14 @@ export const modules = [
         name: 'fixer',
         file: 'fixer',
         menus: [],
+        App: Fixer
     },
     // 图片处理组件
     {
         id: 10,
         name: 'pre-image',
         file: 'preImage',
+        App: PreImage
     },
 ]
 
