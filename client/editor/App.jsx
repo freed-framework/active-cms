@@ -40,11 +40,13 @@ export const addComponent = (event) => {
 export const editComponent = (event) => {
     const guid = event.currentTarget.getAttribute('data-guid');
     const attr = event.currentTarget.getAttribute('data-attr');
+    const target = event.currentTarget.getAttribute('data-target');
     const value = event.currentTarget.value;
 
     emitter.emit('edit', {
         guid,
         attr,
+        target,
         value,
     })
 }
@@ -102,7 +104,9 @@ class App extends Component {
                     name: 'floor',
                     guid: 'ddddds11-1ead-43ae-b6de-e6debb958b08',
                     style: {
-                        height: 100
+                        layout: {
+                            width: 100,
+                        }
                     },
                     // children: [],
                 },
@@ -110,7 +114,9 @@ class App extends Component {
                     name: 'floor',
                     guid: '237d6d2c-1034-4f76-a5c8-6678b9a3cb78',
                     style: {
-                        height: 60
+                        layout: {
+                            height: 60,
+                        }
                     },
                 },
                 // {
@@ -176,14 +182,18 @@ class App extends Component {
      * 编辑组件属性
      * @param guid
      * @param attr
+     * @param target
      * @param value
      */
-    mittEdit({ guid, attr, value }) {
+    mittEdit({ guid, attr, target, value }) {
         this.setState({
-            data: module.edit(guid, this.state.data, attr, value),
+            data: module.edit(guid, this.state.data, target, attr, value),
         })
     }
 
+    /**
+     * 激活组件
+     */
     mittActive(guid) {
         this.setState({
             activeId: guid,

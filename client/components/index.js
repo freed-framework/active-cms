@@ -17,13 +17,7 @@ export const modules = [
         file: 'floor',
         menus: ['pre-image', 'tab'],
         editable: {
-            box: {
-                width: true,
-                height: true,
-                background: true,
-                border: true,
-                'background-size': true
-            }
+            layout: ['basic'],
         },
         App: Floor
     },

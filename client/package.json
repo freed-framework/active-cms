@@ -7,9 +7,7 @@
     "start": "node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
-    "pre": "webpack -p --progress && next",
-    "server": "webpack --progress && node-dev server",
-    "production": "webpack -p --progress && node-dev server"
+    "ssr": "./node_modules/.bin/webpack --config=./webpack.config.ssr.js && node-dev server"
   },
   "pre-commit": [
     "pre-commit"

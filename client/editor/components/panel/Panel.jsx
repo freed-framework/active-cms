@@ -174,7 +174,6 @@ class Panel extends PureComponent {
 
                                 {/* 属性编辑栏 */}
                                 <div>
-                                    <div>组件属性编辑:</div>
                                     {Bar.edit({
                                         guid: item.guid,
                                         editable: item.module.editable,

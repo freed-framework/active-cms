@@ -56,7 +56,7 @@ class utils {
         if (val == null) {
             return callback(null);
         }
-console.log($arr.toJS())
+
         $arr.forEach((item, i) => {
             const $child = item.get(opts.childKey);
             let v = '';
