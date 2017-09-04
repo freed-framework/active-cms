@@ -4,10 +4,11 @@
  *
  */
 import _ from 'lodash';
+
 import Fixer from './fixer';
 import Floor from './floor';
-import PreImage from './preImage';
 import Tab from './tab';
+import PreImage from './preImage';
 
 export const modules = [
     // 楼层组件
@@ -28,10 +29,9 @@ export const modules = [
         file: 'tab',
         menus: [],
         editable: {
-            title: {
-                width: true,
-                height: true,
-            }
+            layout: ['basic'],
+            title: ['basic'],
+            main: ['basic'],
         },
         App: Tab
     },
