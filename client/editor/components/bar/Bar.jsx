@@ -42,34 +42,59 @@ class Bar {
     static edit({ guid, editable = {}, style = {} }) {
         return (
             <div>
-                {Object.keys(editable).map((key, index) => {
-                    const props = editable[key];
+                <div>组件属性编辑:</div>
 
-                    return (
+                {Object.keys(editable).map((key, index) => {
+                    const comps = editable[key];
+
+                    return comps.map(compKey => (
                         <div
                             key={`${key}-${index}`}
                         >
-                            <div>编辑：{key}</div>
-
-                            {Object.keys(props).map((k, i) => {
-                                if (props[k]) {
-                                    return (
-                                        <div
-                                            key={`${k}-${i}`}
-                                        >
-                                            <PropsEdit
-                                                guid={guid}
-                                                type={k}
-                                                defaultValue={style[k]}
-                                            />
-                                        </div>
-                                    )
-                                } else {
-                                    return null;
-                                }
-                            })}
+                            {/* 加载指定的编辑组件 */}
+                            <PropsEdit
+                                compKey={compKey}
+                                guid={guid}
+                                target={key}
+                                style={style[key]}
+                            />
                         </div>
-                    );
+                    ))
+
+                    // return (
+                    //     <PropsEdit
+                    //         key={`${key}-${index}`}
+                    //         guid={guid}
+                    //         target={key}
+                    //         style={style[key]}
+                    //         components={editable[key]}
+                    //     />
+                    // );
+                    // return (
+                    //     <div
+                    //         key={`${key}-${index}`}
+                    //     >
+                    //         <div>编辑：{key}</div>
+                    //
+                    //         {Object.keys(props).map((k, i) => {
+                    //             if (props[k]) {
+                    //                 return (
+                    //                     <div
+                    //                         key={`${k}-${i}`}
+                    //                     >
+                    //                         <PropsEdit
+                    //                             guid={guid}
+                    //                             type={k}
+                    //                             defaultValue={style[k]}
+                    //                         />
+                    //                     </div>
+                    //                 )
+                    //             } else {
+                    //                 return null;
+                    //             }
+                    //         })}
+                    //     </div>
+                    // );
                 })}
             </div>
         )

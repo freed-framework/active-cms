@@ -52,22 +52,9 @@ class Module {
      * @return {Promise}
      */
     static create(moduleName) {
-        return new Promise((resolve) => {
-            findComponents(moduleName, (module) => {
-                import(`../components/${module.file}/index`)
-                    .then(App => {
-                        return resolve({
-                            // 保存模块 ID
-                            cid: module.id,
-                            // 保存 guid，用作 key
-                            guid: utils.guid(),
-                            // 返回模块配置
-                            module: {...module},
-                            // 返回组件
-                            App: App.default,
-                        });
-                    })
-            });
+        return this.asyncComponent({
+            guid: utils.guid(),
+            name: moduleName,
         })
     }
 
@@ -75,16 +62,17 @@ class Module {
      * 编辑模块
      * @param guid
      * @param data
+     * @param target
      * @param attr
      * @param value
      * @return {any|*}
      */
-    static edit(guid, data, attr, value) {
+    static edit(guid, data, target, attr, value) {
         let $new = fromJS({});
         const $data = fromJS(data);
 
         utils.find($data, guid, ($finder, deep) => {
-            const setBy = deep.concat(['style', attr]);
+            const setBy = deep.concat(['style', target, attr]);
 
             $new = $data.setIn(setBy, value);
         }, {
