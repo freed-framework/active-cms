@@ -60,41 +60,6 @@ class Bar {
                             />
                         </div>
                     ))
-
-                    // return (
-                    //     <PropsEdit
-                    //         key={`${key}-${index}`}
-                    //         guid={guid}
-                    //         target={key}
-                    //         style={style[key]}
-                    //         components={editable[key]}
-                    //     />
-                    // );
-                    // return (
-                    //     <div
-                    //         key={`${key}-${index}`}
-                    //     >
-                    //         <div>编辑：{key}</div>
-                    //
-                    //         {Object.keys(props).map((k, i) => {
-                    //             if (props[k]) {
-                    //                 return (
-                    //                     <div
-                    //                         key={`${k}-${i}`}
-                    //                     >
-                    //                         <PropsEdit
-                    //                             guid={guid}
-                    //                             type={k}
-                    //                             defaultValue={style[k]}
-                    //                         />
-                    //                     </div>
-                    //                 )
-                    //             } else {
-                    //                 return null;
-                    //             }
-                    //         })}
-                    //     </div>
-                    // );
                 })}
             </div>
         )
