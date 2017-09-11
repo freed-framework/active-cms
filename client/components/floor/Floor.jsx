@@ -15,7 +15,7 @@ class Floor extends PureComponent {
             <div
                 className="as-floor"
                 style={{
-                    ...style.layout
+                    ...(style && {...style.layout})
                 }}
             >
                 floor layout

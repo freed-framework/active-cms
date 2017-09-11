@@ -1,5 +1,6 @@
 # webpack compile ignore
 dist/
+client/public/
 
 # node ignore
 node_modules/

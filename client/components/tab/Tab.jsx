@@ -13,13 +13,30 @@ class Tab extends Component {
     }
 
     render() {
+        const { style } = this.props;
+
         return (
-            <div className="ac-tab">
-                <div className="ac-tab-menu">
+            <div
+                className="ac-tab"
+                style={{
+                    ...(style && {...style.layout})
+                }}
+            >
+                <div
+                    className="ac-tab-menu"
+                    style={{
+                        ...(style && {...style.title})
+                    }}
+                >
                     <div>tab 1</div>
                     <div>tab 2</div>
                 </div>
-                <div>
+                <div
+                    className="ac-tab-main"
+                    style={{
+                        ...(style && {...style.main})
+                    }}
+                >
                     <div>content 1</div>
                     <div>content 2</div>
                 </div>

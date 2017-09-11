@@ -32,7 +32,9 @@ class BasicEdit extends PureComponent {
 
         return (
             <div>
-                <div className="as-editor-props-width">
+                <div>{target}</div>
+
+                <div className="as-editor-basic-props-width">
                     <label htmlFor="">宽度</label>
                     <input
                         type="text"
@@ -44,7 +46,7 @@ class BasicEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-props-height">
+                <div className="as-editor-basic-props-height">
                     <label htmlFor="">高度</label>
                     <input
                         type="text"
@@ -58,6 +60,10 @@ class BasicEdit extends PureComponent {
             </div>
         )
     }
+}
+
+BasicEdit.defaultProps = {
+    style: {},
 }
 
 export default BasicEdit;

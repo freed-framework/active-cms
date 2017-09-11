@@ -11562,7 +11562,7 @@ __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_index__ = __webpack_require__(162);
 
 /**
- * @file Lazyer.js
+ * @file Lazyer.js.bak
  * @author denglingbo
  *
  * Des
@@ -11595,9 +11595,9 @@ var _temp = function () {
         return;
     }
 
-    __REACT_HOT_LOADER__.register(Lazyer, 'Lazyer', 'E:/test/active-cms/client/common/Lazyer.server.js');
+    __REACT_HOT_LOADER__.register(Lazyer, 'Lazyer', 'E:/test/active-cms/client/common/Lazyer.js');
 
-    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/test/active-cms/client/common/Lazyer.server.js');
+    __REACT_HOT_LOADER__.register(_default, 'default', 'E:/test/active-cms/client/common/Lazyer.js');
 }();
 
 ;
