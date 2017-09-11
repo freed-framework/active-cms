@@ -10923,7 +10923,7 @@ var App = function (_Component) {
         var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (App.__proto__ || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_get_prototype_of___default()(App)).call(this, props));
 
         _this.state = {
-            data: [{ "name": "floor", "guid": "ddddds11-1ead-43ae-b6de-e6debb958b08", "style": { layout: { "height": 100 } } }, { "name": "floor", "guid": "237d6d2c-1034-4f76-a5c8-6678b9a3cb78", "style": { "height": 60 } }]
+            data: props.pageData
         };
         return _this;
     }
@@ -12928,42 +12928,36 @@ var _temp = function () {
 
 
 var React = __webpack_require__(4);
-// import React from 'react';
 
 var View = __webpack_require__(145);
 
-// var Ap = require("../app/ap.jsx");
-// import Ap from '../app/ap.jsx'
-
-// var styleCollector = require("./style-collector");
-
 var ReactDOMServer = __webpack_require__(146);
-// import ReactDOMServer from 'react-dom/server';
 
 module.exports = function (req, scriptFilename) {
-	var html = ReactDOMServer.renderToString(React.createElement(View.default, null));
-	return ReactDOMServer.renderToString(React.createElement(
-		'html',
-		null,
-		React.createElement(
-			'head',
-			null,
-			React.createElement('link', { id: 'server-side-style', href: "assets/" + scriptFilename[1], rel: 'stylesheet', type: 'text/css' })
-		),
-		React.createElement(
-			'body',
-			null,
-			React.createElement('div', { id: 'content', dangerouslySetInnerHTML: { __html: html } }),
-			React.createElement('script', { src: "assets/" + scriptFilename[0] })
-		)
-	));
+    var data = [{ "name": "floor", "guid": "ddddds11-1ead-43ae-b6de-e6debb958b08", "style": { "layout": { "height": 100 } } }, { "name": "floor", "guid": "237d6d2c-1034-4f76-a5c8-6678b9a3cb78", "style": { "height": 60 } }];
+    var html = ReactDOMServer.renderToString(React.createElement(View.default, { pageData: data }));
+    return ReactDOMServer.renderToString(React.createElement(
+        'html',
+        null,
+        React.createElement(
+            'head',
+            null,
+            React.createElement('link', { id: 'server-side-style', href: "assets/" + scriptFilename[1], rel: 'stylesheet', type: 'text/css' })
+        ),
+        React.createElement(
+            'body',
+            null,
+            React.createElement('div', { id: 'content', dangerouslySetInnerHTML: { __html: html } }),
+            React.createElement('script', { src: "assets/" + scriptFilename[0] })
+        )
+    ));
 };
 ;
 
 var _temp = function () {
-	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-		return;
-	}
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
 }();
 
 ;

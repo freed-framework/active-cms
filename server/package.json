@@ -1,0 +1,50 @@
+{
+  "name": "auth0-nestjs-regular-webapp-sample",
+  "version": "1.0.0",
+  "description": "NestJS + Auth0 Regular WebApp seed",
+  "repository": "git://github.com/cdiaz/nestjs-auth0",
+  "author": "cdiaz",
+  "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon -w *.*.ts --exec ts-node ./src/main.ts",
+    "dev": "cross-env NODE_ENV=test nodemon -w *.*.ts --exec ts-node ./src/main.ts",
+    "test": "mocha src/__test__/**/*.test.ts src/api/**/*.test.ts",
+    "test_cover": "istanbul cover node_modules/mocha/bin/_mocha src/api/**/*.test.ts",
+    "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md"
+  },
+  "dependencies": {
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "@nestjs/microservices": "*",
+    "@nestjs/testing": "*",
+    "@nestjs/websockets": "*",
+    "bcrypt": "^1.0.2",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.2",
+    "dotenv": "^4.0.0",
+    "emailjs": "^1.0.12",
+    "express-session": "^1.11.3",
+    "lodash": "^4.17.4",
+    "lz-string": "^1.4.4",
+    "mongoose": "^4.11.7",
+    "node-uuid": "^1.4.8",
+    "passport": "^0.3.0",
+    "passport-auth0": "^0.6.0",
+    "pug": "~2.0.0-beta3",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.4.0",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.18",
+    "cross-env": "^5.0.5",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "should": "^12.0.0",
+    "supertest": "^3.0.0",
+    "ts-node": "^3.0.2",
+    "typescript": "^2.2.2"
+  }
+}
