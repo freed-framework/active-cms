@@ -18,8 +18,8 @@ var webpackConfig = {
             'react',
             'react-dom',
         ],
-        editor: './editor/index',
-        viewer: './viewer/index',
+        editor: './src/index',
+        // viewer: './viewer/index',
     },
     output: {
         publicPath: '/',
@@ -40,17 +40,17 @@ var webpackConfig = {
 
         new HtmlWebPlugin({
             filename: 'editor.html',
-            template: './editor/index.html',
+            template: './src/index.html',
             chunks: ['vendor', 'editor'],
             inject: 'body',
         }),
 
-        new HtmlWebPlugin({
-            filename: 'viewer.html',
-            template: './viewer/index.html',
-            chunks: ['vendor', 'viewer'],
-            inject: 'body',
-        }),
+        // new HtmlWebPlugin({
+        //     filename: 'viewer.html',
+        //     template: './viewer/index.html',
+        //     chunks: ['vendor', 'viewer'],
+        //     inject: 'body',
+        // }),
 
         new ExtractTextPlugin({
             filename: '[name].css',
@@ -59,15 +59,20 @@ var webpackConfig = {
     ],
     resolve: {
         // 省略后缀
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts'],
     },
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 use: ['babel-loader'],
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
+            // {
+            //     test: /\.tsx?$/,
+            //     use: ['awesome-typescript-loader'],
+            //     exclude: /node_modules/,
+            // },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({

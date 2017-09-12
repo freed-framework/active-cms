@@ -6,8 +6,8 @@
  */
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
-import utils from '../common/util/util';
-import module from '../common/module';
+import utils from '../components/util/util';
+import module from '../components/common/module';
 import { Editor, Panel } from './components';
 import mitt from 'mitt';
 import './app.scss';

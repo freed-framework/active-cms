@@ -4,11 +4,9 @@
  *
  * Des
  */
+import { findComponents } from '../index';
 
-import React from 'react';
-import { findComponents } from '../components/index';
-
-const LazyLoader = (props) => {
+const Lazyer = (props) => {
     const { item } = props;
     let result = null;
 
@@ -26,4 +24,4 @@ const LazyLoader = (props) => {
     return result;
 }
 
-export default LazyLoader;
+export default Lazyer;

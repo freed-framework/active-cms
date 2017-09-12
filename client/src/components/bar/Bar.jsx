@@ -6,7 +6,7 @@
  */
 import React  from 'react';
 import { deleteComponent, addComponent } from '../../App';
-import { findComponents } from '../../../components/index';
+import { findComponents } from '../../../components';
 import { Button } from 'antd';
 import PropsEdit from '../propEdit/PropsEdit';
 

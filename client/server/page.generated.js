@@ -15959,7 +15959,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
           var cacheKey = componentName + ':' + propName;
           if (
             !manualPropTypeCallCache[cacheKey] &&
-            // Avoid spamming the console because they are often not actionable except for lib authors
+            // Avoid spamming the console because they are often not actionable except for components authors
             manualPropTypeWarningCount < 3
           ) {
             warning(

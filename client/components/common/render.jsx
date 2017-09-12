@@ -1,12 +1,11 @@
 /**
- * @file App.jsx
+ * @file render.jsx
  * @author denglingbo
  *
  * Des
  */
 import React, { Component } from 'react';
-import { ReactDOMServer } from 'react-dom';
-import Lazyer from '../components/common/Lazyer';
+import Lazyer from './/Lazyer';
 
 class App extends Component {
     constructor(props) {

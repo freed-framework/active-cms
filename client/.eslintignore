@@ -2,3 +2,4 @@ dist/*.js
 tool
 node_modules
 config/*.js
+lib/
