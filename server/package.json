@@ -10,19 +10,21 @@
     "dev": "cross-env NODE_ENV=test nodemon -w *.*.ts --exec ts-node ./src/main.ts",
     "test": "mocha src/__test__/**/*.test.ts src/api/**/*.test.ts",
     "test_cover": "istanbul cover node_modules/mocha/bin/_mocha src/api/**/*.test.ts",
-    "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md"
+    "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md",
+    "prestart:prod": "tsc"
   },
   "dependencies": {
-    "@nestjs/common": "*",
-    "@nestjs/core": "*",
-    "@nestjs/microservices": "*",
-    "@nestjs/testing": "*",
-    "@nestjs/websockets": "*",
+    "@nestjs/common": "3.0.0",
+    "@nestjs/core": "3.0.1",
+    "@nestjs/microservices": "3.0.1",
+    "@nestjs/testing": "3.0.0",
+    "@nestjs/websockets": "3.0.0",
     "bcrypt": "^1.0.2",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.2",
     "dotenv": "^4.0.0",
+    "download": "^6.2.5",
     "emailjs": "^1.0.12",
     "express-session": "^1.11.3",
     "lodash": "^4.17.4",
@@ -31,10 +33,12 @@
     "node-uuid": "^1.4.8",
     "passport": "^0.3.0",
     "passport-auth0": "^0.6.0",
+    "pm2": "^2.6.1",
     "pug": "~2.0.0-beta3",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.4.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "yazl": "^2.4.2"
   },
   "devDependencies": {
     "@types/node": "^7.0.18",
@@ -43,6 +47,7 @@
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
     "should": "^12.0.0",
+    "spiderman-crawler": "^0.2.3",
     "supertest": "^3.0.0",
     "ts-node": "^3.0.2",
     "typescript": "^2.2.2"

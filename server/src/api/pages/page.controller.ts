@@ -5,12 +5,15 @@ import {
 } from '@nestjs/common';
 import * as http from 'http';
 import { HttpException } from '@nestjs/core';
+const fs = require('fs');
+const download = require('download');
 import { PageService } from './page.service';
 import Utils from '../../common/utils';
 import CommonService from '../../common/common.service';
+// import * as RenderPage from '../../../../client/server/page';
 
 function getData(url, callback) {
-    http.get(`http://localhost:4000/${url}.js`, (res) => {
+    http.get(`http://localhost:4000/${url}`, (res) => {
         var result = ''
         res.on('data', function(data) {
             result += data;
@@ -123,34 +126,16 @@ export class PageController {
         res.status(HttpStatus.OK).json(result);
     }
 
-    @Get('/static/:id')
-    async getStaticPage(@Response() res, @Param('id') id) {
-        // let page = await this.service.getPage(id);
-        // page = CommonService.commonResponse(Utils.parseContent(page));
-        
-        
-        // 目标网站，嘿嘿，这个网站有很多实习职位
-        // var pageUrl = 'http://shixi.info/';
-        
-        const html = await http.get('http://localhost:4000/', (res) => {
-            var html = '';
-            res.on('data', function(data) {
-                html += data;
-            });
-
-            return res.on('end', function() {
-                return html;
-            });
-        });
-
-        const page = await html.replace(/<script src="(.*).js".*<\/script>/ig, ($0, $1) => {
-            var result = $0;
-            getData($1, (data) => {
-                result = data
-            })
-            return result
-            
-        })
-        console.log(a);
-    }
+    // @Get('/static/:id')
+    // async getStaticPage(@Response() res, @Param('id') id) {
+    //     console.log(RenderPage())
+    //     // download('http://localhost:4000/').then(data => {
+    //     //     res.set({
+    //     //         "Content-type":"application/octet-stream",
+    //     //         "Content-Disposition":"attachment;filename=" + encodeURI(`${id}.html`)
+    //     //     });
+    //     //     res.write(data, "binary");
+    //     //     res.end();
+    //     // });
+    // }
 }
