@@ -65,8 +65,17 @@ var webpackConfig = {
         rules: [
             {
                 test: /\.jsx?$/,
-                use: ['babel-loader'],
                 exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: [
+                                ['import', [{ libraryName: 'antd', style: 'css' }]],
+                            ],
+                        }
+                    }
+                ],
             },
             // {
             //     test: /\.tsx?$/,
