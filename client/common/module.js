@@ -5,9 +5,9 @@
  */
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
-import { findComponents } from '../index';
-import Panel from '../../src/components/panel';
-import utils from '../util/util';
+import { findComponents } from '../components/index';
+import Panel from '../src/components/panel/index';
+import utils from '../components/util/util';
 
 class Module {
     /**
@@ -16,20 +16,23 @@ class Module {
      */
     static asyncComponent(item) {
         // 如果已经有组件被创建，则直接 resolve
-        if (item.App || item.module) {
+        if (item.App && item.module) {
             return Promise.resolve(item);
         }
 
         return new Promise((resolve) => {
             findComponents(item.name, function (module) {
-                return resolve({
-                    // 返回数据
-                    ...item,
-                    // 返回模块配置
-                    module: {...module},
-                    // 返回组件
-                    App: module.App,
-                });
+                import(`../components/${module.name}/index`)
+                    .then(App => {
+                        return resolve({
+                            // 返回数据
+                            ...item,
+                            // 返回模块配置
+                            module: {...module},
+                            // 返回组件
+                            App: App.default,
+                        });
+                    })
             });
         })
     }

@@ -7,7 +7,7 @@
     },
     "include": [
         "./components/**/*",
-        "./common/**/*"
+        "../common/**/*"
     ],
     "exclude": [
         "../node_modules"

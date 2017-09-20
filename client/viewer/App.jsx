@@ -5,7 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
-import Lazyer from '../components/common/Lazyer';
+import Lazyer from '../common/Lazyer';
 
 class App extends Component {
     constructor(props) {

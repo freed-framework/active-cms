@@ -47,7 +47,7 @@ class Lazyer extends Component {
         if (!this.state.mod) {
             return false;
         }
-        console.log(this.state.mod);
+
         return this.props.children(this.state.mod);
     }
 }

@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
 import EditorWrapper from '../wrap/Wrap';
-import Lazyer from '../../../components/common/Lazyer';
+import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
 
 class Editor extends PureComponent {
@@ -39,8 +39,8 @@ class Editor extends PureComponent {
                 key={item.guid}
                 item={item}
             >
-                {mod => (
-                    <EditorWrapper
+                {mod => {
+                    return <EditorWrapper
                         key={mod.guid}
                         className={mod.guid === activeId ? 'as-editor-active' : ''}
                         style={mod.style}
@@ -51,7 +51,7 @@ class Editor extends PureComponent {
                             {mod.children && this.loop(mod.children, activeId)}
                         </mod.App>
                     </EditorWrapper>
-                )}
+                }}
             </Lazyer>
         ))
     }
