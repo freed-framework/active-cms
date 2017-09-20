@@ -3,10 +3,9 @@
  * @author denglingbo
  *
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { fromJS } from 'immutable';
 import { findComponents } from '../components/index';
-import Panel from '../src/components/panel/index';
 import utils from '../components/util/util';
 
 class Module {
