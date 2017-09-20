@@ -5,6 +5,9 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/nodemongo-test'
+    uri: 'mongodb://localhost/nodemongo-test',
+    options: {
+        useMongoClient: true
+    }
   }
 };
