@@ -5,7 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
-import Lazyer from './/Lazyer';
+import Lazyer from './Lazyer';
 
 class App extends Component {
     constructor(props) {
@@ -42,6 +42,7 @@ class App extends Component {
         return (
             <div>
                 {this.loop(data)}
+                {/* <div>123123123</div> */}
             </div>
         );
     }

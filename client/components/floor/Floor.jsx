@@ -13,6 +13,9 @@ class Floor extends PureComponent {
 
         return (
             <div
+                onClick={() => {
+                    console.log(123333333333333333333333)
+                }}
                 className="as-floor"
                 style={{
                     ...(style && {...style.layout})

@@ -1,27 +1,55 @@
 /**
  * @file Lazyer.js
- * @author shijinhua
+ * @author denglingbo
  *
  * Des
  */
-import { findComponents } from '../index';
 
-const Lazyer = (props) => {
-    const { item } = props;
-    let result = null;
+import React, { Component } from 'react';
+import Immutable from 'immutable';
+import Module from './module';
 
-    findComponents(item.name, (module) => {
-        result = props.children({
-            // 返回数据
-            ...item,
-            // 返回模块配置
-            module: {...module},
-            // 返回组件
-            App: module.App,
+class Lazyer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            mod: null,
+        }
+    }
+
+    componentWillMount() {
+        this.load(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!Immutable.is(nextProps.item, this.props.item)) {
+            this.load(nextProps);
+        }
+    }
+
+    load(props) {
+        this.setState({
+            mod: null
         });
-    });
 
-    return result;
+        Module.asyncComponent(props.item)
+            .then(module => {
+                if (module) {
+                    this.setState({
+                        mod: module
+                    })
+                }
+            })
+    }
+
+    render() {
+        if (!this.state.mod) {
+            return false;
+        }
+        console.log(this.state.mod);
+        return this.props.children(this.state.mod);
+    }
 }
 
 export default Lazyer;

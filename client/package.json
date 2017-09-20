@@ -7,7 +7,8 @@
     "start": "node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
-    "ssr": "./node_modules/.bin/webpack --config=./webpack.config.ssr.js && node-dev server"
+    "ssr": "nodemon -w ./ssr/**/*.js --exec ts-node ./ssr/main.js",
+    "ssr-build": "./node_modules/.bin/webpack --progress --config=./webpack.config.ssr.js"
   },
   "pre-commit": [
     "pre-commit"
@@ -25,6 +26,8 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
     "autoprefixer-loader": "^3.2.0",
     "awesome-typescript-loader": "^3.2.3",
     "axios": "^0.16.1",
@@ -39,6 +42,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "bundle-loader": "^0.5.5",
     "child_process": "^1.0.2",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.4",
     "eslint": "^3.9.0",
     "eslint-config-airbnb": "^13.0.0",
@@ -50,6 +54,7 @@
     "exports-loader": "^0.6.4",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
+    "fs": "^0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
@@ -59,9 +64,12 @@
     "jsx-loader": "^0.13.2",
     "less-loader": "^4.0.4",
     "lodash": "^4.17.4",
+    "ncp": "^2.0.0",
     "next": "^3.2.1",
     "node-sass": "^4.5.2",
+    "nodemon": "^1.12.1",
     "path": "^0.12.7",
+    "postcss-loader": "^2.0.6",
     "pre-commit": "^1.2.2",
     "process": "^0.11.10",
     "prop-types": "^15.5.10",
@@ -69,6 +77,8 @@
     "sass-loader": "^6.0.3",
     "step": "^1.0.0",
     "style-loader": "^0.17.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.2",
     "url-loader": "^0.5.9",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.5"

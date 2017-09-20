@@ -45,12 +45,12 @@ var webpackConfig = {
             inject: 'body',
         }),
 
-        // new HtmlWebPlugin({
-        //     filename: 'viewer.html',
-        //     template: './viewer/index.html',
-        //     chunks: ['vendor', 'viewer'],
-        //     inject: 'body',
-        // }),
+        new HtmlWebPlugin({
+            filename: 'viewer.html',
+            template: './viewer/index.html',
+            chunks: ['vendor', 'viewer'],
+            inject: 'body',
+        }),
 
         new ExtractTextPlugin({
             filename: '[name].css',
