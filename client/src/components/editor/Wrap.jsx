@@ -1,0 +1,51 @@
+/**
+ * @file Wrap.jsx
+ * @author denglingbo
+ *
+ * Des
+ */
+
+import React, { PureComponent } from 'react';
+import classNames from 'classnames';
+
+class Wrap extends PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOver: false,
+        }
+    }
+
+    handleEnter = () => {
+        this.setState({
+            isOver: true,
+        })
+    }
+
+    handleLeave = () => {
+        this.setState({
+            isOver: false,
+        })
+    }
+
+    render() {
+        const isActive = this.props.isActive || this.state.isOver;
+
+        const clsWrap = classNames('as-editor-wrap', {
+            'as-editor-active': isActive,
+        });
+
+        return (
+            <div
+                className={clsWrap}
+                onMouseOver={this.handleEnter}
+                onMouseOut={this.handleLeave}
+            >
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+export default Wrap;

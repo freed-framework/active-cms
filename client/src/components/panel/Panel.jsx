@@ -10,13 +10,14 @@ import { Icon } from 'antd';
 import mitt from 'mitt';
 import Bar from '../bar';
 import GlobalButtons from '../globalButtons';
+import { activeComponent } from '../../pages/editor/App';
 import './panel.scss';
 
 const emitter = mitt();
 
 class Panel extends PureComponent {
     constructor(props) {
-        super(props)
+        super(props);
 
         emitter.on('active', this.mittActive);
         emitter.on('add', this.mittAdd);
@@ -114,10 +115,16 @@ class Panel extends PureComponent {
         }
     }
 
+    /**
+     * 编辑面板的显示隐藏状态
+     */
     handlePanelVisible = () => {
         this.setState({
             isVisible: !this.state.isVisible,
-        })
+        });
+
+        // 关闭编辑面板的时候，取消编辑的激活状态
+        activeComponent(null);
     }
 
     render() {

@@ -5,11 +5,6 @@
  */
 import _ from 'lodash';
 
-// import Fixer from './fixer';
-// import Floor from './floor';
-// import Tab from './tab';
-// import PreImage from './preImage';
-
 export const modules = [
     // 楼层组件
     {

@@ -4,16 +4,21 @@
  *
  * Des
  */
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 
-class Fixer extends PureComponent {
+interface FixerProps {
+    children: any,
+}
+
+class Fixer extends React.Component<FixerProps, undefined> {
     render() {
         return (
             <div className="as-fixer">
                 Fixer layout
+
+                {this.props.children}
             </div>
         )
     }
 }
-
 export default Fixer;

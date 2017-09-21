@@ -1,25 +1,24 @@
-.as-editor {
+.as-editor-wrap {
     position: relative;
+}
 
-    &-flag {
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: #000;
-        color: #fff;
-        opacity: 0.8;
-        border-radius: 0 4px 4px 0;
-        display: none;
-    }
+.as-editor-flag {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #000;
+    color: #fff;
+    opacity: 0.8;
+    border-radius: 0 4px 4px 0;
+    display: none;
+}
 
-    &-active {
-
-        > .as-editor-flag {
-            display: block;
-        }
+.as-editor-active {
+    .as-editor-flag {
+        display: block;
     }
 }

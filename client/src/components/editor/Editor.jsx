@@ -6,7 +6,8 @@
  */
 import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
-import EditorWrapper from '../wrap/Wrap';
+import Wrap from './Wrap';
+import ActiveButton from './ActiveButton';
 import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
 
@@ -20,12 +21,20 @@ class Editor extends PureComponent {
         }
     }
 
+    componentDidMount() {}
+
+    componentWillUnmount() {}
+
     componentWillReceiveProps(nextProps) {
         if (!Immutable.is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,
             });
         }
+
+        /**
+         * 通过点击 edit 按钮，传递的 id
+         */
         if (nextProps.activeId !== this.props.activeId) {
             this.setState({
                 activeId: nextProps.activeId,
@@ -39,19 +48,23 @@ class Editor extends PureComponent {
                 key={item.guid}
                 item={item}
             >
-                {mod => {
-                    return <EditorWrapper
-                        key={mod.guid}
-                        className={mod.guid === activeId ? 'as-editor-active' : ''}
-                        style={mod.style}
-                        guid={mod.guid}
-                        module={mod.module}
+                {mod => (
+                    <Wrap
+                        isActive={mod.guid === activeId}
                     >
                         <mod.App style={mod.style}>
-                            {mod.children && this.loop(mod.children, activeId)}
+                            <div>
+                                <ActiveButton
+                                    key={mod.guid}
+                                    style={mod.style}
+                                    guid={mod.guid}
+                                    module={mod.module}
+                                />
+                                {mod.children && this.loop(mod.children, activeId)}
+                            </div>
                         </mod.App>
-                    </EditorWrapper>
-                }}
+                    </Wrap>
+                )}
             </Lazyer>
         ))
     }

@@ -3,11 +3,14 @@
         "sourceMap": true,
         "noImplicitAny": true,
         "target": "es6",
-        "jsx": "react"
+        "jsx": "react",
+        "allowJs": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
     },
     "include": [
-        "./components/**/*",
-        "../common/**/*"
+        "./**/*",
     ],
     "exclude": [
         "../node_modules"

@@ -1,5 +1,5 @@
 /**
- * @file Editor.jsx
+ * @file ActiveButton.jsx
  * @author denglingbo
  *
  * Des
@@ -7,10 +7,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
-import Panel from '../panel';
-import { activeComponent } from '../../App';
+import Panel from '../panel/index';
+import { activeComponent } from '../../pages/editor/App';
 
-class Editor extends PureComponent {
+class ActiveButton extends PureComponent {
     componentDidMount() {
         Panel.add({
             ...this.props
@@ -33,26 +33,28 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { className, guid, children } = this.props;
+        const { guid } = this.props;
 
         return (
             <div
-                className={`as-editor ${className}`}
+                className="as-editor-flag"
                 data-guid={guid}
                 onClick={this.handleClick}
             >
-                <div className="as-editor-flag"><Icon type="edit" /></div>
-                <div>{children}</div>
+                <Icon type="edit" />
             </div>
         )
     }
 }
 
-Editor.propTypes = {
-    guid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+ActiveButton.propTypes = {
+    guid: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]).isRequired,
 }
 
-Editor.defaultProps = {
+ActiveButton.defaultProps = {
 }
 
-export default Editor;
+export default ActiveButton;
