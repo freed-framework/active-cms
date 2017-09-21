@@ -1,22 +1,18 @@
 /**
- * @file Floor.jsx
+ * @file Floor.tsx
  * @author denglingbo
  *
  * Des
  */
-import React, { PureComponent } from 'react';
-import './floor.scss';
+import * as React from 'react';
 
-class Floor extends PureComponent {
+
+class Img extends React.Component {
     render() {
         const { style } = this.props;
-
         return (
             <div
-                onClick={() => {
-                    console.log(123333333333333333333333)
-                }}
-                className="as-floor"
+                className="as-fix"
                 style={{
                     ...(style && {...style.layout})
                 }}
@@ -26,5 +22,4 @@ class Floor extends PureComponent {
         )
     }
 }
-
-export default Floor;
+export default Img;

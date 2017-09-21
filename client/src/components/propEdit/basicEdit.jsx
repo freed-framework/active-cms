@@ -14,6 +14,10 @@ class BasicEdit extends PureComponent {
         this.state = {
             width: props.style.width,
             height: props.style.height,
+            margin: props.style.margin,
+            padding: props.style.padding,
+            border: props.style.border,
+            background: props.style.background
         }
     }
 
@@ -34,7 +38,7 @@ class BasicEdit extends PureComponent {
             <div>
                 <div>{target}</div>
 
-                <div className="as-editor-basic-props-width">
+                <div className="as-editor-basic-props as-editor-basic-props-width">
                     <label htmlFor="">宽度</label>
                     <input
                         type="text"
@@ -46,7 +50,7 @@ class BasicEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-basic-props-height">
+                <div className="as-editor-basic-props as-editor-basic-props-height">
                     <label htmlFor="">高度</label>
                     <input
                         type="text"
@@ -55,6 +59,54 @@ class BasicEdit extends PureComponent {
                         data-attr="height"
                         onChange={this.handleChange}
                         value={this.state.height}
+                    />
+                </div>
+
+                <div className="as-editor-basic-props as-editor-basic-props-margin">
+                    <label htmlFor="">外边距</label>
+                    <input
+                        type="text"
+                        data-guid={guid}
+                        data-target={target}
+                        data-attr="margin"
+                        onChange={this.handleChange}
+                        value={this.state.margin}
+                    />
+                </div>
+
+                <div className="as-editor-basic-props as-editor-basic-props-padding">
+                    <label htmlFor="">内边距</label>
+                    <input
+                        type="text"
+                        data-guid={guid}
+                        data-target={target}
+                        data-attr="padding"
+                        onChange={this.handleChange}
+                        value={this.state.padding}
+                    />
+                </div>
+
+                <div className="as-editor-basic-props as-editor-basic-props-border">
+                    <label htmlFor="">边框</label>
+                    <input
+                        type="text"
+                        data-guid={guid}
+                        data-target={target}
+                        data-attr="border"
+                        onChange={this.handleChange}
+                        value={this.state.border}
+                    />
+                </div>
+
+                <div className="as-editor-basic-props as-editor-basic-props-background">
+                    <label htmlFor="">背景</label>
+                    <input
+                        type="text"
+                        data-guid={guid}
+                        data-target={target}
+                        data-attr="background"
+                        onChange={this.handleChange}
+                        value={this.state.background}
                     />
                 </div>
             </div>
