@@ -4,6 +4,7 @@
  *
  * Des
  */
+import Fixer from './Fixer';
 import './index.scss';
 
-export default from './Fixer';
+export default Fixer;

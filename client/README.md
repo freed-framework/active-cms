@@ -18,7 +18,7 @@ node 服务代码
 
 components/
 
-index.js 入口文件
+index.ts 入口文件
 该文件需要配置好所有组件
 
 已 floor 组件为例

@@ -5,7 +5,7 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../App';
+import { editComponent } from '../../pages/editor/App';
 
 class BasicEdit extends PureComponent {
     constructor(props) {

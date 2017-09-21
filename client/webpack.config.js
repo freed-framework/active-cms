@@ -18,7 +18,7 @@ var webpackConfig = {
             'react',
             'react-dom',
         ],
-        editor: './src/index',
+        index: './src/index',
         // viewer: './viewer/index',
     },
     output: {
@@ -39,18 +39,18 @@ var webpackConfig = {
         }),
 
         new HtmlWebPlugin({
-            filename: 'editor.html',
+            filename: 'index.html',
             template: './src/index.html',
-            chunks: ['vendor', 'editor'],
+            chunks: ['vendor', 'index'],
             inject: 'body',
         }),
 
-        new HtmlWebPlugin({
-            filename: 'viewer.html',
-            template: './viewer/index.html',
-            chunks: ['vendor', 'viewer'],
-            inject: 'body',
-        }),
+        // new HtmlWebPlugin({
+        //     filename: 'viewer.html',
+        //     template: './viewer/index.html',
+        //     chunks: ['vendor', 'viewer'],
+        //     inject: 'body',
+        // }),
 
         new ExtractTextPlugin({
             filename: '[name].css',
@@ -59,7 +59,7 @@ var webpackConfig = {
     ],
     resolve: {
         // 省略后缀
-        extensions: ['.js', '.jsx', '.ts'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     module: {
         rules: [
@@ -77,11 +77,11 @@ var webpackConfig = {
                     }
                 ],
             },
-            // {
-            //     test: /\.tsx?$/,
-            //     use: ['awesome-typescript-loader'],
-            //     exclude: /node_modules/,
-            // },
+            {
+                test: /\.tsx?$/,
+                use: ['babel-loader', 'ts-loader'],
+                exclude: /node_modules/,
+            },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({

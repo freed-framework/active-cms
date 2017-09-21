@@ -22,6 +22,7 @@ class Tab extends Component {
                     ...(style && {...style.layout})
                 }}
             >
+                {this.props.children}
                 <div
                     className="ac-tab-menu"
                     style={{
