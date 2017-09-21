@@ -79,6 +79,7 @@
     "prop-types": "^15.5.10",
     "react-hot-loader": "^3.0.0-beta.3",
     "sass-loader": "^6.0.3",
+    "source-map-loader": "^0.2.1",
     "step": "^1.0.0",
     "style-loader": "^0.17.0",
     "ts-loader": "^2.3.7",

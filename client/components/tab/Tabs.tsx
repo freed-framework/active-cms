@@ -1,18 +1,30 @@
 /**
- * @file Tab.jsx
+ * @file Tab.tsx
  * @author denglingbo
  *
  * Des
  */
-import React, { Component } from 'react';
+import * as React from 'react';
 import './tab.scss';
 
-class Tab extends Component {
-    constructor(props) {
+interface TabsProps {
+    style: {
+        layout: object;
+        title: object;
+        main: object;
+    };
+}
+
+interface TabsState {
+
+}
+
+class Tabs extends React.Component<TabsProps, TabsState> {
+    constructor(props: TabsProps) {
         super(props);
     }
 
-    render() {
+    public render(): JSX.Element {
         const { style } = this.props;
 
         return (
@@ -46,4 +58,4 @@ class Tab extends Component {
     }
 }
 
-export default Tab;
+export default Tabs;

@@ -11,6 +11,21 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var ROOT_PATH = path.resolve(__dirname);
 
+let babelOptions = {
+    "presets": [
+        ["es2015", { "modules": false }],
+        "react",
+        "stage-0"
+    ],
+    "plugins": [
+        "react-hot-loader/babel",
+        "transform-decorators-legacy",
+        "transform-async-to-generator",
+        "transform-do-expressions",
+        "transform-runtime"
+    ]
+}
+
 var webpackConfig = {
     devtool: 'source-map',
     entry: {
@@ -69,18 +84,33 @@ var webpackConfig = {
                 use: [
                     {
                         loader: 'babel-loader',
-                        options: {
-                            plugins: [
-                                ['import', [{ libraryName: 'antd', style: 'css' }]],
-                            ],
-                        }
+                        options: babelOptions,
+                        // options: {
+                        //     plugins: [
+                        //         ['import', [{ libraryName: 'antd', style: 'css' }]],
+                        //     ],
+                        // }
                     }
                 ],
             },
             {
                 test: /\.tsx?$/,
-                use: ['babel-loader', 'awesome-typescript-loader'],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: babelOptions,
+                    },
+                    {
+                        // loader: 'awesome-typescript-loader'
+                        loader: 'ts-loader',
+                    }
+                ],
                 exclude: /node_modules/,
+            },
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader'
             },
             {
                 test: /\.scss$/,
