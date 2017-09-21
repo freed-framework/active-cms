@@ -19,4 +19,5 @@ class Fixer extends React.Component<Props, undefined> {
         )
     }
 }
+
 export default Fixer;
