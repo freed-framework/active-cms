@@ -16,7 +16,12 @@ const loaders = [
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                {
+                    loader: 'css-loader',
+                    options:{
+                        minimize: true //css压缩
+                    }
+                },
                 'autoprefixer-loader',
                 'sass-loader',
             ],
@@ -28,7 +33,12 @@ const loaders = [
         loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                {
+                    loader: 'css-loader',
+                    options:{
+                        minimize: true //css压缩
+                    }
+                },
                 'autoprefixer-loader',
                 'less-loader',
             ]
@@ -86,9 +96,9 @@ export async function compileTemplate(page) {
     const data = page.data;
     const pageName = page.name;
     console.log('start to compile template: ', pageName);
-    const inputPath = path.join(__dirname, '../../components/publishPage/');
+    const inputPath = path.join(__dirname, '../publishPage/');
     const inputFileName = '_app.js';
-    const outputPath = path.join(__dirname, './publish/',  `${pageName}/`);
+    const outputPath = path.join(__dirname, '../publish/',  `${pageName}/`);
     const outputFileName = 'app.bundle.js';
     var config = {
         entry: inputPath + inputFileName,
