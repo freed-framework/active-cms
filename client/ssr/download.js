@@ -5,7 +5,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import * as reactDOM from 'react-dom';
 
 import { compileTemplate } from './utils/compile';
-import Html from '../components/publishPage/html';
+import Html from './publishPage/html';
 
 const data = [{"name":"floor","guid":"ddddds11-1ead-43ae-b6de-e6debb958b08","style":{"layout": {"height":100}}},{"name":"floor","guid":"237d6d2c-1034-4f76-a5c8-6678b9a3cb78","style":{"height":60}}];
 

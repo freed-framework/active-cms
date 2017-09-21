@@ -96,9 +96,9 @@ export async function compileTemplate(page) {
     const data = page.data;
     const pageName = page.name;
     console.log('start to compile template: ', pageName);
-    const inputPath = path.join(__dirname, '../../components/publishPage/');
+    const inputPath = path.join(__dirname, '../publishPage/');
     const inputFileName = '_app.js';
-    const outputPath = path.join(__dirname, './publish/',  `${pageName}/`);
+    const outputPath = path.join(__dirname, '../publish/',  `${pageName}/`);
     const outputFileName = 'app.bundle.js';
     var config = {
         entry: inputPath + inputFileName,
