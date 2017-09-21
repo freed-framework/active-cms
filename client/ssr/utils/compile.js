@@ -16,7 +16,12 @@ const loaders = [
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                {
+                    loader: 'css-loader',
+                    options:{
+                        minimize: true //css压缩
+                    }
+                },
                 'autoprefixer-loader',
                 'sass-loader',
             ],
@@ -28,7 +33,12 @@ const loaders = [
         loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                'css-loader',
+                {
+                    loader: 'css-loader',
+                    options:{
+                        minimize: true //css压缩
+                    }
+                },
                 'autoprefixer-loader',
                 'less-loader',
             ]
