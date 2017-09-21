@@ -1,21 +1,19 @@
 /**
- * @file Floor.jsx
+ * @file Floor.tsx
  * @author denglingbo
  *
  * Des
  */
 import * as React from 'react';
 
-interface FixerProps {
+interface Props {
     children: any,
 }
 
-class Fixer extends React.Component<FixerProps, undefined> {
+class Fixer extends React.Component<Props, undefined> {
     render() {
         return (
             <div className="as-fixer">
-                Fixer layout
-
                 {this.props.children}
             </div>
         )
