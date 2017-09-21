@@ -11,7 +11,7 @@ export const modules = [
         id: 3,
         name: 'floor',
         file: 'floor',
-        menus: ['pre-image', 'tab'],
+        menus: ['pre-image', 'tab', 'floor', 'img', 'fix'],
         editable: {
             layout: ['basic'],
         }
@@ -41,6 +41,24 @@ export const modules = [
         name: 'pre-image',
         file: 'preImage'
     },
+    // 图片组件
+    {
+        id: 4,
+        name: 'img',
+        file: 'img',
+        editable: {
+            layout: ['basic'],
+        }
+    },
+    // 固定组件
+    {
+        id: 5,
+        name: 'fix',
+        file: 'fix',
+        editable: {
+            layout: ['basic', 'position'],
+        }
+    }
 ]
 
 /**

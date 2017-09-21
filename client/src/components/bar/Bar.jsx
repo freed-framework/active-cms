@@ -47,9 +47,9 @@ class Bar {
                 {Object.keys(editable).map((key, index) => {
                     const comps = editable[key];
 
-                    return comps.map(compKey => (
-                        <div
-                            key={`${key}-${index}`}
+                    return comps.map(compKey => {
+                        return <div
+                            key={`${key}-${compKey}-${index}`}
                         >
                             {/* 加载指定的编辑组件 */}
                             <PropsEdit
@@ -59,7 +59,7 @@ class Bar {
                                 style={style[key]}
                             />
                         </div>
-                    ))
+                    })
                 })}
             </div>
         )

@@ -99,31 +99,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            data: [
-                {
-                    name: 'floor',
-                    guid: 'ddddds11-1ead-43ae-b6de-e6debb958b08',
-                    style: {
-                        layout: {
-                            width: 100,
-                        }
-                    },
-                    // children: [],
-                },
-                {
-                    name: 'floor',
-                    guid: '237d6d2c-1034-4f76-a5c8-6678b9a3cb78',
-                    style: {
-                        layout: {
-                            height: 60,
-                        }
-                    },
-                },
-                // {
-                //     name: 'floor',
-                //     guid: 'f1327a51-1ead-43ae-b6de-e6debb958b08'
-                // }
-            ],
+            data: [{"guid":"3a52bb7e-ee96-4a0e-86ed-c5ee02ddf44b","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img"],"editable":{"layout":["basic"]}},"children":[{"guid":"ebc5f7e1-9090-4973-b596-fa3ee9edf2b7","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"layout":["basic"]}}},{"guid":"3e3f1f01-6a3f-4020-9325-9b41fb3a3ab1","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img"],"editable":{"layout":["basic"]}},"style":{"layout":{"width":"1200","margin":"0 auto"}},"children":[{"guid":"d9f535f7-1a41-403a-b890-155cf093673f","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"layout":["basic"]}},"style":{"layout":{"width":"100%","height":"100%"}}},{"guid":"28e83b31-e34c-48f4-ba48-a28a7f1db3d4","name":"fix","module":{"id":5,"name":"fix","file":"fix","editable":{"layout":["basic","position"]}},"style":{"layout":{"left":"50%","top":"20%","margin":"0 0 0 -800px","background":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821173038930_831.png)","width":"194px","height":"538px"}}}]}],"style":{"layout":{"background":"#feeae8"}}}],
         };
 
         this.mittDelete = ::this.mittDelete;
