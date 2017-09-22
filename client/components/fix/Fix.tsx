@@ -6,10 +6,15 @@
  */
 import * as React from 'react';
 
+interface Props {
+    children?: React.ReactNode,
+    attrs?: {style?: any}
+}
 
-class Img extends React.Component {
+class Fix extends React.Component<Props, undefined> {
     render() {
-        const { style } = this.props;
+        const { attrs = {} } = this.props;
+        const { style = {} } = attrs;
         return (
             <div
                 className="as-fix"
@@ -22,4 +27,5 @@ class Img extends React.Component {
         )
     }
 }
-export default Img;
+
+export default Fix;

@@ -6,14 +6,20 @@
  */
 import * as React from 'react';
 
+interface Props {
+    children?: React.ReactNode,
+    attrs?: {style?: any, src?: string},
+}
 
-class Img extends React.Component {
+class Img extends React.Component<Props, undefined> {
     render() {
-        const { style } = this.props;
+        console.log(this.props)
+        const { attrs = {} } = this.props;
+        const { src = '', style = {} } = attrs;
         return (
             <div>
             <img
-                src={'https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg'}
+                src={src}
                 style={{
                     ...(style && {...style.layout})
                 }}

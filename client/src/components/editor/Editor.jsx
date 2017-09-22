@@ -52,7 +52,10 @@ class Editor extends PureComponent {
                     <Wrap
                         isActive={mod.guid === activeId}
                     >
-                        <mod.App style={mod.style}>
+                        <mod.App
+                            style={mod.style}
+                            attrs={mod.attrs}
+                        >
                             <div>
                                 <ActiveButton
                                     key={mod.guid}
