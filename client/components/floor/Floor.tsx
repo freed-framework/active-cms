@@ -4,12 +4,19 @@
  *
  * Des
  */
-import React, { PureComponent } from 'react';
+
+import * as React from 'react';
 import './floor.scss';
 
-class Floor extends PureComponent {
+export interface AppProps {
+    children?: any,
+    attrs?: {style?: any}
+}
+
+class Floor extends React.PureComponent<AppProps, any> {
     render() {
-        const { style } = this.props;
+        const { attrs = {} } = this.props;
+        const { style = {} } = attrs;
 
         return (
             <div

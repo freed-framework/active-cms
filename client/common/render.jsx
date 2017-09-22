@@ -42,7 +42,6 @@ class App extends Component {
         return (
             <div>
                 {this.loop(data)}
-                {/* <div>123123123</div> */}
             </div>
         );
     }

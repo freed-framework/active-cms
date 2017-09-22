@@ -7,7 +7,7 @@
 import * as React from 'react';
 
 interface Props {
-    children: any,
+    children?: React.ReactNode,
 }
 
 class Fixer extends React.Component<Props, undefined> {

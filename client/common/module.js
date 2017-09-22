@@ -66,13 +66,20 @@ class Module {
      * @param value
      * @return {any|*}
      */
-    static edit(guid, data, target, attr, value) {
+    static edit(guid, data, target, attr, value, type) {
         let $new = fromJS({});
         const $data = fromJS(data);
-
+// console.log({guid, data, target, attr, value, type})
         utils.find($data, guid, ($finder, deep) => {
-            const setBy = deep.concat(['style', target, attr]);
-
+            let setBy = deep;
+            if (type === 'attr') {
+                setBy = deep.concat(['attrs', target]);
+            }
+            else {
+                setBy = deep.concat(['attrs', 'style', target, attr]);
+            }
+            console.log(setBy)
+            
             $new = $data.setIn(setBy, value);
         }, {
             findBy: 'guid',

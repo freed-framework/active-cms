@@ -39,27 +39,47 @@ class Bar {
      * @param style
      * @return {XML}
      */
-    static edit({ guid, editable = {}, style = {} }) {
+    static edit({ guid, editable = {}, attrs = {} }) {
         return (
             <div>
                 <div>组件属性编辑:</div>
 
                 {Object.keys(editable).map((key, index) => {
                     const comps = editable[key];
-
-                    return comps.map(compKey => {
-                        return <div
-                            key={`${key}-${compKey}-${index}`}
-                        >
-                            {/* 加载指定的编辑组件 */}
-                            <PropsEdit
-                                compKey={compKey}
-                                guid={guid}
-                                target={key}
-                                style={style[key]}
-                            />
-                        </div>
-                    })
+                    if (comps instanceof Array) {
+                        return comps.map(attr => {
+                            return <div
+                                key={`${key}-${attr}-${index}`}
+                            >
+                                {/* 加载指定的编辑组件 */}
+                                <PropsEdit
+                                    compKey={attr}
+                                    guid={guid}
+                                    target={key}
+                                    attr={attr}
+                                />
+                            </div>
+                        })
+                    } else if (comps instanceof Object) {
+                        return Object.keys(comps).map((k, i) => {
+                            const attrs = comps[k];
+                            return attrs.map(attr => {
+                                const { style = {} } = attrs;
+                                return <div
+                                    key={`${key}-${attr}-${index}`}
+                                >
+                                    {/* 加载指定的编辑组件 */}
+                                    <PropsEdit
+                                        compKey={attr}
+                                        guid={guid}
+                                        target={k}
+                                        style={style[k]}
+                                    />
+                                </div>
+                            })
+                        })
+                    }
+                    
                 })}
             </div>
         )

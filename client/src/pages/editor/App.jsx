@@ -37,7 +37,12 @@ export const addComponent = (event) => {
     });
 }
 
-export const editComponent = (event) => {
+/**
+ * 
+ * @param {Object} event 事件对象 
+ * @param {string|undefined} type 编辑的属性
+ */
+export const editComponent = (event, type) => {
     const guid = event.currentTarget.getAttribute('data-guid');
     const attr = event.currentTarget.getAttribute('data-attr');
     const target = event.currentTarget.getAttribute('data-target');
@@ -48,6 +53,7 @@ export const editComponent = (event) => {
         attr,
         target,
         value,
+        type
     })
 }
 
@@ -167,14 +173,14 @@ class App extends Component {
 
     /**
      * 编辑组件属性
-     * @param guid
-     * @param attr
-     * @param target
-     * @param value
+     * @param guid 组件id
+     * @param attr 修改属性
+     * @param target 目标元素
+     * @param value 修改后值
      */
-    mittEdit({ guid, attr, target, value }) {
+    mittEdit({ guid, attr, target, value, type }) {
         this.setState({
-            data: module.edit(guid, this.state.data, target, attr, value),
+            data: module.edit(guid, this.state.data, target, attr, value, type),
         })
     }
 

@@ -11,9 +11,11 @@ export const modules = [
         id: 3,
         name: 'floor',
         file: 'floor',
-        menus: ['pre-image', 'tabs', 'floor', 'img', 'fix'],
+        menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float'],
         editable: {
-            layout: ['basic'],
+            style: {
+                layout: ['basic']
+            }
         }
     },
     // tabs 组件
@@ -23,9 +25,11 @@ export const modules = [
         file: 'tabs',
         menus: [],
         editable: {
-            layout: ['basic'],
-            title: ['basic'],
-            main: ['basic'],
+            style: {
+                layout: ['basic'],
+                title: ['basic'],
+                main: ['basic'],
+            }
         }
     },
     // 浮动组件
@@ -47,7 +51,10 @@ export const modules = [
         name: 'img',
         file: 'img',
         editable: {
-            layout: ['basic'],
+            style: {
+                layout: ['basic'],
+            },
+            src: ['attrs']
         }
     },
     // 固定组件
@@ -56,7 +63,20 @@ export const modules = [
         name: 'fix',
         file: 'fix',
         editable: {
-            layout: ['basic', 'position'],
+            style: {
+                layout: ['basic', 'position']
+            }
+        }
+    },
+    // 浮动组件
+    {
+        id: 6,
+        name: 'float',
+        file: 'float',
+        editable: {
+            style: {
+                layout: ['basic', 'position']
+            }
         }
     }
 ]
