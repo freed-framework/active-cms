@@ -1,23 +1,7 @@
-/**
- * @file Tab.tsx
- * @author denglingbo
- *
- * Des
- */
+/// <reference path="./tabs.d.ts" />
+
 import * as React from 'react';
 import './tab.scss';
-
-interface TabsProps {
-    style: {
-        layout: object;
-        title: object;
-        main: object;
-    };
-}
-
-interface TabsState {
-
-}
 
 class Tabs extends React.Component<TabsProps, TabsState> {
     constructor(props: TabsProps) {
@@ -51,7 +35,7 @@ class Tabs extends React.Component<TabsProps, TabsState> {
                     }}
                 >
                     <div>content 1</div>
-                    <div>content 2</div>
+                    <div>content 2222</div>
                 </div>
             </div>
         );

@@ -17,7 +17,9 @@ class Wrap extends PureComponent {
         }
     }
 
-    handleEnter = () => {
+    handleEnter = (event) => {
+        event.preventDefault();
+
         this.setState({
             isOver: true,
         })

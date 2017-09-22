@@ -95,22 +95,14 @@ var webpackConfig = {
             },
             {
                 test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                    },
-                    {
-                        // loader: 'awesome-typescript-loader'
-                        loader: 'ts-loader',
-                    }
-                ],
+                use: ['babel-loader', 'ts-loader'],
                 exclude: /node_modules/,
             },
-            {
-                enforce: 'pre',
-                test: /\.js$/,
-                loader: 'source-map-loader'
-            },
+            // {
+            //     enforce: 'pre',
+            //     test: /\.js$/,
+            //     loader: 'source-map-loader'
+            // },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({

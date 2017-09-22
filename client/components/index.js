@@ -11,16 +11,16 @@ export const modules = [
         id: 3,
         name: 'floor',
         file: 'floor',
-        menus: ['pre-image', 'tab', 'floor', 'img', 'fix'],
+        menus: ['pre-image', 'tabs', 'floor', 'img', 'fix'],
         editable: {
             layout: ['basic'],
         }
     },
-    // tab 组件
+    // tabs 组件
     {
         id: 1,
-        name: 'tab',
-        file: 'tab',
+        name: 'tabs',
+        file: 'tabs',
         menus: [],
         editable: {
             layout: ['basic'],
