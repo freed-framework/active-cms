@@ -106,17 +106,18 @@ class App extends Component {
 
         this.state = {
             // data: [{"guid":"3a52bb7e-ee96-4a0e-86ed-c5ee02ddf44b","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tabs","floor","img"],"editable":{"layout":["basic"]}},"children":[{"guid":"ebc5f7e1-9090-4973-b596-fa3ee9edf2b7","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"layout":["basic"]}}},{"guid":"3e3f1f01-6a3f-4020-9325-9b41fb3a3ab1","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tabs","floor","img"],"editable":{"layout":["basic"]}},"style":{"layout":{"width":"1200","margin":"0 auto"}},"children":[{"guid":"d9f535f7-1a41-403a-b890-155cf093673f","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"layout":["basic"]}},"style":{"layout":{"width":"100%","height":"100%"}}},{"guid":"28e83b31-e34c-48f4-ba48-a28a7f1db3d4","name":"fix","module":{"id":5,"name":"fix","file":"fix","editable":{"layout":["basic","position"]}},"style":{"layout":{"left":"50%","top":"20%","margin":"0 0 0 -800px","background":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821173038930_831.png)","width":"194px","height":"538px"}}}]}],"style":{"layout":{"background":"#feeae8"}}}],
-            data: [
-                {
-                    "guid":"3a52bb7e-ee96-4a0e-86ed-c5ee02ddf44b",
-                    "name":"floor",
-                    "style": {
-                        layout: {
-                            height: 60,
-                        }
-                    }
-                }
-            ]
+            // data: [
+            //     {
+            //         "guid":"3a52bb7e-ee96-4a0e-86ed-c5ee02ddf44b",
+            //         "name":"floor",
+            //         "style": {
+            //             layout: {
+            //                 height: 60,
+            //             }
+            //         }
+            //     }
+            // ]
+            data: [{"guid":"a7731b7c-9ae6-4983-8ec0-417e4f23b239","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img","fix","float"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"padding":"200xp"}}},"children":[{"guid":"12157442-127d-469d-9bd5-9b4a762eeb2b","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"style":{"layout":["basic"]},"src":["attrs"]}},"attrs":{"src":"https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg"}}]},{"guid":"8b6fb289-8852-4909-b5f3-20d042789adf","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img","fix","float"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"width":"1200px","margin":"0 auto"}}},"children":[{"guid":"52a92814-6cb7-4815-b9de-f180164127b7","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"style":{"layout":["basic"]},"src":["attrs"]}},"attrs":{"src":"https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg","style":{"layout":{"width":"100%","height":"100%"}}}},{"guid":"c1934f03-b05c-4d89-93be-91d0557037b4","name":"fix","module":{"id":5,"name":"fix","file":"fix","editable":{"style":{"layout":["basic","position"]}}},"attrs":{"style":{"layout":{"background":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821173038930_831.png)","width":"190px","height":"538px","top":"100px","left":"160px"}}}},{"guid":"09d550f3-3059-4a3c-959e-ff7de0504b37","name":"float","module":{"id":6,"name":"float","file":"float","editable":{"style":{"layout":["basic","position"]}}},"attrs":{"style":{"layout":{"top":"0px","left":"0px"}}}}]}],
         };
 
         this.mittDelete = ::this.mittDelete;

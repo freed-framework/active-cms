@@ -16,4 +16,4 @@ npm-debug.log.*
 
 client/lib/
 
-client/ssr/publish/
+client/ssr/public/

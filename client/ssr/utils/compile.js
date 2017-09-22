@@ -12,6 +12,11 @@ const loaders = [
         exclude: /node_modules/
     },
     {
+        test: /\.tsx?$/,
+        use: ['babel-loader', 'ts-loader'],
+        exclude: /node_modules/,
+    },
+    {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
@@ -89,7 +94,7 @@ const plugins = [
 
 const resolve = {
     // 省略后缀
-    extensions: ['.js', '.jsx', '.ts'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
 };
 
 export async function compileTemplate(page) {

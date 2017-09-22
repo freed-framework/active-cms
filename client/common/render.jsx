@@ -24,7 +24,7 @@ class App extends Component {
             >
                 <Lazyer item={item}>
                     {mod => (
-                        <mod.App style={item.style}>
+                        <mod.App attrs={item.attrs}>
                             {item.children && this.loop(item.children)}
                         </mod.App>
                     )}
