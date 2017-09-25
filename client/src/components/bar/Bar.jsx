@@ -43,24 +43,11 @@ class Bar {
         return (
             <div>
                 <div>组件属性编辑:</div>
-
+                
                 {Object.keys(editable).map((key, index) => {
                     const comps = editable[key];
-                    if (comps instanceof Array) {
-                        return comps.map(attr => {
-                            return <div
-                                key={`${key}-${attr}-${index}`}
-                            >
-                                {/* 加载指定的编辑组件 */}
-                                <PropsEdit
-                                    compKey={attr}
-                                    guid={guid}
-                                    target={key}
-                                    attr={attr}
-                                />
-                            </div>
-                        })
-                    } else if (comps instanceof Object) {
+                    console.log(comps)
+                    if (key === 'style') {
                         return Object.keys(comps).map((k, i) => {
                             const attrs = comps[k];
                             return attrs.map(attr => {
@@ -79,7 +66,21 @@ class Bar {
                             })
                         })
                     }
-                    
+                    else {
+                        return comps.map(attr => {
+                            return <div
+                                key={`${key}-${attr}-${index}`}
+                            >
+                                {/* 加载指定的编辑组件 */}
+                                <PropsEdit
+                                    compKey={attr}
+                                    guid={guid}
+                                    target={key}
+                                    attr={attr}
+                                />
+                            </div>
+                        })
+                    }
                 })}
             </div>
         )
