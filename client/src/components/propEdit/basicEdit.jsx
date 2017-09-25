@@ -33,7 +33,6 @@ class BasicEdit extends PureComponent {
 
     render() {
         const { target, guid } = this.props;
-
         return (
             <div>
                 <div>{target}</div>

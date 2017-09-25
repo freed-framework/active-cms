@@ -158,7 +158,6 @@ class Panel extends PureComponent {
                         const clsPanelItem = classNames('as-panel-item', {
                             'as-panel-item-hide': activeId !== item.guid,
                         });
-
                         return (
                             <div
                                 key={item.guid}
@@ -184,14 +183,13 @@ class Panel extends PureComponent {
                                     {Bar.edit({
                                         guid: item.guid,
                                         editable: item.module.editable,
-                                        attrs: item.attrs,
+                                        attribute: item.attrs
                                     })}
                                 </div>
                             </div>
                         )
                     })}
                 </div>
-
             </div>
         );
     }

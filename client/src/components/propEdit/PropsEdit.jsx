@@ -18,7 +18,6 @@ class PropsEdit extends PureComponent {
 
     render() {
         const { compKey } = this.props;
-        console.log(compKey)
         if (compKey === 'basic') {
             return <BasicEdit {...this.props} />;
         } else if (compKey === 'position') {

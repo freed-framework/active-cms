@@ -39,19 +39,20 @@ class Bar {
      * @param style
      * @return {XML}
      */
-    static edit({ guid, editable = {}, attrs = {} }) {
+    static edit({ guid, editable = {}, attribute = {} }) {
+        
         return (
             <div>
                 <div>组件属性编辑:</div>
                 
                 {Object.keys(editable).map((key, index) => {
                     const comps = editable[key];
-                    console.log(comps)
                     if (key === 'style') {
                         return Object.keys(comps).map((k, i) => {
                             const attrs = comps[k];
+                            const { style = {} } = attribute;
                             return attrs.map(attr => {
-                                const { style = {} } = attrs;
+                                {/* const { style = {} } = attrs; */}
                                 return <div
                                     key={`${key}-${attr}-${index}`}
                                 >
@@ -76,7 +77,7 @@ class Bar {
                                     compKey={attr}
                                     guid={guid}
                                     target={key}
-                                    attr={attr}
+                                    src={attribute.src}
                                 />
                             </div>
                         })

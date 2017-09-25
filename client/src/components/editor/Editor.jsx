@@ -60,6 +60,7 @@ class Editor extends PureComponent {
                                 <ActiveButton
                                     key={mod.guid}
                                     style={mod.style}
+                                    attrs={mod.attrs}
                                     guid={mod.guid}
                                     module={mod.module}
                                 />
