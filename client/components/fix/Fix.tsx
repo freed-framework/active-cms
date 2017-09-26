@@ -5,19 +5,22 @@
  * Des
  */
 import * as React from 'react';
+/// <reference path="../../declaration.d.ts">
+// import Style from './index.scss';
 
 interface Props {
     children?: React.ReactNode,
-    attrs?: {style?: any}
+    attrs?: {style?: any, distance?: string}
 }
 
 class Fix extends React.Component<Props, undefined> {
+
     render() {
         const { attrs = {} } = this.props;
-        const { style = {} } = attrs;
+        const { style = {}, distance = 0 } = attrs;
         return (
             <div
-                className="as-fix"
+                className='as-fix'
                 style={{
                     ...(style && {...style.layout})
                 }}

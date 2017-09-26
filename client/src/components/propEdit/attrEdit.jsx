@@ -6,6 +6,7 @@
  */
 import React, { PureComponent } from 'react';
 import { editComponent } from '../../pages/editor/App';
+import ColorPicker from '../colorPicker';
 
 class AttrEdit extends PureComponent {
     constructor(props) {
@@ -27,13 +28,13 @@ class AttrEdit extends PureComponent {
     }
 
     render() {
-        const { target, guid } = this.props;
+        const { target, guid, label } = this.props;
 
         return (
             <div>
-                <div>{target}</div>
+                {/* <div>{target}</div> */}
                 <div className="as-editor-basic-props as-editor-basic-props-attr">
-                    <label htmlFor="">连接</label>
+                    <label htmlFor="">{label}</label>
                     <input
                         type="text"
                         data-guid={guid}

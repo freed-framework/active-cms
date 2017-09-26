@@ -10,5 +10,7 @@ interface TabsProps {
 }
 
 interface TabsState {
+    data: [any];
 
+    activeId: string,
 }
