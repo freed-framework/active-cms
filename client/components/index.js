@@ -66,6 +66,10 @@ export const modules = [
             style: {
                 layout: ['basic', 'position']
             }
+            // ,
+            // distance: {
+            //     label: '距边框的距离'
+            // }
         }
     },
     // 浮动组件

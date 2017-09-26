@@ -13,7 +13,7 @@ interface Props {
 
 class Img extends React.Component<Props, undefined> {
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         const { attrs = {} } = this.props;
         const { src = '', style = {} } = attrs;
         return (
