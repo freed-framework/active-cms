@@ -1,4 +1,16 @@
 
-.as-floor {
-    border: 1px solid #eee;
+.ac-tabs {
+    &-menu {
+
+    }
+
+    &-main {
+
+        &-items {
+
+            &-hide {
+                display: none;
+            }
+        }
+    }
 }

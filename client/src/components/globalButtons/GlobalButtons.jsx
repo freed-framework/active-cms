@@ -24,6 +24,12 @@ const GlobalButtons = () => {
                 添加底部 Fixer
             </Button>
             <Button
+                data-name="tabs"
+                onClick={addComponent}
+            >
+                添加 Tab
+            </Button>
+            <Button
                 onClick={saveData}
             >
                 保存数据

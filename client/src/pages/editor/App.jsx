@@ -110,9 +110,11 @@ class App extends Component {
                 {
                     "guid":"3a52bb7e-ee96-4a0e-86ed-c5ee02ddf44b",
                     "name":"floor",
-                    "style": {
-                        layout: {
-                            height: 60,
+                    "attrs": {
+                        style: {
+                            layout: {
+                                height: 60,
+                            }
                         }
                     }
                 }
