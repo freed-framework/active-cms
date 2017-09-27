@@ -57,6 +57,23 @@ export const editComponent = (event, type) => {
     })
 }
 
+/**
+ * 
+ * @param {Object} event 编辑参数 
+ * @param {string|undefined} type 编辑的属性
+ */
+export const editComponentByOption = (option, type) => {
+    const { guid, attr, target, value } = option;
+
+    emitter.emit('edit', {
+        guid,
+        attr,
+        target,
+        value,
+        type
+    })
+}
+
 export const activeComponent = (guid) => {
     emitter.emit('active', guid);
 }

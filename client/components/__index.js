@@ -54,7 +54,7 @@ export const modules = [
             style: {
                 layout: ['basic'],
             },
-            src: ['attrs']
+            src: [{label: '链接', component: 'attrs'}]
         }
     },
     // 固定组件
@@ -64,12 +64,10 @@ export const modules = [
         file: 'fix',
         editable: {
             style: {
-                layout: ['basic', 'position']
-            }
-            // ,
-            // distance: {
-            //     label: '距边框的距离'
-            // }
+                layout: ['basic']
+            },
+            distanceLeft: [{label: '侧边距离', component: 'attrs'}],
+            distanceTop: [{label: '顶部距离', component: 'attrs'}]
         }
     },
     // 浮动组件

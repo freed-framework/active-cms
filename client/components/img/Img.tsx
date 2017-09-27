@@ -8,7 +8,7 @@ import * as React from 'react';
 
 interface Props {
     children?: React.ReactNode,
-    attrs?: {style?: any, src?: string},
+    attrs?: {style?: any, src?: string, distance?: string},
 }
 
 class Img extends React.Component<Props, undefined> {

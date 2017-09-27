@@ -5,7 +5,9 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../pages/editor/App';
+import { editComponent, editComponentByOption } from '../../pages/editor/App';
+
+import Background from '../background';
 
 class BasicEdit extends PureComponent {
     constructor(props) {
@@ -17,7 +19,9 @@ class BasicEdit extends PureComponent {
             margin: props.style.margin,
             padding: props.style.padding,
             border: props.style.border,
-            background: props.style.background
+            background: props.style.background,
+            backgroundColor: props.style.backgroundColor,
+            backgroundImage: props.style.backgroundImage
         }
     }
 
@@ -29,6 +33,12 @@ class BasicEdit extends PureComponent {
         });
 
         editComponent(event);
+    }
+
+    onBackgroundChange = ({option, value}) => {
+        const { target, guid } = this.props;
+        console.log({option, value})
+        editComponentByOption({guid, attr: option, target, value});
     }
 
     render() {
@@ -98,15 +108,20 @@ class BasicEdit extends PureComponent {
                 </div>
 
                 <div className="as-editor-basic-props as-editor-basic-props-background">
-                    <label htmlFor="">背景</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="background"
-                        onChange={this.handleChange}
-                        value={this.state.background}
-                    />
+                    <label
+                        htmlFor=""
+                    >
+                        背景
+                    </label>
+                    <div
+                        className="inline-block"
+                    >
+                        <Background
+                            backgroundImage={this.state.backgroundImage}
+                            backgroundColor={this.state.backgroundColor}
+                            onChange={this.onBackgroundChange}
+                        />
+                    </div>
                 </div>
             </div>
         )

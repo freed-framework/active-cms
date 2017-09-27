@@ -89,9 +89,10 @@ class Module {
             else {
                 setBy = deep.concat(['attrs', 'style', target, attr]);
             }
-            console.log(setBy)
             
             $new = $data.setIn(setBy, value);
+            // console.log($new.toJS())
+            
         }, {
             findBy: 'guid',
         })
