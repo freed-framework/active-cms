@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { fromJS } from 'immutable';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
-import { Editor, Panel } from '../../components/index';
+import { Editor, Panel } from '../../components';
 import mitt from 'mitt';
 import './app.scss';
 
@@ -105,7 +105,178 @@ class App extends Component {
         super(props);
 
         this.state = {
-            data: [{"guid":"a7731b7c-9ae6-4983-8ec0-417e4f23b239","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img","fix","float"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"padding":"200xp"}}},"children":[{"guid":"12157442-127d-469d-9bd5-9b4a762eeb2b","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"style":{"layout":["basic"]},"src":["attrs"]}},"attrs":{"src":"https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg"}}]},{"guid":"8b6fb289-8852-4909-b5f3-20d042789adf","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img","fix","float"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"width":"1200px","margin":"0 auto"}}},"children":[{"guid":"52a92814-6cb7-4815-b9de-f180164127b7","name":"img","module":{"id":4,"name":"img","file":"img","editable":{"style":{"layout":["basic"]},"src":["attrs"]}},"attrs":{"src":"https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg","style":{"layout":{"width":"100%","height":"100%"}}}},{"guid":"c1934f03-b05c-4d89-93be-91d0557037b4","name":"fix","module":{"id":5,"name":"fix","file":"fix","editable":{"style":{"layout":["basic","position"]}}},"attrs":{"style":{"layout":{"background":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821173038930_831.png)","width":"190px","height":"538px","top":"100px","left":"160px"}}}},{"guid":"09d550f3-3059-4a3c-959e-ff7de0504b37","name":"float","module":{"id":6,"name":"float","file":"float","editable":{"style":{"layout":["basic","position"]}}},"attrs":{"style":{"layout":{"top":"0px","left":"0px"}}}}]}],
+            data: [
+                {
+                    "guid": "a7731b7c-9ae6-4983-8ec0-417e4f23b239",
+                    "name": "floor",
+                    "module": {
+                        "id": 3,
+                        "name": "floor",
+                        "file": "floor",
+                        "menus": [
+                            "pre-image",
+                            "tab",
+                            "floor",
+                            "img",
+                            "fix",
+                            "float"
+                        ],
+                        "editable": {
+                            "style": {
+                                "layout": [
+                                    "basic"
+                                ]
+                            }
+                        }
+                    },
+                    "attrs": {
+                        "style": {
+                            "layout": {
+                                "padding": "200xp"
+                            }
+                        }
+                    },
+                    "children": [
+                        {
+                            "guid": "12157442-127d-469d-9bd5-9b4a762eeb2b",
+                            "name": "img",
+                            "module": {
+                                "id": 4,
+                                "name": "img",
+                                "file": "img",
+                                "editable": {
+                                    "style": {
+                                        "layout": [
+                                            "basic"
+                                        ]
+                                    },
+                                    "src": [
+                                        "attrs"
+                                    ]
+                                }
+                            },
+                            "attrs": {
+                                "src": "https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "guid": "8b6fb289-8852-4909-b5f3-20d042789adf",
+                    "name": "floor",
+                    "module": {
+                        "id": 3,
+                        "name": "floor",
+                        "file": "floor",
+                        "menus": [
+                            "pre-image",
+                            "tab",
+                            "floor",
+                            "img",
+                            "fix",
+                            "float"
+                        ],
+                        "editable": {
+                            "style": {
+                                "layout": [
+                                    "basic"
+                                ]
+                            }
+                        }
+                    },
+                    "attrs": {
+                        "style": {
+                            "layout": {
+                                "width": "1200px",
+                                "margin": "0 auto"
+                            }
+                        }
+                    },
+                    "children": [
+                        {
+                            "guid": "52a92814-6cb7-4815-b9de-f180164127b7",
+                            "name": "img",
+                            "module": {
+                                "id": 4,
+                                "name": "img",
+                                "file": "img",
+                                "editable": {
+                                    "style": {
+                                        "layout": [
+                                            "basic"
+                                        ]
+                                    },
+                                    "src": [
+                                        "attrs"
+                                    ]
+                                }
+                            },
+                            "attrs": {
+                                "src": "https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821163422188_217.jpg",
+                                "style": {
+                                    "layout": {
+                                        "width": "100%",
+                                        "height": "100%"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "guid": "c1934f03-b05c-4d89-93be-91d0557037b4",
+                            "name": "fix",
+                            "module": {
+                                "id": 5,
+                                "name": "fix",
+                                "file": "fix",
+                                "editable": {
+                                    "style": {
+                                        "layout": [
+                                            "basic",
+                                            "position"
+                                        ]
+                                    }
+                                }
+                            },
+                            "attrs": {
+                                "style": {
+                                    "layout": {
+                                        "background": "url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170821173038930_831.png)",
+                                        "width": "190px",
+                                        "height": "538px",
+                                        "top": "100px",
+                                        "left": "160px"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "guid": "09d550f3-3059-4a3c-959e-ff7de0504b37",
+                            "name": "float",
+                            "module": {
+                                "id": 6,
+                                "name": "float",
+                                "file": "float",
+                                "editable": {
+                                    "style": {
+                                        "layout": [
+                                            "basic",
+                                            "position"
+                                        ]
+                                    }
+                                }
+                            },
+                            "attrs": {
+                                "style": {
+                                    "layout": {
+                                        "top": "0px",
+                                        "left": "0px"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
         };
 
         this.mittDelete = ::this.mittDelete;
@@ -166,6 +337,7 @@ class App extends Component {
      * @param attr 修改属性
      * @param target 目标元素
      * @param value 修改后值
+     * @param type 修改后值
      */
     mittEdit({ guid, attr, target, value, type }) {
         this.setState({
