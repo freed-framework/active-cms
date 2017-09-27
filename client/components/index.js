@@ -11,7 +11,7 @@ export const modules = [
         id: 3,
         name: 'floor',
         file: 'floor',
-        menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float'],
+        menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float', 'hotMap'],
         editable: {
             style: {
                 layout: ['basic']
@@ -79,6 +79,18 @@ export const modules = [
             style: {
                 layout: ['basic', 'position']
             }
+        }
+    },
+    {
+        id: 7,
+        name: 'hotMap',
+        file: 'hotMap',
+        menus: ['hotArea'],
+        editable: {
+            style: {
+                layout: ['basic', 'position']
+            },
+            href: [{label: '连接', component: 'attrs'}]
         }
     }
 ]

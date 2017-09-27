@@ -23,7 +23,6 @@ class ActiveButton extends PureComponent {
      */
     handleClick = (event) => {
         event.stopPropagation();
-
         const guid = event.currentTarget.getAttribute('data-guid');
 
         if (guid) {

@@ -5,7 +5,9 @@
  * 元素位置编辑
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../pages/editor/App';
+import { InputNumber } from 'antd';
+
+import { editComponent, editComponentByOption } from '../../pages/editor/App';
 
 class PositionEdit extends PureComponent {
     constructor(props) {
@@ -19,14 +21,20 @@ class PositionEdit extends PureComponent {
         }
     }
 
-    handleChange = (event) => {
-        const attr = event.currentTarget.getAttribute('data-attr');
+    // handleChange = (event) => {
+    //     console.log(event)
+    //     const attr = event.currentTarget.getAttribute('data-attr');
 
-        this.setState({
-            [attr]: event.currentTarget.value,
-        });
+    //     this.setState({
+    //         [attr]: event.currentTarget.value,
+    //     });
 
-        editComponent(event);
+    //     editComponent(event);
+    // }
+
+    handleChange = ({option, value}) => {
+        const { target, guid } = this.props;
+        editComponentByOption({guid, attr: option, target, value});
     }
 
     render() {
@@ -38,48 +46,49 @@ class PositionEdit extends PureComponent {
 
                 <div className="as-editor-basic-props as-editor-basic-props-top">
                     <label htmlFor="">上</label>
-                    <input
+                    <InputNumber
+                        min={1}
                         type="text"
                         data-guid={guid}
                         data-target={target}
                         data-attr="top"
-                        onChange={this.handleChange}
+                        onChange={(value) => this.handleChange({option: 'top', value})}
                         value={this.state.top}
                     />
                 </div>
 
                 <div className="as-editor-basic-props as-editor-basic-props-left">
                     <label htmlFor="">左</label>
-                    <input
-                        type="text"
+                    <InputNumber
+                        min={1}
                         data-guid={guid}
                         data-target={target}
                         data-attr="left"
-                        onChange={this.handleChange}
+                        onChange={(value) => this.handleChange({option: 'left', value})}
                         value={this.state.left}
                     />
                 </div>
 
                 <div className="as-editor-basic-props as-editor-basic-props-right">
                     <label htmlFor="">右</label>
-                    <input
-                        type="text"
+                    <InputNumber
+                        min={1}
                         data-guid={guid}
                         data-target={target}
                         data-attr="right"
-                        onChange={this.handleChange}
+                        onChange={(value) => this.handleChange({option: 'right', value})}
                         value={this.state.right}
                     />
                 </div>
 
                 <div className="as-editor-basic-props as-editor-basic-props-button">
                     <label htmlFor="">下</label>
-                    <input
-                        type="text"
+                    <InputNumber
+                        min={1}
                         data-guid={guid}
                         data-target={target}
                         data-attr="button"
-                        onChange={this.handleChange}
+                        onChange={(value) => this.handleChange({option: 'button', value})}
                         value={this.state.button}
                     />
                 </div>
