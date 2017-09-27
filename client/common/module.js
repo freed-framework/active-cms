@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import { fromJS } from 'immutable';
-import { findComponents } from '../components/index';
 import utils from '../components/util/util';
 
 class Module {
@@ -20,19 +19,31 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            findComponents(item.name, function (module) {
-                import(`../components/${module.name}/index`)
-                    .then(App => {
-                        return resolve({
-                            // 返回数据
-                            ...item,
-                            // 返回模块配置
-                            module: {...module},
-                            // 返回组件
-                            App: App.default,
-                        });
-                    })
-            });
+            import(`../components/${item.name}/index`)
+                .then(App => {
+                    return resolve({
+                        // 返回数据
+                        ...item,
+                        // 返回模块配置
+                        ...(App.config && { module: {...App.config} }),
+                        // 返回组件
+                        App: App.default,
+                    });
+                })
+
+            // findComponents(item.name, function (module) {
+            //     import(`../components/${module.name}/index`)
+            //         .then(App => {
+            //             return resolve({
+            //                 // 返回数据
+            //                 ...item,
+            //                 // 返回模块配置
+            //                 ...(App.config && { module: {...App.config} }),
+            //                 // 返回组件
+            //                 App: App.default,
+            //             });
+            //         })
+            // });
         })
     }
 

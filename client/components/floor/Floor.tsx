@@ -4,14 +4,9 @@
  *
  * Des
  */
-
+/// <reference path="./floor.d.ts" />
 import * as React from 'react';
 import './floor.scss';
-
-export interface AppProps {
-    children?: any,
-    attrs?: {style?: any}
-}
 
 class Floor extends React.PureComponent<AppProps, any> {
     render() {
