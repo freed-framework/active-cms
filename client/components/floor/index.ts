@@ -8,7 +8,7 @@ interface Config {
 
 const config: Config = {
     name: 'floor',
-    menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float'],
+    menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float', 'hotMap'],
     editable: {
         style: {
             layout: ['basic'],

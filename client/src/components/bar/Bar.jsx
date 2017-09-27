@@ -68,6 +68,7 @@ class Bar {
                         })
                     }
                     else {
+                        console.log(comps)
                         return comps.map(attr => {
                             const { label = '', component = '' } = attr;
                             return <div
