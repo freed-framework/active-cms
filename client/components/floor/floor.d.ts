@@ -2,6 +2,7 @@
 interface AppProps {
     children?: any,
     attrs?: {
-        style?: any
+        style?: any,
+        anchor?: any
     }
 }

@@ -11,16 +11,14 @@ import './floor.scss';
 class Floor extends React.PureComponent<AppProps, any> {
     render() {
         const { attrs = {} } = this.props;
-        const { style = {} } = attrs;
+        const { style = {}, anchor } = attrs;
 
         return (
             <div
-                onClick={() => {
-                    console.log(123333333333333333333333)
-                }}
+                id={anchor}
                 className="as-floor"
                 style={{
-                    ...(style && {...style.layout})
+                    ...(style && {...style.layout, 'background-position': 'center center'})
                 }}
             >
                 {this.props.children}

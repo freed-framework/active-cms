@@ -5,6 +5,7 @@
  * Des
  */
 import React, { PureComponent } from 'react';
+import { Row, Col } from 'antd';
 import { editComponent, editComponentByOption } from '../../pages/editor/App';
 
 import Background from '../background';
@@ -37,7 +38,6 @@ class BasicEdit extends PureComponent {
 
     onBackgroundChange = ({option, value}) => {
         const { target, guid } = this.props;
-        console.log({option, value})
         editComponentByOption({guid, attr: option, target, value});
     }
 
@@ -46,55 +46,62 @@ class BasicEdit extends PureComponent {
         return (
             <div>
                 <div>{target}</div>
-
-                <div className="as-editor-basic-props as-editor-basic-props-width">
-                    <label htmlFor="">宽度</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="width"
-                        onChange={this.handleChange}
-                        value={this.state.width}
-                    />
-                </div>
-
-                <div className="as-editor-basic-props as-editor-basic-props-height">
-                    <label htmlFor="">高度</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="height"
-                        onChange={this.handleChange}
-                        value={this.state.height}
-                    />
-                </div>
-
-                <div className="as-editor-basic-props as-editor-basic-props-margin">
-                    <label htmlFor="">外边距</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="margin"
-                        onChange={this.handleChange}
-                        value={this.state.margin}
-                    />
-                </div>
-
-                <div className="as-editor-basic-props as-editor-basic-props-padding">
-                    <label htmlFor="">内边距</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="padding"
-                        onChange={this.handleChange}
-                        value={this.state.padding}
-                    />
-                </div>
-
+                <Row>
+                    <Col span={12}>
+                        <div className="as-editor-basic-props as-editor-basic-props-width">
+                            <label htmlFor="">宽度</label>
+                            <input
+                                type="text"
+                                data-guid={guid}
+                                data-target={target}
+                                data-attr="width"
+                                onChange={this.handleChange}
+                                value={this.state.width}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="as-editor-basic-props as-editor-basic-props-height">
+                            <label htmlFor="">高度</label>
+                            <input
+                                type="text"
+                                data-guid={guid}
+                                data-target={target}
+                                data-attr="height"
+                                onChange={this.handleChange}
+                                value={this.state.height}
+                            />
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={12}>
+                        <div className="as-editor-basic-props as-editor-basic-props-margin">
+                            <label htmlFor="">外边距</label>
+                            <input
+                                type="text"
+                                data-guid={guid}
+                                data-target={target}
+                                data-attr="margin"
+                                onChange={this.handleChange}
+                                value={this.state.margin}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="as-editor-basic-props as-editor-basic-props-padding">
+                            <label htmlFor="">内边距</label>
+                            <input
+                                type="text"
+                                data-guid={guid}
+                                data-target={target}
+                                data-attr="padding"
+                                onChange={this.handleChange}
+                                value={this.state.padding}
+                            />
+                        </div>
+                    </Col>
+                </Row>
                 <div className="as-editor-basic-props as-editor-basic-props-border">
                     <label htmlFor="">边框</label>
                     <input

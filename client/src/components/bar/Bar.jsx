@@ -68,18 +68,20 @@ class Bar {
                         })
                     }
                     else {
-                        console.log(comps)
                         return comps.map(attr => {
-                            const { label = '', component = '' } = attr;
+                            const { label = '', component = '', data = [], ...props } = attr;
                             return <div
                                 key={`${key}-${attr}-${index}`}
                             >
                                 {/* 加载指定的编辑组件 */}
                                 <PropsEdit
+                                    {...props}
                                     label={label}
                                     compKey={component}
                                     guid={guid}
                                     target={key}
+                                    data={data}
+                                    attribute={attribute}
                                     src={attribute.src}
                                 />
                             </div>

@@ -7,7 +7,6 @@ export interface AppProps {
 
 class hotMap extends React.Component<AppProps, any> {
     render() {
-        console.log(this.props)
         const { attrs = {} } = this.props;
         const { style = {} } = attrs;
         return (
@@ -15,7 +14,6 @@ class hotMap extends React.Component<AppProps, any> {
                 className="position_absolute"
                 href={attrs.href}
                 style={{...style.layout}}
-                target="_blank"
             >
                 {this.props.children}
             </a>

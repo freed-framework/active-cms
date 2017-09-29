@@ -8,6 +8,8 @@ import React, { PureComponent } from 'react';
 import BasicEdit from './basicEdit';
 import PositionEdit from './positionEdit';
 import AttrEdit from './attrEdit';
+import RadioChoose from './radioChoose';
+import ChooseData from './chooseData';
 
 import './propsEdit.scss';
 
@@ -24,6 +26,10 @@ class PropsEdit extends PureComponent {
             return <PositionEdit {...this.props} />;
         } else if (compKey === 'attrs') {
             return <AttrEdit {...this.props} />;
+        } else if (compKey === 'radio') {
+            return <RadioChoose {...this.props} />
+        } else if (compKey === 'chooseData') {
+            return <ChooseData {...this.props} />
         }
         return null;
     }
