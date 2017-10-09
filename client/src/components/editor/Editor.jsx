@@ -87,11 +87,11 @@ class Editor extends PureComponent {
                     });
 
                     return (
-                        <mod.App {...props}>
+                        <mod.App
+                            id={props.guid}
+                            {...props}
+                        >
                             {item.children && this.loop(item.children)}
-                            {() => {
-                                console.log(1)
-                            }}
                         </mod.App>
                     );
                 }}

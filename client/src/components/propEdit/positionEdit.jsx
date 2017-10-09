@@ -17,7 +17,7 @@ class PositionEdit extends PureComponent {
             top: props.style.top,
             left: props.style.left,
             right: props.style.right,
-            button: props.style.button
+            buttom: props.style.buttom
         }
     }
 
@@ -34,11 +34,15 @@ class PositionEdit extends PureComponent {
 
     handleChange = ({option, value}) => {
         const { target, guid } = this.props;
+        this.setState({
+            [option]: value
+        })
         editComponentByOption({guid, attr: option, target, value});
     }
 
     render() {
         const { target, guid } = this.props;
+        const { top, right, buttom, left } = this.state;
 
         return (
             <div>
@@ -53,7 +57,7 @@ class PositionEdit extends PureComponent {
                         data-target={target}
                         data-attr="top"
                         onChange={(value) => this.handleChange({option: 'top', value})}
-                        value={this.state.top}
+                        value={top}
                     />
                 </div>
 
@@ -65,7 +69,7 @@ class PositionEdit extends PureComponent {
                         data-target={target}
                         data-attr="left"
                         onChange={(value) => this.handleChange({option: 'left', value})}
-                        value={this.state.left}
+                        value={left}
                     />
                 </div>
 
@@ -77,19 +81,19 @@ class PositionEdit extends PureComponent {
                         data-target={target}
                         data-attr="right"
                         onChange={(value) => this.handleChange({option: 'right', value})}
-                        value={this.state.right}
+                        value={right}
                     />
                 </div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-button">
+                <div className="as-editor-basic-props as-editor-basic-props-buttom">
                     <label htmlFor="">下</label>
                     <InputNumber
                         min={1}
                         data-guid={guid}
                         data-target={target}
-                        data-attr="button"
-                        onChange={(value) => this.handleChange({option: 'button', value})}
-                        value={this.state.button}
+                        data-attr="buttom"
+                        onChange={(value) => this.handleChange({option: 'buttom', value})}
+                        value={buttom}
                     />
                 </div>
             </div>

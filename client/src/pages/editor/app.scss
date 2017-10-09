@@ -5,7 +5,10 @@ body {
     padding: 0;
 }
 
-.as-editor-layout {
+/**
+ * 画布
+ */
+.as-editor-canvas {
     position: relative;
     z-index: 1;
 }

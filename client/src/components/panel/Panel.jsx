@@ -82,6 +82,7 @@ class Panel extends PureComponent {
             this.setState({
                 activeId: guid,
                 isVisible: true,
+                data: this._data,
             });
         }
     }
@@ -94,10 +95,6 @@ class Panel extends PureComponent {
             this._data[props.guid] = {
                 ...props
             };
-
-            // this.setState({
-            //     data: this._data,
-            // })
         }
     }
 
@@ -149,12 +146,11 @@ class Panel extends PureComponent {
 
                 <div className="as-panel-main">
                     {/* 通用按钮 */}
-                    <GlobalButtons />
+                    {/*<GlobalButtons />*/}
 
                     {/* 每一个组件的编辑器 */}
                     {Object.keys(data).map(k => {
                         const item = data[k];
-
                         const clsPanelItem = classNames('as-panel-item', {
                             'as-panel-item-hide': activeId !== item.guid,
                         });
@@ -174,7 +170,7 @@ class Panel extends PureComponent {
                                     <div>可添加子组件:</div>
                                     {Bar.menus({
                                         guid: item.guid,
-                                        menus: item.module.menus,
+                                        menus: item.module ? item.module.menus : [],
                                     })}
                                 </div>
 
@@ -182,7 +178,7 @@ class Panel extends PureComponent {
                                 <div>
                                     {Bar.edit({
                                         guid: item.guid,
-                                        editable: item.module.editable,
+                                        editable: item.module ? item.module.editable : {},
                                         attribute: item.attrs
                                     })}
                                 </div>

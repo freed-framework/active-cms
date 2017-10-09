@@ -1,8 +1,13 @@
 
-interface AppProps {
-    children?: any;
-    guid?: string;
+interface Props {
+    id: string;
+
+    children?: React.ReactNode;
+
     attrs?: {
         style?: any;
+        target?: any;
+        position?: any;
+        horizontal?: any;
     }
 }

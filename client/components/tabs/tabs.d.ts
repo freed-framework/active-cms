@@ -1,15 +1,17 @@
 
-interface TabsProps {
+interface Props {
+    id: string;
+
     style: {
         layout: object;
         title: object;
         main: object;
     };
 
-    children: any;
+    children?: React.ReactNode;
 }
 
-interface TabsState {
+interface State {
     data: [any];
 
     activeId: string,

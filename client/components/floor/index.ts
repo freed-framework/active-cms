@@ -12,7 +12,8 @@ const config: Config = {
     editable: {
         style: {
             layout: ['basic'],
-        }
+        },
+        anchor: [{label: '设置锚点', component: 'attrs'}],
     }
 };
 

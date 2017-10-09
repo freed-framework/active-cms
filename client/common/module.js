@@ -80,7 +80,7 @@ class Module {
     static edit(guid, data, target, attr, value, type) {
         let $new = fromJS({});
         const $data = fromJS(data);
-// console.log({guid, data, target, attr, value, type})
+
         utils.find($data, guid, ($finder, deep) => {
             let setBy = deep;
             if (type === 'attr') {
