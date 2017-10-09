@@ -10,14 +10,12 @@ import './floor.scss';
 
 class Floor extends React.PureComponent<AppProps, any> {
     render() {
-        const { attrs = {} } = this.props;
+        const { attrs = {}, guid } = this.props;
         const { style = {} } = attrs;
 
         return (
             <div
-                onClick={() => {
-                    console.log(123333333333333333333333)
-                }}
+                data-guid={guid}
                 className="as-floor"
                 style={{
                     ...(style && {...style.layout})

@@ -1,7 +1,8 @@
 
 interface AppProps {
-    children?: any,
+    children?: any;
+    guid?: string;
     attrs?: {
-        style?: any
+        style?: any;
     }
 }

@@ -95,9 +95,9 @@ class Panel extends PureComponent {
                 ...props
             };
 
-            this.setState({
-                data: this._data,
-            })
+            // this.setState({
+            //     data: this._data,
+            // })
         }
     }
 
