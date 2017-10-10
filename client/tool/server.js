@@ -16,8 +16,8 @@ var webpackConfig = require('../webpack.config');
 
 var devConfig = {
     publicPath: '/',
-    // host: '0.0.0.0',
-    host: '172.30.120.73',
+    host: '0.0.0.0',
+    // host: '172.30.120.73',
     port: 8899,
     // 开启服务器的模块热替换（HMR）
     hot: true,

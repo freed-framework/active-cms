@@ -25,6 +25,7 @@ var ROOT_PATH = path.resolve(__dirname);
 //         "transform-runtime"
 //     ]
 // }
+// 调用 framework
 
 var webpackConfig = {
     devtool: 'source-map',

@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "start": "node ./tool/server.js",
+    "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
     "ssr": "nodemon -w ./ssr/**/*.js --exec ts-node ./ssr/main.js",
@@ -19,6 +20,9 @@
     "babel-runtime": "6.x",
     "body-parser": "^1.18.0",
     "connect": "^3.6.1",
+    "font": "git+https://github.com/freed-framework/font.git",
+    "freed-spa": "https://github.com/freed-framework/freed-spa",
+    "got": "^7.1.0",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
     "mitt": "^1.1.2",
@@ -27,7 +31,8 @@
     "react-dom": "^15.4.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "styled-components": "^2.1.2"
+    "styled-components": "^2.1.2",
+    "zipfolder": "^1.0.4"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.3",

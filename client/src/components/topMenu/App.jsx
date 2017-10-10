@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
-import { addComponent, saveData } from '../../pages/editor/App';
+import { addComponent, saveData, viewer } from '../../pages/editor/App';
 
 class TopMenu extends Component {
     static propTypes = {
@@ -49,6 +50,7 @@ class TopMenu extends Component {
                         <Button
                             className="as-editor-btn"
                             size="small"
+                            onClick={viewer}
                         >
                             预览和设置
                         </Button>

@@ -6,11 +6,16 @@
  */
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
+import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
+
+import { addPage, getPage, editPage } from '../../server';
 import { Editor, Panel, TopMenu, Control } from '../../components';
 import mitt from 'mitt';
 import './app.scss';
+
+const confirm = Modal.confirm;
 
 const emitter = mitt();
 
@@ -85,6 +90,13 @@ export const saveData = () => {
 }
 
 /**
+ * 预览页面
+ */
+export const viewer = () => {
+    emitter.emit('viewer')
+}
+
+/**
  * 创建子数据
  * @param data
  * @param guid
@@ -128,7 +140,7 @@ class App extends Component {
                 height: 0,
             },
             hoverId: null,
-            data: [{"guid":"a7731b7c-9ae6-4983-8ec0-417e4f23b239","name":"floor","module":{"id":3,"name":"floor","file":"floor","menus":["pre-image","tab","floor","img","fix","float"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"padding":"","backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926094353408_22.jpg)","height":"725px"}},"anchor":"1"},"children":[{"guid":"d2e97c0c-1b6b-4455-9ab3-5ce109acd263","name":"fix","module":{"name":"fix","menus":["floor","hotMap"],"editable":{"style":{"layout":["basic"]},"distanceLeft":[{"label":"侧边距离","component":"attrs"}],"distanceTop":[{"label":"顶部距离","component":"attrs"}],"target":[{"label":"定位目标","component":"radio","data":[{"key":"body","label":"窗口"},{"key":"parent","label":"父元素"}]}],"horizontal":[{"label":"水平方向定位","component":"chooseData","items":[{"key":"left","label":"左"},{"key":"right","label":"右"}]}],"vertical":[{"label":"垂直方向定位","component":"chooseData","items":[{"key":"top","label":"上"},{"key":"bottom","label":"下"}]}]}},"attrs":{"style":{"layout":{"height":"150","width":"100%","backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926160800707_500.png)"}},"vertical":{"key":"bottom","value":0}},"children":[{"guid":"46c3f9b7-c1b1-47ad-bdd6-009d4d823ace","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"width":"156","height":"150","backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926160824131_922.png)"}}}}]}]},{"guid":"8128c45e-2044-4a55-aaa8-560cab083c06","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926094528831_125.jpg)","height":"614px"}}},"children":[{"guid":"d01a5953-765e-4f1b-9144-192d05b820f8","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926095306436_191.jpg)","height":"614px","width":"1200px","margin":"0 auto"}},"anchor":"2"},"children":[{"guid":"bb764452-af31-4f2d-9650-60c9b3aa710e","name":"fix","module":{"name":"fix","menus":["floor","hotMap"],"editable":{"style":{"layout":["basic"]},"distanceLeft":[{"label":"侧边距离","component":"attrs"}],"distanceTop":[{"label":"顶部距离","component":"attrs"}],"target":[{"label":"定位目标","component":"radio","data":[{"key":"body","label":"窗口"},{"key":"parent","label":"父元素"}]}],"horizontal":[{"label":"水平方向定位","component":"chooseData","items":[{"key":"left","label":"左"},{"key":"right","label":"右"}]}],"vertical":[{"label":"垂直方向定位","component":"chooseData","items":[{"key":"top","label":"上"},{"key":"bottom","label":"下"}]}]}},"attrs":{"style":{"layout":{"width":"136","height":"596","backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926095353465_585.png)"}},"target":"parent","horizontal":{"key":"left","value":"-1300"}},"children":[{"guid":"f1153ccf-dd92-4b55-b6da-6bf5e66af9be","name":"hotMap","module":{"name":"hotMap","editable":{"style":{"layout":["basic","position"]},"href":[{"label":"连接","component":"attrs"}]}},"attrs":{"style":{"layout":{"width":"60","height":"52","border":"1px solid #333","top":510,"margin":"","left":30}},"href":"#1"}},{"guid":"55cf84ae-0c53-44df-90bd-96c0d4b171bb","name":"hotMap","module":{"name":"hotMap","editable":{"style":{"layout":["basic","position"]},"href":[{"label":"连接","component":"attrs"}]}},"attrs":{"style":{"layout":{"width":"60","height":"52","border":"1px solid #333","top":110,"left":30}},"href":"#1"}},{"guid":"257f49f6-7a4c-4515-9918-c87d0f6824ac","name":"hotMap","module":{"name":"hotMap","editable":{"style":{"layout":["basic","position"]},"href":[{"label":"连接","component":"attrs"}]}},"attrs":{"style":{"layout":{"width":"60","height":"52","border":"1px solid #333","top":161,"left":30}},"href":"#2"}}]}]}]},{"guid":"d48dc166-e582-4647-8f64-d77e16a7fdb9","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]}}},"attrs":{"style":{"layout":{"backgroundImage":"url(https://static.yatang.cn/fmf/BBC0011/staticresource/img/20170926095235519_212.jpg)","height":"8559"}}}}]
+            data: [],
         };
 
         this.mittDelete = ::this.mittDelete;
@@ -136,12 +148,26 @@ class App extends Component {
         this.mittEdit = ::this.mittEdit;
         this.mittActive = ::this.mittActive;
         this.mittSave = ::this.mittSave;
+        this.mittViewer = ::this.mittViewer;
 
         emitter.on('delete', this.mittDelete);
         emitter.on('add', this.mittAdd);
         emitter.on('edit', this.mittEdit);
         emitter.on('active', this.mittActive);
         emitter.on('save', this.mittSave);
+        emitter.on('viewer', this.mittViewer)
+    }
+
+    componentDidMount() {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+        const { id } = params;
+        id && getPage(id).then((res) => {
+            const { data } = res;
+            this.setState({
+                data: data.content
+            })
+        })
     }
 
     componentDidMount() {
@@ -241,8 +267,63 @@ class App extends Component {
         Panel.active(guid);
     }
 
+    showConfirm = (callback) => {
+        confirm({
+            title: '请输入页面标题?',
+            content: <Input onChange={this.handleChange} />,
+            onOk: callback,
+            onCancel() {},
+        });
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            title: e.target.value
+        })
+    }
+
     mittSave() {
-        console.log(JSON.stringify(this.state.data));
+        const { location = '', match = {} } = this.props;
+        const { params = {} } = match;
+        const { id } = params;
+        if ( !this.state.data.length ) {
+            message.error('页面不能为空');
+            return;
+        }
+        // 新增
+        if (!id) {
+            this.showConfirm(() => {
+                const { title } = this.state;
+                if (!title) {
+                    message.error('请输入标题');
+                    return;
+                }
+                addPage({
+                    "title": title,
+                    "content":  this.state.data
+                }).then((res) => {
+                    message.success('保存成功')
+                    this.props.history.replace(`/${res.data.id}${location.hash}`)
+                })
+            })
+        }
+        // 编辑
+        else {
+            editPage({
+                "id": id,
+                "page": {
+                    "content": this.state.data
+                }
+            }).then((res) => {
+                message.success('保存成功')
+            })
+        }
+        
+        console.log(JSON.stringify(this.state.data))
+    }
+
+    mittViewer() {
+        this.props.history.replace(`/view`)
     }
 
     render() {
