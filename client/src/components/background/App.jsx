@@ -128,23 +128,3 @@ class Background extends Component {
 }
 
 export default Background;
-
-
-{/* <Popover
-                content={
-                    <Styled.propInner>
-                        <Row>
-                            <Col span={8}>
-                                <span>背景色：</span>
-                            </Col>
-                            <Col span={16}>
-                                <ColorPicker onChangeComplete={() => {}}/>
-                            </Col>
-                        </Row>
-                    </Styled.propInner>
-                }
-            >
-                <Styled.InputWrap>
-                    <Input />
-                </Styled.InputWrap>
-            </Popover> */}
