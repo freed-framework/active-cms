@@ -1,4 +1,4 @@
-const data = [{"guid":"13af0627-f223-4256-ba29-19d962d8782e","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]},"anchor":[{"label":"设置锚点","component":"attrs"}]}},"children":[{"guid":"e14fa264-69bf-48eb-8a46-d3f480550fb5","name":"img"}]},{"guid":"f77b4e2f-862a-4b77-b4dd-71c7a52a4114","name":"tabs","module":{"name":"tabs","menus":[],"editable":{"style":{"layout":["basic"],"title":["basic"],"main":["basic"]}}}}]
+const data = [{"guid":"6fc47ea3-c5e5-4f07-8850-30cfc5535eb6","name":"floor","module":{"name":"floor","menus":["pre-image","tab","floor","img","fix","float","hotMap"],"editable":{"style":{"layout":["basic"]},"anchor":[{"label":"设置锚点","component":"attrs"}]}},"attrs":{"style":{"layout":{"backgroundColor":"rgba(22, 18, 46, 1)"}}}}]
 
 import React, { PropTypes, Component } from 'react';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
