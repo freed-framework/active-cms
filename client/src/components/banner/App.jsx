@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
-import { addComponent, saveData } from '../../pages/editor/App';
+import { addComponent, saveData, viewer } from '../../pages/editor/App';
 
 class Banner extends Component {
     static propTypes = {
@@ -18,30 +19,31 @@ class Banner extends Component {
                         <span>Static</span>
                     </Col>
                     <Col span={14} className="as-editor-banner-center">
-                        <ul className="as-editor-component">
+                        {/* <ul className="as-editor-component">
                             <li
                                 data-name="floor"
                                 onClick={addComponent}
                                 className="as-editor-component-list"
                             >
-                                <Icon type="layout" />
+                                <Font type="grid" />
                                 <br/>
                                 <span>楼层</span>
                             </li>
                             <li className="as-editor-component-list">
-                                <Icon type="user" /><br/>
+                                <Font type="book-open" /><br/>
                                 <span>楼层</span>
                             </li>
                             <li className="as-editor-component-list">
-                                <Icon type="user" /><br/>
+                                <Font type="calendar" /><br/>
                                 <span>楼层</span>
                             </li>
-                        </ul>
+                        </ul> */}
                     </Col>
                     <Col span={6} className="as-editor-banner-right">
                         <Button
                             className="as-editor-btn"
                             size="small"
+                            onClick={viewer}
                         >
                             预览和设置
                         </Button>

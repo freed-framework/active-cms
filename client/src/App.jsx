@@ -28,6 +28,7 @@ const App = () => (
     >
         <div>
             <Route exact path="/" component={Editor} />
+            <Route exact path="/:id" component={Editor} />
             <Route exact path="/view" component={Viewer} />
             <Route exact path="/store" component={Store} />
         </div>

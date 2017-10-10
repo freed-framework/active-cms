@@ -21,12 +21,7 @@ const loaders = [
         use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                {
-                    loader: 'css-loader',
-                    options:{
-                        minimize: true //css压缩
-                    }
-                },
+                'css-loader',
                 'autoprefixer-loader',
                 'sass-loader',
             ],
@@ -38,28 +33,23 @@ const loaders = [
         loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                {
-                    loader: 'css-loader',
-                    options:{
-                        minimize: true //css压缩
-                    }
-                },
+                'css-loader',
                 'autoprefixer-loader',
                 'less-loader',
             ]
         })
     },
+    // css 加载器
+    // Reference: https://github.com/webpack/style-loader
+    // Reference: https://github.com/webpack/css-loader
+    // Reference: https://github.com/webpack/autoprefixer-loader
+    // Reference: https://github.com/webpack/extract-text-webpack-plugin
     {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-                {
-                    loader: 'css-loader',
-                    options:{
-                        minimize: true //css压缩
-                    }
-                },
+                'css-loader',
                 'autoprefixer-loader'
             ]
         })
