@@ -16,4 +16,5 @@ npm-debug.log.*
 
 client/lib/
 
-client/ssr/public/
+# 服务端渲染新增中转文件
+client/ssr/publish/
