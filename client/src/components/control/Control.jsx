@@ -31,7 +31,7 @@ class Control extends PureComponent {
     }
 
     lineHover() {
-
+        console.log(2)
     }
 
     renderLine(arr) {
