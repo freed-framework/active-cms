@@ -11,6 +11,7 @@
     &-line {
         position: absolute;
         background: #000000;
+        pointer-events: visible;
     }
 
     &-top, &-bottom {

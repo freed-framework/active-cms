@@ -133,7 +133,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            rect: {},
+            rect: null,
             hoverId: null,
             data: [],
         };
@@ -191,6 +191,11 @@ class App extends Component {
                     },
                     hoverId: guid,
                 });
+            } else {
+                this.setState({
+                    hoverId: null,
+                    rect: null,
+                })
             }
         });
     }
@@ -256,6 +261,7 @@ class App extends Component {
             activeId: guid,
         });
 
+        // 激活编辑面板
         Panel.active(guid);
     }
 

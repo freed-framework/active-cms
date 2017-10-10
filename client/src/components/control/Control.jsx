@@ -1,6 +1,11 @@
+/**
+ * @file Control.jsx
+ * @author denglingbo
+ *
+ * 提示可编辑的组件的控制框
+ */
 
 import React, { PureComponent } from 'react';
-import { is } from 'immutable';
 import classNames from 'classnames';
 import './control.scss';
 
@@ -10,10 +15,11 @@ class Control extends PureComponent {
 
         this.state = {
             // 可操作的组件的基本信息
-            rect: {},
+            rect: props.rect || null,
 
             // 鼠标悬停的可操作组件的 ID
-            hoverId: null,
+            // 注：此处暂未使用，该 control 使用的 事件穿透
+            // hoverId: props.hoverId,
         }
     }
 
@@ -24,16 +30,18 @@ class Control extends PureComponent {
     componentWillReceiveProps(nextProps) {
         if (this.state.hoverId !== nextProps.hoverId) {
             this.setState({
-                hoverId: nextProps.hoverId,
+                // hoverId: nextProps.hoverId,
                 rect: nextProps.rect,
             })
         }
     }
 
-    lineHover() {
-        console.log(2)
-    }
+    lineHover = () => {}
 
+    /**
+     * 绘制各个边线
+     * @param arr
+     */
     renderLine(arr) {
         return arr.map(k => {
             const cls = classNames(`ec-edit-control-line ec-edit-control-${k}`);
@@ -43,6 +51,7 @@ class Control extends PureComponent {
                     key={k}
                     ref={ref => { this[k] = ref }}
                     className={cls}
+                    onMouseOver={this.lineHover}
                 />
             )
         })
@@ -51,11 +60,16 @@ class Control extends PureComponent {
     render() {
         const { rect } = this.state;
 
+        const styles = {
+            visibility: rect ? 'visible' : 'hidden',
+            ...(rect && { ...rect })
+        };
+
         return (
             <div
                 className="ec-edit-control"
                 style={{
-                    ...rect
+                    ...styles
                 }}
             >
                 {this.renderLine(['top', 'right', 'bottom', 'left'])}
