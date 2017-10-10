@@ -164,9 +164,6 @@ class App extends Component {
                 data: data.content
             })
         })
-    }
-
-    componentDidMount() {
 
         document.addEventListener('click', (event) => {
             // guid 作为 id 被添加到组件上

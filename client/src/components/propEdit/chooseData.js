@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Select, Input, Row, Col } from 'antd';
+import { Radio, Select, Input, Row, Col, Icon } from 'antd';
 import { editComponentByOption } from '../../pages/editor/App';
 
 const Option = Select.Option;
@@ -34,6 +34,7 @@ class RadioChoose extends Component {
     render() {
         const { label = '', items } = this.props;
         const { data = {} } = this.state;
+
         return (
             <div>
                 <div className="as-editor-basic-props as-editor-basic-props-radio">

@@ -59,6 +59,16 @@ class Background extends Component {
         })
     }
 
+    handleClear = () => {
+        const { option } = this.state;
+        const { onChange } = this.props;
+        this.setState({
+            [option]: ''
+        }, () => {
+            onChange && onChange({option, value: ''})
+        })
+    }
+
     renderOption = () => {
         const {
             option, backgroundColor, backgroundImage
@@ -71,6 +81,9 @@ class Background extends Component {
                         color={backgroundColor}
                         onChangeComplete={
                             (color) => this.handleChange(color)
+                        }
+                        onClear={
+                            this.handleClear
                         }
                     />
                 )

@@ -7,7 +7,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { SketchPicker, PhotoshopPicker } from 'react-color';
-import { Popover, Input } from 'antd';
+import { Popover, Input, Icon } from 'antd';
 
 import * as Styled from './picker.style';
 
@@ -29,6 +29,7 @@ class ColorPicker extends Component {
     static propTypes = {
         color: PropTypes.string,
         onChangeComplete: PropTypes.func.isRequired,
+        onClear: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -51,6 +52,16 @@ class ColorPicker extends Component {
         })
     }
 
+    handleClear = () => {
+        const { onClear } = this.props;
+        this.setState({
+            color: '',
+            showColor: '',
+        }, () => {
+            onClear && onClear();
+        })
+    }
+
     render() {
         const { showColor } = this.state;
         return (
@@ -63,7 +74,10 @@ class ColorPicker extends Component {
                 }
             >
                 <Styled.ColorInputWrap>
-                    <Input value={showColor} />
+                    <Input
+                        value={showColor}
+                        suffix={<Icon type="close-circle-o" onClick={this.handleClear} />}
+                    />
                 </Styled.ColorInputWrap>
             </Popover>
         )
