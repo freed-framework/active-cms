@@ -8,14 +8,14 @@
 import * as React from 'react';
 import './floor.scss';
 
-class Floor extends React.PureComponent<AppProps, any> {
+class Floor extends React.PureComponent<Props, any> {
     render() {
-        const { attrs = {} } = this.props;
-        const { style = {}, anchor } = attrs;
+        const { attrs = {}, id } = this.props;
+        const { style = {} } = attrs;
 
         return (
             <div
-                id={anchor}
+                id={id}
                 className="as-floor"
                 style={{
                     ...(style && {...style.layout, 'background-position': 'center center'})

@@ -12,7 +12,7 @@ import { editComponent, editComponentByOption } from '../../pages/editor/App';
 class PositionEdit extends PureComponent {
     constructor(props) {
         super(props);
-        console.log(props);
+
         this.state = {
             top: props.style.top,
             left: props.style.left,

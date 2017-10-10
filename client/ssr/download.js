@@ -4,9 +4,6 @@ import * as fs from 'fs';
 import * as ReactDOMServer from 'react-dom/server';
 import * as got from 'got';
 
-// import * as fstream from 'fstream';
-// import * as tar from 'tar';
-// import * as zlib from 'zlib';
 import * as zip from 'zipfolder';
 
 

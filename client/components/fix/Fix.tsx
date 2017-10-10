@@ -1,38 +1,13 @@
 /**
- * @file Floor.tsx
+ * @file Fix.tsx
  * @author denglingbo
  *
  * Des
  */
+/// <reference path="../../declaration.d.ts" />
+/// <reference path="./fix.d.ts" />
 import * as React from 'react';
-/// <reference path="../../declaration.d.ts">
 // import Style from './index.scss';
-
-interface Props {
-    children?: React.ReactNode,
-    attrs?: {
-        /**
-         * 样式
-         */
-        style?: any,
-        /**
-         * 相对于那定位 body|parent
-         */
-        target?: any,
-        /**
-         * 固定位置 left | top | right | bottom
-         */
-        position?: any,
-        /**
-         * 定位距离
-         */
-        horizontal?: any
-    }
-}
-
-interface States {
-    isShow?: boolean
-}
 
 class Fix extends React.Component<Props, States> {
     /**
@@ -75,7 +50,7 @@ class Fix extends React.Component<Props, States> {
 
     render() {
         const { isShow } = this.state;
-        const { attrs = {} } = this.props;
+        const { attrs = {}, id } = this.props;
         const { style = {} } = attrs;
         const sty = {};
         Object.assign(sty, style.layout, this.parseStyle(attrs));
@@ -85,6 +60,7 @@ class Fix extends React.Component<Props, States> {
 
         return (
             <div
+                id={id}
                 className='as-fix'
                 style={{
                     ...sty

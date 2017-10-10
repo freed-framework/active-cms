@@ -4,7 +4,7 @@ import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
 
-class Banner extends Component {
+class TopMenu extends Component {
     static propTypes = {
 
     }
@@ -19,25 +19,32 @@ class Banner extends Component {
                         <span>Static</span>
                     </Col>
                     <Col span={14} className="as-editor-banner-center">
-                        {/* <ul className="as-editor-component">
+                        <ul className="as-editor-component">
                             <li
                                 data-name="floor"
                                 onClick={addComponent}
                                 className="as-editor-component-list"
                             >
-                                <Font type="grid" />
-                                <br/>
+                                <Icon type="layout" />
                                 <span>楼层</span>
                             </li>
-                            <li className="as-editor-component-list">
-                                <Font type="book-open" /><br/>
-                                <span>楼层</span>
+                            <li
+                                data-name="fix"
+                                onClick={addComponent}
+                                className="as-editor-component-list"
+                            >
+                                <Icon type="user" />
+                                <span>悬停</span>
                             </li>
-                            <li className="as-editor-component-list">
-                                <Font type="calendar" /><br/>
-                                <span>楼层</span>
+                            <li
+                                data-name="tab"
+                                onClick={addComponent}
+                                className="as-editor-component-list"
+                            >
+                                <Icon type="user" />
+                                <span>Tab</span>
                             </li>
-                        </ul> */}
+                        </ul>
                     </Col>
                     <Col span={6} className="as-editor-banner-right">
                         <Button
@@ -73,4 +80,4 @@ class Banner extends Component {
     }
 }
 
-export default Banner;
+export default TopMenu;

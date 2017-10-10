@@ -8,8 +8,33 @@ import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
 import Wrap from './Wrap';
 import ActiveButton from './ActiveButton';
+import Panel from '../panel';
 import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
+
+/**
+
+ <Wrap
+ isActive={mod.guid === activeId}
+ >
+ <div>
+ <mod.App
+ style={mod.style}
+ attrs={mod.attrs}
+ >
+ {mod.children && this.loop(mod.children, activeId)}
+ </mod.App>
+ <ActiveButton
+ key={mod.guid}
+ style={mod.style}
+ attrs={mod.attrs}
+ guid={mod.guid}
+ module={mod.module}
+ />
+ </div>
+ </Wrap>
+
+ */
 
 class Editor extends PureComponent {
     constructor(props) {
@@ -48,27 +73,28 @@ class Editor extends PureComponent {
                 key={item.guid}
                 item={item}
             >
-                {mod => (
-                    <Wrap
-                        isActive={mod.guid === activeId}
-                    >
+                {mod => {
+                    const props = {
+                        style: mod.style,
+                        attrs: mod.attrs,
+                        guid: mod.guid,
+                    };
+
+                    // 先添加到panel 的 _data 中
+                    Panel.add({
+                        ...props,
+                        module: mod.module,
+                    });
+
+                    return (
                         <mod.App
-                            style={mod.style}
-                            attrs={mod.attrs}
+                            id={props.guid}
+                            {...props}
                         >
-                            <div>
-                                <ActiveButton
-                                    key={mod.guid}
-                                    style={mod.style}
-                                    attrs={mod.attrs}
-                                    guid={mod.guid}
-                                    module={mod.module}
-                                />
-                                {mod.children && this.loop(mod.children, activeId)}
-                            </div>
+                            {item.children && this.loop(item.children)}
                         </mod.App>
-                    </Wrap>
-                )}
+                    );
+                }}
             </Lazyer>
         ))
     }

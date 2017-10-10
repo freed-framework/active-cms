@@ -3,8 +3,8 @@ import React from 'react';
 import classNames from 'classnames';
 import './tab.scss';
 
-class Tabs extends React.Component<TabsProps, TabsState> {
-    constructor(props: TabsProps) {
+class Tabs extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -31,15 +31,16 @@ class Tabs extends React.Component<TabsProps, TabsState> {
 
         this.setState({
             activeId,
-        })
+        });
     }
 
     public render(): JSX.Element {
-        const { style } = this.props;
+        const { style, id } = this.props;
         const { data, activeId } = this.state;
 
         return (
             <div
+                id={id}
                 className="ac-tabs"
                 style={{
                     ...(style && {...style.layout})
