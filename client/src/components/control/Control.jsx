@@ -10,7 +10,7 @@ class Control extends PureComponent {
 
         this.state = {
             // 可操作的组件的基本信息
-            info: {},
+            rect: {},
 
             // 鼠标悬停的可操作组件的 ID
             hoverId: null,
@@ -25,7 +25,7 @@ class Control extends PureComponent {
         if (this.state.hoverId !== nextProps.hoverId) {
             this.setState({
                 hoverId: nextProps.hoverId,
-                info: nextProps.info,
+                rect: nextProps.rect,
             })
         }
     }
@@ -49,13 +49,13 @@ class Control extends PureComponent {
     }
 
     render() {
-        const { info } = this.state;
-console.log(info)
+        const { rect } = this.state;
+
         return (
             <div
                 className="ec-edit-control"
                 style={{
-                    ...info
+                    ...rect
                 }}
             >
                 {this.renderLine(['top', 'right', 'bottom', 'left'])}

@@ -133,12 +133,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            info: {
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-            },
+            rect: {},
             hoverId: null,
             data: [],
         };
@@ -185,15 +180,15 @@ class App extends Component {
             const guid = target.getAttribute('id');
 
             if (guid) {
-                const info = {
-                    width: target.offsetWidth,
-                    height: target.offsetHeight,
-                    left: target.offsetLeft,
-                    top: target.offsetTop,
-                };
+                const rect = target.getBoundingClientRect();
 
                 this.setState({
-                    info,
+                    rect: {
+                        width: rect.width,
+                        height: rect.height,
+                        left: rect.left + window.scrollX,
+                        top: rect.top + window.scrollY,
+                    },
                     hoverId: guid,
                 });
             }
@@ -324,13 +319,13 @@ class App extends Component {
     }
 
     render() {
-        const { info, hoverId } = this.state;
+        const { rect, hoverId } = this.state;
 
         return (
             <div>
                 <Control
                     hoverId={hoverId}
-                    info={info}
+                    rect={rect}
                 />
 
                 {/* Top Menu */}
