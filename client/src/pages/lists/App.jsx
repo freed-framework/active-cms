@@ -2,7 +2,7 @@
  * @file App.jsx
  * @author shijh
  *
- * 页面预览页面
+ * 列表页面
  */
 
 import React, { Component } from 'react';

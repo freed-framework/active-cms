@@ -69,3 +69,8 @@ export const deletePage = (id) => http.get(`${apiHost}/page/remove/${id}`);
  * - title {string} 页面title
  */
 export const forkPage = (params) => http.post(`${apiHost}/page/update/fork`, params);
+
+/**
+ * 获取所有的用户
+ */
+export const fetchAllUsers = () => http.get(`${apiHost}/users`);

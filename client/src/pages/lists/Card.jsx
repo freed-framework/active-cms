@@ -3,17 +3,24 @@ import PropTypes from 'prop-types'
 import Font from 'font';
 import classnames from 'classnames';
 import moment from 'moment';
-import { Modal, Input } from 'antd';
+import { Modal, Input, Select, message } from 'antd';
 
-import { deletePage, forkPage } from '../../server';
+import { deletePage, forkPage, fetchAllUsers } from '../../server';
 
 const confirm = Modal.confirm;
+
+const Option = Select.Option;
 
 export default class componentName extends Component {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
         onFetchList: PropTypes.func, 
+    }
+
+    constructor(props) {
+        super(props);
+        this.users = [];
     }
 
     showConfirm = (callback, defaultValue) => {
@@ -66,6 +73,61 @@ export default class componentName extends Component {
                 this.props.onFetchList()
             })
         }, data.title);
+    }
+
+    handleUserChange = (users) => {
+        this.users = users;
+    }
+
+    handleShareOk = (users) => {
+        const { data = {} } = this.props;
+        const pageId = data._id;
+        const shareData = this.users.map((item) => {
+            for (let i = 0; i < users.length; i++) {
+                if (item === users[i].userDspName) {
+                    return {
+                        pageId,
+                        userId: users[i]._id
+                    };
+                }
+            }
+        })
+        if (!shareData.length) {
+            message.error('请选择用户');
+            return false;
+        }
+        
+    }
+
+    handleShare = () => {
+        fetchAllUsers().then((res) => {
+            confirm({
+                title: '请选择要分享的人',
+                content: this.renderSelect(res.data),
+                onOk: () => this.handleShareOk(res.data),
+                onCancel() {},
+            });
+        })
+    }
+
+    renderSelect = (users) => {
+        return (
+            <Select
+                showSearch
+                mode="multiple"
+                placeholder="请选择需要分享的人"
+                onChange={this.handleUserChange}
+                style={{ width: '100%' }}
+            >
+                { 
+                    users.map((item) => {
+                        return (
+                            <Option key={item.userDspName} item={item}>{item.userDspName}</Option>
+                        )
+                    })
+                }
+            </Select>
+        )
     }
 
     render() {
@@ -140,6 +202,13 @@ export default class componentName extends Component {
                             >
                                 <Font type="trash-can" />
                                 <span className="page-list-card-text">删除</span>
+                            </li>
+                            <li
+                                className="page-list-card-icon page-list-card-icon-hover"
+                                onClick={this.handleShare}
+                            >
+                                <Font type="move" />
+                                <span className="page-list-card-text">分享</span>
                             </li>
                         </ul>
                     </div>
