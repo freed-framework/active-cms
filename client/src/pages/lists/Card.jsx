@@ -3,14 +3,32 @@ import PropTypes from 'prop-types'
 import Font from 'font';
 import classnames from 'classnames';
 import moment from 'moment';
+import { Modal, Input } from 'antd';
 
-import { deletePage } from '../../server';
+import { deletePage, forkPage } from '../../server';
+
+const confirm = Modal.confirm;
 
 export default class componentName extends Component {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
         onFetchList: PropTypes.func, 
+    }
+
+    showConfirm = (callback, defaultValue) => {
+        confirm({
+            title: '请输入页面标题',
+            content: <Input onChange={this.handleChange} defaultValue={defaultValue} />,
+            onOk: callback,
+            onCancel() {},
+        });
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            title: e.target.value
+        })
     }
 
     handleEdit = () => {
@@ -25,9 +43,29 @@ export default class componentName extends Component {
 
     handleDelete = () => {
         const { data = {} } = this.props;
-        deletePage(data._id).then(() => {
-            this.props.onFetchList()
-        })
+        confirm({
+            title: '提示',
+            content: '确认删除？',
+            onOk: () => {
+                deletePage(data._id).then(() => {
+                    this.props.onFetchList()
+                })
+            },
+            onCancel() {},
+        });
+    }
+
+    handleFork = () => {
+        const { data = {} } = this.props;
+        this.showConfirm(() => {
+            const { title } = this.state;
+            forkPage({
+                id: data._id,
+                title
+            }).then(() => {
+                this.props.onFetchList()
+            })
+        }, data.title);
     }
 
     render() {
@@ -55,12 +93,19 @@ export default class componentName extends Component {
                             { data.title }
                         </span>
                         <span className={'page-list-card-title-right'}>
-                            { moment(data.createTime).locale('zh-cn').fromNow() }
+                            {
+                                data.fork
+                                    ? moment(data.forkTime).locale('zh-cn').fromNow()
+                                    : moment(data.createTime).locale('zh-cn').fromNow()
+                            }
                         </span>
                     </p>
                     <div>
                         <ul className="page-list-card-button-wrap">
-                            <li className="page-list-card-icon">
+                            <li
+                                className="page-list-card-icon page-list-card-icon-hover"
+                                onClick={this.handleFork}
+                            >
                                 <Font type="streetsign" />
                                 <span className="page-list-card-text">{data.forkNum}</span>
                             </li>

@@ -51,4 +51,12 @@ export const listsPage = (params) => http.get(`${apiHost}/page/lists`, params);
  * 通过id删除指定页面
  * - id {string} 页面id
  */
-export const deletePage = (id) => http.get(`${apiHost}/page/remove/${id}`)
+export const deletePage = (id) => http.get(`${apiHost}/page/remove/${id}`);
+
+/**
+ * 通过id fork 页面
+ * params 参数包含
+ * - id {string} 页面id
+ * - title {string} 页面title
+ */
+export const forkPage = (params) => http.post(`${apiHost}/page/update/fork`, params);

@@ -17,17 +17,20 @@ body {
 
 .page-list-card {
     float: left;
-    margin: -3px 0 10px 14px;
+    margin: -3px 0 14px 14px;
     padding-bottom: 19px;
     width: $boxColor;
-    border: 3px solid #f8f8f8;
+    border: 1px solid #f8f8f8;
     background: #ffffff;
     border-radius: 4px;
     animation-duration: .75s;
+    box-shadow: 4px 4px 10px #f8f8f8;
 
     &:hover {
-        border: 3px solid #ff6136;
+        border: 1px solid #8D8D8D;
+        transform: translate3d(0, -1px, 0);
     }
+
     overflow: hidden;
     &-img {
         width: $boxColor;
@@ -37,7 +40,7 @@ body {
     }
     &-title {
         overflow: hidden;
-        padding: 4px 0;
+        padding: 10px 0;
         &-left {
             float: left;
         }
@@ -47,18 +50,19 @@ body {
     }
     &-button-wrap {
         overflow: hidden;
-        vertical-align: middle
     }
     &-icon {
         float: left;
         margin-right: 10px;
         span:first-child {
-            margin-right: 1px;
+            margin-right: 2px;
             font-size: 16px;
+            vertical-align: middle
         }
     }
     &-text {
         color: #999999;
+        vertical-align: middle
     }
     &-icon-hover {
         cursor: pointer;
