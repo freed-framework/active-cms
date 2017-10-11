@@ -84,6 +84,12 @@ class Panel extends PureComponent {
                 isVisible: true,
                 data: this._data,
             });
+        } else {
+            // 隐藏 panel
+            this.setState({
+                activeId: null,
+                isVisible: false,
+            });
         }
     }
 
