@@ -23,7 +23,7 @@ export default class TopMenu extends Component {
     render() {
         return (
             <div
-                className="as-editor-banner"
+                className="as-editor-banner as-editor-banner-list"
             >
                 <Row>
                     <Col span={4} className="as-editor-banner-left">

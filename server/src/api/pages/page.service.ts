@@ -49,7 +49,7 @@ export class PageService {
     async pagingQuery(param, query) {
         const {
             page = 1, pageSize = 10, populate = '',
-            title = '', sortParams = { createTime: -1 }
+            title = '', sortParams = { forkNum: 1 }
         } = param;
 
         const start = (page - 1) * pageSize;

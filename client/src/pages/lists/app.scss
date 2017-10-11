@@ -5,16 +5,17 @@ $boxColor: 280px;
 body {
     margin: 0;
     padding: 0;
+    background: #FCFCFC;
 }
 
-.page-list-wrap {
-    background: #FCFCFC;
+.page-list-pagin {
+    padding-bottom: 40px;
 }
 
 .page-list-pagin, .page-list-wrap {
     overflow: hidden;
     padding-top: 20px;
-    margin: 0 auto;
+    margin: 50px auto;
     width: 1200px;
     text-align: center;
 }
@@ -33,7 +34,7 @@ body {
     background: #ffffff;
     border-radius: 4px;
     animation-duration: .75s;
-    box-shadow: 4px 4px 10px #f8f8f8;
+    box-shadow: 4px 4px 10px #eee;
 
     &:hover {
         border: 1px solid #8D8D8D;

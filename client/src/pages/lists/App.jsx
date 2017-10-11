@@ -91,8 +91,9 @@ class List extends Component {
                     }
                 </div>
                 {
-                    lists.length !== 0 &&
-                    <div
+                    lists.length === 0 && page === '1'
+                    ? null
+                    : <div
                         className={'page-list-pagin'}
                     >
                         <Pagination
