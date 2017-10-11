@@ -48,6 +48,15 @@ export const publishPage = (params) => http.post(`${apiHost}/page/publish`, para
 export const listsPage = (params) => http.get(`${apiHost}/page/lists`, params);
 
 /**
+ * 通过title查询列表
+ * params 参数包含
+ * - pageSize {number} 每页多少条
+ * - page {number} 当前第几页
+ * - content {string} 页面title 模糊查询
+ */
+export const listsPageByTitle = (params) => http.get(`${apiHost}/page/queryByTitle`, params)
+
+/**
  * 通过id删除指定页面
  * - id {string} 页面id
  */

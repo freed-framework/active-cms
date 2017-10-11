@@ -10,13 +10,14 @@ import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 
 import Card from './Card';
-import { listsPage } from '../../server';
+import { listsPageByTitle } from '../../server';
 import { TopMenu } from '../../components';
 import './app.scss';
 
 class List extends Component {
     static propTypes = {
-
+        match: PropTypes.objectOf(PropTypes.any),
+        history: PropTypes.objectOf(PropTypes.any),
     }
 
     constructor(props) {
@@ -33,7 +34,7 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.getPageList({...this.params})
+        this.getPageList({...this.params});
     }
 
     onShowSizeChange = (page, pageSize) => {
@@ -48,48 +49,63 @@ class List extends Component {
         this.getPageList({...this.params})
     }
 
-    getPageList(params) {
-        listsPage(params).then((res) => {
+    getPageList = (params) => {
+        listsPageByTitle(params).then((res) => {
             this.setState({
                 data: res.data
             })
         })
     }
 
+    handleSearch = (value) => {
+        const params = {
+            page: 1,
+            pageSize: this.params.pageSize,
+            content: value
+        }
+        this.params = params;
+        this.getPageList(this.params)
+    }
+
     render() {
         const { data = {} } = this.state;
         const { lists = [], pageSize, page, total } = data;
-        const { history } = this.props;
+        const { history, match } = this.props;
         return (
             <div>
-                <TopMenu.List history={history} />
+                <TopMenu.List history={history} onSearch={this.handleSearch} />
                 <div
                     className={'page-list-wrap'}
                 >
                     {
-                        lists.map((item) => {
-                            return <Card
-                                key={item._id}
-                                data={item}
-                                history={history}
-                                onFetchList={this.handleFetchList}
-                            />
-                        })
+                        lists.length === 0
+                            ? <div className='page-list-empty'>暂无数据...</div>
+                            : lists.map((item) => {
+                                return <Card
+                                    key={item._id}
+                                    data={item}
+                                    history={history}
+                                    onFetchList={this.handleFetchList}
+                                />
+                            })
                     }
                 </div>
-                <div
-                    className={'page-list-pagin'}
-                >
-                    <Pagination
-                        showSizeChanger
-                        showQuickJumper
-                        onChange={this.onShowSizeChange}
-                        onShowSizeChange={this.onShowSizeChange}
-                        pageSize={parseInt(pageSize, 10)}
-                        current={parseInt(page, 10)}
-                        total={total}
-                    />
-                </div>
+                {
+                    lists.length !== 0 &&
+                    <div
+                        className={'page-list-pagin'}
+                    >
+                        <Pagination
+                            showSizeChanger
+                            showQuickJumper
+                            onChange={this.onShowSizeChange}
+                            onShowSizeChange={this.onShowSizeChange}
+                            pageSize={parseInt(pageSize, 10)}
+                            current={parseInt(page, 10)}
+                            total={total}
+                        />
+                    </div>
+                }
             </div>
         )
     }

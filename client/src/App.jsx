@@ -32,6 +32,7 @@ const App = () => (
             <Route exact path="/new" component={Editor} />
             <Route exact path="/view/:id" component={Viewer} />
             <Route exact path="/lists" component={List} />
+            <Route exact path="/lists/:text" component={List} />
         </div>
     </BrowserRouter>
 )

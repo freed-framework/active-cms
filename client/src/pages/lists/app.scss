@@ -7,12 +7,21 @@ body {
     padding: 0;
 }
 
+.page-list-wrap {
+    background: #FCFCFC;
+}
+
 .page-list-pagin, .page-list-wrap {
     overflow: hidden;
     padding-top: 20px;
     margin: 0 auto;
     width: 1200px;
     text-align: center;
+}
+ 
+.page-list-empty {
+    color: #999;
+    margin: 30px auto;
 }
 
 .page-list-card {
@@ -72,5 +81,17 @@ body {
                 
             }
         }
+    }
+
+    &-imgWrap {
+        position: relative;
+    }
+    &-pendant {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #999999;
+        width: 80px;
+        height: 80px;
     }
 }

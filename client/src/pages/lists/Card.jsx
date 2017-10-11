@@ -79,11 +79,22 @@ export default class componentName extends Component {
                     })
                 }
             >
-                <div>
+                <div
+                    className='page-list-card-imgWrap'
+                >
                     <img
                         className={'page-list-card-img'}
                         src="http://img06.tooopen.com/images/20170913/tooopen_sl_224452948149.jpg"
                     />
+                    {/* <div
+                        className={
+                            classnames('page-list-card-pendant', {
+                                'page-list-card-pendant-fork': data.fork
+                            })
+                        }
+                    >
+                        {data.fork ? 'fork' : '原'}
+                    </div> */}
                 </div>
                 <div className={'page-list-card-button'}>
                     <p 
