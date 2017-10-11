@@ -1,0 +1,72 @@
+@import "../../../style/reset.css";
+
+$boxColor: 280px;
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.page-list-pagin, .page-list-wrap {
+    overflow: hidden;
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 1200px;
+    text-align: center;
+}
+
+.page-list-card {
+    float: left;
+    margin: -3px 0 10px 14px;
+    padding-bottom: 19px;
+    width: $boxColor;
+    border: 3px solid #f8f8f8;
+    background: #ffffff;
+    border-radius: 4px;
+    animation-duration: .75s;
+
+    &:hover {
+        border: 3px solid #ff6136;
+    }
+    overflow: hidden;
+    &-img {
+        width: $boxColor;
+    }
+    &-button {
+        padding: 0 10px;
+    }
+    &-title {
+        overflow: hidden;
+        padding: 4px 0;
+        &-left {
+            float: left;
+        }
+        &-right {
+            float: right;
+        }
+    }
+    &-button-wrap {
+        overflow: hidden;
+        vertical-align: middle
+    }
+    &-icon {
+        float: left;
+        margin-right: 10px;
+        span:first-child {
+            margin-right: 1px;
+            font-size: 16px;
+        }
+    }
+    &-text {
+        color: #999999;
+    }
+    &-icon-hover {
+        cursor: pointer;
+        &:hover {
+            span {
+                color: #333;
+                
+            }
+        }
+    }
+}

@@ -295,7 +295,7 @@ class App extends Component {
                     "content":  this.state.data
                 }).then((res) => {
                     message.success('保存成功')
-                    this.props.history.replace(`/${res.data.id}${location.hash}`)
+                    this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
                 })
             })
         }

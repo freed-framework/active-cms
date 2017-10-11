@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import Editor from './pages/editor/App';
 import Viewer from './pages/viewer/App';
-import Store from './pages/store/App';
+import List from './pages/lists/App';
 
 const getConfirmation = (message, callback) => {
     const allowTransition = window.confirm(message);
@@ -27,10 +27,11 @@ const App = () => (
         keyLength={12}
     >
         <div>
-            <Route exact path="/" component={Editor} />
-            <Route exact path="/:id" component={Editor} />
-            <Route exact path="/view" component={Viewer} />
-            <Route exact path="/store" component={Store} />
+            <Route exact path="/" component={List} />
+            <Route exact path="/edit/:id" component={Editor} />
+            <Route exact path="/new" component={Editor} />
+            <Route exact path="/view/:id" component={Viewer} />
+            <Route exact path="/lists" component={List} />
         </div>
     </BrowserRouter>
 )

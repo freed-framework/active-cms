@@ -37,3 +37,18 @@ export const editPage = (params) => http.post(`${apiHost}/page/update`, params);
  * - type {boolean} 发布或者不发布页面
  */
 export const publishPage = (params) => http.post(`${apiHost}/page/publish`, params);
+
+
+/**
+ * 获取列表
+ * params 参数包含
+ * - pageSize {number} 每页多少条
+ * - page {number} 当前第几页
+ */
+export const listsPage = (params) => http.get(`${apiHost}/page/lists`, params);
+
+/**
+ * 通过id删除指定页面
+ * - id {string} 页面id
+ */
+export const deletePage = (id) => http.get(`${apiHost}/page/remove/${id}`)
