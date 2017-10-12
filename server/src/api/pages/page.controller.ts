@@ -12,18 +12,6 @@ import Utils from '../../common/utils';
 import CommonService from '../../common/common.service';
 // import * as RenderPage from '../../../../client/server/page';
 
-function getData(url, callback) {
-    http.get(`http://localhost:4000/${url}`, (res) => {
-        var result = ''
-        res.on('data', function(data) {
-            result += data;
-        });
-        res.on('end', (data) => {
-            callback && callback(`<script>${result}</script>`);
-        })
-    })
-}
-
 @Controller('page')
 export class PageController {
     constructor(private service: PageService) {}

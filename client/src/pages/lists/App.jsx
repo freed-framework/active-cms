@@ -7,12 +7,24 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'antd';
+import { Pagination, BackTop } from 'antd';
 
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../server';
 import { TopMenu } from '../../components';
 import './app.scss';
+
+window.user = {
+    "_id": "59dae48589b19208c0947821",
+    "userName": "22qwe7",
+    "password": "12qwaszx",
+    "userDspName": "huazaierli2",
+    "phone": 18381333613,
+    "email": "755836844@qq.com",
+    "activity": true,
+    "birthday": "2017-10-09T02:52:53.330Z",
+    "sex": 1
+}
 
 class List extends Component {
     static propTypes = {
@@ -67,6 +79,10 @@ class List extends Component {
             fetch = listsPage;
         }
 
+        this.setState({
+            current: type || 'publish'
+        })
+
         fetch(param).then((res) => {
             this.setState({
                 data: res.data
@@ -89,9 +105,10 @@ class List extends Component {
     }
 
     render() {
-        const { data = {} } = this.state;
+        const { data = {}, current } = this.state;
         const { lists = [], pageSize, page, total } = data;
         const { history, match } = this.props;
+
         return (
             <div>
                 <TopMenu.List history={history} match={match} onSearch={this.handleSearch} />
@@ -103,6 +120,7 @@ class List extends Component {
                             ? <div className='page-list-empty'>暂无数据...</div>
                             : lists.map((item) => {
                                 return <Card
+                                    current={current}
                                     key={item._id}
                                     data={item.shareTime ? item.page : item}
                                     history={history}
@@ -128,6 +146,7 @@ class List extends Component {
                         />
                     </div>
                 }
+                <BackTop />
             </div>
         )
     }

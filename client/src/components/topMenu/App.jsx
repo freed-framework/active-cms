@@ -79,14 +79,14 @@ class TopMenu extends Component {
                             发布
                         </Button>
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                             onClick={this.handleGoBack}
                         >
                             返回
                         </Button>
                         <Button
-                            className="as-editor-btn as-editor-btn-red"
+                            className="ec-editor-btn ec-editor-btn-red"
                             size="small"
                         >
                             退出

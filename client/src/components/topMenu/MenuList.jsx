@@ -85,9 +85,9 @@ export default class TopMenu extends Component {
                     <Col span={4} className="ec-editor-banner-left">
                         <span>Static</span>
                     </Col>
-                    <Col span={8} className="as-editor-banner-center">
+                    <Col span={8} className="ec-editor-banner-center">
                     </Col>
-                    <Col span={12} className="as-editor-banner-right">
+                    <Col span={12} className="ec-editor-banner-right">
                         {
                             current !== 'share' &&
                             <Search

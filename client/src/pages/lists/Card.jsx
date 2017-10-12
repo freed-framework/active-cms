@@ -15,7 +15,8 @@ export default class componentName extends Component {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
-        onFetchList: PropTypes.func, 
+        onFetchList: PropTypes.func,
+        current: PropTypes.string,
     }
 
     constructor(props) {
@@ -54,9 +55,13 @@ export default class componentName extends Component {
             title: '提示',
             content: '确认删除？',
             onOk: () => {
-                deletePage(data._id).then(() => {
-                    this.props.onFetchList()
-                })
+                deletePage(data._id)
+                    .then(() => {
+                        this.props.onFetchList()
+                    })
+                    .catch(() => {
+                        message.error('删除页面失败')
+                    })
             },
             onCancel() {},
         });
@@ -152,7 +157,10 @@ export default class componentName extends Component {
     }
 
     render() {
-        const { data = {} } = this.props;
+        const { data = {}, current } = this.props;
+
+        const isOwer = user._id === data.owerUser._id;
+
         return (
             <div
                 className={classnames(
@@ -203,13 +211,16 @@ export default class componentName extends Component {
                                 <Font type="streetsign" />
                                 <span className="page-list-card-text">{data.forkNum}</span>
                             </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleEdit}
-                            >
-                                <Font type="clipboard-edit" />
-                                <span className="page-list-card-text">编辑</span>
-                            </li>
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleEdit}
+                                >
+                                    <Font type="clipboard-edit" />
+                                    <span className="page-list-card-text">编辑</span>
+                                </li>
+                            }
                             <li
                                 className="page-list-card-icon page-list-card-icon-hover"
                                 onClick={this.handleView}
@@ -217,27 +228,36 @@ export default class componentName extends Component {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleDelete}
-                            >
-                                <Font type="trash-can" />
-                                <span className="page-list-card-text">删除</span>
-                            </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleShare}
-                            >
-                                <Font type="move" />
-                                <span className="page-list-card-text">分享</span>
-                            </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleUpload}
-                            >
-                                <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
-                                <span className="page-list-card-text">{data.publish ? '取消发布' : '发布'}</span>
-                            </li>
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleDelete}
+                                >
+                                    <Font type="trash-can" />
+                                    <span className="page-list-card-text">删除</span>
+                                </li>
+                            }
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleShare}
+                                >
+                                    <Font type="move" />
+                                    <span className="page-list-card-text">分享</span>
+                                </li>
+                            }
+                            {
+                                current !== 'publish' && isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleUpload}
+                                >
+                                    <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
+                                    <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

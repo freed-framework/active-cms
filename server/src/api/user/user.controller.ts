@@ -19,9 +19,17 @@ export class UsersController {
     ) { }
 
     @Get()
-    async getAllUsers(@Response() res) {
+    async getAllUsers(@Request() req, @Response() res) {
+        const { user } = req.session;
         const users = await this.service.getAllUsers();
-        res.status(HttpStatus.OK).json(CommonService.commonResponse(users));
+
+        const filter = users.filter((item) => {
+            if (item._id != user._id) {
+                return item
+            }
+        })
+
+        res.status(HttpStatus.OK).json(CommonService.commonResponse(filter));
     }
 
     @Get('/find')
@@ -35,10 +43,12 @@ export class UsersController {
     async login(@Request() req, @Response() res, @Body() body) {
         const { user = {} } = req.session;
         const { password, userName } = body;
+
         const result = await this.service.login({
             password,
             userName
         });
+
         if (result) {
             var token = uuid.v1();
             // 设置token在session
@@ -57,6 +67,7 @@ export class UsersController {
             );
             res.status(HttpStatus.OK).json(CommonService.loginOk({id: result._id}));
         }
+
         res.status(HttpStatus.OK).json(CommonService.loginError({}));
     }
 
@@ -64,6 +75,7 @@ export class UsersController {
     async logout(@Request() req, @Response() res) {
         req.session.token = null;
         req.session.user = {};
+
         res.status(HttpStatus.OK).json({
             message: '退出成功',
             code: 200,
@@ -76,6 +88,7 @@ export class UsersController {
     async addUser(@Response() res, @Body() body) {
         const { userName, password, ...params } = body;
         const user = await this.service.getUser({ userName });
+
         if (user) {
             throw new HttpException({
                 code: 500,
@@ -83,6 +96,7 @@ export class UsersController {
                 data: []
             }, 200);
         }
+
         const msg = await this.service.addUser(body)
         res.status(HttpStatus.OK).json(CommonService.commonResponse(msg));
     }
