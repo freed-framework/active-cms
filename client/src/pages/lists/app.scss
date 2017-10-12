@@ -38,7 +38,7 @@ body {
 
     &:hover {
         border: 1px solid #8D8D8D;
-        transform: translate3d(0, -1px, 0);
+        // transform: translate3d(0, -1px, 0);
     }
 
     overflow: hidden;
@@ -60,6 +60,7 @@ body {
     }
     &-button-wrap {
         overflow: hidden;
+        line-height: 24px;
     }
     &-icon {
         float: left;

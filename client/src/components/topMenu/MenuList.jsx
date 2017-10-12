@@ -1,15 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Font from 'font';
-import { Row, Col, Button, Icon, Input } from 'antd';
+import { Row, Col, Button, Icon, Input, Select } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
 
 const Search = Input.Search;
+const Option = Select.Option;
+
+const routes = {
+    pulish: '/lists/publish',
+    my: '/lists/my',
+    share: '/lists/share'
+}
 
 export default class TopMenu extends Component {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
         onSearch: PropTypes.func,
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            current: 'publish'
+        }
+    }
+
+    componentDidMount() {
+        this.setCurrent()
+    }
+
+    setCurrent = () => {
+        const { match } = this.props;
+        const { params } = match;
+        const { type = '' } = params;
+
+        switch (type) {
+            case 'publish':
+            case '':
+                this.setState({
+                    current: 'pulish'
+                })
+                break;
+            case 'my':
+                this.setState({
+                    current: 'my'
+                })
+                break;
+            case 'share':
+                this.setState({
+                    current: 'share'
+                })
+                break;
+            default:
+                break;
+        }
     }
 
     handleAdd = () => {
@@ -20,7 +66,17 @@ export default class TopMenu extends Component {
         this.props.onSearch(value)
     }
 
+    handleChange = (value) => {
+        this.setState({
+            current: value
+        }, () => {
+            this.props.history.push(routes[value])
+        })
+    }
+
     render() {
+        const { current } = this.state;
+
         return (
             <div
                 className="as-editor-banner as-editor-banner-list"
@@ -29,14 +85,27 @@ export default class TopMenu extends Component {
                     <Col span={4} className="as-editor-banner-left">
                         <span>Static</span>
                     </Col>
-                    <Col span={10} className="as-editor-banner-center">
+                    <Col span={8} className="as-editor-banner-center">
                     </Col>
-                    <Col span={10} className="as-editor-banner-right">
-                        <Search
-                            placeholder="搜索标题"
-                            style={{ width: 200 }}
-                            onSearch={this.handleSearch}
-                        />
+                    <Col span={12} className="as-editor-banner-right">
+                        {
+                            current !== 'share' &&
+                            <Search
+                                placeholder="搜索标题"
+                                style={{ width: 200 }}
+                                onSearch={this.handleSearch}
+                            />
+                        }
+                        <Select
+                            style={{ width: 120, marginLeft: '10px' }}
+                            placeholder="请选择"
+                            value={current}
+                            onChange={this.handleChange}
+                        >
+                            <Option key="pulish">所有发布页面</Option>
+                            <Option key="my">我的页面</Option>
+                            <Option key="share">分享给我的页面</Option>
+                        </Select>
                         <Button
                             className="as-editor-btn"
                             size="small"

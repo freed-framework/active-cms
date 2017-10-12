@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message } from 'antd';
 
-import { deletePage, forkPage, fetchAllUsers, sharePage } from '../../server';
+import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../server';
 
 const confirm = Modal.confirm;
 
@@ -133,6 +133,24 @@ export default class componentName extends Component {
         )
     }
 
+    handleUpload = () => {
+        const { data = {} } = this.props;
+        confirm({
+            title: '提示',
+            content: `确认${data.publish ? '取消发布' : '发布页面'}？`,
+            onOk: () => {
+                publishPage({id: data._id, type: !data.publish })
+                    .then(() => {
+                        this.props.onFetchList()
+                    })
+                    .catch(() => {
+                        message.error(`${data.publish ? '取消发布' : '发布页面'}失败`)
+                    })
+            },
+            onCancel() {},
+        });
+    }
+
     render() {
         const { data = {} } = this.props;
         return (
@@ -212,6 +230,13 @@ export default class componentName extends Component {
                             >
                                 <Font type="move" />
                                 <span className="page-list-card-text">分享</span>
+                            </li>
+                            <li
+                                className="page-list-card-icon page-list-card-icon-hover"
+                                onClick={this.handleUpload}
+                            >
+                                <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
+                                <span className="page-list-card-text">{data.publish ? '取消发布' : '发布'}</span>
                             </li>
                         </ul>
                     </div>

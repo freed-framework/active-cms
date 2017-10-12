@@ -42,6 +42,7 @@ export class ShareController {
     async lists(@Request() req, @Response() res) {
         const { query, session } = req;
         const { user } = session;
+        const { content = '' } = query;
         let result = await this.service.query(query, { user: user._id });
         res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
     }

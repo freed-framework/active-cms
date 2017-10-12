@@ -339,6 +339,7 @@ class App extends Component {
 
     render() {
         const { rect, hoverId } = this.state;
+        const { history } = this.props;
 
         return (
             <div>
@@ -348,7 +349,7 @@ class App extends Component {
                 />
 
                 {/* Top Menu */}
-                <TopMenu />
+                <TopMenu history={history} />
 
                 {/* 模块 */}
                 <div className="as-editor-canvas">

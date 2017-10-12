@@ -33,8 +33,20 @@ class List extends Component {
         }
     }
 
-    componentDidMount() { 
+    componentDidMount() {
+        const { history } = this.props;
+
+        this.unPage = history.listen(loc => {
+            loc.pathname.replace(/\/lists\/(.*)/g, ($0, $1) => {
+                this.getPageList({...this.params}, $1);
+            })
+        })
+
         this.getPageList({...this.params});
+    }
+
+    componentWillUnmount() {
+        this.unPage();
     }
 
     onShowSizeChange = (page, pageSize) => {
@@ -45,26 +57,25 @@ class List extends Component {
         this.getPageList({...this.params})
     }
 
-    handleFetchList = () => {
-        this.getPageList({...this.params})
-    }
-
-    getPageList = (param) => {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-        const { type = '' } = params;
+    getPageList = (param, page) => {
+        const type = page || this.props.match.params.type;
         let fetch = listsPageByTitle;
+
         if (type === 'share') {
             fetch = shareList;
-        }
-        else if (type === 'my') {
+        } else if (type === 'my') {
             fetch = listsPage;
         }
+
         fetch(param).then((res) => {
             this.setState({
                 data: res.data
             })
         })
+    }
+
+    handleFetchList = () => {
+        this.getPageList({...this.params})
     }
 
     handleSearch = (value) => {
@@ -80,10 +91,10 @@ class List extends Component {
     render() {
         const { data = {} } = this.state;
         const { lists = [], pageSize, page, total } = data;
-        const { history } = this.props;
+        const { history, match } = this.props;
         return (
             <div>
-                <TopMenu.List history={history} onSearch={this.handleSearch} />
+                <TopMenu.List history={history} match={match} onSearch={this.handleSearch} />
                 <div
                     className={'page-list-wrap'}
                 >
