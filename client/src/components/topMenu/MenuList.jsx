@@ -23,29 +23,29 @@ export default class TopMenu extends Component {
     render() {
         return (
             <div
-                className="as-editor-banner as-editor-banner-list"
+                className="ec-editor-banner ec-editor-banner-list"
             >
                 <Row>
-                    <Col span={4} className="as-editor-banner-left">
+                    <Col span={4} className="ec-editor-banner-left">
                         <span>Static</span>
                     </Col>
-                    <Col span={10} className="as-editor-banner-center">
+                    <Col span={10} className="ec-editor-banner-center">
                     </Col>
-                    <Col span={10} className="as-editor-banner-right">
+                    <Col span={10} className="ec-editor-banner-right">
                         <Search
                             placeholder="搜索标题"
                             style={{ width: 200 }}
                             onSearch={this.handleSearch}
                         />
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                             onClick={this.handleAdd}
                         >
                             新建
                         </Button>
                         <Button
-                            className="as-editor-btn as-editor-btn-red"
+                            className="ec-editor-btn ec-editor-btn-red"
                             size="small"
                         >
                             退出

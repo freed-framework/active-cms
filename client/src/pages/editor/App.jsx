@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
-
 import { addPage, getPage, editPage } from '../../server';
 import { Editor, Panel, TopMenu, Control } from '../../components';
 import mitt from 'mitt';
@@ -64,12 +63,13 @@ export const editComponent = (event, type) => {
 }
 
 /**
- * 
- * @param {Object} event 编辑参数 
- * @param {string|undefined} type 编辑的属性
+ * 编辑的属性
+ * @param option 传递
+ * @param type 编辑的属性
  */
-export const editComponentByOption = (option, type) => {
+export const editComponentByType = (option, type) => {
     const { guid, attr, target, value } = option;
+
     emitter.emit('edit', {
         guid,
         attr,
@@ -129,6 +129,22 @@ const createChildren = (data, guid, value) => {
     return $new.toJS();
 }
 
+/**
+ * 获取元素的基本信息
+ * @param target
+ * @return {{width: Number, height: Number, left: number, top: number}}
+ */
+const getRect = (target) => {
+    const rect = target.getBoundingClientRect();
+
+    return {
+        width: rect.width,
+        height: rect.height,
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+    }
+}
+
 class App extends Component {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
@@ -140,6 +156,7 @@ class App extends Component {
         this.state = {
             rect: null,
             hoverId: null,
+            activeId: null,
             data: [],
         };
 
@@ -152,10 +169,10 @@ class App extends Component {
 
         emitter.on('delete', this.mittDelete);
         emitter.on('add', this.mittAdd);
+        emitter.on('save', this.mittSave);
         emitter.on('edit', this.mittEdit);
         emitter.on('active', this.mittActive);
-        emitter.on('save', this.mittSave);
-        emitter.on('viewer', this.mittViewer)
+        emitter.on('viewer', this.mittViewer);
     }
 
     componentDidMount() {
@@ -173,46 +190,75 @@ class App extends Component {
             })
         }
 
-        document.addEventListener('click', (event) => {
-            // guid 作为 id 被添加到组件上
-            const guid = event.target.getAttribute('id');
-
-            if (guid) {
-                this.mittActive(guid);
-            } else {
-                this.mittActive(null);
-            }
-        });
-
-        document.addEventListener('mouseover', (event) => {
-            const target = event.target;
-            const guid = target.getAttribute('id');
-
-            if (guid) {
-                const rect = target.getBoundingClientRect();
-
-                this.setState({
-                    rect: {
-                        width: rect.width,
-                        height: rect.height,
-                        left: rect.left + window.scrollX,
-                        top: rect.top + window.scrollY,
-                    },
-                    hoverId: guid,
-                });
-            } else {
-                this.setState({
-                    hoverId: null,
-                    rect: null,
-                })
-            }
-        });
+        this.canvas.addEventListener('click', this.handleActive);
+        this.canvas.addEventListener('mouseover', this.handleHover);
+        this.canvas.addEventListener('mouseout', this.handleOut);
     }
 
     componentWillUnmount() {
         emitter.off('delete', this.mittDelete);
         emitter.off('add', this.mittAdd);
         emitter.off('save', this.mittSave);
+        emitter.off('edit', this.mittEdit);
+        emitter.off('active', this.mittActive);
+        emitter.off('viewer', this.mittViewer);
+
+        this.canvas.removeEventListener('click', this.handleActive);
+        this.canvas.removeEventListener('mouseover', this.handleHover);
+        this.canvas.removeEventListener('mouseout', this.handleOut);
+    }
+
+    /**
+     * 激活事件
+     * @param event
+     */
+    handleActive = (event) => {
+        // guid 作为 id 被添加到组件上
+        const guid = event.target.getAttribute('id');
+
+        this.mittActive(guid);
+
+        this.setState({
+            activeId: guid,
+            activeRect: guid ? getRect(event.target) : null,
+        });
+
+        if (guid === null) {
+            this.setState({
+                rect: null,
+            })
+        }
+    }
+
+    /**
+     * 用于提示可编辑的事件
+     * @param event
+     * @param el
+     */
+    handleHover = (event) => {
+        const target = event.target;
+        const guid = target.getAttribute('id');
+
+        console.log(guid, event.target)
+        if (guid) {
+            this.setState({
+                rect: getRect(target),
+            });
+        } else {
+            // 保持激活状态
+            this.setState({
+                rect: this.state.activeRect,
+            });
+        }
+    }
+
+    /**
+     * 恢复到激活的编辑位置 or null
+     */
+    handleOut = () => {
+        this.setState({
+            rect: this.state.activeRect,
+        })
     }
 
     /**
@@ -257,8 +303,26 @@ class App extends Component {
      * @param type 修改后值
      */
     mittEdit({ guid, attr, target, value, type }) {
+        const el = document.getElementById(guid);
+
         this.setState({
             data: module.edit(guid, this.state.data, target, attr, value, type),
+        }, () => {
+            // 通知 Control 组件修改自身的宽度
+            const expr = /width|height|margin/.exec(attr);
+            if (expr) {
+                const controlAttr = expr[0];
+                const controlRect = {
+                    ...(this.state.activeRect)
+                };
+
+                controlRect[controlAttr] = parseFloat(value);
+
+                this.setState({
+                    rect: controlRect,
+                    activeRect: controlRect,
+                });
+            }
         })
     }
 
@@ -338,12 +402,11 @@ class App extends Component {
     }
 
     render() {
-        const { rect, hoverId } = this.state;
+        const { rect } = this.state;
 
         return (
             <div>
                 <Control
-                    hoverId={hoverId}
                     rect={rect}
                 />
 
@@ -351,7 +414,10 @@ class App extends Component {
                 <TopMenu />
 
                 {/* 模块 */}
-                <div className="as-editor-canvas">
+                <div
+                    ref={ref => { this.canvas = ref }}
+                    className="ec-editor-canvas"
+                >
                     <Editor
                         activeId={this.state.activeId}
                         data={this.state.data}

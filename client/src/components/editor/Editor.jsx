@@ -43,10 +43,13 @@ class Editor extends PureComponent {
         this.state = {
             activeId: props.data,
             data: props.data,
+
+            modData: [],
         }
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     componentWillUnmount() {}
 
@@ -78,13 +81,22 @@ class Editor extends PureComponent {
                         style: mod.style,
                         attrs: mod.attrs,
                         guid: mod.guid,
+                        ...mod,
                     };
+console.log(item)
+                    // this.setState({
+                    //     modData: this.props.modData.concat(props),
+                    // });
+
+                    // if (item.children) {
+                    //     this.loop(item.children);
+                    // }
 
                     // 先添加到panel 的 _data 中
-                    Panel.add({
-                        ...props,
-                        module: mod.module,
-                    });
+                    // Panel.add({
+                    //     ...props,
+                    //     module: mod.module,
+                    // });
 
                     return (
                         <mod.App
@@ -99,12 +111,18 @@ class Editor extends PureComponent {
         ))
     }
 
+    loopRender(modData) {
+        console.log(modData);
+
+        return null;
+    }
+
     render() {
         const { data, activeId } = this.state;
 
-        if (!data) {
-            return null;
-        }
+        // if (!data) {
+        //     return null;
+        // }
 
         return (
             <div>

@@ -1,4 +1,4 @@
-import Floor from './Floor';
+import Floor from './Layer';
 
 interface Config {
     name: string;
@@ -7,8 +7,8 @@ interface Config {
 }
 
 const config: Config = {
-    name: 'floor',
-    menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float', 'hotMap'],
+    name: 'layer',
+    menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap'],
     editable: {
         style: {
             layout: ['basic'],

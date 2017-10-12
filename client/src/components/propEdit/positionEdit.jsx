@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import { InputNumber } from 'antd';
 
-import { editComponent, editComponentByOption } from '../../pages/editor/App';
+import { editComponent, editComponentByType } from '../../pages/editor/App';
 
 class PositionEdit extends PureComponent {
     constructor(props) {
@@ -37,7 +37,7 @@ class PositionEdit extends PureComponent {
         this.setState({
             [option]: value
         })
-        editComponentByOption({guid, attr: option, target, value});
+        editComponentByType({guid, attr: option, target, value});
     }
 
     render() {
@@ -48,7 +48,7 @@ class PositionEdit extends PureComponent {
             <div>
                 <div>{target}</div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-top">
+                <div className="ec-editor-basic-props ec-editor-basic-props-top">
                     <label htmlFor="">上</label>
                     <InputNumber
                         min={1}
@@ -61,7 +61,7 @@ class PositionEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-left">
+                <div className="ec-editor-basic-props ec-editor-basic-props-left">
                     <label htmlFor="">左</label>
                     <InputNumber
                         min={1}
@@ -73,7 +73,7 @@ class PositionEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-right">
+                <div className="ec-editor-basic-props ec-editor-basic-props-right">
                     <label htmlFor="">右</label>
                     <InputNumber
                         min={1}
@@ -85,7 +85,7 @@ class PositionEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-buttom">
+                <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
                     <label htmlFor="">下</label>
                     <InputNumber
                         min={1}

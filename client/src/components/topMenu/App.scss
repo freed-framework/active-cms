@@ -1,6 +1,6 @@
 $padding: 20px;
 
-.as-editor-banner {
+.ec-editor-banner {
     min-width: 1200px;
     background-color: #31364a;
     height: 50px;
@@ -17,7 +17,7 @@ $padding: 20px;
         text-align: right;
         padding-right: $padding;
     }
-    .as-editor-btn {
+    .ec-editor-btn {
         background-color: #76838F;
         color: #FFFFFF;
         border: none;
@@ -34,7 +34,7 @@ $padding: 20px;
             background-color: #44CB83;
         }
     }
-    .as-editor-component {
+    .ec-editor-component {
         line-height: normal;
         height: 50px;
         &-list {

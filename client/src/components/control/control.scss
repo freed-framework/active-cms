@@ -1,17 +1,19 @@
 .ec-edit-control {
     position: absolute;
-    left: 100px;
-    top: 100px;
-    width: 300px;
-    height: 200px;
+    visibility: hidden;
     z-index: 887;
     background: rgba(0, 0, 0, 0.2);
     pointer-events: none;
 
     &-line {
         position: absolute;
-        background: #000000;
+        background: #333;
         pointer-events: visible;
+    }
+
+    &.ec-edit-control-active {
+        .ec-edit-control-line {
+        }
     }
 
     &-top, &-bottom {

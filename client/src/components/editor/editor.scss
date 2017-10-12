@@ -1,8 +1,8 @@
-.as-editor-wrap {
+.ec-editor-wrap {
     position: relative;
 }
 
-.as-editor-flag {
+.ec-editor-flag {
     width: 20px;
     height: 20px;
     line-height: 20px;
@@ -17,8 +17,8 @@
     display: none;
 }
 
-.as-editor-active {
-    .as-editor-flag {
+.ec-editor-active {
+    .ec-editor-flag {
         display: block;
     }
 }

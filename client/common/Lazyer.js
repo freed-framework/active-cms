@@ -40,7 +40,7 @@ class Lazyer extends Component {
                         mod: module
                     })
                 }
-            })
+            });
     }
 
     render() {
