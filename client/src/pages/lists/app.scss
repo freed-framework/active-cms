@@ -25,6 +25,20 @@ body {
     margin: 30px auto;
 }
 
+@keyframes pulse {
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    to {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
 .page-list-card {
     float: left;
     margin: -3px 0 14px 14px;
@@ -38,12 +52,17 @@ body {
 
     &:hover {
         border: 1px solid #8D8D8D;
-        // transform: translate3d(0, -1px, 0);
     }
 
     overflow: hidden;
     &-img {
-        width: $boxColor;
+        // width: $boxColor;
+        height: 204px;
+        &:hover {
+            animation-name: pulse;
+            animation-duration: .75s;
+            animation-fill-mode: both;
+        }
     }
     &-button {
         padding: 0 10px;

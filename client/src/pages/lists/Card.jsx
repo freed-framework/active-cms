@@ -175,7 +175,7 @@ export default class componentName extends Component {
                 >
                     <img
                         className={'page-list-card-img'}
-                        src="http://img06.tooopen.com/images/20170913/tooopen_sl_224452948149.jpg"
+                        src="http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg"
                     />
                     {/* <div
                         className={
@@ -184,7 +184,7 @@ export default class componentName extends Component {
                             })
                         }
                     >
-                        {data.fork ? 'fork' : '原'}
+                        <img src={require('../../images/yuanchuang.jpg')} />
                     </div> */}
                 </div>
                 <div className={'page-list-card-button'}>
@@ -192,7 +192,7 @@ export default class componentName extends Component {
                         className={'page-list-card-title'}
                     >
                         <span className={'page-list-card-title-left'}>
-                            { data.title }
+                            { `${data.title}` }
                         </span>
                         <span className={'page-list-card-title-right'}>
                             {
