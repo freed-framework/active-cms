@@ -75,6 +75,7 @@ class Module {
      * @param target
      * @param attr
      * @param value
+     * @param type
      * @return {any|*}
      */
     static edit(guid, data, target, attr, value, type) {

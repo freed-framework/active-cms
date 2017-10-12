@@ -34,8 +34,8 @@ class Wrap extends PureComponent {
     render() {
         const isActive = this.props.isActive || this.state.isOver;
 
-        const clsWrap = classNames('as-editor-wrap', {
-            'as-editor-active': isActive,
+        const clsWrap = classNames('ec-editor-wrap', {
+            'ec-editor-active': isActive,
         });
 
         return (

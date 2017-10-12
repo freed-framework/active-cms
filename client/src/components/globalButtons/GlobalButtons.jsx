@@ -12,10 +12,10 @@ const GlobalButtons = () => {
     return (
         <div>
             <Button
-                data-name="floor"
+                data-name="layer"
                 onClick={addComponent}
             >
-                添加楼层
+                添加布局
             </Button>
             <Button
                 data-name="fixer"

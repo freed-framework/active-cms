@@ -36,7 +36,7 @@ class ActiveButton extends PureComponent {
 
         return (
             <div
-                className="as-editor-flag"
+                className="ec-editor-flag"
                 data-guid={guid}
                 onClick={this.handleClick}
             >

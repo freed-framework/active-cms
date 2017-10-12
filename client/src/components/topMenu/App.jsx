@@ -23,18 +23,18 @@ class TopMenu extends Component {
     render() {
         return (
             <div
-                className="as-editor-banner"
+                className="ec-editor-banner"
             >
                 <Row>
-                    <Col span={4} className="as-editor-banner-left">
+                    <Col span={4} className="ec-editor-banner-left">
                         <span>Static</span>
                     </Col>
-                    <Col span={14} className="as-editor-banner-center">
-                        <ul className="as-editor-component">
+                    <Col span={14} className="ec-editor-banner-center">
+                        <ul className="ec-editor-component">
                             <li
-                                data-name="floor"
+                                data-name="layer"
                                 onClick={addComponent}
-                                className="as-editor-component-list"
+                                className="ec-editor-component-list"
                             >
                                 <Icon type="layout" />
                                 <span>楼层</span>
@@ -42,7 +42,7 @@ class TopMenu extends Component {
                             <li
                                 data-name="fix"
                                 onClick={addComponent}
-                                className="as-editor-component-list"
+                                className="ec-editor-component-list"
                             >
                                 <Icon type="user" />
                                 <span>悬停</span>
@@ -50,30 +50,30 @@ class TopMenu extends Component {
                             <li
                                 data-name="tab"
                                 onClick={addComponent}
-                                className="as-editor-component-list"
+                                className="ec-editor-component-list"
                             >
                                 <Icon type="user" />
                                 <span>Tab</span>
                             </li>
                         </ul>
                     </Col>
-                    <Col span={6} className="as-editor-banner-right">
+                    <Col span={6} className="ec-editor-banner-right">
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                             onClick={viewer}
                         >
                             预览和设置
                         </Button>
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                             onClick={saveData}
                         >
                             保存
                         </Button>
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                         >
                             发布

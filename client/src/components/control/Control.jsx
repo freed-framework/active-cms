@@ -6,6 +6,7 @@
  */
 
 import React, { PureComponent } from 'react';
+import { is } from 'immutable';
 import classNames from 'classnames';
 import './control.scss';
 
@@ -17,9 +18,11 @@ class Control extends PureComponent {
             // 可操作的组件的基本信息
             rect: props.rect || null,
 
+            // isActive: props.isActive || false,
+
             // 鼠标悬停的可操作组件的 ID
             // 注：此处暂未使用，该 control 使用的 事件穿透
-            // hoverId: props.hoverId,
+            // tipsId: props.tipsId,
         }
     }
 
@@ -28,9 +31,8 @@ class Control extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.hoverId !== nextProps.hoverId) {
+        if (!is(this.state.rect, nextProps.rect)) {
             this.setState({
-                // hoverId: nextProps.hoverId,
                 rect: nextProps.rect,
             })
         }
@@ -67,7 +69,7 @@ class Control extends PureComponent {
 
         return (
             <div
-                className="ec-edit-control"
+                className={'ec-edit-control'}
                 style={{
                     ...styles
                 }}

@@ -79,10 +79,10 @@ export default class TopMenu extends Component {
 
         return (
             <div
-                className="as-editor-banner as-editor-banner-list"
+                className="ec-editor-banner ec-editor-banner-list"
             >
                 <Row>
-                    <Col span={4} className="as-editor-banner-left">
+                    <Col span={4} className="ec-editor-banner-left">
                         <span>Static</span>
                     </Col>
                     <Col span={8} className="as-editor-banner-center">
@@ -107,14 +107,14 @@ export default class TopMenu extends Component {
                             <Option key="share">分享给我的页面</Option>
                         </Select>
                         <Button
-                            className="as-editor-btn"
+                            className="ec-editor-btn"
                             size="small"
                             onClick={this.handleAdd}
                         >
                             新建
                         </Button>
                         <Button
-                            className="as-editor-btn as-editor-btn-red"
+                            className="ec-editor-btn ec-editor-btn-red"
                             size="small"
                         >
                             退出

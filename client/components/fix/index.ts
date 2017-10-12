@@ -23,7 +23,7 @@ interface Config {
 
 const config: Config = {
     name: 'fix',
-    menus: ['floor', 'hotMap'],
+    menus: ['layer', 'hotMap'],
     editable: {
         style: {
             layout: ['basic']

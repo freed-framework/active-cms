@@ -1,7 +1,7 @@
 /// <reference path="./tabs.d.ts" />
 import React from 'react';
 import classNames from 'classnames';
-import './tab.scss';
+import './tabs.scss';
 
 class Tabs extends React.Component<Props, State> {
     constructor(props: Props) {

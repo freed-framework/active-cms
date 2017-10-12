@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio } from 'antd';
-import { editComponent, editComponentByOption } from '../../pages/editor/App';
+import { editComponent, editComponentByType } from '../../pages/editor/App';
 
 const RadioGroup = Radio.Group;
 
@@ -21,7 +21,7 @@ class RadioChoose extends Component {
     handleChange = (e) => {
         const { value } = e.target;
         const { target, guid, compKey } = this.props;
-        editComponentByOption({guid, attr: compKey, target, value}, 'attr');
+        editComponentByType({guid, attr: compKey, target, value}, 'attr');
     }
 
     render() {
@@ -29,7 +29,7 @@ class RadioChoose extends Component {
         return (
             <div>
                 {/* <div>{target}</div> */}
-                <div className="as-editor-basic-props as-editor-basic-props-radio">
+                <div className="ec-editor-basic-props ec-editor-basic-props-radio">
                     <label htmlFor="">{label}</label>
                     <RadioGroup
                         name="radiogroup"

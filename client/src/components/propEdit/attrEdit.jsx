@@ -33,7 +33,7 @@ class AttrEdit extends PureComponent {
         return (
             <div>
                 {/* <div>{target}</div> */}
-                <div className="as-editor-basic-props as-editor-basic-props-attr">
+                <div className="ec-editor-basic-props ec-editor-basic-props-attr">
                     <label htmlFor="">{label}</label>
                     <input
                         type="text"

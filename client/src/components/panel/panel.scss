@@ -1,4 +1,4 @@
-.as-panel {
+.ec-panel {
     $layoutWidth: 300px;
 
     /* 外部容器 */
@@ -18,7 +18,7 @@
         &-visible {
             right: 0;
 
-            .as-panel-title-button {
+            .ec-panel-title-button {
                 left: 0;
                 background: #bbb;
             }
@@ -44,7 +44,7 @@
         }
 
         &-text {
-            padding: 0 5px 5px 20px;
+            padding: 0 5px 5px 15px;
             height: 30px;
             line-height: 30px;
             display: inline-block;

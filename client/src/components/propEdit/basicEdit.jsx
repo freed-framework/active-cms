@@ -6,7 +6,7 @@
  */
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
-import { editComponent, editComponentByOption } from '../../pages/editor/App';
+import { editComponent, editComponentByType } from '../../pages/editor/App';
 
 import Background from '../background';
 
@@ -38,7 +38,7 @@ class BasicEdit extends PureComponent {
 
     onBackgroundChange = ({option, value}) => {
         const { target, guid } = this.props;
-        editComponentByOption({guid, attr: option, target, value});
+        editComponentByType({guid, attr: option, target, value});
     }
 
     render() {
@@ -48,7 +48,7 @@ class BasicEdit extends PureComponent {
                 <div>{target}</div>
                 <Row>
                     <Col span={12}>
-                        <div className="as-editor-basic-props as-editor-basic-props-width">
+                        <div className="ec-editor-basic-props ec-editor-basic-props-width">
                             <label htmlFor="">宽度</label>
                             <input
                                 type="text"
@@ -61,7 +61,7 @@ class BasicEdit extends PureComponent {
                         </div>
                     </Col>
                     <Col span={12}>
-                        <div className="as-editor-basic-props as-editor-basic-props-height">
+                        <div className="ec-editor-basic-props ec-editor-basic-props-height">
                             <label htmlFor="">高度</label>
                             <input
                                 type="text"
@@ -76,7 +76,7 @@ class BasicEdit extends PureComponent {
                 </Row>
                 <Row>
                     <Col span={12}>
-                        <div className="as-editor-basic-props as-editor-basic-props-margin">
+                        <div className="ec-editor-basic-props ec-editor-basic-props-margin">
                             <label htmlFor="">外边距</label>
                             <input
                                 type="text"
@@ -89,7 +89,7 @@ class BasicEdit extends PureComponent {
                         </div>
                     </Col>
                     <Col span={12}>
-                        <div className="as-editor-basic-props as-editor-basic-props-padding">
+                        <div className="ec-editor-basic-props ec-editor-basic-props-padding">
                             <label htmlFor="">内边距</label>
                             <input
                                 type="text"
@@ -102,7 +102,7 @@ class BasicEdit extends PureComponent {
                         </div>
                     </Col>
                 </Row>
-                <div className="as-editor-basic-props as-editor-basic-props-border">
+                <div className="ec-editor-basic-props ec-editor-basic-props-border">
                     <label htmlFor="">边框</label>
                     <input
                         type="text"
@@ -114,7 +114,7 @@ class BasicEdit extends PureComponent {
                     />
                 </div>
 
-                <div className="as-editor-basic-props as-editor-basic-props-background">
+                <div className="ec-editor-basic-props ec-editor-basic-props-background">
                     <label
                         htmlFor=""
                     >

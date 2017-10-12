@@ -4,11 +4,11 @@
  *
  * Des
  */
-/// <reference path="./floor.d.ts" />
+/// <reference path="./layer.d.ts" />
 import * as React from 'react';
-import './floor.scss';
+import './layer.scss';
 
-class Floor extends React.PureComponent<Props, any> {
+class Layer extends React.PureComponent<Props, any> {
     render() {
         const { attrs = {}, id } = this.props;
         const { style = {} } = attrs;
@@ -16,7 +16,7 @@ class Floor extends React.PureComponent<Props, any> {
         return (
             <div
                 id={id}
-                className="as-floor"
+                className="as-layer"
                 style={{
                     ...(style && {...style.layout, 'background-position': 'center center'})
                 }}
@@ -27,4 +27,4 @@ class Floor extends React.PureComponent<Props, any> {
     }
 }
 
-export default Floor;
+export default Layer;

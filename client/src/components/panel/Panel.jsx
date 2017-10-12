@@ -11,6 +11,7 @@ import mitt from 'mitt';
 import Bar from '../bar';
 import GlobalButtons from '../globalButtons';
 import { activeComponent } from '../../pages/editor/App';
+import LayerCake from '../layerCake';
 import './panel.scss';
 
 const emitter = mitt();
@@ -82,7 +83,7 @@ class Panel extends PureComponent {
             this.setState({
                 activeId: guid,
                 isVisible: true,
-                data: this._data,
+                // data: this._data,
             });
         } else {
             // 隐藏 panel
@@ -101,6 +102,10 @@ class Panel extends PureComponent {
             this._data[props.guid] = {
                 ...props
             };
+
+            this.setState({
+                data: this._data,
+            });
         }
     }
 
@@ -133,32 +138,38 @@ class Panel extends PureComponent {
     render() {
         const { data, activeId, isVisible } = this.state;
 
-        const clsLayout = classNames('as-panel-layout', {
-            'as-panel-layout-visible': isVisible
-        })
+        const clsLayout = classNames('ec-panel-layout', {
+            'ec-panel-layout-visible': isVisible
+        });
 
         return (
             <div className={clsLayout}>
+                {/* 已经添加的图层 */}
+                <LayerCake
+                    data={data}
+                />
+
+                {/* 编辑面板 */}
                 {/* 标题栏 */}
-                <div className="as-panel-title">
-                    <span
-                        className="as-panel-title-button"
-                        onClick={this.handlePanelVisible}
-                    >
-                        <Icon type={`verticle-${isVisible ? 'left' : 'right'}`} />
-                    </span>
-                    <span className="as-panel-title-text">编辑面板</span>
+                <div className="ec-panel-title">
+                    {/*<span*/}
+                        {/*className="ec-panel-title-button"*/}
+                        {/*onClick={this.handlePanelVisible}*/}
+                    {/*>*/}
+                        {/*<Icon type={`verticle-${isVisible ? 'left' : 'right'}`} />*/}
+                    {/*</span>*/}
+                    <span className="ec-panel-title-text">编辑面板</span>
                 </div>
 
-                <div className="as-panel-main">
+                <div className="ec-panel-main">
                     {/* 通用按钮 */}
                     {/*<GlobalButtons />*/}
 
                     {/* 每一个组件的编辑器 */}
                     {Object.keys(data).map(k => {
                         const item = data[k];
-                        const clsPanelItem = classNames('as-panel-item', {
-                            'as-panel-item-hide': activeId !== item.guid,
+                        const clsPanelItem = classNames('ec-panel-item', {
+                            'ec-panel-item-hide': activeId !== item.guid,
                         });
                         return (
                             <div

@@ -9,9 +9,9 @@ export const modules = [
     // 楼层组件
     {
         id: 3,
-        name: 'floor',
-        file: 'floor',
-        menus: ['pre-image', 'tab', 'floor', 'img', 'fix', 'float', 'hotMap'],
+        name: 'layer',
+        file: 'layer',
+        menus: ['pre-image', 'tab', 'layer', 'img', 'fix', 'float', 'hotMap'],
         editable: {
             style: {
                 layout: ['basic']
