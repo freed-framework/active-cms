@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 
 import Card from './Card';
-import { listsPageByTitle } from '../../server';
+import { listsPageByTitle, shareList, listsPage } from '../../server';
 import { TopMenu } from '../../components';
 import './app.scss';
 
@@ -33,7 +33,7 @@ class List extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount() { 
         this.getPageList({...this.params});
     }
 
@@ -49,8 +49,18 @@ class List extends Component {
         this.getPageList({...this.params})
     }
 
-    getPageList = (params) => {
-        listsPageByTitle(params).then((res) => {
+    getPageList = (param) => {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+        const { type = '' } = params;
+        let fetch = listsPageByTitle;
+        if (type === 'share') {
+            fetch = shareList;
+        }
+        else if (type === 'my') {
+            fetch = listsPage;
+        }
+        fetch(param).then((res) => {
             this.setState({
                 data: res.data
             })
@@ -70,7 +80,7 @@ class List extends Component {
     render() {
         const { data = {} } = this.state;
         const { lists = [], pageSize, page, total } = data;
-        const { history, match } = this.props;
+        const { history } = this.props;
         return (
             <div>
                 <TopMenu.List history={history} onSearch={this.handleSearch} />
@@ -83,7 +93,7 @@ class List extends Component {
                             : lists.map((item) => {
                                 return <Card
                                     key={item._id}
-                                    data={item}
+                                    data={item.shareTime ? item.page : item}
                                     history={history}
                                     onFetchList={this.handleFetchList}
                                 />

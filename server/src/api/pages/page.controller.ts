@@ -56,7 +56,7 @@ export class PageController {
     async pagingQuery(@Request() req, @Response() res) {
         const { query } = req;
         const { content = '' } = query;
-        let pages = await this.service.pagingQuery(query, {title: {$regex: content, $options: 'i'}});
+        let pages = await this.service.pagingQuery(query, {title: {$regex: content, $options: 'i'}, publish: true});
         res.status(HttpStatus.OK).json(CommonService.commonResponse(pages));
     }
 

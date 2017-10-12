@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message } from 'antd';
 
-import { deletePage, forkPage, fetchAllUsers } from '../../server';
+import { deletePage, forkPage, fetchAllUsers, sharePage } from '../../server';
 
 const confirm = Modal.confirm;
 
@@ -96,7 +96,10 @@ export default class componentName extends Component {
             message.error('请选择用户');
             return false;
         }
-        
+
+        sharePage({"users": shareData}).then((res) => {
+            message.success('分享成功')
+        })
     }
 
     handleShare = () => {

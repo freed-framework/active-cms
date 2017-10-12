@@ -6,6 +6,7 @@
  */
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
+import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
@@ -122,13 +123,17 @@ const createChildren = (data, guid, value) => {
             });
         }
     }, {
-        findBy: 'guid',
-    });
+            findBy: 'guid',
+        });
 
     return $new.toJS();
 }
 
 class App extends Component {
+    static propTypes = {
+        history: PropTypes.objectOf(PropTypes.any),
+    }
+
     constructor(props) {
         super(props);
 
@@ -157,12 +162,16 @@ class App extends Component {
         const { match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
-        id && getPage(id).then((res) => {
-            const { data } = res;
-            this.setState({
-                data: data.content
+
+        // 如果存在id说明是编辑
+        if (id) {
+            getPage(id).then((res) => {
+                const { data } = res;
+                this.setState({
+                    data: data.content
+                })
             })
-        })
+        }
 
         document.addEventListener('click', (event) => {
             // guid 作为 id 被添加到组件上
@@ -270,7 +279,7 @@ class App extends Component {
             title: '请输入页面标题?',
             content: <Input onChange={this.handleChange} />,
             onOk: callback,
-            onCancel() {},
+            onCancel() { },
         });
     }
 
@@ -284,21 +293,25 @@ class App extends Component {
         const { location = '', match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
-        if ( !this.state.data.length ) {
+
+        if (!this.state.data.length) {
             message.error('页面不能为空');
             return;
         }
+
         // 新增
         if (!id) {
             this.showConfirm(() => {
                 const { title } = this.state;
+
                 if (!title) {
                     message.error('请输入标题');
                     return;
                 }
+
                 addPage({
-                    "title": title,
-                    "content":  this.state.data
+                    title,
+                    content: this.state.data
                 }).then((res) => {
                     message.success('保存成功')
                     this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
@@ -308,15 +321,15 @@ class App extends Component {
         // 编辑
         else {
             editPage({
-                "id": id,
-                "page": {
-                    "content": this.state.data
+                id,
+                page: {
+                    content: this.state.data
                 }
             }).then((res) => {
                 message.success('保存成功')
             })
         }
-        
+
         console.log(JSON.stringify(this.state.data))
     }
 

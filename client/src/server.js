@@ -2,7 +2,8 @@ import Http from 'freed-spa/src/util/http';
 
 const http = new Http();
 
-const apiHost = 'http://www.iting.top/api';
+// const apiHost = 'http://www.iting.top/api';
+const apiHost = 'http://localhost:3000/api';
 
 /**
  * 页面相关
@@ -74,3 +75,19 @@ export const forkPage = (params) => http.post(`${apiHost}/page/update/fork`, par
  * 获取所有的用户
  */
 export const fetchAllUsers = () => http.get(`${apiHost}/users`);
+
+/**
+ * 分享页面
+ * params 参数包含
+ * - users {Array<pageId, userId>} 
+ */
+export const sharePage = (params) => http.post(`${apiHost}/page/share`, params);
+
+/**
+ * 查询分享给自己的页面
+ * params 参数包含
+ * - pageSize {number} 每页多少条
+ * - page {number} 当前第几页
+ * - content {string} 页面title 模糊查询
+ */
+export const shareList = (params) => http.get(`${apiHost}/share/lists`, params);
