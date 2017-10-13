@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import mitt from 'mitt';
 import Bar from '../bar';
-import LayerCake from '../layerCake';
 import './panel.scss';
 
 const emitter = mitt();
@@ -53,11 +52,6 @@ class Panel extends PureComponent {
 
         return (
             <div className={clsLayout}>
-                {/* 已经添加的图层 */}
-                <LayerCake
-                    data={data}
-                />
-
                 {/* 编辑面板 */}
                 {/* 标题栏 */}
                 <div className="ec-panel-title">

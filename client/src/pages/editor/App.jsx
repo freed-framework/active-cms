@@ -11,7 +11,7 @@ import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../server';
-import { Editor, Panel, TopMenu, Control } from '../../components';
+import { Editor, Panel, TopMenu, Control, LayerCake } from '../../components';
 import Module from '../../../common/module';
 import mitt from 'mitt';
 import './app.scss';
@@ -80,8 +80,11 @@ export const editComponentByType = (option, type) => {
     })
 }
 
-export const activeComponent = (guid) => {
-    emitter.emit('active', guid);
+export const activeComponent = (guid, target) => {
+    emitter.emit('active', {
+        guid,
+        target,
+    });
 }
 
 /**
@@ -158,12 +161,17 @@ class App extends Component {
             rect: null,
             hoverId: null,
             activeId: null,
+
+            /**
+             * 后端返回的原始数据
+             */
             data: [],
 
+            /**
+             * 平铺的带 App 的数据
+             */
             tileData: {},
         };
-
-        this._tileData = [];
 
         this.mittDelete = ::this.mittDelete;
         this.mittAdd = ::this.mittAdd;
@@ -264,18 +272,10 @@ class App extends Component {
         // guid 作为 id 被添加到组件上
         const guid = event.target.getAttribute('id');
 
-        this.mittActive(guid);
-
-        this.setState({
-            activeId: guid,
-            activeRect: guid ? getRect(event.target) : null,
+        this.mittActive({
+            guid,
+            target: event.target,
         });
-
-        if (guid === null) {
-            this.setState({
-                rect: null,
-            })
-        }
     }
 
     /**
@@ -380,9 +380,13 @@ class App extends Component {
     /**
      * 激活组件
      */
-    mittActive(guid) {
+    mittActive({ guid, target }) {
+        const rect = guid && target ? getRect(target) : null;
+
         this.setState({
             activeId: guid,
+            activeRect: rect,
+            rect,
         });
     }
 
@@ -466,6 +470,10 @@ class App extends Component {
                 <Panel
                     activeId={this.state.activeId}
                     data={tileData}
+                />
+
+                <LayerCake
+                    data={data}
                 />
 
                 {/* 模块 */}
