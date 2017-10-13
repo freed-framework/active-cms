@@ -108,6 +108,7 @@ class List extends Component {
         const { data = {}, current } = this.state;
         const { lists = [], pageSize, page, total } = data;
         const { history, match } = this.props;
+        const searchReg = new RegExp(`${this.params.content}`, 'gim');
 
         return (
             <div>
@@ -122,6 +123,7 @@ class List extends Component {
                                 return <Card
                                     current={current}
                                     key={item._id}
+                                    reg={searchReg}
                                     data={item.shareTime ? item.page : item}
                                     history={history}
                                     onFetchList={this.handleFetchList}

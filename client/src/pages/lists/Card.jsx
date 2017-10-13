@@ -17,6 +17,7 @@ export default class componentName extends Component {
         history: PropTypes.objectOf(PropTypes.any),
         onFetchList: PropTypes.func,
         current: PropTypes.string,
+        reg: PropTypes.objectOf(PropTypes.any),
     }
 
     constructor(props) {
@@ -157,7 +158,7 @@ export default class componentName extends Component {
     }
 
     render() {
-        const { data = {}, current } = this.props;
+        const { data = {}, current, reg } = this.props;
 
         const isOwer = user._id === data.owerUser._id;
 
@@ -194,9 +195,14 @@ export default class componentName extends Component {
                     <p 
                         className={'page-list-card-title'}
                     >
-                        <span className={'page-list-card-title-left'}>
-                            { `${data.title}` }
-                        </span>
+                        <span
+                            className={'page-list-card-title-left'}
+                            dangerouslySetInnerHTML={{
+                                __html: data.title.replace(reg, ($0) => {
+                                    return `<span class="page-list-card-search-text">${$0}</span>`
+                                })
+                            }}
+                        />
                         <span className={'page-list-card-title-right'}>
                             {
                                 data.fork
