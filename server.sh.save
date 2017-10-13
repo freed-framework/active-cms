@@ -7,16 +7,16 @@ cd /var/web/active-cms/server
 echo "pull..."
 git pull
 echo "install..."
-#npm install
+npm install
 echo "build..."
 npm run prestart:prod
-echo "stop pm2..."
-pm2 stop all
+echo "stop forever..."
+forever stopall
 #echo "move..."
 #rm -rf /var/web/dist && mv /var/web/active-cms/server/dist /var/web/dist
 echo "cd dist/"
-#cd /var/web/dist
-echo "start pm2 ..."
-pm2 start /var/web/active-cms/pm2.config.js
-pm2 list
+cd /dist
+echo "start forever"
+forever start main.js
+forever list
 echo "ok..."

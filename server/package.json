@@ -12,7 +12,8 @@
     "test_cover": "istanbul cover node_modules/mocha/bin/_mocha src/api/**/*.test.ts",
     "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md",
     "prestart:prod": "tsc",
-    "production": "cross-env NODE_ENV=production && forever start ./dist/main.js"
+    "production": "cross-env NODE_ENV=production && forever start ./dist/main.js",
+    "pm2": "pm2 start ./dist/main.js --env.NODE_ENV production"
   },
   "dependencies": {
     "@nestjs/common": "3.0.0",
