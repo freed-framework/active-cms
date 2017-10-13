@@ -36,7 +36,8 @@ class TopMenu extends Component {
                                 onClick={addComponent}
                                 className="ec-editor-component-list"
                             >
-                                <Icon type="layout" />
+                                <Font type="layers" />
+                                <br />
                                 <span>楼层</span>
                             </li>
                             <li
@@ -44,7 +45,8 @@ class TopMenu extends Component {
                                 onClick={addComponent}
                                 className="ec-editor-component-list"
                             >
-                                <Icon type="user" />
+                                <Font type="ribbon" />
+                                <br />
                                 <span>悬停</span>
                             </li>
                             <li
@@ -52,7 +54,8 @@ class TopMenu extends Component {
                                 onClick={addComponent}
                                 className="ec-editor-component-list"
                             >
-                                <Icon type="user" />
+                                <Font type="grid" />
+                                <br />
                                 <span>Tab</span>
                             </li>
                         </ul>

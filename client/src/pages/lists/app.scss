@@ -116,6 +116,12 @@ body {
         padding: 10px 0;
         &-left {
             float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 190px;
+            text-align: left;
+            cursor: pointer;
         }
         &-right {
             float: right;
