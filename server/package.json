@@ -13,9 +13,9 @@
     "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md",
     "prestart:prod": "tsc",
     "production": "cross-env NODE_ENV=production && forever start ./dist/main.js",
-    "pm2-dev": "pm2 start ./pm2.config.js",
-    "pm2-pro": "pm2 start ./pm2.config.js --env production",
-    "pm2-test": "pm2 start ./pm2.config.js --env test"
+    "pm2-dev": "sh ./server.sh dev",
+    "pm2-pro": "sh ./server.sh pro",
+    "pm2-test": "sh ./server.sh test"
   },
   "dependencies": {
     "@nestjs/common": "3.0.0",
