@@ -12,6 +12,7 @@ import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../server';
 import { Editor, Panel, TopMenu, Control } from '../../components';
+import Module from '../../../common/module';
 import mitt from 'mitt';
 import './app.scss';
 
@@ -158,7 +159,11 @@ class App extends Component {
             hoverId: null,
             activeId: null,
             data: [],
+
+            tileData: {},
         };
+
+        this._tileData = [];
 
         this.mittDelete = ::this.mittDelete;
         this.mittAdd = ::this.mittAdd;
@@ -184,9 +189,8 @@ class App extends Component {
         if (id) {
             getPage(id).then((res) => {
                 const { data } = res;
-                this.setState({
-                    data: data.content
-                })
+
+                this.setDataAndTile(data.content);
             })
         }
 
@@ -206,6 +210,50 @@ class App extends Component {
         this.canvas.removeEventListener('click', this.handleActive);
         this.canvas.removeEventListener('mouseover', this.handleHover);
         this.canvas.removeEventListener('mouseout', this.handleOut);
+    }
+
+    /**
+     * 将数据平铺
+     * @param data
+     * @param arr
+     * @return {Array}
+     */
+    data2Tile(data, arr = []) {
+        const looper = (data) => {
+            data.forEach(item => {
+                arr = arr.concat(Module.asyncComponent(item));
+
+                if (item.children) {
+                    looper(item.children, arr);
+                }
+            });
+        }
+
+        looper(data);
+
+        return arr;
+    }
+
+    /**
+     * 设置 state.data & state.tileData
+     * @param dataArr
+     * @param callback
+     */
+    setDataAndTile(dataArr = [], callback = () => {}) {
+        // 平铺的绑定了 App 的数据
+        const tileData = {};
+        const tile = this.data2Tile(dataArr);
+
+        Promise.all(tile).then(values => {
+            values.forEach(v => {
+                tileData[v.guid] = v;
+            });
+
+            this.setState({
+                data: dataArr,
+                tileData,
+            }, () => callback);
+        });
     }
 
     /**
@@ -239,7 +287,6 @@ class App extends Component {
         const target = event.target;
         const guid = target.getAttribute('id');
 
-        console.log(guid, event.target)
         if (guid) {
             this.setState({
                 rect: getRect(target),
@@ -266,12 +313,15 @@ class App extends Component {
      * @param guid
      */
     mittDelete(guid) {
+        const data = module.remove(guid, this.state.data);
+
+        this.setDataAndTile(data);
+
         this.setState({
-            data: module.remove(guid, this.state.data),
-        }, () => {
-            // 通知 panel 删除编辑菜单
-            Panel.delete(guid);
-        });
+            activeId: null,
+            rect: null,
+            activeRect: null,
+        })
     }
 
     /**
@@ -285,11 +335,11 @@ class App extends Component {
                 if (guid) {
                     this.setState({
                         data: createChildren(this.state.data, guid, value),
-                    })
+                    });
                 } else {
-                    this.setState({
-                        data: this.state.data.concat(value),
-                    })
+                    this.setDataAndTile(
+                        this.state.data.concat(value)
+                    );
                 }
             });
     }
@@ -333,9 +383,6 @@ class App extends Component {
         this.setState({
             activeId: guid,
         });
-
-        // 激活编辑面板
-        Panel.active(guid);
     }
 
     showConfirm = (callback) => {
@@ -402,7 +449,7 @@ class App extends Component {
     }
 
     render() {
-        const { rect } = this.state;
+        const { rect, tileData, data } = this.state;
         const { history } = this.props;
 
         return (
@@ -414,6 +461,12 @@ class App extends Component {
                 {/* Top Menu */}
                 <TopMenu history={history} />
 
+                {/* 右侧的控制面板 */}
+                <Panel
+                    activeId={this.state.activeId}
+                    data={tileData}
+                />
+
                 {/* 模块 */}
                 <div
                     ref={ref => { this.canvas = ref }}
@@ -421,12 +474,10 @@ class App extends Component {
                 >
                     <Editor
                         activeId={this.state.activeId}
-                        data={this.state.data}
+                        data={data}
+                        tileData={tileData}
                     />
                 </div>
-
-                {/* 右侧的控制面板 */}
-                <Panel />
             </div>
         );
     }

@@ -12,48 +12,30 @@ import Panel from '../panel';
 import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
 
-/**
-
- <Wrap
- isActive={mod.guid === activeId}
- >
- <div>
- <mod.App
- style={mod.style}
- attrs={mod.attrs}
- >
- {mod.children && this.loop(mod.children, activeId)}
- </mod.App>
- <ActiveButton
- key={mod.guid}
- style={mod.style}
- attrs={mod.attrs}
- guid={mod.guid}
- module={mod.module}
- />
- </div>
- </Wrap>
-
- */
-
 class Editor extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeId: props.data,
+            activeId: props.activeId,
+
             data: props.data,
 
-            modData: [],
+            tileData: props.tileData,
         }
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     componentWillUnmount() {}
 
     componentWillReceiveProps(nextProps) {
+        if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
+            this.setState({
+                tileData: nextProps.tileData,
+            });
+        }
+
         if (!Immutable.is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,
@@ -71,6 +53,9 @@ class Editor extends PureComponent {
     }
 
     loop(data, activeId) {
+        console.log(data)
+
+        /*
         return data.map(item => (
             <Lazyer
                 key={item.guid}
@@ -81,16 +66,7 @@ class Editor extends PureComponent {
                         style: mod.style,
                         attrs: mod.attrs,
                         guid: mod.guid,
-                        ...mod,
                     };
-console.log(item)
-                    // this.setState({
-                    //     modData: this.props.modData.concat(props),
-                    // });
-
-                    // if (item.children) {
-                    //     this.loop(item.children);
-                    // }
 
                     // 先添加到panel 的 _data 中
                     // Panel.add({
@@ -98,35 +74,59 @@ console.log(item)
                     //     module: mod.module,
                     // });
 
-                    return (
-                        <mod.App
-                            id={props.guid}
-                            {...props}
-                        >
-                            {item.children && this.loop(item.children)}
-                        </mod.App>
-                    );
+                    // return (
+                    //     <mod.App
+                    //         id={props.guid}
+                    //         {...props}
+                    //     >
+                    //         {item.children && this.loop(item.children)}
+                    //     </mod.App>
+                    // );
+
+                    return null;
                 }}
             </Lazyer>
-        ))
+        ));
+        */
     }
 
-    loopRender(modData) {
-        console.log(modData);
+    /**
+     * 原始数据
+     * @param data
+     */
+    loopRender(data) {
+        const tileData = this.state.tileData;
 
-        return null;
+        return data.map(item => {
+            // 获取App 组件
+            const d = tileData[item.guid];
+            const App = d.App;
+
+            // 获取样式
+            const props = {
+                style: item.style,
+                attrs: item.attrs,
+                guid: item.guid,
+            };
+
+            return (
+                <App
+                    id={item.guid}
+                    key={item.guid}
+                    {...props}
+                >
+                    {item.children && this.loopRender(item.children)}
+                </App>
+            );
+        });
     }
 
     render() {
         const { data, activeId } = this.state;
 
-        // if (!data) {
-        //     return null;
-        // }
-
         return (
             <div>
-                {this.loop(data, activeId)}
+                {this.loopRender(data)}
             </div>
         )
     }
