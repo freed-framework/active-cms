@@ -6,7 +6,18 @@ import { addComponent, saveData, viewer } from '../../pages/editor/App';
 
 class TopMenu extends Component {
     static propTypes = {
+        history: PropTypes.objectOf(PropTypes.any),
+    }
 
+    handleGoBack = () => {
+        const { length, goBack, replace } = this.props.history;
+    
+        // 新打开页面length为2
+        if (length <= 2) {
+            replace('/lists/publish');
+        } else {
+            goBack();
+        }
     }
 
     render() {
@@ -66,6 +77,13 @@ class TopMenu extends Component {
                             size="small"
                         >
                             发布
+                        </Button>
+                        <Button
+                            className="ec-editor-btn"
+                            size="small"
+                            onClick={this.handleGoBack}
+                        >
+                            返回
                         </Button>
                         <Button
                             className="ec-editor-btn ec-editor-btn-red"

@@ -450,6 +450,7 @@ class App extends Component {
 
     render() {
         const { rect, tileData, data } = this.state;
+        const { history } = this.props;
 
         return (
             <div>
@@ -458,7 +459,7 @@ class App extends Component {
                 />
 
                 {/* Top Menu */}
-                <TopMenu />
+                <TopMenu history={history} />
 
                 {/* 右侧的控制面板 */}
                 <Panel

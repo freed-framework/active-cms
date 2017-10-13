@@ -7,12 +7,24 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'antd';
+import { Pagination, BackTop } from 'antd';
 
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../server';
 import { TopMenu } from '../../components';
 import './app.scss';
+
+window.user = {
+    "_id": "59dae48589b19208c0947821",
+    "userName": "22qwe7",
+    "password": "12qwaszx",
+    "userDspName": "huazaierli2",
+    "phone": 18381333613,
+    "email": "755836844@qq.com",
+    "activity": true,
+    "birthday": "2017-10-09T02:52:53.330Z",
+    "sex": 1
+}
 
 class List extends Component {
     static propTypes = {
@@ -33,8 +45,20 @@ class List extends Component {
         }
     }
 
-    componentDidMount() { 
+    componentDidMount() {
+        const { history } = this.props;
+
+        this.unPage = history.listen(loc => {
+            loc.pathname.replace(/\/lists\/(.*)/g, ($0, $1) => {
+                this.getPageList({...this.params}, $1);
+            })
+        })
+
         this.getPageList({...this.params});
+    }
+
+    componentWillUnmount() {
+        this.unPage();
     }
 
     onShowSizeChange = (page, pageSize) => {
@@ -45,26 +69,29 @@ class List extends Component {
         this.getPageList({...this.params})
     }
 
-    handleFetchList = () => {
-        this.getPageList({...this.params})
-    }
-
-    getPageList = (param) => {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-        const { type = '' } = params;
+    getPageList = (param, page) => {
+        const type = page || this.props.match.params.type;
         let fetch = listsPageByTitle;
+
         if (type === 'share') {
             fetch = shareList;
-        }
-        else if (type === 'my') {
+        } else if (type === 'my') {
             fetch = listsPage;
         }
+
+        this.setState({
+            current: type || 'publish'
+        })
+
         fetch(param).then((res) => {
             this.setState({
                 data: res.data
             })
         })
+    }
+
+    handleFetchList = () => {
+        this.getPageList({...this.params})
     }
 
     handleSearch = (value) => {
@@ -78,12 +105,14 @@ class List extends Component {
     }
 
     render() {
-        const { data = {} } = this.state;
+        const { data = {}, current } = this.state;
         const { lists = [], pageSize, page, total } = data;
-        const { history } = this.props;
+        const { history, match } = this.props;
+        const searchReg = new RegExp(`${this.params.content}`, 'gim');
+
         return (
             <div>
-                <TopMenu.List history={history} onSearch={this.handleSearch} />
+                <TopMenu.List history={history} match={match} onSearch={this.handleSearch} />
                 <div
                     className={'page-list-wrap'}
                 >
@@ -92,7 +121,9 @@ class List extends Component {
                             ? <div className='page-list-empty'>暂无数据...</div>
                             : lists.map((item) => {
                                 return <Card
+                                    current={current}
                                     key={item._id}
+                                    reg={searchReg}
                                     data={item.shareTime ? item.page : item}
                                     history={history}
                                     onFetchList={this.handleFetchList}
@@ -117,6 +148,7 @@ class List extends Component {
                         />
                     </div>
                 }
+                <BackTop />
             </div>
         )
     }

@@ -60,6 +60,4 @@ const nest = NestFactory.create(ApplicationModule, app);
 // 设置全局前缀
 nest.setGlobalPrefix('api');
 
-nest.listen(config.port || 3000, () => {
-    console.log(`Nest app is listening on port ${config.port}.`);
-});
+nest.listen(config.port || 3000, config.ip || '0.0.0.0');

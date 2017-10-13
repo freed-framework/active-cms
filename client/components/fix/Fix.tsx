@@ -31,9 +31,9 @@ class Fix extends React.Component<Props, States> {
     componentDidMount() {
         this.scroll = window.addEventListener('scroll', (e?: any) => {
             const { scrollTop } = e.target.body;
-            this.setState({
-                isShow: scrollTop > 750
-            })
+            // this.setState({
+            //     isShow: scrollTop > 750
+            // })
             
         })
     }

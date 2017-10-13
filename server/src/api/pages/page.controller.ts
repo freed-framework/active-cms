@@ -12,18 +12,6 @@ import Utils from '../../common/utils';
 import CommonService from '../../common/common.service';
 // import * as RenderPage from '../../../../client/server/page';
 
-function getData(url, callback) {
-    http.get(`http://localhost:4000/${url}`, (res) => {
-        var result = ''
-        res.on('data', function(data) {
-            result += data;
-        });
-        res.on('end', (data) => {
-            callback && callback(`<script>${result}</script>`);
-        })
-    })
-}
-
 @Controller('page')
 export class PageController {
     constructor(private service: PageService) {}
@@ -64,7 +52,8 @@ export class PageController {
     async queryLists(@Request() req, @Response() res) {
         const { query } = req;
         const { user } = req.session;
-        let result = await this.service.pagingQuery(query, {owerUser: user._id})
+        const { content = '' } = query;
+        let result = await this.service.pagingQuery(query, {owerUser: user._id, title: {$regex: content, $options: 'i'}})
         res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
     }
 
@@ -88,17 +77,17 @@ export class PageController {
 
     @Post('/publish')
     async publish(@Request() req, @Response() res, @Body() body) {
-        const { id, tyep = true } = body;
+        const { id, type = true } = body;
         const { user } = req.session;
         const page = await this.service.getPage(id, {content: 0});
-        if (user._id !== page.owerUser) {
+        if (user._id != page.owerUser) {
             res.status(HttpStatus.OK).json({
                 code: 500,
                 message: '操作错误',
                 data: {}
             });
         } else {
-            const result = await this.service.update(id, {publish: tyep});
+            const result = await this.service.update(id, {publish: type});
             res.status(HttpStatus.OK).json(CommonService.commonResponse({}));
         }
     }

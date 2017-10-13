@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message } from 'antd';
 
-import { deletePage, forkPage, fetchAllUsers, sharePage } from '../../server';
+import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../server';
 
 const confirm = Modal.confirm;
 
@@ -15,7 +15,9 @@ export default class componentName extends Component {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
-        onFetchList: PropTypes.func, 
+        onFetchList: PropTypes.func,
+        current: PropTypes.string,
+        reg: PropTypes.objectOf(PropTypes.any),
     }
 
     constructor(props) {
@@ -54,9 +56,13 @@ export default class componentName extends Component {
             title: '提示',
             content: '确认删除？',
             onOk: () => {
-                deletePage(data._id).then(() => {
-                    this.props.onFetchList()
-                })
+                deletePage(data._id)
+                    .then(() => {
+                        this.props.onFetchList()
+                    })
+                    .catch(() => {
+                        message.error('删除页面失败')
+                    })
             },
             onCancel() {},
         });
@@ -133,8 +139,29 @@ export default class componentName extends Component {
         )
     }
 
-    render() {
+    handleUpload = () => {
         const { data = {} } = this.props;
+        confirm({
+            title: '提示',
+            content: `确认${data.publish ? '取消发布' : '发布页面'}？`,
+            onOk: () => {
+                publishPage({id: data._id, type: !data.publish })
+                    .then(() => {
+                        this.props.onFetchList()
+                    })
+                    .catch(() => {
+                        message.error(`${data.publish ? '取消发布' : '发布页面'}失败`)
+                    })
+            },
+            onCancel() {},
+        });
+    }
+
+    render() {
+        const { data = {}, current, reg } = this.props;
+
+        const isOwer = user._id === data.owerUser._id;
+
         return (
             <div
                 className={classnames(
@@ -149,25 +176,33 @@ export default class componentName extends Component {
                 >
                     <img
                         className={'page-list-card-img'}
-                        src="http://img06.tooopen.com/images/20170913/tooopen_sl_224452948149.jpg"
+                        src="http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg"
                     />
-                    {/* <div
-                        className={
-                            classnames('page-list-card-pendant', {
-                                'page-list-card-pendant-fork': data.fork
-                            })
-                        }
-                    >
-                        {data.fork ? 'fork' : '原'}
-                    </div> */}
+                    {
+                        <div
+                            className={
+                                classnames('page-list-card-pendant', {
+                                    'page-list-card-pendant-fork': data.fork
+                                })
+                            }
+                        >
+                            <span className={'page-list-card-user'}>{`作者：${user.userDspName}`}</span>
+                            <span className={'page-list-card-type'}>{data.fork ? '非' : '原'}</span>
+                        </div>
+                    }
                 </div>
                 <div className={'page-list-card-button'}>
                     <p 
                         className={'page-list-card-title'}
                     >
-                        <span className={'page-list-card-title-left'}>
-                            { data.title }
-                        </span>
+                        <span
+                            className={'page-list-card-title-left'}
+                            dangerouslySetInnerHTML={{
+                                __html: data.title.replace(reg, ($0) => {
+                                    return `<span class="page-list-card-search-text">${$0}</span>`
+                                })
+                            }}
+                        />
                         <span className={'page-list-card-title-right'}>
                             {
                                 data.fork
@@ -185,13 +220,16 @@ export default class componentName extends Component {
                                 <Font type="streetsign" />
                                 <span className="page-list-card-text">{data.forkNum}</span>
                             </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleEdit}
-                            >
-                                <Font type="clipboard-edit" />
-                                <span className="page-list-card-text">编辑</span>
-                            </li>
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleEdit}
+                                >
+                                    <Font type="clipboard-edit" />
+                                    <span className="page-list-card-text">编辑</span>
+                                </li>
+                            }
                             <li
                                 className="page-list-card-icon page-list-card-icon-hover"
                                 onClick={this.handleView}
@@ -199,20 +237,36 @@ export default class componentName extends Component {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleDelete}
-                            >
-                                <Font type="trash-can" />
-                                <span className="page-list-card-text">删除</span>
-                            </li>
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleShare}
-                            >
-                                <Font type="move" />
-                                <span className="page-list-card-text">分享</span>
-                            </li>
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleDelete}
+                                >
+                                    <Font type="trash-can" />
+                                    <span className="page-list-card-text">删除</span>
+                                </li>
+                            }
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleShare}
+                                >
+                                    <Font type="move" />
+                                    <span className="page-list-card-text">分享</span>
+                                </li>
+                            }
+                            {
+                                current !== 'publish' && isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleUpload}
+                                >
+                                    <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
+                                    <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
