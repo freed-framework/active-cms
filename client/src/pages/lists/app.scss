@@ -2,7 +2,7 @@
 
 $boxColor: 280px;
 
-$tipMargin: -252px;
+$tipMargin: -249px;
 
 body {
     margin: 0;
@@ -89,7 +89,14 @@ body {
 
     &-type {
         float: right;
-        margin-right: 10px;
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        border-radius: 13px;
+        margin-right: 2px;
+        margin-top: 2px;
+        background-color: rgba(0, 0, 0, .3);
+        border: 1px solid #7b4f4f;
     }
 
     &-img {

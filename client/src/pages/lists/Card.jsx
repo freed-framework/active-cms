@@ -185,7 +185,7 @@ export default class componentName extends Component {
                                 })
                             }
                         >
-                            <span className={'page-list-card-user'}>{`作者： ${user.userDspName}`}</span>
+                            <span className={'page-list-card-user'}>{`作者：${user.userDspName}`}</span>
                             <span className={'page-list-card-type'}>{data.fork ? '非' : '原'}</span>
                         </div>
                     }
