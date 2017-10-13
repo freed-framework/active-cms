@@ -44,8 +44,8 @@ export const addComponent = (event) => {
 }
 
 /**
- * 
- * @param {Object} event 事件对象 
+ *
+ * @param {Object} event 事件对象
  * @param {string|undefined} type 编辑的属性
  */
 export const editComponent = (event, type) => {
@@ -332,11 +332,12 @@ class App extends Component {
     mittAdd({ cname, guid }) {
         module.create(cname)
             .then(value => {
+                // 添加到某组件下
                 if (guid) {
-                    this.setState({
-                        data: createChildren(this.state.data, guid, value),
-                    });
+                    const data = createChildren(this.state.data, guid, value);
+                    this.setDataAndTile(data);
                 } else {
+                    // 直接新增到画布中
                     this.setDataAndTile(
                         this.state.data.concat(value)
                     );
