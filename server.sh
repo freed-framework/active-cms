@@ -17,6 +17,6 @@ pm2 stop all
 echo "cd dist/"
 #cd /var/web/dist
 echo "start pm2 ..."
-pm2 start /var/web/active-cms/pm2.config.js
+npm run pm2-dev
 pm2 list
 echo "ok..."
