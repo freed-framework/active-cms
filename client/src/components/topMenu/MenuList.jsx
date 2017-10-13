@@ -88,14 +88,11 @@ export default class TopMenu extends Component {
                     <Col span={8} className="ec-editor-banner-center">
                     </Col>
                     <Col span={12} className="ec-editor-banner-right">
-                        {
-                            current !== 'share' &&
-                            <Search
-                                placeholder="搜索标题"
-                                style={{ width: 200 }}
-                                onSearch={this.handleSearch}
-                            />
-                        }
+                        <Search
+                            style={current === 'share' ? {width: 200, 'display': 'none'} : {width: 200}}
+                            placeholder="搜索标题"
+                            onSearch={this.handleSearch}
+                        />
                         <Select
                             style={{ width: 120, marginLeft: '10px' }}
                             placeholder="请选择"
