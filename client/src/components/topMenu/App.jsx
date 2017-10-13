@@ -11,7 +11,7 @@ class TopMenu extends Component {
 
     handleGoBack = () => {
         const { length, goBack, replace } = this.props.history;
-        
+    
         // 新打开页面length为2
         if (length <= 2) {
             replace('/lists/publish');

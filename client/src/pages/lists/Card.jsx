@@ -177,15 +177,18 @@ export default class componentName extends Component {
                         className={'page-list-card-img'}
                         src="http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg"
                     />
-                    {/* <div
-                        className={
-                            classnames('page-list-card-pendant', {
-                                'page-list-card-pendant-fork': data.fork
-                            })
-                        }
-                    >
-                        <img src={require('../../images/yuanchuang.jpg')} />
-                    </div> */}
+                    {
+                        <div
+                            className={
+                                classnames('page-list-card-pendant', {
+                                    'page-list-card-pendant-fork': data.fork
+                                })
+                            }
+                        >
+                            <span className='page-list-card-user'>{`${current !== 'my' ? user.userDspName : ''}`}</span>
+                            <span className='page-list-card-type'>{data.fork ? '非' : '原'}</span>
+                        </div>
+                    }
                 </div>
                 <div className={'page-list-card-button'}>
                     <p 

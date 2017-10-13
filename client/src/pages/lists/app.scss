@@ -2,6 +2,8 @@
 
 $boxColor: 280px;
 
+$tipMargin: -252px;
+
 body {
     margin: 0;
     padding: 0;
@@ -39,6 +41,16 @@ body {
     }
 }
 
+@keyframes margin {
+    from {
+        margin-left: $tipMargin;
+    }
+
+    to {
+        margin-left: 0px;
+    }
+}
+
 .page-list-card {
     float: left;
     margin: -3px 0 14px 14px;
@@ -52,21 +64,42 @@ body {
 
     &:hover {
         border: 1px solid #8D8D8D;
-    }
-
-    overflow: hidden;
-    &-img {
-        // width: $boxColor;
-        height: 204px;
-        &:hover {
-            animation-name: pulse;
+        .page-list-card-pendant {
+            animation-name: margin;
             animation-duration: .75s;
             animation-fill-mode: both;
         }
     }
+
+    overflow: hidden;
+
+    &-imgWrap {
+        &:hover {
+            .page-list-card-img {
+                animation-name: pulse;
+                animation-duration: .75s;
+                animation-fill-mode: both;
+            }
+        }
+    }
+
+    &-user {
+
+    }
+
+    &-type {
+        float: right;
+        margin-right: 10px;
+    }
+
+    &-img {
+        height: 204px;
+    }
+
     &-button {
         padding: 0 10px;
     }
+
     &-title {
         overflow: hidden;
         padding: 10px 0;
@@ -77,10 +110,12 @@ body {
             float: right;
         }
     }
+
     &-button-wrap {
         overflow: hidden;
         line-height: 24px;
     }
+
     &-icon {
         float: left;
         margin-right: 10px;
@@ -90,10 +125,12 @@ body {
             vertical-align: middle
         }
     }
+
     &-text {
         color: #999999;
         vertical-align: middle
     }
+
     &-icon-hover {
         cursor: pointer;
         &:hover {
@@ -107,12 +144,17 @@ body {
     &-imgWrap {
         position: relative;
     }
+
     &-pendant {
         position: absolute;
         top: 0;
         left: 0;
-        background: #999999;
-        width: 80px;
-        height: 80px;
+        background-color:rgba(0, 0, 0, 0.6);
+        width: 100%;
+        line-height: 30px;
+        color: #b39e9e;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        margin-left: $tipMargin;
     }
 }
