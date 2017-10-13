@@ -142,8 +142,8 @@ export default class componentName extends Component {
     handleUpload = () => {
         const { data = {} } = this.props;
         confirm({
-            title: '提示',
-            content: `确认${data.publish ? '取消发布' : '发布页面'}？`,
+            title: `确认${data.publish ? '取消发布' : '发布页面'}？`,
+            content: `${data.publish ? '取消发布其他人将不可见（被分享的人除外）!' : '发布后所有人都可以看到你的页面！'}`,
             onOk: () => {
                 publishPage({id: data._id, type: !data.publish })
                     .then(() => {
@@ -197,6 +197,8 @@ export default class componentName extends Component {
                     >
                         <span
                             className={'page-list-card-title-left'}
+                            title={data.title}
+                            onClick={this.handleView}
                             dangerouslySetInnerHTML={{
                                 __html: data.title.replace(reg, ($0) => {
                                     return `<span class="page-list-card-search-text">${$0}</span>`
