@@ -11,6 +11,7 @@
     "jsx": "react",
     "sourceMap": true,
     "allowJs": true,
+    "allowUnreachableCode": true,
     "outDir": "./dist",
     "typeRoots": [
       "node_modules/@types"
