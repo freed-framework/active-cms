@@ -11,7 +11,8 @@
     "test": "mocha src/__test__/**/*.test.ts src/api/**/*.test.ts",
     "test_cover": "istanbul cover node_modules/mocha/bin/_mocha src/api/**/*.test.ts",
     "docs": "documentation build api/**/*.*.ts --format md --github -o ./docs/api/image.md",
-    "prestart:prod": "tsc"
+    "prestart:prod": "tsc",
+    "production": "cross-env NODE_ENV=production && forever start ./dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "3.0.0",
