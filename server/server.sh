@@ -2,10 +2,8 @@
 
 if [ $# -eq 0 ]; then  
     name='pro'  
-else if [ $1 -eq 'pro' -o $1 -eq 'dev' -o $1 -eq 'test' ]; then
-    name=$1
 else
-    name='pro'
+    name=$1
 fi
 
 echo "delete dist"
