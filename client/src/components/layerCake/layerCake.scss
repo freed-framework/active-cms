@@ -1,12 +1,19 @@
+@import "../css/common.scss";
+
 .ec-editor-layer-cake {
-    position: fixed;
+    @extend .ec-eidtor-layout-fixed;
+
     z-index: 888;
     right: 0;
-    top: 50px;
+    width: 90px;
 
-    width: 80px;
-    height: 200px;
-    background: #e5e5ee;
+    &-title {
+        @extend .ec-eidtor-layout-fixed-title;
+    }
+
+    &-main {
+        @extend .ec-eidtor-layout-fixed-main;
+    }
 
     &-items {
         margin-bottom: 5px;
@@ -20,5 +27,9 @@
         .icon-font {
             margin-right: 4px;
         }
+    }
+
+    &-active {
+        right: 305px;
     }
 }

@@ -7,6 +7,7 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { is } from 'immutable';
+import { Icon } from 'antd';
 import mitt from 'mitt';
 import Bar from '../bar';
 import './panel.scss';
@@ -20,8 +21,9 @@ class Panel extends PureComponent {
         emitter.on('delete', this.mittDelete);
 
         this.state = {
-            activeId: null,
+            activeId: props.activeId,
             data: {},
+            visible: props.visible,
         }
     }
 
@@ -39,22 +41,39 @@ class Panel extends PureComponent {
         if (!is(this.state.activeId, nextProps.activeId)) {
             this.setState({
                 activeId: nextProps.activeId,
-            })
+            });
         }
+
+        if (!is(this.state.visible, nextProps.visible)) {
+            this.setState({
+                visible: nextProps.visible,
+            });
+        }
+
+
+    }
+
+    handleClose = () => {
+        this.props.onClose();
     }
 
     render() {
-        const { data, activeId } = this.state;
+        const { data, activeId, visible } = this.state;
 
         const clsLayout = classNames('ec-panel-layout', {
-            'ec-panel-layout-visible': activeId
+            'ec-panel-layout-visible': visible,
         });
 
         return (
             <div className={clsLayout}>
-                {/* 编辑面板 */}
                 {/* 标题栏 */}
                 <div className="ec-panel-title">
+                    <div
+                        className="ec-panel-close"
+                        onClick={this.handleClose}
+                    >
+                        <Icon type="close" />
+                    </div>
                     <span className="ec-panel-title-text">编辑面板</span>
                 </div>
 

@@ -7,7 +7,6 @@
 import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
 import Wrap from './Wrap';
-import ActiveButton from './ActiveButton';
 import Panel from '../panel';
 import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
