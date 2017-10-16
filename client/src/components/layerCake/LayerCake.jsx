@@ -7,6 +7,7 @@
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
+import Font from 'font';
 import App, { activeComponent } from '../../pages/editor/App';
 import './layerCake.scss';
 
@@ -16,6 +17,7 @@ class LayerCake extends PureComponent {
 
         this.state = {
             data: props.data,
+            activeId: ''
         }
     }
 
@@ -23,6 +25,12 @@ class LayerCake extends PureComponent {
         if (!is(this.state.props, nextProps.data)) {
             this.setState({
                 data: nextProps.data,
+            })
+        }
+
+        if (!is(this.state.activeId, nextProps.activeId)) {
+            this.setState({
+                activeId: nextProps.activeId,
             })
         }
     }
@@ -33,10 +41,17 @@ class LayerCake extends PureComponent {
         // 实际上被编辑的元素
         const editTarget = document.getElementById(guid);
 
-        activeComponent(guid, editTarget);
+        this.setState({
+            current: guid
+        }, () => {
+            activeComponent(guid, editTarget);
+        })
+
     }
 
     loopRender(data, isChildren = false) {
+        const { activeId } = this.state;
+
         const cls = classNames('ec-editor-layer-cake-items', {
             'ec-editor-layer-cake-items-sub': isChildren,
         });
@@ -51,7 +66,11 @@ class LayerCake extends PureComponent {
                         data-guid={item.guid}
                         onClick={this.handleActive}
                     >
-                        {item.name}
+                        <Font size="13" type={activeId === item.guid ? 'note-text2' : 'note-text'} />
+                        {
+                            item.name
+                        }
+                        
                     </div>
 
                     <div>

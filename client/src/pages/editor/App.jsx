@@ -473,6 +473,7 @@ class App extends Component {
                 />
 
                 <LayerCake
+                    activeId={this.state.activeId}
                     data={data}
                 />
 

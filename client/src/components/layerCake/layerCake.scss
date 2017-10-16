@@ -10,9 +10,15 @@
 
     &-items {
         margin-bottom: 5px;
+        cursor: pointer;
 
         &-sub {
             margin-bottom: 0;
+            margin-left: 4px;
+        }
+
+        .icon-font {
+            margin-right: 4px;
         }
     }
 }
