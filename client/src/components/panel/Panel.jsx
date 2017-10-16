@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import { Icon } from 'antd';
 import mitt from 'mitt';
+import Font from 'font';
 import Bar from '../bar';
 import './panel.scss';
 

@@ -51,6 +51,10 @@ class LayerCake extends PureComponent {
         this.setState({
             current: guid
         }, () => {
+            try {
+                document.querySelector(`#${guid}`).scrollIntoView(true);
+            } catch(e) {}
+
             activeComponent(guid, editTarget);
         })
 
