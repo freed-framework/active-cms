@@ -52,44 +52,6 @@ class Editor extends PureComponent {
         }
     }
 
-    loop(data, activeId) {
-        console.log(data)
-
-        /*
-        return data.map(item => (
-            <Lazyer
-                key={item.guid}
-                item={item}
-            >
-                {mod => {
-                    const props = {
-                        style: mod.style,
-                        attrs: mod.attrs,
-                        guid: mod.guid,
-                    };
-
-                    // 先添加到panel 的 _data 中
-                    // Panel.add({
-                    //     ...props,
-                    //     module: mod.module,
-                    // });
-
-                    // return (
-                    //     <mod.App
-                    //         id={props.guid}
-                    //         {...props}
-                    //     >
-                    //         {item.children && this.loop(item.children)}
-                    //     </mod.App>
-                    // );
-
-                    return null;
-                }}
-            </Lazyer>
-        ));
-        */
-    }
-
     /**
      * 原始数据
      * @param data
@@ -122,7 +84,7 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { data, activeId } = this.state;
+        const { data } = this.state;
 
         return (
             <div>

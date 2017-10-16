@@ -1,9 +1,18 @@
 .ec-editor-layer-cake {
     position: fixed;
+    z-index: 888;
     right: 0;
     top: 50px;
 
     width: 80px;
     height: 200px;
     background: #e5e5ee;
+
+    &-items {
+        margin-bottom: 5px;
+
+        &-sub {
+            margin-bottom: 0;
+        }
+    }
 }
