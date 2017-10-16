@@ -198,6 +198,8 @@ class App extends Component {
             getPage(id).then((res) => {
                 const { data } = res;
 
+                document.title = data.title;
+
                 this.setDataAndTile(data.content);
             })
         }

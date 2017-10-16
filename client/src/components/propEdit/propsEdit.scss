@@ -6,3 +6,22 @@ input[type="text"] {
     display: inline-block;
     vertical-align: middle;
 }
+
+.ec-editor-basic {
+    &-props {
+        margin-bottom: 4px;
+        label {
+            margin-right: 2px;
+        }
+        &-width, &-height, &-margin, &-padding {
+            input {
+                width: 80px;
+            }
+        }
+        &-background {
+            input {
+                width: 164px;
+            }
+        }
+    }
+}

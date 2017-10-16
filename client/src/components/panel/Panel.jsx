@@ -8,6 +8,7 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { is } from 'immutable';
 import mitt from 'mitt';
+import Font from 'font';
 import Bar from '../bar';
 import './panel.scss';
 
