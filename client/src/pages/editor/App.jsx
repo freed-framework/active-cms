@@ -160,7 +160,9 @@ class App extends Component {
         this.state = {
             rect: null,
             hoverId: null,
+
             activeId: null,
+            panelVisible: false,
 
             /**
              * 后端返回的原始数据
@@ -381,6 +383,8 @@ class App extends Component {
 
     /**
      * 激活组件
+     * @param guid
+     * @param target
      */
     mittActive({ guid, target }) {
         const rect = guid && target ? getRect(target) : null;
@@ -389,9 +393,16 @@ class App extends Component {
             activeId: guid,
             activeRect: rect,
             rect,
+
+            // 设置panel 编辑面板的显示状态
+            panelVisible: !!guid,
         });
     }
 
+    /**
+     * 弹出确定提交浮层
+     * @param callback
+     */
     showConfirm = (callback) => {
         confirm({
             title: '请输入页面标题?',
@@ -401,12 +412,19 @@ class App extends Component {
         });
     }
 
+    /**
+     * 在弹框中设置页面标题
+     * @param e
+     */
     handleChange = (e) => {
         this.setState({
             title: e.target.value
         })
     }
 
+    /**
+     * 保存数据
+     */
     mittSave() {
         const { location = '', match = {} } = this.props;
         const { params = {} } = match;
@@ -455,6 +473,15 @@ class App extends Component {
         this.props.history.replace(`/view`)
     }
 
+    /**
+     * 关闭 panel
+     */
+    handleClosePanel = () => {
+        this.setState({
+            panelVisible: false,
+        });
+    }
+
     render() {
         const { rect, tileData, data } = this.state;
         const { history } = this.props;
@@ -472,10 +499,13 @@ class App extends Component {
                 <Panel
                     activeId={this.state.activeId}
                     data={tileData}
+                    onClose={this.handleClosePanel}
+                    visible={this.state.panelVisible}
                 />
 
                 <LayerCake
                     activeId={this.state.activeId}
+                    active={this.state.panelVisible}
                     data={data}
                 />
 

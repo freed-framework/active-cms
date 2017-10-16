@@ -1,20 +1,22 @@
+@import "../css/common.scss";
+
 .ec-panel {
     $layoutWidth: 300px;
 
+    &-close {
+        position: absolute;
+        top: 50%;
+        margin-top: -14px;
+    }
+
     /* 外部容器 */
     &-layout {
-        background: #ededed;
-        position: fixed;
+        @extend .ec-eidtor-layout-fixed;
+
         right: -$layoutWidth;
-        top: 0;
         bottom: 0;
-        box-shadow: -2px 0 6px -4px #999;
-        padding: 0;
         width: $layoutWidth;
         height: 100%;
-        transition: all .2s;
-        z-index: 888;
-        margin-top: 51px;
 
         &-visible {
             right: 0;
@@ -28,9 +30,7 @@
 
     $buttonWidth: 15px;
     &-title {
-        margin-bottom: 15px;
-        background: #bbb;
-        color: #fff;
+        @extend .ec-eidtor-layout-fixed-title;
 
         &-button {
             position: absolute;
@@ -41,7 +41,6 @@
             height: 30px;
             line-height: 30px;
             text-align: center;
-            transition: all .2s;
         }
 
         &-text {
@@ -53,7 +52,7 @@
     }
 
     &-main {
-        padding: 0 15px;
+        @extend .ec-eidtor-layout-fixed-main;
     }
 
     /* 每一个目标的编辑容器 */

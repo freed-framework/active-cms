@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
 import Font from 'font';
-import App, { activeComponent } from '../../pages/editor/App';
+import { activeComponent } from '../../pages/editor/App';
 import './layerCake.scss';
 
 class LayerCake extends PureComponent {
@@ -16,8 +16,9 @@ class LayerCake extends PureComponent {
         super(props);
 
         this.state = {
+            activeId: props.activeId,
             data: props.data,
-            activeId: ''
+            active: props.active,
         }
     }
 
@@ -25,6 +26,12 @@ class LayerCake extends PureComponent {
         if (!is(this.state.props, nextProps.data)) {
             this.setState({
                 data: nextProps.data,
+            })
+        }
+
+        if (!is(this.state.active, nextProps.active)) {
+            this.setState({
+                active: nextProps.active,
             })
         }
 
@@ -71,10 +78,7 @@ class LayerCake extends PureComponent {
                         onClick={this.handleActive}
                     >
                         <Font size="13" type={activeId === item.guid ? 'note-text2' : 'note-text'} />
-                        {
-                            item.name
-                        }
-                        
+                        {item.name}
                     </div>
 
                     <div>
@@ -86,11 +90,18 @@ class LayerCake extends PureComponent {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, active } = this.state;
+        const cls = classNames('ec-editor-layer-cake', {
+            'ec-editor-layer-cake-active': active,
+        });
 
         return (
-            <div className="ec-editor-layer-cake">
-                {this.loopRender(data)}
+            <div className={cls}>
+                <div className="ec-editor-layer-cake-title">已添加组件</div>
+
+                <div className="ec-editor-layer-cake-main">
+                    {this.loopRender(data)}
+                </div>
             </div>
         );
     }
