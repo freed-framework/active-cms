@@ -11,7 +11,7 @@ class TopMenu extends Component {
 
     handleGoBack = () => {
         const { length, goBack, replace } = this.props.history;
-    
+
         // 新打开页面length为2
         if (length <= 2) {
             replace('/lists/publish');
@@ -29,38 +29,7 @@ class TopMenu extends Component {
                     <Col span={4} className="ec-editor-banner-left">
                         <span>Static</span>
                     </Col>
-                    <Col span={14} className="ec-editor-banner-center">
-                        <ul className="ec-editor-component">
-                            <li
-                                data-name="layer"
-                                onClick={addComponent}
-                                className="ec-editor-component-list"
-                            >
-                                <Font type="layers" />
-                                <br />
-                                <span>楼层</span>
-                            </li>
-                            <li
-                                data-name="fix"
-                                onClick={addComponent}
-                                className="ec-editor-component-list"
-                            >
-                                <Font type="ribbon" />
-                                <br />
-                                <span>悬停</span>
-                            </li>
-                            <li
-                                data-name="tabs"
-                                onClick={addComponent}
-                                className="ec-editor-component-list"
-                            >
-                                <Font type="grid" />
-                                <br />
-                                <span>Tab</span>
-                            </li>
-                        </ul>
-                    </Col>
-                    <Col span={6} className="ec-editor-banner-right">
+                    <Col span={20} className="ec-editor-banner-right">
                         <Button
                             className="ec-editor-btn"
                             size="small"
