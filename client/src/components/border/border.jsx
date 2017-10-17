@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputNumber, Popover } from 'antd';
-import { SketchPicker } from 'react-color';
+import { ChromePicker } from 'react-color';
 import { editComponentByType } from '../../pages/editor/App';
 
 const Option = Select.Option;
@@ -111,11 +111,12 @@ export default class BorderEdit extends Component {
                 </Select>
                 <Popover
                     content={
-                        <SketchPicker
+                        <ChromePicker
                             color={this.state.col}
                             onChangeComplete={this.onChangeComplete}
                         />
                     }
+                    trigger={['click']}
                 >
                     <span
                         className="ec-edit-border-color"

@@ -59,14 +59,14 @@ body {
     border: 1px solid #f8f8f8;
     background: #ffffff;
     border-radius: 4px;
-    animation-duration: .75s;
+    animation-duration: .35s;
     box-shadow: 4px 4px 10px #ccc;
 
     &:hover {
         box-shadow: 0px 2px 10px #333;
         .page-list-card-pendant {
             animation-name: margin;
-            animation-duration: .75s;
+            animation-duration: .35s;
             animation-fill-mode: both;
         }
     }

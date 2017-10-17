@@ -1,0 +1,45 @@
+$goodsWidth: 190px;
+$normalColor: #666;
+
+.as-layer-goods {
+    width: $goodsWidth;
+    margin: 5px;
+    float: left;
+    color: #666;
+    background: #fff;
+    overflow: hidden;
+    
+    &-img {
+        width: $goodsWidth;
+    }
+
+    &-title {
+        color: $normalColor;
+        display: inline-block;
+        width: $goodsWidth;
+        height: 28px;
+        overflow: hidden;
+        line-height: 1.2;
+    }
+
+    &-price {
+        font-weight: bold;
+        font-size: 14px;
+        color: #C91623;
+    }
+
+    &-btn {
+        text-align: center;
+        margin: 10px 4px;
+
+        &-text {
+            display: inline-block;
+            width: 170px;
+            height: 30px;
+            line-height: 30px;
+            background: #c91623;
+            color: #fff;
+        }
+    }
+    
+}

@@ -92,6 +92,17 @@ export const modules = [
             },
             href: [{label: '连接', component: 'attrs'}]
         }
+    },
+    {
+        id: 8,
+        name: 'goods',
+        file: 'goods',
+        editable: {
+            style: {
+                layout: ['basic', 'position'],
+            },
+            href: [{label: '连接', component: 'attrs'}]
+        }
     }
 ]
 
@@ -111,6 +122,7 @@ export const findComponents = (arg, callback) => {
     }
 
     arr.forEach(moduleName => {
+        console.log(moduleName)
         modules.forEach(module => {
             if (module.name === moduleName) {
                 callback(module);

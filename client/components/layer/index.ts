@@ -8,7 +8,7 @@ interface Config {
 
 const config: Config = {
     name: 'layer',
-    menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap'],
+    menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap', 'goods'],
     editable: {
         style: {
             layout: ['basic'],
