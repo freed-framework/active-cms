@@ -11,4 +11,10 @@ body {
 .ec-editor-canvas {
     position: relative;
     z-index: 1;
+
+    &-inner {
+        width: 1200px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
 }

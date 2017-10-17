@@ -9,12 +9,13 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import { Icon } from 'antd';
 import mitt from 'mitt';
-import Font from 'font';
+import { FollowHoc } from '../follow';
 import Bar from '../bar';
 import './panel.scss';
 
 const emitter = mitt();
 
+@FollowHoc
 class Panel extends PureComponent {
     constructor(props) {
         super(props);
@@ -50,14 +51,15 @@ class Panel extends PureComponent {
                 visible: nextProps.visible,
             });
         }
-
-
     }
 
     handleClose = () => {
         this.props.onClose();
     }
 
+    /**
+     * props.top 由 FollowHoc 控制
+     */
     render() {
         const { data, activeId, visible } = this.state;
 
@@ -66,7 +68,12 @@ class Panel extends PureComponent {
         });
 
         return (
-            <div className={clsLayout}>
+            <div
+                className={clsLayout}
+                style={{
+                    top: this.props.top,
+                }}
+            >
                 {/* 标题栏 */}
                 <div className="ec-panel-title">
                     <div

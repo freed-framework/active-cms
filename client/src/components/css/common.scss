@@ -3,13 +3,14 @@
  * fixed 属性的编辑模块的通用样式
  */
 .ec-eidtor-layout-fixed {
-    top: 50px;
+    //top: 50px;
     position: fixed;
     padding: 0;
     background: #ededed;
     box-shadow: -2px 0 6px -4px #999;
     transition: all .2s;
     z-index: 888;
+    opacity: 0.96;
 
     &-title {
         position: relative;

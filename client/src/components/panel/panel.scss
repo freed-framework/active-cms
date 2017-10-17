@@ -1,7 +1,8 @@
 @import "../css/common.scss";
 
+$layoutWidth: 300px;
+
 .ec-panel {
-    $layoutWidth: 300px;
 
     &-close {
         position: absolute;
@@ -13,10 +14,10 @@
     &-layout {
         @extend .ec-eidtor-layout-fixed;
 
-        right: -$layoutWidth;
+        top: 50px;
         bottom: 0;
+        right: -$layoutWidth;
         width: $layoutWidth;
-        height: 100%;
 
         &-visible {
             right: 0;
@@ -61,4 +62,15 @@
             display: none;
         }
     }
+}
+
+
+.ec-eidtor-panel-fixed {
+    @extend .ec-eidtor-layout-fixed;
+
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    height: 100%;
 }
