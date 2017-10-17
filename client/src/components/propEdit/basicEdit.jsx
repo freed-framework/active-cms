@@ -7,6 +7,7 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
 import { editComponent, editComponentByType } from '../../pages/editor/App';
+import BorderEdit from '../border';
 
 import Background from '../background';
 
@@ -43,6 +44,7 @@ class BasicEdit extends PureComponent {
 
     render() {
         const { target, guid } = this.props;
+
         return (
             <div>
                 <div>{target}</div>
@@ -104,14 +106,11 @@ class BasicEdit extends PureComponent {
                 </Row>
                 <div className="ec-editor-basic-props ec-editor-basic-props-border">
                     <label htmlFor="">边框</label>
-                    <input
-                        type="text"
-                        data-guid={guid}
-                        data-target={target}
-                        data-attr="border"
-                        onChange={this.handleChange}
-                        value={this.state.border}
+                    <BorderEdit
+                        {...this.props}
                     />
+                    
+
                 </div>
 
                 <div className="ec-editor-basic-props ec-editor-basic-props-background">
