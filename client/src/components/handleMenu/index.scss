@@ -1,0 +1,53 @@
+$menuSize: 120px;
+$menuHeight: 40px;
+
+.ec-edit-handle-menu {
+    width:$menuSize;
+    height: $menuSize;
+    background: #ccc;
+    border-radius: 50%;
+    margin: 0 0 -50% -50%;
+    border: 2px solid #bbb;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #ccc;
+        background: #bbb;
+    }
+
+    &-item {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: $menuHeight;
+        height: $menuHeight;
+        background: #aaa;
+        border-radius: 50%;
+        line-height: $menuHeight;
+        text-align: center;
+
+        &:hover {
+            background: #bbb;
+        }
+    }
+
+    &-item1 {
+        top: -$menuHeight * 1.5;
+        left: 4%;
+    }
+
+    &-item2 {
+        top: -43px;
+        left: 56%;
+    }
+
+    // &-item3 {
+    //     top: -27%;
+    //     left: 53%;
+    // }
+
+    &-item4 {
+        top: 30%;
+        right: -4px;
+    }
+}

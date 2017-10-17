@@ -10,13 +10,13 @@ $normalColor: #666;
     overflow: hidden;
     
     &-img {
-        width: $goodsWidth;
+        width: 100%;
     }
 
     &-title {
         color: $normalColor;
         display: inline-block;
-        width: $goodsWidth;
+        // width: $goodsWidth;
         height: 28px;
         overflow: hidden;
         line-height: 1.2;

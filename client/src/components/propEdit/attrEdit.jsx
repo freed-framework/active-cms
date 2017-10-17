@@ -11,17 +11,19 @@ import ColorPicker from '../colorPicker';
 class AttrEdit extends PureComponent {
     constructor(props) {
         super(props);
+        const { target, attribute } = props;
 
         this.state = {
-            src: props.src
+            [target]: attribute[target]
         }
     }
 
     handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
+        const {target} = this.props;
 
         this.setState({
-            [attr]: event.currentTarget.value,
+            [target]: event.currentTarget.value,
         });
 
         editComponent(event, 'attr');
@@ -39,9 +41,8 @@ class AttrEdit extends PureComponent {
                         type="text"
                         data-guid={guid}
                         data-target={target}
-                        data-attr="src"
                         onChange={this.handleChange}
-                        value={this.state.src}
+                        value={this.state[target]}
                     />
                 </div>
             </div>
