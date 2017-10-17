@@ -11,7 +11,7 @@ import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../server';
-import { Editor, Panel, TopMenu, Control, LayerCake } from '../../components';
+import { Editor, Panel, TopMenu, Control, LayerCake, Follow } from '../../components';
 import Module from '../../../common/module';
 import mitt from 'mitt';
 import './app.scss';
@@ -495,18 +495,25 @@ class App extends Component {
                 {/* Top Menu */}
                 <TopMenu history={history} />
 
+                {/* 左侧工具面板 */}
+                <Follow
+                    className="ec-eidtor-layout-fixed"
+                    offsetTop={50}
+                >
+                    <LayerCake
+                        activeId={this.state.activeId}
+                        active={this.state.panelVisible}
+                        data={data}
+                    />
+                </Follow>
+
                 {/* 右侧的控制面板 */}
                 <Panel
                     activeId={this.state.activeId}
                     data={tileData}
+                    offsetTop={50}
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
-                />
-
-                <LayerCake
-                    activeId={this.state.activeId}
-                    active={this.state.panelVisible}
-                    data={data}
                 />
 
                 {/* 模块 */}
@@ -514,11 +521,15 @@ class App extends Component {
                     ref={ref => { this.canvas = ref }}
                     className="ec-editor-canvas"
                 >
-                    <Editor
-                        activeId={this.state.activeId}
-                        data={data}
-                        tileData={tileData}
-                    />
+                    <div
+                        className="ec-editor-canvas-inner"
+                    >
+                        <Editor
+                            activeId={this.state.activeId}
+                            data={data}
+                            tileData={tileData}
+                        />
+                    </div>
                 </div>
             </div>
         );

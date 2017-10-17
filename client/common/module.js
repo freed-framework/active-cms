@@ -49,7 +49,7 @@ class Module {
      */
     static create(moduleName) {
         return this.asyncComponent({
-            guid: utils.guid(),
+            guid: `ec-module-${utils.guid()}`,
             name: moduleName,
         })
     }

@@ -50,7 +50,7 @@ class TopMenu extends Component {
                                 <span>悬停</span>
                             </li>
                             <li
-                                data-name="tab"
+                                data-name="tabs"
                                 onClick={addComponent}
                                 className="ec-editor-component-list"
                             >
