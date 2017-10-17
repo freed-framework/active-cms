@@ -11,7 +11,7 @@ import { message, Modal, Input } from 'antd';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../server';
-import { Editor, Panel, TopMenu, Control, LayerCake, Follow, HanleMenu } from '../../components';
+import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps, HanleMenu } from '../../components';
 import Module from '../../../common/module';
 import mitt from 'mitt';
 import './app.scss';
@@ -497,9 +497,11 @@ class App extends Component {
 
                 {/* 左侧工具面板 */}
                 <Follow
-                    className="ec-eidtor-layout-fixed"
+                    className="ec-editor-left-panel ec-editor-layout-fixed"
                     offsetTop={50}
                 >
+                    <PubComps />
+
                     <LayerCake
                         activeId={this.state.activeId}
                         active={this.state.panelVisible}

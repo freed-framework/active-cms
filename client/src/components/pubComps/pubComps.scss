@@ -1,0 +1,17 @@
+.ec-editor-pub-comps {
+    position: static;
+    width: 100px;
+    margin-bottom: 10px;
+
+    &-items {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
+.ec-editor-pub-comps.ec-editor-layout-fixed {
+
+    .ec-editor-layout-fixed-main {
+        padding: 0;
+    }
+}

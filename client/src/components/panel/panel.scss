@@ -12,7 +12,7 @@ $layoutWidth: 300px;
 
     /* 外部容器 */
     &-layout {
-        @extend .ec-eidtor-layout-fixed;
+        @extend .ec-editor-layout-fixed;
 
         top: 50px;
         bottom: 0;
@@ -31,7 +31,7 @@ $layoutWidth: 300px;
 
     $buttonWidth: 15px;
     &-title {
-        @extend .ec-eidtor-layout-fixed-title;
+        @extend .ec-editor-layout-fixed-title;
 
         &-button {
             position: absolute;
@@ -53,7 +53,7 @@ $layoutWidth: 300px;
     }
 
     &-main {
-        @extend .ec-eidtor-layout-fixed-main;
+        @extend .ec-editor-layout-fixed-main;
     }
 
     /* 每一个目标的编辑容器 */
@@ -66,7 +66,7 @@ $layoutWidth: 300px;
 
 
 .ec-eidtor-panel-fixed {
-    @extend .ec-eidtor-layout-fixed;
+    @extend .ec-editor-layout-fixed;
 
     right: 0;
     top: 0;

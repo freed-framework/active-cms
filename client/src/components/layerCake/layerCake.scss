@@ -3,14 +3,14 @@
 .ec-editor-layer-cake {
     z-index: 888;
     left: 0;
-    width: 90px;
+    width: 100px;
 
     &-title {
-        @extend .ec-eidtor-layout-fixed-title;
+        @extend .ec-editor-layout-fixed-title;
     }
 
     &-main {
-        @extend .ec-eidtor-layout-fixed-main;
+        @extend .ec-editor-layout-fixed-main;
     }
 
     &-items {

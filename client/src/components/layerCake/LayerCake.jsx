@@ -2,7 +2,7 @@
  * @file LayerCake
  * @author denglingbo
  *
- * Des
+ * 已经添加的组件列表组件
  */
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
@@ -60,6 +60,11 @@ class LayerCake extends PureComponent {
 
     }
 
+    /**
+     * 循环 DOM 节点
+     * @param data
+     * @param isChildren
+     */
     loopRender(data, isChildren = false) {
         const { activeId } = this.state;
 

@@ -34,32 +34,6 @@ $padding: 20px;
             background-color: #44CB83;
         }
     }
-    .ec-editor-component {
-        line-height: normal;
-        height: 50px;
-        &-list {
-            display: inline-block;
-            width: 60px;
-            text-align: center;
-            padding-top: 8px;
-            height: 100%;
-            margin-right: 4px;
-            cursor: pointer;
-            span, .anticon {
-                color: #fff;
-            }
-            span {
-                font-size: 12px;
-            }
-            .icon-font {
-                font-size: 16px;
-                margin-bottom: 2px;
-            }
-            &:hover {
-                background-color: #484d64;
-            }
-        }
-    }
     &-list {
         position: fixed;
         top: 0px;
