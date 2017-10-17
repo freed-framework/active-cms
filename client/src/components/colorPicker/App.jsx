@@ -72,6 +72,7 @@ class ColorPicker extends Component {
                         onChangeComplete={this.onChangeComplete}
                     />
                 }
+                trigger={['click']}
             >
                 <Styled.ColorInputWrap>
                     <Input
