@@ -233,7 +233,7 @@ class App extends Component {
     data2Tile(data, arr = []) {
         const looper = (data) => {
             data.forEach(item => {
-                arr = arr.concat(Module.asyncComponent(item));
+                arr = arr.concat(Module.get(item));
 
                 if (item.children) {
                     looper(item.children, arr);
@@ -338,8 +338,9 @@ class App extends Component {
             .then(value => {
                 // 添加到某组件下
                 if (guid) {
-                    const data = createChildren(this.state.data, guid, value);
-                    this.setDataAndTile(data);
+                    this.setDataAndTile(
+                        createChildren(this.state.data, guid, value)
+                    );
                 } else {
                     // 直接新增到画布中
                     this.setDataAndTile(

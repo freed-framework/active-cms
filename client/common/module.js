@@ -23,7 +23,8 @@ class Module {
                 .then(App => {
                     return resolve({
                         // 返回数据
-                        ...item,
+                        // ...item,
+                        guid: item.guid,
                         // 返回模块配置
                         ...(App.config && { module: {...App.config} }),
                         // 返回组件

@@ -16,7 +16,7 @@ class Editor extends PureComponent {
         super(props);
 
         this.state = {
-            activeId: props.activeId,
+            // activeId: props.activeId,
 
             data: props.data,
 
@@ -44,11 +44,11 @@ class Editor extends PureComponent {
         /**
          * 通过点击 edit 按钮，传递的 id
          */
-        if (nextProps.activeId !== this.props.activeId) {
-            this.setState({
-                activeId: nextProps.activeId,
-            });
-        }
+        // if (nextProps.activeId !== this.props.activeId) {
+        //     this.setState({
+        //         activeId: nextProps.activeId,
+        //     });
+        // }
     }
 
     /**
