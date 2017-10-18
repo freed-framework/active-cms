@@ -6,8 +6,9 @@
  */
 import React  from 'react';
 import { deleteComponent, addComponent } from '../../pages/editor/App';
-import { findComponents } from '../../../components/__index';
 import { Button } from 'antd';
+import { findComponents } from '../../../components/__index';
+import Module from '../../../common/module';
 import PropsEdit from '../propEdit/PropsEdit';
 
 class Bar {
@@ -99,22 +100,37 @@ class Bar {
      * @return {Array}
      */
     static menus({ guid, menus }) {
-        const nodes = [];
+        const promiseList = [];
+        
+        menus.forEach(m => {
+            // promiseList.push(Module.get(m));
+        })
 
-        findComponents(menus, (module) => {
-            nodes.push(
+        return menus.map((item, i) => {
+            return (
                 <Button
-                    key={module.id}
+                    key={i}
                     data-guid={guid}
-                    data-name={module.name}
+                    data-name={item}
                     onClick={addComponent}
                 >
-                    {module.file}
+                    {item}
                 </Button>
             )
-        });
-
-        return nodes;
+        })
+        
+        // findComponents(menus, (module) => {
+        //     nodes.push(
+        //         <Button
+        //             key={module.id}
+        //             data-guid={guid}
+        //             data-name={module.name}
+        //             onClick={addComponent}
+        //         >
+        //             {module.file}
+        //         </Button>
+        //     )
+        // });
     }
 }
 
