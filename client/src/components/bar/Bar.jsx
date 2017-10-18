@@ -7,8 +7,6 @@
 import React  from 'react';
 import { deleteComponent, addComponent } from '../../pages/editor/App';
 import { Button } from 'antd';
-import { findComponents } from '../../../components/__index';
-import Module from '../../../common/module';
 import PropsEdit from '../propEdit/PropsEdit';
 
 class Bar {
@@ -100,12 +98,6 @@ class Bar {
      * @return {Array}
      */
     static menus({ guid, menus }) {
-        const promiseList = [];
-        
-        menus.forEach(m => {
-            // promiseList.push(Module.get(m));
-        })
-
         return menus.map((item, i) => {
             return (
                 <Button
@@ -118,19 +110,6 @@ class Bar {
                 </Button>
             )
         })
-        
-        // findComponents(menus, (module) => {
-        //     nodes.push(
-        //         <Button
-        //             key={module.id}
-        //             data-guid={guid}
-        //             data-name={module.name}
-        //             onClick={addComponent}
-        //         >
-        //             {module.file}
-        //         </Button>
-        //     )
-        // });
     }
 }
 
