@@ -5,4 +5,5 @@ export { default as TopMenu } from './topMenu';
 export { default as Control } from './control';
 export { default as LayerCake } from './layerCake';
 export { default as Follow } from './follow';
+export { default as HanleMenu } from './handleMenu';
 export { default as PubComps } from './pubComps';
