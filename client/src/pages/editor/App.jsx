@@ -166,6 +166,7 @@ class App extends Component {
 
             /**
              * 后端返回的原始数据
+             * 该数据包含层级关系，components.App module config 等数据 不包含在此
              */
             data: [],
 
@@ -341,21 +342,6 @@ class App extends Component {
             arr.concat(mod);
 
         this.setDataAndTile(data);
-
-        // module.create(cname)
-        //     .then(value => {
-        //         // 添加到某组件下
-        //         if (guid) {
-        //             this.setDataAndTile(
-        //                 createChildren(this.state.data, guid, value)
-        //             );
-        //         } else {
-        //             // 直接新增到画布中
-        //             this.setDataAndTile(
-        //                 this.state.data.concat(value)
-        //             );
-        //         }
-        //     });
     }
 
     /**
@@ -439,9 +425,6 @@ class App extends Component {
         const { params = {} } = match;
         const { id } = params;
 
-        console.log(this.state.data);
-        return;
-
         if (!this.state.data.length) {
             message.error('页面不能为空');
             return;
@@ -457,13 +440,13 @@ class App extends Component {
                     return;
                 }
 
-                // addPage({
-                //     title,
-                //     content: this.state.data
-                // }).then((res) => {
-                //     message.success('保存成功')
-                //     this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
-                // })
+                addPage({
+                    title,
+                    content: this.state.data
+                }).then((res) => {
+                    message.success('保存成功')
+                    this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
+                })
             })
         }
         // 编辑
