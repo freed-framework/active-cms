@@ -24,9 +24,26 @@ const emitter = mitt();
  * 移除组件
  * @param event
  */
-export const deleteComponent = (event) => {
-    const guid = event.currentTarget.getAttribute('data-guid');
+export const deleteComponent = (guid) => {
+    // const guid = event.currentTarget.getAttribute('data-guid');
     emitter.emit('delete', guid);
+}
+
+/**
+ * 复制组件
+ * @param event
+ */
+export const copyComponent = (guid) => {
+    // const guid = event.currentTarget.getAttribute('data-guid');
+    emitter.emit('copy', guid);
+}
+
+/**
+ * 粘贴数据
+ */
+export const pasteComponent = (guid) => {
+    // const guid = event.currentTarget.getAttribute('data-guid');
+    emitter.emit('paste', guid);
 }
 
 /**
@@ -41,6 +58,13 @@ export const addComponent = (event) => {
         cname,
         guid,
     });
+}
+
+export const moveComponent = (startId, endId) => {
+    emitter.emit('move', {
+        startId,
+        endId
+    })
 }
 
 /**
@@ -174,6 +198,11 @@ class App extends Component {
              * 平铺的带 App 的数据
              */
             tileData: {},
+
+            /**
+             * 复制数据
+             */
+            copyData: null
         };
 
         this.mittDelete = ::this.mittDelete;
@@ -182,8 +211,14 @@ class App extends Component {
         this.mittActive = ::this.mittActive;
         this.mittSave = ::this.mittSave;
         this.mittViewer = ::this.mittViewer;
+        this.mittCopy = ::this.mittCopy;
+        this.mittPaste = ::this.mittPaste;
+        this.mittMove = ::this.mittMove;
 
         emitter.on('delete', this.mittDelete);
+        emitter.on('copy', this.mittCopy);
+        emitter.on('paste', this.mittPaste);
+        emitter.on('move', this.mittMove);
         emitter.on('add', this.mittAdd);
         emitter.on('save', this.mittSave);
         emitter.on('edit', this.mittEdit);
@@ -320,6 +355,8 @@ class App extends Component {
     mittDelete(guid) {
         const data = module.remove(guid, this.state.data);
 
+        message.error('删除成功');
+
         this.setDataAndTile(data);
 
         this.setState({
@@ -327,6 +364,54 @@ class App extends Component {
             rect: null,
             activeRect: null,
         })
+    }
+
+    /**
+     * 复制组件
+     * @param guid
+     */
+    mittCopy(guid) {
+        const data = module.copy(guid, this.state.data);
+
+        message.success('复制成功');
+
+        this.setState({
+            copyData: data
+        })
+    }
+
+    /**
+     * 粘贴组件
+     * @param guid
+     */
+    mittPaste(guid) {
+        const { data, copyData } = this.state;
+
+        if (!copyData) {
+            message.error('并无数据被复制');
+            return;
+        }
+
+        const result = module.paste(guid, data, copyData);
+
+        message.success('粘贴成功');
+
+        this.setDataAndTile(result);
+    }
+
+    /**
+     * 移动组件
+     */
+    mittMove = ({startId, endId}) => {
+        const { data } = this.state;
+        const result = module.move(data, startId, endId);
+
+        if (!result) {
+            message.success('暂时只支持同级元素拖动');
+            return;
+        }
+
+        this.setDataAndTile(result);
     }
 
     /**

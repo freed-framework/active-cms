@@ -81,7 +81,6 @@ class Module {
             }
             
             $new = $data.setIn(setBy, value);
-            // console.log($new.toJS())
             
         }, {
             findBy: 'guid',
@@ -98,6 +97,37 @@ class Module {
      */
     static remove(guid, data) {
         return utils.deleteByGuid(data, guid);
+    }
+
+    /**
+     * 复制组件
+     * @param guid
+     * @param data
+     * @return {*}
+     */
+    static copy(guid, data) {
+        return utils.copyByGuid(data, guid);
+    }
+
+    /**
+     * 粘贴组件
+     * @param guid
+     * @param data
+     * @param copyData
+     * @return {*}
+     */
+    static paste(guid, data, copyData) {
+        return utils.pasteByGuid(data, guid, copyData);
+    }
+
+    /**
+     * 移动组件
+     * @param {Array} data 页面数据
+     * @param {string} startId 组件id
+     * @param {string} endId 组件id
+     */
+    static move(data, startId, endId) {
+        return utils.move(data, startId, endId);
     }
 }
 

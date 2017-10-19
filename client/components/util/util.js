@@ -93,6 +93,27 @@ class utils {
     }
 
     /**
+     * 向指定位置插入值
+     * @param {Array} data 目标数组 
+     * @param {Array} path 需要追加的位置 
+     * @param {Object} value 需要插入的值
+     */
+    static appendChild(data, path, last, value) {
+        const delength = path.length;
+
+        let re = data.toJS();
+
+        for (let i = 0; i < delength; i++) {
+            re = re[path[i]];
+            if (i === delength - 1) {
+                re.splice(last, 0, value.toJS());
+            }
+        }
+
+        return re;
+    }
+
+    /**
      * 通过 guid 删除数据
      * @param data
      * @param guid
@@ -111,6 +132,127 @@ class utils {
         });
 
         return $new.toJS();
+    }
+
+    /**
+     * 通过 guid 复制内容
+     * @param data
+     * @param guid
+     * @return {any|*}
+     */
+    static copyByGuid(data, guid) {
+        let $new = fromJS({});
+        const $data = fromJS(data);
+
+        this.find($data, guid, ($finder, deep) => {
+            $new = $finder;
+        }, {
+            findBy: 'guid',
+        });
+
+        return $new.toJS();
+    }
+
+    /**
+     * 通过 guid 粘贴内容
+     * @param data
+     * @param guid
+     * @param copyData
+     * @return {any|*}
+     */
+    static pasteByGuid(data, guid, copyData) {
+        let $new = fromJS({});
+        const $data = fromJS(data);
+
+        this.find($data, guid, ($finder, deep) => {
+            const setBy = deep.concat(['children']);
+            const child = $finder.toJS().children || [];
+
+            // 防止guid重复
+            child.push(this.changeGuid([copyData])[0])
+
+            const $child = fromJS(child);
+
+            $new = $data.setIn(setBy, $child);
+        }, {
+            findBy: 'guid',
+        });
+
+        return $new.toJS();
+    }
+
+    /**
+     * 移动组件
+     * @param {Array} data 页面数据
+     * @param {string} startId 组件id
+     * @param {string} endId 组件id
+     */
+    static move(data, startId, endId) {
+        const $data = fromJS(data);
+        let $new = fromJS([]);
+
+        let startData = fromJS({});
+        let startDeep = [];
+        let endData = fromJS({});
+        let endDeep = [];
+
+        // 获取开始元素的内容与路径
+        this.find($data, startId, ($finder, deep) => {
+            startData = $finder;
+            startDeep = deep;
+        }, { findBy: 'guid' })
+
+        // 获取结束位置的内容与路径
+        this.find($data, endId, ($finder, deep) => {
+            endData = $finder;
+            endDeep = deep;
+        }, { findBy: 'guid' })
+
+        const endDeepLength = endDeep.length;
+        const newEndDeep = endDeep.slice(0, endDeepLength - 1);
+        const startDeepLength = startDeep.length;
+
+        // 暂时只支持同级元素之间的移动
+        if (startDeep.slice(0, startDeep.length - 1).join(',') !== newEndDeep.join(',')) {
+            $new = false;
+            return;
+        }
+
+        const startLast = startDeep[startDeepLength - 1];
+        const endLast = endDeep[endDeepLength - 1];
+        const last = startLast > endLast ? endLast : endLast - 1;
+
+        // 删除开始元素
+        $new = $data.deleteIn(startDeep);
+
+        if (endDeepLength === 1) {
+            $new = $new.toJS();
+            $new.splice(endLast, 0, startData.toJS());
+        } else {
+            const targetChild = this.appendChild($new, newEndDeep, endLast, startData);
+            $new = $new.setIn(newEndDeep, targetChild).toJS();
+        }
+
+        return $new;
+    }
+
+    /**
+     * 复制后修改guid
+     * @param {Array} arr 
+     */
+    static changeGuid(arr) {
+        return arr.map((item) => {
+
+            if (item.guid) {
+                item.guid = `ec-module-${this.guid()}`;
+            }
+
+            if (item.children && item.children.length) {
+                this.changeGuid(item.children)
+            }
+
+            return item;
+        })
     }
 }
 

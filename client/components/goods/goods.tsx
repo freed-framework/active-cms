@@ -10,7 +10,8 @@ export interface AppProps {
     attrs?: {
         row?: string,
         col?: string,
-        style?: any
+        style?: any,
+        component?: string
     };
 }
 
@@ -29,8 +30,8 @@ export default class Goods extends React.PureComponent<AppProps, any> {
 
     render() {
         const { id, children, attrs = {} } = this.props;
-        const { row, col, style = {} } = attrs;
-        console.log(attrs)
+        const { row, col, style = {}, component } = attrs;
+
         return (
             <div
                 id={id}
@@ -39,7 +40,7 @@ export default class Goods extends React.PureComponent<AppProps, any> {
                 <Grid
                     row={row || '1'}
                     col={col || '1'}
-                    component={null}
+                    component={component}
                     id={id}
                     style={{...style.goodItem}}
                 />

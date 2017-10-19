@@ -27,5 +27,9 @@
         }
     }
 
-    &-active {}
+    &-content {
+        &:hover {
+            background: #eee;
+        }
+    }
 }

@@ -7,8 +7,9 @@
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
-import Font from 'font';
 import { activeComponent } from '../../pages/editor/App';
+import List from './list';
+
 import './layerCake.scss';
 
 class LayerCake extends PureComponent {
@@ -42,8 +43,7 @@ class LayerCake extends PureComponent {
         }
     }
 
-    handleActive = (event) => {
-        const guid = event.target.getAttribute('data-guid');
+    handleActive = (guid) => {
 
         // 实际上被编辑的元素
         const editTarget = document.getElementById(guid);
@@ -60,42 +60,9 @@ class LayerCake extends PureComponent {
 
     }
 
-    /**
-     * 循环 DOM 节点
-     * @param data
-     * @param isChildren
-     */
-    loopRender(data, isChildren = false) {
-        const { activeId } = this.state;
-
-        const cls = classNames('ec-editor-layer-cake-items', {
-            'ec-editor-layer-cake-items-sub': isChildren,
-        });
-
-        return data.map(item => {
-            return (
-                <div
-                    key={item.guid}
-                    className={cls}
-                >
-                    <div
-                        data-guid={item.guid}
-                        onClick={this.handleActive}
-                    >
-                        <Font size="13" type={activeId === item.guid ? 'note-text2' : 'note-text'} />
-                        {item.name}
-                    </div>
-
-                    <div>
-                        {item.children && this.loopRender(item.children, true)}
-                    </div>
-                </div>
-            )
-        })
-    }
-
     render() {
-        const { data, active } = this.state;
+        const { data, active, activeId } = this.state;
+
         const cls = classNames('ec-editor-layer-cake', {
             'ec-editor-layer-cake-active': active,
         });
@@ -103,10 +70,12 @@ class LayerCake extends PureComponent {
         return (
             <div className={cls}>
                 <div className="ec-editor-layer-cake-title">已添加组件</div>
-
-                <div className="ec-editor-layer-cake-main">
-                    {this.loopRender(data)}
-                </div>
+                <List
+                    data={data}
+                    active={active}
+                    activeId={activeId}
+                    onActive={this.handleActive}
+                />
             </div>
         );
     }
