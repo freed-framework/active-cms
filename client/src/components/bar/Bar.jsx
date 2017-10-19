@@ -5,12 +5,15 @@
  * Des
  */
 import React  from 'react';
-import { deleteComponent, addComponent } from '../../pages/editor/App';
+import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
 import { findComponents } from '../../../components/__index';
-import { Button } from 'antd';
+import { Button, Radio } from 'antd';
 import PropsEdit from '../propEdit/PropsEdit';
 
 class Bar {
+    static handleSizeChange(value) {
+        console.log(value)
+    }
     /**
      * 删除按钮组件
      * @param guid
@@ -19,15 +22,20 @@ class Bar {
     static delete(guid) {
         return (
             <div
-                key="button-delete"
+                key="ec-edit-bar-button"
+                className="ec-edit-bar-button"
             >
-                {guid}
-                <span
-                    data-guid={guid}
-                    onClick={deleteComponent}
-                >
-                    Remove
-                </span>
+                <Button.Group size={'small'}>
+                    <Button type="small" onClick={() => deleteComponent(guid)}>
+                        删除
+                    </Button>
+                    <Button type="small" onClick={() => copyComponent(guid)}>
+                        复制
+                    </Button>
+                    <Button type="small" onClick={() => pasteComponent(guid)}>
+                        粘贴
+                    </Button>
+                </Button.Group>
             </div>
         )
     }

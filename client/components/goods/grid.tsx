@@ -1,23 +1,31 @@
 import * as React from 'react';
-import Goods from './goodsItem';
+import { GoodsItem, GoodsImageItem } from './goodsItem';
+import HotImage from '../hotImage';
 
 export interface GridProps {
     id: string,
     row?: string,
     col?: string,
-    component: React.ReactNode,
+    component?: string,
     style: any
 }
 
 export default class Grid extends React.PureComponent<GridProps, any> {
 
     renderItem = (): any => {
-        const { row, col, id, style} = this.props;
+        const { row, col, id, style, component} = this.props;
         const li = [];
         const item = [];
+        let node = <GoodsItem style={{...style}} />;
+
+        if (component === 'Image') {
+            node = <GoodsImageItem style={{...style}} />;
+        } else if (component === 'HotImage') {
+            node = <HotImage style={{...style}} />
+        }
 
         for (let j = 0; j < parseInt(col, 10); j++) {
-            item.push(<Goods style={{...style}}/>)
+            item.push(node)
         }
 
         for (let i = 0; i < parseInt(row, 10); i++) {

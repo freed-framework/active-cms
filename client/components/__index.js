@@ -122,7 +122,6 @@ export const findComponents = (arg, callback) => {
     }
 
     arr.forEach(moduleName => {
-        console.log(moduleName)
         modules.forEach(module => {
             if (module.name === moduleName) {
                 callback(module);
