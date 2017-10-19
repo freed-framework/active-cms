@@ -107,18 +107,22 @@ class Bar {
      * @return {Array}
      */
     static menus({ guid, menus }) {
-        return menus.map((item, i) => {
-            return (
-                <Button
-                    key={i}
-                    data-guid={guid}
-                    data-name={item}
-                    onClick={addComponent}
-                >
-                    {item}
-                </Button>
-            )
-        })
+        return (
+        <Button.Group size={'small'}>
+            {menus.map((item, i) => {
+                    return (
+                        <Button
+                            key={i}
+                            data-guid={guid}
+                            data-name={item}
+                            onClick={addComponent}
+                        >
+                            {item}
+                        </Button>
+                    )
+                })
+            }
+        </Button.Group>)
     }
 }
 
