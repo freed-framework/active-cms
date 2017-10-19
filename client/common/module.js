@@ -51,10 +51,15 @@ class Module {
      * @return {Promise}
      */
     static create(moduleName) {
-        return this.asyncComponent({
+        // return this.asyncComponent({
+        //     guid: `ec-module-${utils.guid()}`,
+        //     name: moduleName,
+        // })
+
+        return {
             guid: `ec-module-${utils.guid()}`,
             name: moduleName,
-        })
+        }
     }
 
     /**
