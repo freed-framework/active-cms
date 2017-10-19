@@ -98,6 +98,10 @@ class Bar {
      * @return {Array}
      */
     static menus({ guid, menus }) {
+        if (!menus || menus.length === 0) {
+            return null;
+        }
+
         return menus.map((item, i) => {
             return (
                 <Button
