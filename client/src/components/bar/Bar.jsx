@@ -110,22 +110,19 @@ class Bar {
         if (!menus || menus.length === 0) {
             return null;
         }
-        
+
         return (
             <Button.Group size={'small'}>
-                {menus.map((item, i) => {
-                        return (
-                            <Button
-                                key={i}
-                                data-guid={guid}
-                                data-name={item}
-                                onClick={addComponent}
-                            >
-                                {item}
-                            </Button>
-                        )
-                    })
-                }
+                {menus.map((item, i) => (
+                    <Button
+                        key={i}
+                        data-guid={guid}
+                        data-name={item}
+                        onClick={addComponent}
+                    >
+                        {item}
+                    </Button>
+                ))}
             </Button.Group>
         );
     }
