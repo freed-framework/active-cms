@@ -23,7 +23,10 @@ class Module {
                 .then(App => {
                     return resolve({
                         // 返回数据
-                        ...item,
+                        // ...item,
+                        guid: item.guid,
+                        // 返回组件 name
+                        name: item.name,
                         // 返回模块配置
                         ...(App.config && { module: {...App.config} }),
                         // 返回组件
@@ -48,10 +51,10 @@ class Module {
      * @return {Promise}
      */
     static create(moduleName) {
-        return this.asyncComponent({
+        return {
             guid: `ec-module-${utils.guid()}`,
             name: moduleName,
-        })
+        }
     }
 
     /**

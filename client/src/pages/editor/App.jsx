@@ -190,6 +190,7 @@ class App extends Component {
 
             /**
              * 后端返回的原始数据
+             * 该数据包含层级关系，components.App module config 等数据 不包含在此
              */
             data: [],
 
@@ -268,7 +269,7 @@ class App extends Component {
     data2Tile(data, arr = []) {
         const looper = (data) => {
             data.forEach(item => {
-                arr = arr.concat(Module.asyncComponent(item));
+                arr = arr.concat(Module.get(item));
 
                 if (item.children) {
                     looper(item.children, arr);
@@ -419,19 +420,13 @@ class App extends Component {
      * @param guid
      */
     mittAdd({ cname, guid }) {
-        module.create(cname)
-            .then(value => {
-                // 添加到某组件下
-                if (guid) {
-                    const data = createChildren(this.state.data, guid, value);
-                    this.setDataAndTile(data);
-                } else {
-                    // 直接新增到画布中
-                    this.setDataAndTile(
-                        this.state.data.concat(value)
-                    );
-                }
-            });
+        const mod = module.create(cname);
+        const arr = this.state.data;
+        const data = guid ?
+            createChildren(this.state.data, guid, mod) :
+            arr.concat(mod);
+
+        this.setDataAndTile(data);
     }
 
     /**

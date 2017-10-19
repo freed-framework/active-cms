@@ -6,8 +6,8 @@
  */
 import React  from 'react';
 import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
-import { findComponents } from '../../../components/__index';
 import { Button, Radio } from 'antd';
+
 import PropsEdit from '../propEdit/PropsEdit';
 
 class Bar {
@@ -107,22 +107,18 @@ class Bar {
      * @return {Array}
      */
     static menus({ guid, menus }) {
-        const nodes = [];
-
-        findComponents(menus, (module) => {
-            nodes.push(
+        return menus.map((item, i) => {
+            return (
                 <Button
-                    key={module.id}
+                    key={i}
                     data-guid={guid}
-                    data-name={module.name}
+                    data-name={item}
                     onClick={addComponent}
                 >
-                    {module.file}
+                    {item}
                 </Button>
             )
-        });
-
-        return nodes;
+        })
     }
 }
 
