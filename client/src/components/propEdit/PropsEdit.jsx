@@ -9,7 +9,7 @@ import BasicEdit from './basicEdit';
 import PositionEdit from './positionEdit';
 import AttrEdit from './attrEdit';
 import RadioChoose from './radioChoose';
-import ChooseData from './chooseData';
+import multiData from './multiData';
 
 import './propsEdit.scss';
 
@@ -28,8 +28,8 @@ class PropsEdit extends PureComponent {
             return <AttrEdit {...this.props} />;
         } else if (compKey === 'radio') {
             return <RadioChoose {...this.props} />
-        } else if (compKey === 'chooseData') {
-            return <ChooseData {...this.props} />
+        } else if (compKey === 'multiData') {
+            return <multiData {...this.props} />
         }
         return null;
     }

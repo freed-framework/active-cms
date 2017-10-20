@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputNumber, Popover } from 'antd';
 import { ChromePicker } from 'react-color';
-import { editComponentByType } from '../../pages/editor/App';
+import { editComponentByType } from '../../../pages/editor/App';
 
 const Option = Select.Option;
 

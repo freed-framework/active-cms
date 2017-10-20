@@ -1,3 +1,10 @@
+/**
+ * @file List.jsx
+ * @author shijh
+ *
+ * 已选组件列表项
+ */
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -70,7 +77,7 @@ export default class List extends Component {
     onMouseDown = (e) => {
         const content = contains(e, 'ec-editor-layer-cake-content', 'ec-editor-layer-cake-main');
         if (content) {
-            const name = content.target.getAttribute('data-name');
+            // const name = content.target.getAttribute('data-name');
             this.startId = content.target.getAttribute('data-guid');
             this.props.onActive(this.startId);
 

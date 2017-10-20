@@ -1,13 +1,24 @@
+/**
+ * @file chooseData.js
+ * @author shijh
+ *
+ * 选择数据设置
+ */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Radio, Select, Input, Row, Col, Icon } from 'antd';
+import { Select, Input, Row, Col, Icon } from 'antd';
 import { editComponentByType } from '../../pages/editor/App';
 
 const Option = Select.Option;
 
 class RadioChoose extends Component {
     static propTypes = {
-
+        target: PropTypes.string,
+        guid: PropTypes.string,
+        compKey: PropTypes.string,
+        attribute: PropTypes.objectOf(PropTypes.any),
+        items: PropTypes.objectOf(PropTypes.any),
+        label: PropTypes.string,
     }
 
     constructor(props) {
@@ -24,6 +35,7 @@ class RadioChoose extends Component {
     handleChange = (param) => {
         const { target, guid, compKey } = this.props;
         const newState = param;
+
         this.setState({
             data: newState
         }, () => {

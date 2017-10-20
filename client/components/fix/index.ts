@@ -41,7 +41,7 @@ const config: Config = {
                 label: '父元素'
             }]
         }],
-        horizontal: [{label: '水平方向定位', component: 'chooseData', items: [
+        horizontal: [{label: '水平方向定位', component: 'multiData', items: [
             {
                 key: 'left',
                 label: '左'
@@ -51,7 +51,7 @@ const config: Config = {
                 label: '右'
             }
         ]}],
-        vertical: [{label: '垂直方向定位', component: 'chooseData', items: [
+        vertical: [{label: '垂直方向定位', component: 'multiData', items: [
             {
                 key: 'top',
                 label: '上'

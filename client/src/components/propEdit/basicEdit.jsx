@@ -6,12 +6,22 @@
  */
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
+import PropTypes from 'prop-types';
 import { editComponent, editComponentByType } from '../../pages/editor/App';
-import BorderEdit from '../border';
+import BorderEdit from './border';
 
-import Background from '../background';
+import Background from './background';
 
 class BasicEdit extends PureComponent {
+    static propTypes = {
+        target: PropTypes.string,
+        guid: PropTypes.string,
+        compKey: PropTypes.string,
+        attribute: PropTypes.objectOf(PropTypes.any),
+        items: PropTypes.objectOf(PropTypes.any),
+        label: PropTypes.string,
+    }
+
     constructor(props) {
         super(props);
 
@@ -27,6 +37,11 @@ class BasicEdit extends PureComponent {
         }
     }
 
+    onBackgroundChange = ({option, value}) => {
+        const { target, guid } = this.props;
+        editComponentByType({guid, attr: option, target, value});
+    }
+
     handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
 
@@ -35,11 +50,6 @@ class BasicEdit extends PureComponent {
         });
 
         editComponent(event);
-    }
-
-    onBackgroundChange = ({option, value}) => {
-        const { target, guid } = this.props;
-        editComponentByType({guid, attr: option, target, value});
     }
 
     render() {

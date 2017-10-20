@@ -6,7 +6,6 @@
  */
 import React, { PureComponent } from 'react';
 import { editComponent } from '../../pages/editor/App';
-import ColorPicker from '../colorPicker';
 
 class AttrEdit extends PureComponent {
     constructor(props) {
