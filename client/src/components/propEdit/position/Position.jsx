@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import { InputNumber } from 'antd';
 
-import { editComponent, editComponentByType } from '../../pages/editor/App';
+import { editComponent, editComponentByType } from '../../../pages/editor/App';
 
 class PositionEdit extends PureComponent {
     constructor(props) {

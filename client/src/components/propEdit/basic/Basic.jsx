@@ -7,10 +7,10 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
-import { editComponent, editComponentByType } from '../../pages/editor/App';
-import BorderEdit from './border';
+import { editComponent, editComponentByType } from '../../../pages/editor/App';
+import BorderEdit from '../border';
 
-import Background from './background';
+import Background from '../background';
 
 class BasicEdit extends PureComponent {
     static propTypes = {

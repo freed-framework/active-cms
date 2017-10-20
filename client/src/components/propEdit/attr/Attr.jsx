@@ -5,9 +5,9 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../pages/editor/App';
+import { editComponent } from '../../../pages/editor/App';
 
-class AttrEdit extends PureComponent {
+class Attr extends PureComponent {
     constructor(props) {
         super(props);
         const { target, attribute } = props;
@@ -49,8 +49,8 @@ class AttrEdit extends PureComponent {
     }
 }
 
-AttrEdit.defaultProps = {
+Attr.defaultProps = {
     style: {},
 }
 
-export default AttrEdit;
+export default Attr;
