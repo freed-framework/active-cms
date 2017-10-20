@@ -48,7 +48,6 @@ class Bar {
      * @return {XML}
      */
     static edit({ guid, editable = {}, attribute = {} }) {
-        
         return (
             <div>
                 <div>组件属性编辑:</div>
