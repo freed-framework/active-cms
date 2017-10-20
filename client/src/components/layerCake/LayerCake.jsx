@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
 import { activeComponent } from '../../pages/editor/App';
-import List from './list';
+import List from './List';
 
 import './layerCake.scss';
 

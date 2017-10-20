@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Font from 'font';
 import classNames from 'classnames';
 
-import DragPop from './dragPop';
+import DragPop from './DragPop';
 
 import { moveComponent } from '../../pages/editor/App';
 

@@ -14,7 +14,7 @@ import { addPage, getPage, editPage } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps, HanleMenu } from '../../components';
 import Module from '../../../common/module';
 import mitt from 'mitt';
-import './app.scss';
+import '../editor/app.scss';
 
 const confirm = Modal.confirm;
 
