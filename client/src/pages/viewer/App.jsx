@@ -2,27 +2,16 @@
  * @file App.jsx
  * @author denglingbo
  *
- * Des
+ * 预览功能页面
  */
 import React, { Component } from 'react';
-import { fromJS } from 'immutable';
 import PropTypes from 'prop-types';
-import { message, Modal, Input } from 'antd';
-import utils from '../../../components/util/util';
-import module from '../../../common/module';
-import { addPage, getPage, editPage } from '../../services';
-import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps, HanleMenu } from '../../components';
+import { getPage } from '../../services';
+import { Editor } from '../../components';
 import Module from '../../../common/module';
-import mitt from 'mitt';
 import '../editor/app.scss';
 
-const confirm = Modal.confirm;
-
 class App extends Component {
-    static propTypes = {
-        history: PropTypes.objectOf(PropTypes.any),
-    }
-
     constructor(props) {
         super(props);
 
@@ -104,8 +93,7 @@ class App extends Component {
     }
 
     render() {
-        const { rect, tileData, data } = this.state;
-        const { history } = this.props;
+        const { tileData, data } = this.state;
 
         return (
             <div>
@@ -124,7 +112,6 @@ class App extends Component {
                         />
                     </div>
                 </div>
-                {/* <HanleMenu /> */}
             </div>
         );
     }
