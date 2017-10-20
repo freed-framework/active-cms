@@ -48,7 +48,7 @@ class Bar {
      * @return {XML}
      */
     static edit({ guid, editable = {}, attribute = {} }) {
-        
+
         return (
             <div>
                 <div>组件属性编辑:</div>
@@ -78,6 +78,7 @@ class Bar {
                     else {
                         return comps.map(attr => {
                             const { label = '', component = '', data = [], ...props } = attr;
+
                             return <div
                                 key={`${key}-${attr}-${index}`}
                             >

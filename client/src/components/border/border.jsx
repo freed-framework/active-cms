@@ -17,15 +17,13 @@ export default class BorderEdit extends Component {
     static propTypes = {
         guid: PropTypes.string,
         target: PropTypes.string,
-        borderWidth: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-        borderColor: PropTypes.string,
-        borderStyle: PropTypes.string,
+        style: PropTypes.objectOf(PropTypes.any),
     }
 
     constructor(props) {
         super(props);
 
-        const { borderWidth, borderStyle, borderColor } = props;
+        const { borderWidth, borderStyle, borderColor } = props.style;
 
         this.state = {
             wid: borderWidth || 0,
@@ -66,13 +64,14 @@ export default class BorderEdit extends Component {
     }
 
     render() {
-        const { sty, col } = this.state;
+        const { sty, col, wid } = this.state;
 
         return (
             <div className="ec-edit-border">
                 <InputNumber
                     placeholder="宽度"
                     min={0}
+                    defaultValue={wid}
                     onChange={this.handleWidthChange}
                 />
                 <Select

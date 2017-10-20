@@ -27,6 +27,8 @@ class Module {
                         guid: item.guid,
                         // 返回组件 name
                         name: item.name,
+                        // 组件属性对象
+                        attrs: item.attrs,
                         // 返回模块配置
                         ...(App.config && { module: {...App.config} }),
                         // 返回组件

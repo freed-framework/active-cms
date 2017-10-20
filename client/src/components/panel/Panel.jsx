@@ -92,6 +92,7 @@ class Panel extends PureComponent {
                         const clsPanelItem = classNames('ec-panel-item', {
                             'ec-panel-item-hide': activeId !== item.guid,
                         });
+
                         return (
                             <div
                                 key={item.guid}
