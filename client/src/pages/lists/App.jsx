@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
 
 import Card from './Card';
-import { listsPageByTitle, shareList, listsPage } from '../../server';
+import { listsPageByTitle, shareList, listsPage } from '../../services';
 import { TopMenu } from '../../components';
 import './app.scss';
 

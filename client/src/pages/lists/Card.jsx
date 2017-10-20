@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message } from 'antd';
 
-import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../server';
+import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../services';
 
 const confirm = Modal.confirm;
 
