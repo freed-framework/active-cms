@@ -16,8 +16,8 @@ interface Config {
 const config: Config = {
     name: 'goods',
     editable: {
-        row: [{label: '行', component: 'attrs'}],
-        col: [{label: '列', component: 'attrs'}],
+        row: [{label: '行', component: 'Attr'}],
+        col: [{label: '列', component: 'Attr'}],
         // component: [{
         //     label: '商品组件',
         //     component: 'radio',
@@ -33,8 +33,8 @@ const config: Config = {
         //     }]
         // }],
         style: {
-            layout: ['basic'],
-            goodItem: ['basic']
+            layout: ['Basic'],
+            goodItem: ['Basic']
         },
     }
 };

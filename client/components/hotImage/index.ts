@@ -20,7 +20,7 @@ const config: Config = {
     menus: ['layer'],
     editable: {
         style: {
-            layout: ['basic']
+            layout: ['Basic']
         }
     }
 };

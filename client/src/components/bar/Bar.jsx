@@ -8,7 +8,8 @@ import React  from 'react';
 import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
 import { Button, Radio } from 'antd';
 
-import PropsEdit from '../propEdit/PropsEdit';
+// import PropsEdit from '../propEdit/PropsEdit';
+import EditAttr from '../propEdit';
 
 class Bar {
     static handleSizeChange(value) {
@@ -52,51 +53,11 @@ class Bar {
         return (
             <div>
                 <div>组件属性编辑:</div>
-                
-                {Object.keys(editable).map((key, index) => {
-                    const comps = editable[key];
-                    if (key === 'style') {
-                        return Object.keys(comps).map((k, i) => {
-                            const attrs = comps[k];
-                            const { style = {} } = attribute;
-                            return attrs.map(attr => {
-                                {/* const { style = {} } = attrs; */}
-                                return <div
-                                    key={`${key}-${attr}-${index}`}
-                                >
-                                    {/* 加载指定的编辑组件 */}
-                                    <PropsEdit
-                                        compKey={attr}
-                                        guid={guid}
-                                        target={k}
-                                        style={style[k]}
-                                    />
-                                </div>
-                            })
-                        })
-                    }
-                    else {
-                        return comps.map(attr => {
-                            const { label = '', component = '', data = [], ...props } = attr;
-
-                            return <div
-                                key={`${key}-${attr}-${index}`}
-                            >
-                                {/* 加载指定的编辑组件 */}
-                                <PropsEdit
-                                    {...props}
-                                    label={label}
-                                    compKey={component}
-                                    guid={guid}
-                                    target={key}
-                                    data={data}
-                                    attribute={attribute}
-                                    src={attribute.src}
-                                />
-                            </div>
-                        })
-                    }
-                })}
+                <EditAttr
+                    guid={guid}
+                    editable={editable}
+                    attribute={attribute}
+                />
             </div>
         )
     }

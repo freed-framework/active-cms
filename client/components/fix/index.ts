@@ -28,11 +28,11 @@ const config: Config = {
         style: {
             layout: ['basic']
         },
-        distanceLeft: [{label: '侧边距离', component: 'attrs'}],
-        distanceTop: [{label: '顶部距离', component: 'attrs'}],
+        distanceLeft: [{label: '侧边距离', component: 'Attr'}],
+        distanceTop: [{label: '顶部距离', component: 'Attr'}],
         target: [{
             label: '定位目标',
-            component: 'radio',
+            component: 'Radio',
             data: [{
                 key: 'body',
                 label: '窗口'
@@ -41,7 +41,7 @@ const config: Config = {
                 label: '父元素'
             }]
         }],
-        horizontal: [{label: '水平方向定位', component: 'multiData', items: [
+        horizontal: [{label: '水平方向定位', component: 'MultiData', items: [
             {
                 key: 'left',
                 label: '左'
@@ -51,7 +51,7 @@ const config: Config = {
                 label: '右'
             }
         ]}],
-        vertical: [{label: '垂直方向定位', component: 'multiData', items: [
+        vertical: [{label: '垂直方向定位', component: 'MultiData', items: [
             {
                 key: 'top',
                 label: '上'

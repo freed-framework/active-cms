@@ -14,9 +14,9 @@ const config: Config = {
     name: 'hotMap',
     editable: {
         style: {
-            layout: ['basic', 'position'],
+            layout: ['Basic', 'Position'],
         },
-        href: [{label: '连接', component: 'attrs'}]
+        href: [{label: '连接', component: 'Attr'}]
     }
 };
 

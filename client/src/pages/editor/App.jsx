@@ -8,12 +8,13 @@ import React, { Component } from 'react';
 import { fromJS } from 'immutable';
 import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
+import mitt from 'mitt';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps, HanleMenu } from '../../components';
 import Module from '../../../common/module';
-import mitt from 'mitt';
+import Rected from './rected';
 import './app.scss';
 
 const confirm = Modal.confirm;
@@ -571,6 +572,12 @@ class App extends Component {
                 <Control
                     rect={rect}
                 />
+
+                {
+                    [1, 2, 3, 4].map((item) => {
+                        return <Rected />
+                    })
+                }
 
                 {/* Top Menu */}
                 <TopMenu history={history} />

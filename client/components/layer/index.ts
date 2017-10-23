@@ -11,9 +11,9 @@ const config: Config = {
     menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap', 'goods'],
     editable: {
         style: {
-            layout: ['basic'],
+            layout: ['Basic'],
         },
-        anchor: [{label: '设置锚点', component: 'attrs'}],
+        anchor: [{label: '设置锚点', component: 'Attr'}],
     }
 };
 

@@ -11,9 +11,9 @@ export const config: Config = {
     menus: [],
     editable: {
         style: {
-            layout: ['basic'],
-            title: ['basic'],
-            main: ['basic'],
+            layout: ['Basic'],
+            title: ['Basic'],
+            main: ['Basic'],
         }
     }
 };
