@@ -38,6 +38,7 @@ var webpackConfig = {
         // viewer: './viewer/index',
     },
     output: {
+        path: path.resolve(process.cwd(), './dist/'),
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[name].[chunkhash].chunk.js'
