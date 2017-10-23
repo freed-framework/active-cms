@@ -52,7 +52,7 @@ class Bar {
         return (
             <div>
                 <div>组件属性编辑:</div>
-                
+
                 {Object.keys(editable).map((key, index) => {
                     const comps = editable[key];
                     if (key === 'style') {
@@ -61,17 +61,19 @@ class Bar {
                             const { style = {} } = attribute;
                             return attrs.map(attr => {
                                 {/* const { style = {} } = attrs; */}
-                                return <div
-                                    key={`${key}-${attr}-${index}`}
-                                >
-                                    {/* 加载指定的编辑组件 */}
-                                    <PropsEdit
-                                        compKey={attr}
-                                        guid={guid}
-                                        target={k}
-                                        style={style[k]}
-                                    />
-                                </div>
+                                return (
+                                    <div
+                                        key={`${key}-${attr}-${index}`}
+                                    >
+                                        {/* 加载指定的编辑组件 */}
+                                        <PropsEdit
+                                            compKey={attr}
+                                            guid={guid}
+                                            target={k}
+                                            style={style[k]}
+                                        />
+                                    </div>
+                                )
                             })
                         })
                     }
