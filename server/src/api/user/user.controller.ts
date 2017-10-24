@@ -3,14 +3,11 @@ import {
     Response, Param, Body, Request,
     HttpStatus, UseFilters, UsePipes
 } from '@nestjs/common';
-import { HttpException } from '@nestjs/core';
-import { UsersService } from './user.service';
-import { ChatGateway } from './chat.gateway';
-import { NotFoundExceptionFilter } from './user.filter';
-import { CustomPipe } from './user.pipe';
 import * as uuid from 'node-uuid';
+import { UsersService } from './user.service';
 import * as Config from '../../config/local.env';
 import CommonService from '../../common/common.service';
+import { Exception } from '../../common/exception/error.exception';
 
 @Controller('users')
 export class UsersController {
@@ -84,17 +81,12 @@ export class UsersController {
     }
 
     @Post()
-    @UsePipes(new CustomPipe())
     async addUser(@Response() res, @Body() body) {
         const { userName, password, ...params } = body;
         const user = await this.service.getUser({ userName });
 
         if (user) {
-            throw new HttpException({
-                code: 500,
-                message: '用户名已经存在',
-                data: []
-            }, 200);
+            throw new Exception('用户名已经存在', 500);
         }
 
         const msg = await this.service.addUser(body)

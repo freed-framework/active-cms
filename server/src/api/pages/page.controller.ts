@@ -1,39 +1,40 @@
 import {
     Controller, Get, Post,
     Request, Response, Body,
-    HttpStatus, Param
+    HttpStatus, Param, UsePipes,
+    UseInterceptors
 } from '@nestjs/common';
 import * as http from 'http';
-import { HttpException } from '@nestjs/core';
-const fs = require('fs');
-const download = require('download');
 import { PageService } from './page.service';
 import Utils from '../../common/utils';
 import CommonService from '../../common/common.service';
-// import * as RenderPage from '../../../../client/server/page';
+import { Exception } from '../../common/exception/error.exception';
+
+import { CreatePageDto, IspublishDto, SharePageDto } from '../../dto/page.dto';
+import { encodeCreatePipe, encodeUpdatePipe, decodeGetPipe } from '../../common/pipe/page.pipe';
+// import { LoggingInterceptor } from '../../common/interceptor/logging.interceptor';
 
 @Controller('page')
+// @UseInterceptors(LoggingInterceptor)
 export class PageController {
     constructor(private service: PageService) {}
 
     @Get('/query/:id')
     async getPage(@Response() res, @Param('id') id) {
-        let page = await this.service.getPage(id);
+        let page: any = await this.service.getPage(id);
         page = CommonService.commonResponse(Utils.parseContent(page));
         res.status(HttpStatus.OK).json(page);
     }
 
     @Get('/remove/:id')
     async removePage(@Request() req, @Response() res, @Param('id') id) {
-        const page = await this.service.getPage(id);
+        const page: any = await this.service.getPage(id);
         const { user } = req.session;
+
         if (!page || user._id != page.owerUser) {
-            res.status(HttpStatus.OK).json({
-                code: 500,
-                message: '删除页面失败',
-                data: {}
-            });
-        } else {
+            throw new Exception('删除页面失败', 500);
+        }
+        else {
             let result = await this.service.removePage(id);
             result = CommonService.commonResponse(result);
             res.status(HttpStatus.OK).json(result);
@@ -66,7 +67,7 @@ export class PageController {
     }
 
     @Post('/share')
-    async share(@Response() res, @Body() body) {
+    async share(@Response() res, @Body() body: SharePageDto) {
         const { users } = body;
         users.forEach(element => {
             const { userId, pageId } = element;
@@ -76,17 +77,15 @@ export class PageController {
     }
 
     @Post('/publish')
-    async publish(@Request() req, @Response() res, @Body() body) {
+    async publish(@Request() req, @Response() res, @Body() body: IspublishDto) {
         const { id, type = true } = body;
         const { user } = req.session;
-        const page = await this.service.getPage(id, {content: 0});
+        const page: any = await this.service.getPage(id, {content: 0});
+
         if (user._id != page.owerUser) {
-            res.status(HttpStatus.OK).json({
-                code: 500,
-                message: '操作错误',
-                data: {}
-            });
-        } else {
+            throw new Exception('操作错误', 500);
+        } 
+        else {
             const result = await this.service.update(id, {publish: type});
             res.status(HttpStatus.OK).json(CommonService.commonResponse({}));
         }
@@ -101,6 +100,7 @@ export class PageController {
     }
 
     @Post('/update')
+    @UsePipes(new encodeUpdatePipe())
     async updatePage(@Response() res, @Body() body) {
         const { id, page } = body;
         const result = await this.service.updatePage(id, page);
@@ -108,7 +108,8 @@ export class PageController {
     }
 
     @Post()
-    async addPage(@Request() req, @Response() res, @Body() body) {
+    @UsePipes(new encodeCreatePipe())
+    async addPage(@Request() req, @Response() res, @Body() body: CreatePageDto) {
         const { user } = req.session;
         const result = await this.service.addPage({
             body,
@@ -117,17 +118,4 @@ export class PageController {
         });
         res.status(HttpStatus.OK).json(result);
     }
-
-    // @Get('/static/:id')
-    // async getStaticPage(@Response() res, @Param('id') id) {
-    //     console.log(RenderPage())
-    //     // download('http://localhost:4000/').then(data => {
-    //     //     res.set({
-    //     //         "Content-type":"application/octet-stream",
-    //     //         "Content-Disposition":"attachment;filename=" + encodeURI(`${id}.html`)
-    //     //     });
-    //     //     res.write(data, "binary");
-    //     //     res.end();
-    //     // });
-    // }
 }

@@ -4,7 +4,7 @@ import {
 } from '@nestjs/common';
 import { ForkController } from './fork.controller';
 import { ForkService } from './fork.service';
-import { AuthMiddleware } from '../../middleware/auth.middleware';
+import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Shared()
 @Module({

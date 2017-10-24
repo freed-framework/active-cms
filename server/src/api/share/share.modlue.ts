@@ -4,7 +4,7 @@ import {
 } from '@nestjs/common';
 import { ShareController } from './share.controller';
 import { ShareService } from './share.service';
-import { AuthMiddleware } from '../../middleware/auth.middleware';
+import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Shared()
 @Module({

@@ -47,11 +47,11 @@ export class ShareService {
     }
 
     async delete(param) {
-        return await ShareModel.remove(param, (err, doc) => {
+        return await ShareModel.remove(param, (err) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
-            return doc;
+            return 'ok';
         })
     }
 
