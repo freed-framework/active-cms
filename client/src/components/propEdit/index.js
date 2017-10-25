@@ -9,10 +9,11 @@ export default class EditAttr extends Component {
         attribute: PropTypes.objectOf(PropTypes.any),
         editable: PropTypes.objectOf(PropTypes.any),
         guid: PropTypes.string,
+        children: PropTypes.arrayOf(PropTypes.any),
     }
 
     loopRender = () => {
-        const {editable, attribute, guid} = this.props;
+        const {editable, attribute, guid, childs} = this.props;
 
         return Object.keys(editable).map((key, index) => {
             const comps = editable[key];
@@ -54,6 +55,7 @@ export default class EditAttr extends Component {
                             data={data}
                             attribute={attribute}
                             src={attribute.src}
+                            childs={childs}
                         />
                     </div>
                 })

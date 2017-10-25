@@ -48,7 +48,7 @@ class Bar {
      * @param style
      * @return {XML}
      */
-    static edit({ guid, editable = {}, attribute = {} }) {
+    static edit({ guid, editable = {}, attribute = {}, children }) {
 
         return (
             <div>
@@ -57,6 +57,7 @@ class Bar {
                     guid={guid}
                     editable={editable}
                     attribute={attribute}
+                    childs={children}
                 />
             </div>
         )

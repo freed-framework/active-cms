@@ -28,6 +28,7 @@ export default class Grid extends React.Component<GridProps, any> {
         return (
             <div>
                 {this.renderGridItem()}
+                {this.props.children}
             </div>
         );
     }

@@ -9,7 +9,8 @@ interface Config {
         href?: any,
         row?: any,
         col?: any,
-        component?: any
+        component?: any,
+        rowcol: Array<any>
     };
 }
 
@@ -18,6 +19,7 @@ const config: Config = {
     editable: {
         row: [{label: '行', component: 'Attr'}],
         col: [{label: '列', component: 'Attr'}],
+        rowcol: [{label: '行列设置', component: 'Grid'}],
         style: {
             layout: ['Basic'],
             goodItem: ['Basic']

@@ -118,7 +118,8 @@ class Panel extends PureComponent {
                                     {Bar.edit({
                                         guid: item.guid,
                                         editable: item.module ? item.module.editable : {},
-                                        attribute: item.attrs
+                                        attribute: item.attrs,
+                                        children: item.children ? item.children : []
                                     })}
                                 </div>
                             </div>

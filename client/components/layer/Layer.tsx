@@ -18,7 +18,7 @@ class Layer extends React.PureComponent<Props, any> {
                 id={id}
                 className="as-layer"
                 style={{
-                    ...(style && {...style.layout, 'background-position': 'center center'})
+                    ...(style && {...style.layout, 'backgroundPosition': 'center center'})
                 }}
             >
                 {this.props.children}

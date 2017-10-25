@@ -1,9 +1,16 @@
+/**
+ * @file Card.jsx
+ * @author shijh
+ *
+ * 卡片组件
+ */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Font from 'font';
 import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message } from 'antd';
+import { Observable } from 'rxjs';
 
 import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../services';
 
@@ -11,9 +18,13 @@ const confirm = Modal.confirm;
 
 const Option = Select.Option;
 
+function formNowFun(time) {
+    return moment(time).locale('zh-cn').fromNow()
+}
+
 export default class componentName extends Component {
     static propTypes = {
-        data: PropTypes.objectOf(PropTypes.any),
+        data: PropTypes.objectOf(PropTypes.any).isRequired,
         history: PropTypes.objectOf(PropTypes.any),
         onFetchList: PropTypes.func,
         current: PropTypes.string,
@@ -23,8 +34,44 @@ export default class componentName extends Component {
     constructor(props) {
         super(props);
         this.users = [];
+
+        const { forkTime = '', createTime = '', fork } = props.data;
+        const oldTime = fork ? forkTime : createTime;
+
+        this.state = {
+            formNow: formNowFun(oldTime)
+        }
     }
 
+    componentDidMount() {
+        const { forkTime = '', createTime = '', fork } = this.props.data;
+        const oldTime = fork ? forkTime : createTime;
+
+        this.timer = Observable.interval(1000).subscribe(() => {
+            this.setState({
+                formNow: formNowFun(oldTime)
+            })
+        })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.formNow === nextState.formNow) {
+            return false;
+        }
+        return true;
+    }
+
+    componentWillUnmount() {
+        // 取消事件监听
+        this.timer.unsubscribe();
+    }
+
+    /**
+     * 显示确认弹出框
+     *
+     * @param {Function} callback 回调函数
+     * @param {string} defaultValue 默认数据
+     */
     showConfirm = (callback, defaultValue) => {
         confirm({
             title: '请输入页面标题',
@@ -34,22 +81,36 @@ export default class componentName extends Component {
         });
     }
 
+    /**
+     * title值改变
+     *
+     * @param {Element} e react事件对象
+     */
     handleChange = (e) => {
         this.setState({
             title: e.target.value
         })
     }
 
+    /**
+     * 跳转到编辑页面
+     */
     handleEdit = () => {
         const { data = {} } = this.props;
         this.props.history.push(`/edit/${data._id}`);
     }
 
+    /**
+     * 跳转到预览页面
+     */
     handleView = () => {
         const { data = {} } = this.props;
         this.props.history.push(`/view/${data._id}`);
     }
 
+    /**
+     * 删除确认
+     */
     handleDelete = () => {
         const { data = {} } = this.props;
         confirm({
@@ -68,6 +129,9 @@ export default class componentName extends Component {
         });
     }
 
+    /**
+     * fork页面
+     */
     handleFork = () => {
         const { data = {} } = this.props;
         this.showConfirm(() => {
@@ -81,10 +145,16 @@ export default class componentName extends Component {
         }, data.title);
     }
 
+    /**
+     * 人员选择
+     */
     handleUserChange = (users) => {
         this.users = users;
     }
 
+    /**
+     * 分享页面
+     */
     handleShareOk = (users) => {
         const { data = {} } = this.props;
         const pageId = data._id;
@@ -108,6 +178,9 @@ export default class componentName extends Component {
         })
     }
 
+    /**
+     * 确认分享弹出框
+     */
     handleShare = () => {
         fetchAllUsers().then((res) => {
             confirm({
@@ -117,6 +190,27 @@ export default class componentName extends Component {
                 onCancel() {},
             });
         })
+    }
+
+    /**
+     * 发布/取消发布页面
+     */
+    handleUpload = () => {
+        const { data = {} } = this.props;
+        confirm({
+            title: `确认${data.publish ? '取消发布' : '发布页面'}？`,
+            content: `${data.publish ? '取消发布其他人将不可见（被分享的人除外）!' : '发布后所有人都可以看到你的页面！'}`,
+            onOk: () => {
+                publishPage({id: data._id, type: !data.publish })
+                    .then(() => {
+                        this.props.onFetchList()
+                    })
+                    .catch(() => {
+                        message.error(`${data.publish ? '取消发布' : '发布页面'}失败`)
+                    })
+            },
+            onCancel() {},
+        });
     }
 
     renderSelect = (users) => {
@@ -139,27 +233,9 @@ export default class componentName extends Component {
         )
     }
 
-    handleUpload = () => {
-        const { data = {} } = this.props;
-        confirm({
-            title: `确认${data.publish ? '取消发布' : '发布页面'}？`,
-            content: `${data.publish ? '取消发布其他人将不可见（被分享的人除外）!' : '发布后所有人都可以看到你的页面！'}`,
-            onOk: () => {
-                publishPage({id: data._id, type: !data.publish })
-                    .then(() => {
-                        this.props.onFetchList()
-                    })
-                    .catch(() => {
-                        message.error(`${data.publish ? '取消发布' : '发布页面'}失败`)
-                    })
-            },
-            onCancel() {},
-        });
-    }
-
     render() {
         const { data = {}, current, reg } = this.props;
-
+        const { formNow } = this.state;
         const isOwer = user._id === data.owerUser._id;
 
         return (
@@ -207,9 +283,7 @@ export default class componentName extends Component {
                         />
                         <span className={'page-list-card-title-right'}>
                             {
-                                data.fork
-                                    ? moment(data.forkTime).locale('zh-cn').fromNow()
-                                    : moment(data.createTime).locale('zh-cn').fromNow()
+                                formNow
                             }
                         </span>
                     </p>

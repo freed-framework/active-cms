@@ -5,10 +5,11 @@
  * Des
  */
 import React, { Component } from 'react';
-import { fromJS } from 'immutable';
+import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
 import mitt from 'mitt';
+import { Observable } from 'rxjs';
 import utils from '../../../components/util/util';
 import module from '../../../common/module';
 import { addPage, getPage, editPage } from '../../services';
@@ -231,6 +232,7 @@ class App extends Component {
         const { match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
+        let $oldData = fromJS(this.state.data);
 
         // 如果存在id说明是编辑
         if (id) {
@@ -242,6 +244,17 @@ class App extends Component {
                 this.setDataAndTile(data.content);
             })
         }
+
+        // 定时保存每分钟保存一次
+        this.timer = Observable.interval(60000).subscribe(() => {
+            const $newData = fromJS(this.state.data);
+
+            // 数据修改了才保存
+            if (!is($oldData, $newData)) {
+                this.mittSave('定时保存成功！');
+                $oldData = $newData;
+            }
+        })
 
         this.canvas.addEventListener('click', this.handleActive);
         this.canvas.addEventListener('mouseover', this.handleHover);
@@ -256,31 +269,11 @@ class App extends Component {
         emitter.off('active', this.mittActive);
         emitter.off('viewer', this.mittViewer);
 
+        this.timer.unsubscribe();
+
         this.canvas.removeEventListener('click', this.handleActive);
         this.canvas.removeEventListener('mouseover', this.handleHover);
         this.canvas.removeEventListener('mouseout', this.handleOut);
-    }
-
-    /**
-     * 将数据平铺
-     * @param data
-     * @param arr
-     * @return {Array}
-     */
-    data2Tile(data, arr = []) {
-        const looper = (data) => {
-            data.forEach(item => {
-                arr = arr.concat(Module.get(item));
-
-                if (item.children) {
-                    looper(item.children, arr);
-                }
-            });
-        }
-
-        looper(data);
-
-        return arr;
     }
 
     /**
@@ -303,6 +296,28 @@ class App extends Component {
                 tileData,
             }, () => callback);
         });
+    }
+
+    /**
+     * 将数据平铺
+     * @param data
+     * @param arr
+     * @return {Array}
+     */
+    data2Tile(data, arr = []) {
+        const looper = (data) => {
+            data.forEach(item => {
+                arr = arr.concat(Module.get(item));
+
+                if (item.children) {
+                    looper(item.children, arr);
+                }
+            });
+        }
+
+        looper(data);
+
+        return arr;
     }
 
     /**
@@ -506,7 +521,7 @@ class App extends Component {
     /**
      * 保存数据
      */
-    mittSave() {
+    mittSave(text) {
         const { location = '', match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
@@ -530,7 +545,7 @@ class App extends Component {
                     title,
                     content: this.state.data
                 }).then((res) => {
-                    message.success('保存成功')
+                    message.success(text || '保存成功')
                     this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
                 })
             })
@@ -542,8 +557,8 @@ class App extends Component {
                 page: {
                     content: this.state.data
                 }
-            }).then((res) => {
-                message.success('保存成功')
+            }).then(() => {
+                message.success(text || '保存成功')
             })
         }
 
@@ -551,7 +566,7 @@ class App extends Component {
     }
 
     mittViewer() {
-        this.props.history.replace(`/view`)
+        this.props.history.replace('/view')
     }
 
     /**
@@ -566,6 +581,8 @@ class App extends Component {
     render() {
         const { rect, tileData, data } = this.state;
         const { history } = this.props;
+
+        console.log(data)
 
         return (
             <div>

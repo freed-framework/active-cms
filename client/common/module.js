@@ -19,6 +19,7 @@ class Module {
         }
 
         return new Promise((resolve) => {
+            console.log(`../components/${item.name}/index`)
             import(`../components/${item.name}/index`)
                 .then(App => {
                     return resolve({
@@ -78,10 +79,13 @@ class Module {
             if (type === 'attr') {
                 setBy = deep.concat(['attrs', target]);
             }
+            else if (type === 'children') {
+                setBy = deep.concat(['children']);
+            }
             else {
                 setBy = deep.concat(['attrs', 'style', target, attr]);
             }
-            
+            console.log(value)
             $new = $data.setIn(setBy, value);
             
         }, {
