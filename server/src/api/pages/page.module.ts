@@ -2,7 +2,8 @@ import { Module, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import { PageController } from './page.controller';
 import { PageService } from './page.service';
 import { ForkModule, ShareModule } from '../';
-import { AuthMiddleware } from '../../middleware/auth.middleware';
+import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
+import { DevelopmentMiddleware } from '../../common/middlewares/development.middleware';
 
 @Module({
     controllers: [
@@ -19,7 +20,9 @@ import { AuthMiddleware } from '../../middleware/auth.middleware';
 export class PageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
+            .apply(DevelopmentMiddleware)
+            .forRoutes(PageController)
             .apply(AuthMiddleware)
             .forRoutes(PageController)
-    }
+        }
 }

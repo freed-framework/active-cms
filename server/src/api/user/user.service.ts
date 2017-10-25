@@ -52,7 +52,7 @@ export class UsersService {
      * @param {Object} user 新增用户信息 
      */
     async addUser(user) {
-        const result = await UsersModel.create(user, (err, doc) => {
+        const result: any = await UsersModel.create(user, (err, doc) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }

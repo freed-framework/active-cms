@@ -1,7 +1,6 @@
 import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as _ from 'lodash';
-import * as LZString from 'lz-string';
 import PageModel from './page.model';
 import CommonService from '../../common/common.service';
 import { ForkService, ShareService } from '../';
@@ -84,7 +83,7 @@ export class PageService {
      * @param id pageId
      */
     async updateFork(userId, pageId, title) {
-        const page = await PageModel.findById(pageId, (err, doc) => {
+        const page: any = await PageModel.findById(pageId, (err, doc) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
@@ -109,7 +108,7 @@ export class PageService {
             createTime,
         })
 
-        let result = {
+        let result: any = {
             _id: forkId
         };
 
@@ -137,7 +136,7 @@ export class PageService {
      */
     async updatePage(id, page) {
         const { content } = page;
-        const result = await PageModel.findByIdAndUpdate(id, { $set: { content: LZString.compressToBase64(JSON.stringify(content)) }}, (err, doc) => {
+        const result = await PageModel.findByIdAndUpdate(id, { $set: { content: content }}, (err, doc) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
@@ -181,8 +180,8 @@ export class PageService {
     async addPage(page) {
         const { body, ...param } = page;
         const { content, ...props } = body;
-        const parse = (content instanceof Object) ? LZString.compressToBase64(JSON.stringify(content)) : content;
-        const result = await PageModel.create({
+        const parse = content;
+        const result: any = await PageModel.create({
             ...param,
             ...props,
             content: parse

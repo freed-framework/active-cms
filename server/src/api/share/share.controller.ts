@@ -14,7 +14,7 @@ export class ShareController {
 
     @Get('/findOne/:id')
     async findOne(@Response() res, @Param('id') id) {
-        let result = await this.service.findOne({_id: id}, 'page');
+        let result: any = await this.service.findOne({_id: id}, 'page');
         result = result ? CommonService.commonResponse(
             _.assign({}, result.page._doc, {
                 isShare: true,
