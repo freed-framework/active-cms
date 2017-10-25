@@ -8,7 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 
-// Insert seed data below
+// Insert seed tabs below
 var thingSeed = require('../api/thing/thing.seed.json');
 var userSeed = require('../api/user/user.seed.json');
 

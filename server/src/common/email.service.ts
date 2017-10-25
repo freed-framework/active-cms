@@ -32,8 +32,8 @@ const smtpServer = email.server.connect({
  * attachment 参数
  * 
  * path      // string to where the file is located
- * data      // string of the data you want to attach
- * stream    // binary stream that will provide attachment data (make sure it is in the paused state)
+ * tabs      // string of the tabs you want to attach
+ * stream    // binary stream that will provide attachment tabs (make sure it is in the paused state)
  *           // better performance for binary streams is achieved if buffer.length % (76*6) == 0
  *           // current max size of buffer must be no larger than Message.BUFFERSIZE
  *
@@ -44,7 +44,7 @@ const smtpServer = email.server.connect({
  * method      // method to send attachment as (used by calendar invites)
  * alternative // if true, will be attached inline as an alternative (also defaults type='text/html')
  * inline      // if true, will be attached inline
- * encoded     // set this to true if the data is already base64 encoded, (avoid this if possible)
+ * encoded     // set this to true if the tabs is already base64 encoded, (avoid this if possible)
  * headers     // object containing header=>value pairs for inclusion in this attachment's header
  * related     // an array of attachments that you want to be related to the parent attachment
  */

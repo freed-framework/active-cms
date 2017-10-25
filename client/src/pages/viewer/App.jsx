@@ -71,7 +71,7 @@ class App extends Component {
     }
 
     /**
-     * 设置 state.data & state.tileData
+     * 设置 state.tabs & state.tileData
      * @param dataArr
      * @param callback
      */

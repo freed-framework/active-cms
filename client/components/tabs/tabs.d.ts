@@ -1,6 +1,10 @@
 
-interface Props {
+interface TabsProps {
     id: string;
+
+    module?: string;
+
+    activeKey?: string | null;
 
     style: {
         layout: object;
@@ -11,8 +15,26 @@ interface Props {
     children?: React.ReactNode;
 }
 
-interface State {
-    data: [any];
+interface TabsState {
+    data?: [any];
 
-    activeId: string,
+    activeKey?: string | null,
+}
+
+interface TabPaneProps {
+    key?: string;
+
+    tab?: React.ReactNode | string;
+
+    children?: React.ReactNode;
+}
+
+interface TabsTitleProps {
+    children?: React.ReactNode;
+    onActive?: any;
+}
+
+interface TabsContentProps {
+    children?: React.ReactNode;
+    activeKey?: string;
 }

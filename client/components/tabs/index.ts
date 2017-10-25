@@ -10,11 +10,15 @@ export const config: Config = {
     name: 'tabs',
     menus: [],
     editable: {
+        preSettings: [{label: 'Tab 配置', component: 'SetTabs'}],
+
         style: {
             layout: ['Basic'],
             title: ['Basic'],
             main: ['Basic'],
-        }
+        },
+
+
     }
 };
 

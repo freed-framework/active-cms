@@ -1,86 +1,88 @@
 /// <reference path="./tabs.d.ts" />
 import React from 'react';
-import classNames from 'classnames';
+import TabPane from './TabPane';
+import TabsTitle from './TabsTitle';
+import TabsContent from './TabsContent';
 import './tabs.scss';
 
-class Tabs extends React.Component<Props, State> {
-    constructor(props: Props) {
+const getTabs = (props: any) => {
+    return (
+        <div>
+            <div><TabsTitle {...props} /></div>
+            <div><TabsContent {...props} /></div>
+        </div>
+    );
+}
+
+class Tabs extends React.Component<TabsProps, TabsState> {
+    static TabPane = TabPane;
+
+    constructor(props: TabsProps) {
         super(props);
 
         this.state = {
-            data: [
-                {
-                    id: 'aasd1-12313',
-                    title: 'Tab 1',
-                    content: 'Content 1',
-                },
-                {
-                    id: 'bbssa-12313',
-                    title: 'Tab 2',
-                    content: 'Content 2',
-                },
-            ],
-            activeId: 'aasd1-12313',
+            activeKey: props.activeKey
         }
-
-        this.handleActive = this.handleActive.bind(this);
     }
 
-    handleActive(event: React.MouseEvent<any>) {
-        const activeId = event.currentTarget.getAttribute('data-id');
+    static dataTrans(result: any) {
+        const { data, activeKey } = result;
+        const childNodes:any[] = [];
 
-        this.setState({
-            activeId,
+        data.forEach((d:any) => {
+            childNodes.push(
+                <TabPane key={d.key} tab={d.title}>
+                    {d.content}
+                </TabPane>
+            )
         });
+
+        return {
+            props: {
+                activeKey,
+            },
+            childNodes,
+        };
+    }
+
+    componentWillReceiveProps(nextProps: TabsProps) {
+        // if (is(nextProps))
+    }
+
+    handleActive = (activeKey: string) => {
+        this.setState({
+            activeKey,
+        })
+    }
+
+    renderTabs() {
+        const p = {
+            ...this.props,
+            onActive: this.handleActive,
+            activeKey: this.state.activeKey,
+        };
+
+        return (
+            <div>
+                <div><TabsTitle {...p} /></div>
+                <div><TabsContent {...p} /></div>
+            </div>
+        );
     }
 
     public render(): JSX.Element {
         const { style, id } = this.props;
-        const { data, activeId } = this.state;
 
         return (
             <div
                 id={id}
+                data-module={this.props.module}
                 className="ac-tabs"
                 style={{
                     ...(style && {...style.layout})
                 }}
             >
-                {this.props.children}
-                <div
-                    className="ac-tabs-menu"
-                    style={{
-                        ...(style && {...style.title})
-                    }}
-                >
-                    {data.map(item => (
-                        <div
-                            key={item.id}
-                            data-id={item.id}
-                            className="ac-tabs-menu-items"
-                            onClick={this.handleActive}
-                        >
-                            {item.title}
-                        </div>
-                    ))}
-                </div>
-                <div
-                    className="ac-tabs-main"
-                    style={{
-                        ...(style && {...style.main})
-                    }}
-                >
-                    {data.map(item => (
-                        <div
-                            key={item.id}
-                            className={classNames('ac-tabs-main-items', {
-                                'ac-tabs-main-items-hide': activeId !== item.id
-                            })}
-                        >
-                            {item.content}
-                        </div>
-                    ))}
-                </div>
+                {this.renderTabs()}
             </div>
         );
     }

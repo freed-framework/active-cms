@@ -26,7 +26,7 @@ const emitter = mitt();
  * @param event
  */
 export const deleteComponent = (guid) => {
-    // const guid = event.currentTarget.getAttribute('data-guid');
+    // const guid = event.currentTarget.getAttribute('tabs-guid');
     emitter.emit('delete', guid);
 }
 
@@ -35,7 +35,7 @@ export const deleteComponent = (guid) => {
  * @param event
  */
 export const copyComponent = (guid) => {
-    // const guid = event.currentTarget.getAttribute('data-guid');
+    // const guid = event.currentTarget.getAttribute('tabs-guid');
     emitter.emit('copy', guid);
 }
 
@@ -43,7 +43,7 @@ export const copyComponent = (guid) => {
  * 粘贴数据
  */
 export const pasteComponent = (guid) => {
-    // const guid = event.currentTarget.getAttribute('data-guid');
+    // const guid = event.currentTarget.getAttribute('tabs-guid');
     emitter.emit('paste', guid);
 }
 
@@ -52,8 +52,8 @@ export const pasteComponent = (guid) => {
  * @param event
  */
 export const addComponent = (event) => {
-    const guid = event.currentTarget.getAttribute('data-guid');
-    const cname = event.currentTarget.getAttribute('data-name');
+    const guid = event.currentTarget.getAttribute('tabs-guid');
+    const cname = event.currentTarget.getAttribute('tabs-name');
 
     emitter.emit('add', {
         cname,
@@ -74,9 +74,9 @@ export const moveComponent = (startId, endId) => {
  * @param {string|undefined} type 编辑的属性
  */
 export const editComponent = (event, type) => {
-    const guid = event.currentTarget.getAttribute('data-guid');
-    const attr = event.currentTarget.getAttribute('data-attr');
-    const target = event.currentTarget.getAttribute('data-target');
+    const guid = event.currentTarget.getAttribute('tabs-guid');
+    const attr = event.currentTarget.getAttribute('tabs-attr');
+    const target = event.currentTarget.getAttribute('tabs-target');
     const value = event.currentTarget.value;
 
     emitter.emit('edit', {
@@ -234,13 +234,62 @@ class App extends Component {
 
         // 如果存在id说明是编辑
         if (id) {
-            getPage(id).then((res) => {
+            // getPage(id).then(() => {
+                const res = {
+                    "code": 200,
+                    "message": "请求成功",
+                    "data": {
+                        "_id": "59dc5ecc10c25c113487e54e",
+                        "title": "123",
+                        "content": [
+                            {
+                                "guid": "ec-module-bd54abf3-42a6-490e-99ac-b4a1686d5fd5",
+                                "name": "tabs",
+                                "dataTrans": {
+                                    "activeKey": "0",
+                                    "data": [
+                                        {
+                                            key: "0",
+                                            title: 'Tab 1.',
+                                            content: 'Content 1',
+                                        },
+                                        {
+                                            key: "1",
+                                            title: 'Tab 2',
+                                            content: 'Content 2',
+                                        },
+                                    ]
+                                }
+                            },
+                            {
+                                "guid": "ab1b2580-8d5e-4412-8a76-f11fa5e086e8",
+                                "name": "layer",
+                                "attrs": {
+                                    "style": {
+                                        "layout": {
+                                            "height": "800",
+                                            "backgroundColor": "rgba(238, 236, 248, 1)",
+                                            "borderStyle": "dashed",
+                                            "borderWidth": 1
+                                        }
+                                    }
+                                },
+                                "children": [{
+                                    "guid": "ec-module-11122-42a6-490e-99ac-b4a1686d5fd5",
+                                    "name": "layer",
+                                }]
+                            }
+                        ]
+                    }
+                }
+
+
                 const { data } = res;
 
                 document.title = data.title;
 
                 this.setDataAndTile(data.content);
-            })
+            // })
         }
 
         this.canvas.addEventListener('click', this.handleActive);
@@ -275,6 +324,10 @@ class App extends Component {
                 if (item.children) {
                     looper(item.children, arr);
                 }
+
+                if (item.components) {
+                    looper(item.components, arr);
+                }
             });
         }
 
@@ -284,7 +337,7 @@ class App extends Component {
     }
 
     /**
-     * 设置 state.data & state.tileData
+     * 设置 state.tabs & state.tileData
      * @param dataArr
      * @param callback
      */
@@ -327,8 +380,9 @@ class App extends Component {
     handleHover = (event) => {
         const target = event.target;
         const guid = target.getAttribute('id');
+        const module = target.getAttribute('tabs-module');
 
-        if (guid) {
+        if (module) {
             this.setState({
                 rect: getRect(target),
             });
@@ -564,7 +618,7 @@ class App extends Component {
     }
 
     render() {
-        const { rect, tileData, data } = this.state;
+        const { rect, tileData, data, activeId } = this.state;
         const { history } = this.props;
 
         return (

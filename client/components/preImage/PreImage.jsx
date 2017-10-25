@@ -192,7 +192,7 @@ class PreImage extends Component {
      * @param event
      */
     handleControl(event) {
-        const type = event.currentTarget.getAttribute('data-type');
+        const type = event.currentTarget.getAttribute('tabs-type');
 
         if (type === 'reset') {
             this.resetImage();

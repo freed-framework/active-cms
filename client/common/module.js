@@ -63,7 +63,7 @@ class Module {
      * 编辑模块
      * @param guid
      * @param data
-     * @param target
+     * @param target {string} layout, main, ...
      * @param attr
      * @param value
      * @param type

@@ -11,6 +11,10 @@ import Panel from '../panel';
 import Lazyer from '../../../common/Lazyer';
 import './editor.scss';
 
+const getChildNodes = (data) => {
+
+}
+
 class Editor extends PureComponent {
     constructor(props) {
         super(props);
@@ -64,18 +68,33 @@ class Editor extends PureComponent {
             const App = d.App;
 
             // 获取样式
-            const props = {
+            let props = {
                 style: item.style,
                 attrs: item.attrs,
                 guid: item.guid,
             };
 
+            // 如果存在需要组件转换情况
+            let transData = {};
+            if (item.dataTrans) {
+                transData = {
+                    ...App.dataTrans(item.dataTrans)
+                };
+            }
+
             return (
                 <App
                     id={item.guid}
                     key={item.guid}
+                    // 模块名
+                    module={item.name}
                     {...props}
+                    {...transData.props}
                 >
+                    {/* 通过数据转换生成的组件的子组件 */}
+                    {transData.childNodes}
+
+                    {/* data 数据关系下的父子组件 */}
                     {item.children && this.loopRender(item.children)}
                 </App>
             );

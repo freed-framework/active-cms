@@ -7,6 +7,7 @@ import ColorPicker from './colorPicker';
 import Position from './position';
 import Radio from './radio';
 import MultiData from './multiData';
+import SetTabs from './setTabs';
 
 export {
     Attr,
@@ -16,5 +17,6 @@ export {
     ColorPicker,
     Position,
     Radio,
-    MultiData
+    MultiData,
+    SetTabs,
 }

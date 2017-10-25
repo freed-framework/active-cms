@@ -21,7 +21,7 @@ const config: Config = {
         // component: [{
         //     label: '商品组件',
         //     component: 'radio',
-        //     data: [{
+        //     tabs: [{
         //         key: 'ImageText',
         //         label: '图片和文字'
         //     }, {

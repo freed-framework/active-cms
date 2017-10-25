@@ -12,7 +12,7 @@ module.exports = [
     {
         // The configuration for the client
         name: "browser",
-        entry: "./viewer/App.jsx",
+        entry: "./viewer/SetTabs.jsx",
         output: {
             path: assetsPath,
             filename: "[hash].js",

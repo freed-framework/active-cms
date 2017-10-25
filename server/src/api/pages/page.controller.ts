@@ -121,12 +121,12 @@ export class PageController {
     // @Get('/static/:id')
     // async getStaticPage(@Response() res, @Param('id') id) {
     //     console.log(RenderPage())
-    //     // download('http://localhost:4000/').then(data => {
+    //     // download('http://localhost:4000/').then(tabs => {
     //     //     res.set({
     //     //         "Content-type":"application/octet-stream",
     //     //         "Content-Disposition":"attachment;filename=" + encodeURI(`${id}.html`)
     //     //     });
-    //     //     res.write(data, "binary");
+    //     //     res.write(tabs, "binary");
     //     //     res.end();
     //     // });
     // }

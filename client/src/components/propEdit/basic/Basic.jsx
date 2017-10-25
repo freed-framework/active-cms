@@ -43,7 +43,7 @@ class BasicEdit extends PureComponent {
     }
 
     handleChange = (event) => {
-        const attr = event.currentTarget.getAttribute('data-attr');
+        const attr = event.currentTarget.getAttribute('tabs-attr');
 
         this.setState({
             [attr]: event.currentTarget.value,
