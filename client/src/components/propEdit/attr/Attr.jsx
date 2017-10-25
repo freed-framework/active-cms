@@ -18,7 +18,7 @@ class Attr extends PureComponent {
     }
 
     handleChange = (event) => {
-        const attr = event.currentTarget.getAttribute('tabs-attr');
+        const attr = event.currentTarget.getAttribute('data-attr');
         const {target} = this.props;
 
         this.setState({
