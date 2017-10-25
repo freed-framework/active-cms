@@ -24,7 +24,7 @@ var all = {
   // Server IP
   ip: process.env.IP || '172.30.40.16',
 
-  // Should we populate the DB with sample data?
+  // Should we populate the DB with sample tabs?
   seedDB: false,
 
   // Secret for session, you will want to change this and make it an environment variable

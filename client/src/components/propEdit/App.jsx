@@ -8,6 +8,7 @@ import Position from './position';
 import Radio from './radio';
 import MultiData from './multiData';
 import Grid from './grid';
+import SetTabs from './setTabs';
 
 export {
     Attr,
@@ -18,5 +19,6 @@ export {
     Position,
     Radio,
     MultiData,
-    Grid
+    Grid,
+    SetTabs,
 }

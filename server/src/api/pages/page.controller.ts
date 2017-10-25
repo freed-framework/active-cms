@@ -4,18 +4,15 @@ import {
     HttpStatus, Param, UsePipes,
     UseInterceptors
 } from '@nestjs/common';
-import * as http from 'http';
 import { PageService } from './page.service';
 import Utils from '../../common/utils';
 import CommonService from '../../common/common.service';
 import { Exception } from '../../common/exception/error.exception';
 
 import { CreatePageDto, IspublishDto, SharePageDto } from '../../dto/page.dto';
-import { encodeCreatePipe, encodeUpdatePipe, decodeGetPipe } from '../../common/pipe/page.pipe';
-// import { LoggingInterceptor } from '../../common/interceptor/logging.interceptor';
+import { encodeCreatePipe, encodeUpdatePipe } from '../../common/pipe/page.pipe';
 
 @Controller('page')
-// @UseInterceptors(LoggingInterceptor)
 export class PageController {
     constructor(private service: PageService) {}
 

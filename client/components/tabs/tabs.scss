@@ -1,16 +1,20 @@
 
 .ac-tabs {
 
-    &-menu {
-        display: inline-block;
-    }
-
-    &-main {
+    &-title {
 
         &-items {
+            display: inline-block;
+        }
+    }
 
-            &-hide {
-                display: none;
+    &-content {
+
+        &-items {
+            display: none;
+
+            &-active {
+                display: block;
             }
         }
     }

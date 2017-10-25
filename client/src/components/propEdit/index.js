@@ -41,23 +41,25 @@ export default class EditAttr extends Component {
             } else {
                 return comps.map(attr => {
                     const { label = '', component = '', data = [], ...props } = attr;
-                    const Item = EditItem[component]
+                    const Item = EditItem[component];
 
-                    return <div
-                        key={`${key}-${attr}-${index}`}
-                    >
-                        <Item
-                            {...props}
-                            label={label}
-                            compKey={component}
-                            guid={guid}
-                            target={key}
-                            data={data}
-                            attribute={attribute}
-                            src={attribute.src}
-                            childs={childs}
-                        />
-                    </div>
+                    return (
+                        <div
+                            key={`${key}-${attr}-${index}`}
+                        >
+                            <Item
+                                {...props}
+                                label={label}
+                                compKey={component}
+                                guid={guid}
+                                target={key}
+                                data={data}
+                                attribute={attribute}
+                                src={attribute.src}
+                                childs={childs}
+                            />
+                        </div>
+                    )
                 })
             }
         })

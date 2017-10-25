@@ -77,8 +77,8 @@ export default class List extends Component {
     onMouseDown = (e) => {
         const content = contains(e, 'ec-editor-layer-cake-content', 'ec-editor-layer-cake-main');
         if (content) {
-            // const name = content.target.getAttribute('data-name');
-            this.startId = content.target.getAttribute('data-guid');
+            // const name = content.target.getAttribute('tabs-name');
+            this.startId = content.target.getAttribute('tabs-guid');
             this.props.onActive(this.startId);
 
             // this.createDragElement(e, name);
@@ -97,7 +97,7 @@ export default class List extends Component {
 
     onMouseUp = (e) => {
         const content = contains(e, 'ec-editor-layer-cake-content', 'ec-editor-layer-cake-main');
-        const endId = content.target && content.target.getAttribute('data-guid');
+        const endId = content.target && content.target.getAttribute('tabs-guid');
 
         if (content && this.startId && endId && this.startId !== endId) {
             moveComponent(this.startId, endId);
