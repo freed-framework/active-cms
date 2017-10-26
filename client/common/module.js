@@ -99,6 +99,40 @@ class Module {
     }
 
     /**
+     * 通过 guid 查找数据
+     * @param guid
+     * @param data
+     * @param callback
+     * @return {any}
+     */
+    static findByGuid(guid, data, callback) {
+        let $new = fromJS({});
+
+        utils.find(data, guid, ($finder, deep) => {
+            $new = callback($finder, deep);
+        }, {
+            findBy: 'guid',
+        });
+
+        return $new;
+    }
+
+    /**
+     * 通过 guid 修改数据
+     * @param guid {string} 查找的 id
+     * @param data {Array} 原始数据
+     * @param keys {Array} 指定修改的位置, eg: ['dataTrans', 'data']
+     * @param value {any} 指定位置对应修改的值, eg: {...}
+     */
+    static modify(guid, data, keys, value) {
+        const $data = fromJS(data);
+
+        return this.findByGuid(guid, $data, ($finder, deep) => (
+            $data.setIn(deep.concat(keys), value)
+        )).toJS();
+    }
+
+    /**
      * 移除一条组件数据
      * @param guid
      * @param data

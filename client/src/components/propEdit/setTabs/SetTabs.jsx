@@ -68,11 +68,11 @@ class SetTabs extends Component {
     }
 
     editMitt() {
-        editComponentByGuid(this.props.guid, {
-            target: null,
-            attr: 'dataTrans',
-            value: this.state.arr,
-        })
+        editComponentByGuid(
+            this.props.guid,
+            ['dataTrans', 'data'],
+            this.state.arr,
+        )
     }
 
     render() {

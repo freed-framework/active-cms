@@ -88,10 +88,11 @@ export const editComponent = (event, type) => {
     })
 }
 
-export const editComponentByGuid = (guid, data) => {
-    emitter.emit('edit', {
+export const editComponentByGuid = (guid, key, value) => {
+    emitter.emit('modify', {
         guid,
-        ...data,
+        key,
+        value,
     })
 }
 
@@ -216,6 +217,7 @@ class App extends Component {
         this.mittDelete = ::this.mittDelete;
         this.mittAdd = ::this.mittAdd;
         this.mittEdit = ::this.mittEdit;
+        this.mittModify = ::this.mittModify;
         this.mittActive = ::this.mittActive;
         this.mittSave = ::this.mittSave;
         this.mittViewer = ::this.mittViewer;
@@ -230,6 +232,7 @@ class App extends Component {
         emitter.on('add', this.mittAdd);
         emitter.on('save', this.mittSave);
         emitter.on('edit', this.mittEdit);
+        emitter.on('modify', this.mittModify);
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
     }
@@ -521,6 +524,12 @@ class App extends Component {
                 });
             }
         })
+    }
+
+    mittModify({ guid, key, value }) {
+        this.setState({
+            data: module.modify(guid, this.state.data, key, value),
+        });
     }
 
     /**

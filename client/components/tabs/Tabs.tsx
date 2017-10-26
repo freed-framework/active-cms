@@ -41,10 +41,6 @@ class Tabs extends React.Component<TabsProps, TabsState> {
         };
     }
 
-    componentWillReceiveProps(nextProps: TabsProps) {
-        // if (is(nextProps))
-    }
-
     handleActive = (activeKey: string) => {
         this.setState({
             activeKey,
