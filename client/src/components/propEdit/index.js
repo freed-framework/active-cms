@@ -17,6 +17,16 @@ export default class EditAttr extends Component {
         return Object.keys(editable).map((key, index) => {
             const comps = editable[key];
 
+            if (key === 'component') {
+                const Component = EditItem[comps];
+
+                return (
+                    <Component
+                        guid={guid}
+                    />
+                )
+            }
+
             if (key === 'style') {
                 return Object.keys(comps).map((k, i) => {
                     const attrs = comps[k];

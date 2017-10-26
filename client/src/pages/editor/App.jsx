@@ -88,6 +88,13 @@ export const editComponent = (event, type) => {
     })
 }
 
+export const editComponentByGuid = (guid, data) => {
+    emitter.emit('edit', {
+        guid,
+        ...data,
+    })
+}
+
 /**
  * 编辑的属性
  * @param option 传递
@@ -379,7 +386,6 @@ class App extends Component {
      */
     handleHover = (event) => {
         const target = event.target;
-        const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
 
         if (module) {
@@ -619,7 +625,7 @@ class App extends Component {
     }
 
     render() {
-        const { rect, tileData, data, activeId } = this.state;
+        const { rect, tileData, data } = this.state;
         const { history } = this.props;
 
         return (

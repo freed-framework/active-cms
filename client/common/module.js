@@ -75,11 +75,18 @@ class Module {
 
         utils.find($data, guid, ($finder, deep) => {
             let setBy = deep;
-            if (type === 'attr') {
-                setBy = deep.concat(['attrs', target]);
-            }
-            else {
-                setBy = deep.concat(['attrs', 'style', target, attr]);
+
+            // TODO: 待改进
+            if (target === null) {
+                setBy = deep.concat([attr, 'data']);
+            } else {
+
+                if (type === 'attr') {
+                    setBy = deep.concat(['attrs', target]);
+                }
+                else {
+                    setBy = deep.concat(['attrs', 'style', target, attr]);
+                }
             }
             
             $new = $data.setIn(setBy, value);

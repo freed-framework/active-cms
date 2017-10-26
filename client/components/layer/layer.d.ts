@@ -4,6 +4,8 @@ interface Props {
 
     children?: React.ReactNode;
 
+    module?: string;
+
     attrs?: {
         style?: any;
         target?: any;
