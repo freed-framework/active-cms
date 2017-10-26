@@ -81,10 +81,15 @@ class Module {
             if (target === null) {
                 setBy = deep.concat([attr, 'data']);
             } else {
-
+                // 编辑自定义属性
                 if (type === 'attr') {
                     setBy = deep.concat(['attrs', target]);
                 }
+                // 编辑children
+                else if (type === 'children') {
+                    setBy = deep.concat(['children']);
+                }
+                // 编辑样式属性
                 else {
                     setBy = deep.concat(['attrs', 'style', target, attr]);
                 }
