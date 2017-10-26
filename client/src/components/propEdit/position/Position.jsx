@@ -23,7 +23,7 @@ class PositionEdit extends PureComponent {
 
     // handleChange = (event) => {
     //     console.log(event)
-    //     const attr = event.currentTarget.getAttribute('tabs-attr');
+    //     const attr = event.currentTarget.getAttribute('data-attr');
 
     //     this.setState({
     //         [attr]: event.currentTarget.value,

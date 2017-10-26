@@ -40,7 +40,7 @@ class SetTabs extends Component {
     }
 
     handleChangeContent = (event) => {
-        const key = event.currentTarget.getAttribute('tabs-key');
+        const key = event.currentTarget.getAttribute('data-key');
         const v = event.currentTarget.value;
 
         console.log(key);

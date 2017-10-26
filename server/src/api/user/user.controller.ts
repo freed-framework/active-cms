@@ -3,7 +3,9 @@ import {
     Response, Param, Body, Request,
     HttpStatus, UseFilters, UsePipes
 } from '@nestjs/common';
+import { HttpException } from '@nestjs/core';
 import * as uuid from 'node-uuid';
+import * as passport from 'passport';
 import { UsersService } from './user.service';
 import * as Config from '../../config/local.env';
 import CommonService from '../../common/common.service';
@@ -41,47 +43,38 @@ export class UsersController {
         const { user = {} } = req.session;
         const { password, userName } = body;
 
-        const result = await this.service.login({
-            password,
-            userName
-        });
+        passport.authenticate('local', (err, user, info) => {
+            let token;
+            if (err) {
+                throw new HttpException('系统错误', 404)
+            }
+            if (user) {
+                token = user.generateJwt();
+                req.user = user;
+                req.session.user = user;
+                req.session.token = token;
 
-        if (result) {
-            var token = uuid.v1();
-            // 设置token在session
-            req.session.token = token;
-            // 保存用户信息在session中
-            req.session.user = result;
-            // 设置cookie过期时间1天
-            res.cookie(
-                'sessionId',
-                token,
-                {
-                    expires: new Date(Date.now() + Config.expiresIn),
-                    httpOnly: true,
-                    domain: 'localhost'
-                }
-            );
-            res.status(HttpStatus.OK).json(CommonService.loginOk({id: result._id}));
-        }
-
-        res.status(HttpStatus.OK).json(CommonService.loginError({}));
+                res.status(HttpStatus.OK).json(CommonService.loginOk({ token }));
+            } else {
+                res.status(HttpStatus.OK).json(CommonService.loginError({}));
+            }
+        })(req, res)
     }
 
     @Get('/logout')
     async logout(@Request() req, @Response() res) {
         req.session.token = null;
-        req.session.user = {};
+        req.session.user = null;
 
         res.status(HttpStatus.OK).json({
             message: '退出成功',
-            code: 200,
+            code: 401,
             data: {}
         });
     }
 
     @Post()
-    async addUser(@Response() res, @Body() body) {
+    async addUser(@Request() req, @Response() res, @Body() body) {
         const { userName, password, ...params } = body;
         const user = await this.service.getUser({ userName });
 

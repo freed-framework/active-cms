@@ -50,8 +50,8 @@ export const pasteComponent = (guid) => {
  * @param event
  */
 export const addComponent = (event) => {
-    const guid = event.currentTarget.getAttribute('tabs-guid');
-    const cname = event.currentTarget.getAttribute('tabs-name');
+    const guid = event.currentTarget.getAttribute('data-guid');
+    const cname = event.currentTarget.getAttribute('data-name');
 
     emitter.emit('add', {
         cname,
@@ -72,9 +72,9 @@ export const moveComponent = (startId, endId) => {
  * @param {string|undefined} type 编辑的属性
  */
 export const editComponent = (event, type) => {
-    const guid = event.currentTarget.getAttribute('tabs-guid');
-    const attr = event.currentTarget.getAttribute('tabs-attr');
-    const target = event.currentTarget.getAttribute('tabs-target');
+    const guid = event.currentTarget.getAttribute('data-guid');
+    const attr = event.currentTarget.getAttribute('data-attr');
+    const target = event.currentTarget.getAttribute('data-target');
     const value = event.currentTarget.value;
 
     emitter.emit('edit', {
@@ -414,7 +414,7 @@ class App extends Component {
     handleHover = (event) => {
         const target = event.target;
         const guid = target.getAttribute('id');
-        const module = target.getAttribute('tabs-module');
+        const module = target.getAttribute('data-module');
 
         if (module) {
             this.setState({
@@ -511,6 +511,7 @@ class App extends Component {
     mittAdd({ cname, guid }) {
         const mod = module.create(cname);
         const arr = this.state.data;
+
         const data = guid ?
             createChildren(this.state.data, guid, mod) :
             arr.concat(mod);

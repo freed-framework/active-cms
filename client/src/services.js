@@ -7,10 +7,44 @@
 
 import Http from 'freed-spa/src/util/http';
 
+import Login from './components/login';
+
+import * as Cookies from 'js-cookie';
+
 const http = new Http();
 
-const apiHost = 'http://www.iting.top/api';
-// const apiHost = 'http://172.30.40.16:3000/api';
+// const apiHost = 'http://www.iting.top/api';
+const apiHost = 'http://172.30.40.16:3000/api';
+
+http.request(
+    req => {
+        req.headers.token = Cookies.get('token');
+
+        return req
+    }
+)
+
+/**
+ * http response 拦截器
+ */
+http.response(
+    res => {
+        if (res.data.code === 401) {
+            Login();
+            return Promise.reject(res);
+        }
+        return Promise.resolve(res);
+    },
+    err => {
+        if (err.response) {
+            const status = err.response.status;
+            if (status === 401) {
+                Login();
+            }
+        }
+        return Promise.reject(err);
+    }
+);
 
 /**
  * 页面相关
@@ -98,3 +132,16 @@ export const sharePage = (params) => http.post(`${apiHost}/page/share`, params);
  * - content {string} 页面title 模糊查询
  */
 export const shareList = (params) => http.get(`${apiHost}/share/lists`, params);
+
+/**
+ * 用户登录
+ * params 参数包含
+ * - userName {string} 用户名
+ * - password {string | number} 密码
+ */
+export const login = (params) => http.post(`${apiHost}/users/login`, params);
+
+/**
+ * 退出登录
+ */
+export const logout = () => http.get(`${apiHost}/users/logout`);

@@ -1,12 +1,10 @@
 import {
     Module, MiddlewaresConsumer, RequestMethod,
-    Shared
 } from '@nestjs/common';
 import { ForkController } from './fork.controller';
 import { ForkService } from './fork.service';
 import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
-@Shared()
 @Module({
     controllers: [
         ForkController

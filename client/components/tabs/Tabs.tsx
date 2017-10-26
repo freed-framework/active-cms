@@ -5,15 +5,6 @@ import TabsTitle from './TabsTitle';
 import TabsContent from './TabsContent';
 import './tabs.scss';
 
-const getTabs = (props: any) => {
-    return (
-        <div>
-            <div><TabsTitle {...props} /></div>
-            <div><TabsContent {...props} /></div>
-        </div>
-    );
-}
-
 class Tabs extends React.Component<TabsProps, TabsState> {
     static TabPane = TabPane;
 

@@ -17,6 +17,7 @@ import { CatsController } from './api/cats/cats.controller';
 })
 export class ApplicationModule implements NestModule {
     configure(consumer: MiddlewaresConsumer): void {
+        // consumer.apply(PassportMiddleware).forRoutes({path: '/*', method: RequestMethod.ALL})
         // consumer.apply(DevelopmentMiddleware).forRoutes('/page', RequestMethod.ALL);
     }
 }

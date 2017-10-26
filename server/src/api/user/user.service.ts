@@ -37,14 +37,21 @@ export class UsersService {
      * @param param {Object} 登录参数
      */
     async login(param) {
-        const { userName } = param;
-        const result = await UsersModel.findOne({userName}, (err, doc) => {
+        const { userName, password } = param;
+        let token = '';
+
+        await UsersModel.findOne({userName}, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
-            return doc;
+            const auth: boolean = doc.validPassword(password);
+            if (!auth) {
+                throw new HttpException('用户名或密码错误', 500);
+            }
+            token = doc.generateJwt();
         })
-        return result;
+
+        return token;
     }
 
     /**
@@ -52,12 +59,18 @@ export class UsersService {
      * @param {Object} user 新增用户信息 
      */
     async addUser(user) {
-        const result: any = await UsersModel.create(user, (err, doc) => {
+        const model: any = new UsersModel(user);
+        model.setPassword(user.password);
+
+        const result: any = model.save((err, doc) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
             return doc;
         })
-        return {id: result._id};
+
+        const token = model.generateJwt();
+
+        return {token};
     }
 }

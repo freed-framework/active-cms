@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 import { NestFactory } from '@nestjs/core';
@@ -7,8 +9,9 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as session from 'express-session';
+import * as flash from 'express-flash';
 import * as config from './config/environment';
-
+import * as passport from 'passport';
 import { ApplicationModule } from './app.module';
 import { HttpExceptionFilter } from './common/filter/http-exception.filter';
 // import { RolesGuard } from './common/guard/roles.guard';
@@ -22,23 +25,28 @@ mongoose.connection.on('error', function (err) {
 });
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApplicationModule);
+    const app = await NestFactory.create(ApplicationModule);
+    
+    require('./api/user/passport.conf')(passport)
+    app.use(passport.initialize())
+    app.use(passport.session());
+    app.use(flash())
 
-  app.setGlobalPrefix('api');
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cors());
-  app.use(cookieParser('static-page'));
-  app.use(session({
-      secret: 'static-page',
-      resave: true,
-      saveUninitialized: true
-  }));
+    app.setGlobalPrefix('api');
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cors());
+    app.use(cookieParser());
+    app.use(session({
+        secret: 'node-auth',
+        resave: false,
+        saveUninitialized: false
+    }));
 
-  app.useGlobalFilters(new HttpExceptionFilter());
-//   app.useGlobalInterceptors(new LoggingInterceptor())
-//   app.useGlobalGuards(new RolesGuard());
+    app.useGlobalFilters(new HttpExceptionFilter());
+    //   app.useGlobalInterceptors(new LoggingInterceptor())
+    //   app.useGlobalGuards(new RolesGuard());
 
-  await app.listen(3000);
+    await app.listen(3000);
 }
 bootstrap();
