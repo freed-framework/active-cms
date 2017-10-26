@@ -16,6 +16,11 @@ class Tabs extends React.Component<TabsProps, TabsState> {
         }
     }
 
+    /**
+     * 将原始数据组装成组件需要的数据格式
+     * @param result
+     * @return {{props: {activeKey}, childNodes: any[]}}
+     */
     static dataTrans(result: any) {
         const { data, activeKey } = result;
         const childNodes:any[] = [];
@@ -36,44 +41,30 @@ class Tabs extends React.Component<TabsProps, TabsState> {
         };
     }
 
-    componentWillReceiveProps(nextProps: TabsProps) {
-        // if (is(nextProps))
-    }
-
     handleActive = (activeKey: string) => {
         this.setState({
             activeKey,
         })
     }
 
-    renderTabs() {
-        const p = {
+    public render(): JSX.Element {
+        const props = {
             ...this.props,
             onActive: this.handleActive,
             activeKey: this.state.activeKey,
         };
 
         return (
-            <div>
-                <div><TabsTitle {...p} /></div>
-                <div><TabsContent {...p} /></div>
-            </div>
-        );
-    }
-
-    public render(): JSX.Element {
-        const { style, id } = this.props;
-
-        return (
             <div
-                id={id}
+                id={props.id}
                 data-module={this.props.module}
                 className="ac-tabs"
                 style={{
-                    ...(style && {...style.layout})
+                    ...(props.style && {...props.style.layout})
                 }}
             >
-                {this.renderTabs()}
+                <TabsTitle {...props} />
+                <TabsContent {...props} />
             </div>
         );
     }

@@ -18,3 +18,11 @@ body {
         margin: 0 auto;
     }
 }
+
+.ec-editor-canvas {
+    .ac-tabs {
+        &-title {
+            display: inline-block;
+        }
+    }
+}

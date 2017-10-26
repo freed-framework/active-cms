@@ -17,6 +17,7 @@ class Layer extends React.PureComponent<Props, any> {
             <div
                 id={id}
                 className="as-layer"
+                data-module={this.props.module}
                 style={{
                     ...(style && {...style.layout, 'backgroundPosition': 'center center'})
                 }}

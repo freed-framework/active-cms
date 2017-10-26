@@ -86,6 +86,14 @@ export const editComponent = (event, type) => {
     })
 }
 
+export const editComponentByGuid = (guid, key, value) => {
+    emitter.emit('modify', {
+        guid,
+        key,
+        value,
+    })
+}
+
 /**
  * 编辑的属性
  * @param option 传递
@@ -207,6 +215,7 @@ class App extends Component {
         this.mittDelete = ::this.mittDelete;
         this.mittAdd = ::this.mittAdd;
         this.mittEdit = ::this.mittEdit;
+        this.mittModify = ::this.mittModify;
         this.mittActive = ::this.mittActive;
         this.mittSave = ::this.mittSave;
         this.mittViewer = ::this.mittViewer;
@@ -221,6 +230,7 @@ class App extends Component {
         emitter.on('add', this.mittAdd);
         emitter.on('save', this.mittSave);
         emitter.on('edit', this.mittEdit);
+        emitter.on('modify', this.mittModify);
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
     }
@@ -413,7 +423,6 @@ class App extends Component {
      */
     handleHover = (event) => {
         const target = event.target;
-        const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
 
         if (module) {
@@ -551,6 +560,12 @@ class App extends Component {
         })
     }
 
+    mittModify({ guid, key, value }) {
+        this.setState({
+            data: module.modify(guid, this.state.data, key, value),
+        });
+    }
+
     /**
      * 激活组件
      * @param guid
@@ -653,7 +668,7 @@ class App extends Component {
     }
 
     render() {
-        const { rect, tileData, data, activeId } = this.state;
+        const { rect, tileData, data } = this.state;
         const { history } = this.props;
 
         return (
