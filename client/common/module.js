@@ -29,7 +29,7 @@ class Module {
                         name: item.name,
                         // 组件属性对象
                         attrs: item.attrs,
-                        //
+                        // 
                         dataTrans: item.dataTrans,
                         // 返回模块配置
                         ...(App.config && { module: {...App.config} }),

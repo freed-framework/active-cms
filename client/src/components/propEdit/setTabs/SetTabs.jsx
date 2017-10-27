@@ -6,22 +6,51 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from 'antd';
 import { editComponentByGuid } from '../../../pages/editor/App';
 import './setTabs.scss';
 
-const getItem = (key) => ({
+/**
+ * 获取每一个 Tab 的展示数据
+ * @param key
+ * @param options
+ */
+const getItem = (key, options = { title: 'Title', content: 'Content' }) => ({
     key,
-    title: 'Title',
-    content: 'Content',
+    title: options.title,
+    content: options.content,
 });
 
+/**
+ * 获取编辑框的默认显示
+ * @param data
+ * @return {Array}
+ */
+const getDefaultByData = (data) => {
+    const arr = [];
+
+    data.forEach(d => {
+        arr.push(getItem(d.key, d))
+    });
+
+    return arr;
+}
+
 class SetTabs extends Component {
+    static defaultProps = {
+        dataTrans: {
+            data: [],
+        }
+    }
+
     constructor(props) {
         super(props);
 
+        const arr = getDefaultByData(props.dataTrans.data);
+
         this.state = {
-            num: 1,
-            arr: [getItem(0)],
+            num: arr.length,
+            arr,
         }
     }
 
@@ -78,8 +107,6 @@ class SetTabs extends Component {
     render() {
         const { arr, num } = this.state;
 
-        console.log(this.props)
-
         return (
             <div className="ec-editor-set-tabs">
                 <div>
@@ -87,14 +114,14 @@ class SetTabs extends Component {
                         data-name="-"
                         onClick={this.handleChangeTabNumber}
                     >
-                        -
+                        <Icon type="minus-square" />
                     </span>
                     <span>{num}</span>
                     <span
                         data-name="+"
                         onClick={this.handleChangeTabNumber}
                     >
-                        +
+                        <Icon type="plus-square" />
                     </span>
                 </div>
 
