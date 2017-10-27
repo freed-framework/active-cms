@@ -20,6 +20,7 @@ class Module {
 
         return new Promise((resolve) => {
             console.log(`../components/${item.name}/index`)
+
             import(`../components/${item.name}/index`)
                 .then(App => {
                     return resolve({

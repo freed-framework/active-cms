@@ -1,27 +1,24 @@
-import Grid from './Grid';
-import './index.scss';
+import Row from './Row';
+import './row.scss';
 
 interface Config {
     name: string;
+    disName?: string;
     menus?: Array<string>;
-    disName?: string,
     editable: {
         style?: any,
         href?: any,
         row?: any,
         col?: any,
         component?: any,
-        rowcol: Array<any>
+        rowcol?: Array<any>
     };
 }
 
 const config: Config = {
-    name: 'grid',
-    disName: '列表',
+    name: 'grid/row',
+    disName: '行',
     editable: {
-        row: [{label: '行', component: 'Attr'}],
-        col: [{label: '列', component: 'Attr'}],
-        rowcol: [{label: '行列设置', component: 'Grid'}],
         style: {
             layout: ['Basic'],
             goodItem: ['Basic']
@@ -33,4 +30,4 @@ export {
     config,
 }
 
-export default Grid;
+export default Row;

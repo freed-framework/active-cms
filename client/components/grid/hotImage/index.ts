@@ -3,6 +3,7 @@ import './hotImage.scss';
 
 interface Config {
     name: string;
+    disName: string;
     menus?: Array<string>;
     editable: {
         style?: any,
@@ -16,7 +17,8 @@ interface Config {
 }
 
 const config: Config = {
-    name: 'hotImage',
+    name: 'grid/hotImage',
+    disName: '列',
     menus: ['layer'],
     editable: {
         style: {

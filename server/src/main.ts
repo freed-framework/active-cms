@@ -28,20 +28,23 @@ async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);
     
     require('./api/user/passport.conf')(passport)
-    app.use(passport.initialize())
-    app.use(passport.session());
-    app.use(flash())
 
     app.setGlobalPrefix('api');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cors());
-    app.use(cookieParser());
+    app.use(cookieParser('node-auth'));
     app.use(session({
         secret: 'node-auth',
+        name: 'name',
+        cookie: {maxAge: 60000},
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: true
     }));
+
+    app.use(passport.initialize())
+    app.use(passport.session());
+    app.use(flash())
 
     app.useGlobalFilters(new HttpExceptionFilter());
     //   app.useGlobalInterceptors(new LoggingInterceptor())
@@ -49,4 +52,5 @@ async function bootstrap() {
 
     await app.listen(3000);
 }
+
 bootstrap();

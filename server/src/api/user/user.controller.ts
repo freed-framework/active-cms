@@ -1,5 +1,5 @@
 import {
-    Controller, Get, Post,
+    Controller, Get, Post, Next,
     Response, Param, Body, Request,
     HttpStatus, UseFilters, UsePipes
 } from '@nestjs/common';
@@ -39,7 +39,7 @@ export class UsersController {
     }
 
     @Post('/login')
-    async login(@Request() req, @Response() res, @Body() body) {
+    async login(@Request() req, @Response() res, @Body() body, @Next() next) {
         const { user = {} } = req.session;
         const { password, userName } = body;
 
@@ -48,17 +48,14 @@ export class UsersController {
             if (err) {
                 throw new HttpException('系统错误', 404)
             }
+
             if (user) {
                 token = user.generateJwt();
-                req.user = user;
-                req.session.user = user;
-                req.session.token = token;
-
                 res.status(HttpStatus.OK).json(CommonService.loginOk({ token }));
             } else {
                 res.status(HttpStatus.OK).json(CommonService.loginError({}));
             }
-        })(req, res)
+        })(req, res, next)
     }
 
     @Get('/logout')

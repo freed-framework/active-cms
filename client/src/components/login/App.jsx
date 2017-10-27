@@ -5,6 +5,7 @@
 import React from 'react';
 import { Modal, Input } from 'antd';
 import { login } from '../../services';
+import * as Cookies from 'js-cookie';
 
 let submit = {
     userName: null,
@@ -12,10 +13,10 @@ let submit = {
 }
 
 function setCookie(name, value) {
-    const Days = 7;
-    const exp = new Date();
-    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()}`
+    // const Days = 7;
+    // const exp = new Date();
+    // exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    // document.cookie = `${name}=${escape(value)};expires=${exp.toGMTString()}`
 }
 
 export default () => {

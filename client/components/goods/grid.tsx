@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { GoodsItem, GoodsImageItem } from './goodsItem';
-import HotImage from '../hotImage';
 
 export interface GridProps {
     id: string,
     row?: string,
     col?: string,
     component?: string,
-    style: any
+    style?: any
 }
 
 export default class Grid extends React.PureComponent<GridProps, any> {
@@ -20,8 +19,6 @@ export default class Grid extends React.PureComponent<GridProps, any> {
 
         if (component === 'Image') {
             node = <GoodsImageItem style={{...style}} />;
-        } else if (component === 'HotImage') {
-            node = <HotImage style={{...style}} />
         }
 
         for (let j = 0; j < parseInt(col, 10); j++) {
