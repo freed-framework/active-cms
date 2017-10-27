@@ -691,6 +691,7 @@ class App extends Component {
                         activeId={this.state.activeId}
                         active={this.state.panelVisible}
                         data={data}
+                        tileData={tileData}
                     />
                 </Follow>
 

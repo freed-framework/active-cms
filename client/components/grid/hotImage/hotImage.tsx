@@ -1,18 +1,21 @@
 import * as React from 'react';
 
-import Utils from '../util/util';
+import Common from '../../common';
+
+import Utils from '../../util/util';
 
 export interface HotImagesProps {
     id?: string,
-    style?: React.CSSProperties
+    style?: any,
+    module?: string
 }
 
-export default class HotImages extends React.PureComponent<HotImagesProps, any> {
+class HotImages extends React.PureComponent<HotImagesProps, any> {
     render() {
         const { style, id } = this.props;
         return (
             <div
-                id={`ec-module-${Utils.guid()}`}
+                {...this.props}
                 className="as-layer-goods"
                 style={style}
             >
@@ -21,3 +24,5 @@ export default class HotImages extends React.PureComponent<HotImagesProps, any> 
         );
     }
 }
+
+export default Common(HotImages);

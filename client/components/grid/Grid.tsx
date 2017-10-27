@@ -1,35 +1,27 @@
 import * as React from 'react';
 
+import Common from '../common';
+
 
 export interface GridProps {
-    attrs?: any
+    attrs?: any,
+    module?: string,
+    id: string
 }
 
-export default class Grid extends React.Component<GridProps, any> {
-
-    renderGridItem = (): any => {
-        const { attrs = {} } = this.props;
-        const { row = 1, col = 1 } = attrs;
-        const items = [];
-        const lis = [];
-
-        for (let i = 0; i < col; i++) {
-            items.push(<span>1231222222222</span>);
-        }
-
-        for (let j = 0; j < row; j++) {
-            lis.push(<li>{items}</li>)
-        }
-
-        return <ul>{lis}</ul>
+class Grid extends React.Component<GridProps, any> {
+    constructor(props: GridProps) {
+        super(props)
     }
-
     render() {
         return (
-            <div>
-                {this.renderGridItem()}
+            <div
+                {...this.props}
+            >
                 {this.props.children}
             </div>
         );
     }
 }
+
+export default Common(Grid);

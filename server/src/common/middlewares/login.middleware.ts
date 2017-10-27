@@ -17,7 +17,7 @@ export class LoginMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
             const { token } = req.session;
-            // console.log(req.session)
+            // console.log(req.session, '----------------------')
             // console.log(req.headers.token)
             if (true) {
                 next()

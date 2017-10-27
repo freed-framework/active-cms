@@ -40,20 +40,24 @@ export default class Grid extends Component {
         const { guid, attr, target } = this.props;
         let rows = [];
 
-        // for (let i = 0; i < row; i++) {
-            let cols = [];
+        for (let i = 0; i < row; i++) {
+            const cols = {
+                guid: `ec-module-${utils.guid()}`,
+                name: 'grid/row',
+                children: []
+            }
 
             for (let j = 0; j < col; j++) {
-                cols.push({
+                cols.children.push({
                     guid: `ec-module-${utils.guid()}`,
-                    name: 'hotImage'
+                    name: 'grid/hotImage'
                 })
             }
 
             rows.push(cols);
-        // }
+        }
 
-        editComponentByType({guid, attr, target, value: cols}, 'children');
+        editComponentByType({guid, attr, target, value: rows}, 'children');
     }
 
     render() {
