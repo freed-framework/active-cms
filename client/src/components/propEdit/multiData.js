@@ -16,16 +16,16 @@ class RadioChoose extends Component {
         target: PropTypes.string,
         guid: PropTypes.string,
         compKey: PropTypes.string,
-        attribute: PropTypes.objectOf(PropTypes.any),
+        attrs: PropTypes.objectOf(PropTypes.any),
         items: PropTypes.objectOf(PropTypes.any),
         label: PropTypes.string,
     }
 
     constructor(props) {
         super(props);
-        const { attribute = {}, compKey, items } = props;
+        const { attrs = {}, compKey, items } = props;
         this.state = {
-            data: attribute[compKey] || {
+            data: attrs[compKey] || {
                 key: items[0].key,
                 value: 0
             }

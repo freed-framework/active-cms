@@ -19,7 +19,6 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            console.log(`../components/${item.name}/index`)
             import(`../components/${item.name}/index`)
                 .then(App => {
                     return resolve({
@@ -30,6 +29,8 @@ class Module {
                         name: item.name,
                         // 组件属性对象
                         attrs: item.attrs,
+                        //
+                        dataTrans: item.dataTrans,
                         // 返回模块配置
                         ...(App.config && { module: {...App.config} }),
                         // 返回组件

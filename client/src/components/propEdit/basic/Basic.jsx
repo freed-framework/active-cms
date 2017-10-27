@@ -17,7 +17,7 @@ class BasicEdit extends PureComponent {
         target: PropTypes.string,
         guid: PropTypes.string,
         compKey: PropTypes.string,
-        attribute: PropTypes.objectOf(PropTypes.any),
+        attrs: PropTypes.objectOf(PropTypes.any),
         items: PropTypes.objectOf(PropTypes.any),
         label: PropTypes.string,
     }

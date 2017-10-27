@@ -48,16 +48,16 @@ class Bar {
      * @param style
      * @return {XML}
      */
-    static edit({ guid, editable = {}, attribute = {}, children }) {
+    static edit(props) {
 
         return (
             <div>
                 <div>组件属性编辑:</div>
                 <EditAttr
-                    guid={guid}
-                    editable={editable}
-                    attribute={attribute}
-                    childs={children}
+                    guid={props.guid}
+                    editable={props.editable}
+                    attrs={props.attrs}
+                    childs={props.children}
                 />
             </div>
         )

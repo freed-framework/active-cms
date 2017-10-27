@@ -78,6 +78,8 @@ class SetTabs extends Component {
     render() {
         const { arr, num } = this.state;
 
+        console.log(this.props)
+
         return (
             <div className="ec-editor-set-tabs">
                 <div>
@@ -97,7 +99,10 @@ class SetTabs extends Component {
                 </div>
 
                 {arr && arr.map((item, index) => (
-                    <div className="ec-editor-set-tabs-items">
+                    <div
+                        key={index}
+                        className="ec-editor-set-tabs-items"
+                    >
                         <input
                             data-index={index}
                             type="text"

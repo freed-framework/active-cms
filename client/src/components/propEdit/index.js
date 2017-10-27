@@ -6,14 +6,14 @@ import './propsEdit.scss';
 
 export default class EditAttr extends Component {
     static propTypes = {
-        attribute: PropTypes.objectOf(PropTypes.any),
+        attrs: PropTypes.objectOf(PropTypes.any),
         editable: PropTypes.objectOf(PropTypes.any),
         guid: PropTypes.string,
-        children: PropTypes.arrayOf(PropTypes.any),
+        childs: PropTypes.arrayOf(PropTypes.any),
     }
 
     loopRender = () => {
-        const {editable, attribute, guid, childs} = this.props;
+        const { editable, attrs = {}, guid, childs } = this.props;
 
         return Object.keys(editable).map((key, index) => {
             const comps = editable[key];
@@ -23,7 +23,9 @@ export default class EditAttr extends Component {
 
                 return (
                     <Component
+                        key={index}
                         guid={guid}
+                        {...this.props}
                     />
                 )
             }
@@ -31,21 +33,23 @@ export default class EditAttr extends Component {
             if (key === 'style') {
                 return Object.keys(comps).map((k, i) => {
                     const attrs = comps[k];
-                    const { style = {} } = attribute;
+                    const { style = {} } = attrs;
 
                     return attrs.map(attr => {
                         const Item = EditItem[attr];
 
-                        return <div
-                            key={`${key}-${attr}-${index}`}
-                        >
-                            <Item
-                                compKey={attr}
-                                guid={guid}
-                                target={k}
-                                style={style[k]}
-                            />
-                        </div>
+                        return (
+                            <div
+                                key={`${key}-${attr}-${index}`}
+                            >
+                                <Item
+                                    compKey={attr}
+                                    guid={guid}
+                                    target={k}
+                                    style={style[k]}
+                                />
+                            </div>
+                        )
                     })
                 })
             } else {
@@ -64,8 +68,8 @@ export default class EditAttr extends Component {
                                 guid={guid}
                                 target={key}
                                 data={data}
-                                attribute={attribute}
-                                src={attribute.src}
+                                attrs={attrs}
+                                // src={attrs.src}
                                 childs={childs}
                             />
                         </div>

@@ -10,10 +10,10 @@ import { editComponent } from '../../../pages/editor/App';
 class Attr extends PureComponent {
     constructor(props) {
         super(props);
-        const { target, attribute } = props;
+        const { target, attrs } = props;
 
         this.state = {
-            [target]: attribute[target]
+            [target]: attrs[target]
         }
     }
 
