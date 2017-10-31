@@ -4,7 +4,7 @@
  *
  * Des
  */
-import React, { PureComponent } from 'react';
+import React, { PureComponent, dangerouslySetInnerHTML } from 'react';
 import Immutable from 'immutable';
 import Wrap from './Wrap';
 import Panel from '../panel';
@@ -27,8 +27,6 @@ class Editor extends PureComponent {
             tileData: props.tileData,
         }
     }
-
-    componentDidMount() {}
 
     componentWillUnmount() {}
 
@@ -105,7 +103,7 @@ class Editor extends PureComponent {
         const { data } = this.state;
 
         return (
-            <div>
+            <div className="ec-edit-mobile">
                 {this.loopRender(data)}
             </div>
         )

@@ -1,28 +1,29 @@
+/**
+ * @file List.tsx
+ * @author shijh
+ *
+ * 商品列表
+ */
 import * as React from 'react';
-import classnames from 'classnames';
 
-import Common from '../../common';
-
-export interface RowProps {
-    className: string,
+export interface ListProps {
+    children: Array<any>,
     module?: string,
     id: string,
     attrs?: {
         style?: any
-    },
-    parentStyle?: any
+    }
 }
 
-class Row extends React.Component<RowProps, any> {
-
+export default class List extends React.Component<ListProps, any> {
     renderClone = () => {
-        const { children, attrs = {}, parentStyle } = this.props;
+        const { children, attrs = {} } = this.props;
         const { style = {} } = attrs;
 
         const cols = React.Children.map(children, (item: any, index: number) => {
             if(item) {
                 return React.cloneElement(item, {
-                    parentStyle
+                    parentStyle: style.goodsItem || {}
                 })
             }
         })
@@ -37,13 +38,11 @@ class Row extends React.Component<RowProps, any> {
         return (
             <div
                 {...this.props}
-                className={'as-edit-Row'}
                 style={{...style.layout}}
+                className="as-list"
             >
-                {this.renderClone()}
+                { this.renderClone() }
             </div>
         );
     }
 }
-
-export default Common(Row);

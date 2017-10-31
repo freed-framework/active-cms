@@ -10,7 +10,7 @@ interface Config {
 const config: Config = {
     name: 'layer',
     disName: '布局',
-    menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap', 'goods', 'grid'],
+    menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap', 'goods', 'grid', 'list'],
     editable: {
         style: {
             layout: ['Basic'],

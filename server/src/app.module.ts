@@ -1,18 +1,20 @@
 import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { DevelopmentMiddleware } from './common/middlewares/development.middleware';
+import { CatsController } from './api/cats/cats.controller';
 import { CatsModule } from './api/cats/cats.module';
 import { UsersModule } from './api/user/user.module';
 import { PageModule } from './api/pages/page.module';
 import { ForkModule } from './api/fork/fork.module';
-import { LoggerMiddleware } from './common/middlewares/logger.middleware';
-import { DevelopmentMiddleware } from './common/middlewares/development.middleware';
-import { CatsController } from './api/cats/cats.controller';
+import { FolderModule } from './api/folder/folder.module'
 
 @Module({
     modules: [
         CatsModule,
         UsersModule,
         PageModule,
-        ForkModule
+        ForkModule,
+        FolderModule
     ]
 })
 export class ApplicationModule implements NestModule {

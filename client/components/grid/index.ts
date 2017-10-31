@@ -19,12 +19,10 @@ const config: Config = {
     name: 'grid',
     disName: '列表',
     editable: {
-        row: [{label: '行', component: 'Attr'}],
-        col: [{label: '列', component: 'Attr'}],
         rowcol: [{label: '行列设置', component: 'Grid'}],
         style: {
             layout: ['Basic'],
-            goodItem: ['Basic']
+            goodsItem: ['Basic']
         },
     }
 };

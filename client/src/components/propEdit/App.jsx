@@ -9,6 +9,7 @@ import Radio from './radio';
 import MultiData from './multiData';
 import Grid from './grid';
 import SetTabs from './setTabs';
+import GoodsNumber from './goodsNumber';
 
 export {
     Attr,
@@ -21,4 +22,5 @@ export {
     MultiData,
     Grid,
     SetTabs,
+    GoodsNumber
 }
