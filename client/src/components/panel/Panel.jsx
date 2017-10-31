@@ -120,7 +120,7 @@ class Panel extends PureComponent {
                                         guid: item.guid,
                                         editable: item.module ? item.module.editable : {},
                                         attrs: item.attrs,
-                                        children: item.children ? item.children : []
+                                        childs: item.children ? item.children : []
                                     })}
                                 </div>
                             </div>
