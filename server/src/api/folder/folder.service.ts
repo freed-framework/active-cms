@@ -12,13 +12,13 @@ import { folderInterface } from '../../interfaces/folder.interface'
 
 const fetchFolder = {
     path: 'childrens',
-    select: 'name page _id childrens',
+    select: 'name page _id childrens level',
     populate: {
         path: 'childrens',
-        select: 'name page _id childrens',
+        select: 'name page _id childrens level',
         populate: {
             path: 'childrens',
-            select: 'name page _id childrens',
+            select: 'name page _id childrens level',
         }
     }
 }
@@ -73,6 +73,10 @@ export class FolderService {
         })
     }
 
+    /**
+     * 获取指定文件夹
+     * @param id 查询指定id
+     */
     async findById(id: String) {
         return await FolderModel
             .findById(id, {"_v": 0, childrens: 0}, (err, folder) => {
