@@ -10,7 +10,7 @@ import {
     Route,
 } from 'react-router-dom';
 import Editor from './pages/editor/App';
-import Viewer from './pages/viewer/App';
+import Viewer from './pages/viewer';
 import List from './pages/lists/App';
 
 const getConfirmation = (message, callback) => {

@@ -16,37 +16,23 @@ class App extends Component {
         super(props);
 
         this.state = {
-            /**
-             * 后端返回的原始数据
-             * 该数据包含层级关系，components.App module config 等数据 不包含在此
-             */
-            data: [],
+            data: props.data || [],
 
-            /**
-             * 平铺的带 App 的数据
-             */
-            tileData: {},
-        };
+            tileData: props.tileData,
+        }
     }
 
     componentDidMount() {
         const { match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
-
-        // 如果存在id说明是编辑
-        if (id) {
-            getPage(id).then((res) => {
-                const { data } = res;
-
-                document.title = data.title;
-
-                this.setDataAndTile(data.content);
-            })
-        }
     }
 
     componentWillUnmount() {}
+
+    componentWillReceiveProps(nextProps) {
+        this.setDataAndTile(nextProps.data);
+    }
 
     /**
      * 将数据平铺
@@ -92,28 +78,64 @@ class App extends Component {
         });
     }
 
+    /**
+     * 原始数据
+     * @param data
+     */
+    loopRender(data) {
+        const tileData = this.state.tileData;
+
+        return data.map(item => {
+            // 获取App 组件
+            const d = tileData[item.guid];
+            const App = d.App;
+
+            // 获取样式
+            let props = {
+                style: item.style,
+                attrs: item.attrs,
+                guid: item.guid,
+            };
+
+            // 如果存在需要组件转换情况
+            let transData = {};
+            if (item.dataTrans) {
+                transData = {
+                    ...App.dataTrans(item.dataTrans)
+                };
+            }
+
+            return (
+                <App
+                    id={item.guid}
+                    key={item.guid}
+                    // 模块名
+                    module={item.name}
+                    {...props}
+                    {...transData.props}
+                >
+                    {/* 通过数据转换生成的组件的子组件 */}
+                    {transData.childNodes}
+
+                    {/* data 数据关系下的父子组件 */}
+                    {item.children && this.loopRender(item.children)}
+                </App>
+            );
+        });
+    }
+
     render() {
         const { tileData, data } = this.state;
 
+        if (!tileData || data.length === 0) {
+            return null;
+        }
+
         return (
             <div>
-                {/* 模块 */}
-                <div
-                    ref={ref => { this.canvas = ref }}
-                    className="ec-editor-canvas"
-                >
-                    <div
-                        className="ec-editor-canvas-inner"
-                    >
-                        <Editor
-                            activeId={this.state.activeId}
-                            data={data}
-                            tileData={tileData}
-                        />
-                    </div>
-                </div>
+                {this.loopRender(data)}
             </div>
-        );
+        )
     }
 }
 
