@@ -22,6 +22,7 @@ class App extends Component {
     }
 
     loop(data) {
+
         return data.map(item => (
             <div
                 key={item.guid}
@@ -58,7 +59,7 @@ class App extends Component {
                                 {transData.childNodes}
 
                                 {/* data 数据关系下的父子组件 */}
-                                {item.children && this.loopRender(item.children)}
+                                {item.children && this.loop(item.children)}
                             </App>
                         );
                     }}
@@ -68,7 +69,7 @@ class App extends Component {
     }
 
     render() {
-        const { data } = this.state;
+        const { data } = this.props;
 
         if (!data) {
             return null;
