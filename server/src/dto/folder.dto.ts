@@ -9,7 +9,7 @@ export class CreateFolderDto {
         readonly name?: String;
 
         // 用户
-        readonly user?: String;
+        readonly ower?: String;
 
         // 层级
         readonly level?: Number;

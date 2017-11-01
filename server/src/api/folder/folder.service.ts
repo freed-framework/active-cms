@@ -87,4 +87,18 @@ export class FolderService {
                 return folder;
             })
     }
+
+    /**
+     * 初始化文件夹
+     */
+    async initFolder(userId: String, userName: String) {
+        const name: String = `${userName}-初始化文件夹`;
+        return await FolderModel.create({name, ower: userId}, (err, folder) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+
+            return folder;
+        })
+    }
 }

@@ -15,12 +15,16 @@ class App extends Component {
 
             tileData: null,
         }
+
+        if (this.state.data.length) {
+            this.setDataAndTile(props.data);
+        }
     }
 
     componentDidMount() {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-        const { id } = params;
+        if (this.state.data.length) {
+            this.setDataAndTile(this.state.data);
+        }
     }
 
     componentWillUnmount() {}

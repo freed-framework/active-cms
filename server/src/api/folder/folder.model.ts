@@ -14,7 +14,7 @@ const FolderScgema = new Schema({
     ower: { type: Schema.Types.ObjectId, ref: 'Users' },
 
     // 对应页面
-    page: { type: Schema.Types.ObjectId, ref: 'Pages' },
+    page: { type: Schema.Types.ObjectId, ref: 'Pages', default: null },
 
     // 文件夹名
     name: { type: String },

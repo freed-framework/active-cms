@@ -26,7 +26,7 @@ export class FolderController {
         const parentFolder: any = await this.folderService.findById(parent);
         let { level = -1 } = parentFolder || {};
 
-        const result: any = await this.folderService.add({...props, page, user, level: ++level});
+        const result: any = await this.folderService.add({...props, page, ower: user, level: ++level});
 
         if (result && parent) {
             const update = await this.folderService.update({

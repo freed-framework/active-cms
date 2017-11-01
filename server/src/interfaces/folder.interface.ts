@@ -6,7 +6,7 @@ export interface folderInterface {
     page: String,
 
     // 对应用户
-    user: String,
+    ower: String,
 
     // 文件夹名
     name?: String,

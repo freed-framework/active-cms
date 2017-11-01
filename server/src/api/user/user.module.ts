@@ -1,6 +1,7 @@
 import { Module, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import { UsersController } from './user.controller';
 import { UsersService } from './user.service';
+import { FolderModule } from '../folder/folder.module'
 
 @Module({
     controllers: [
@@ -8,6 +9,9 @@ import { UsersService } from './user.service';
     ],
     components: [
         UsersService,
+    ],
+    modules: [
+        FolderModule
     ]
 })
 export class UsersModule {
