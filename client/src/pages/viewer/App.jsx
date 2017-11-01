@@ -15,10 +15,6 @@ import '../editor/app.scss';
 class App extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            data: props.data || [],
-        }
     }
 
     loop(data) {
