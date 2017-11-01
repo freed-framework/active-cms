@@ -11,6 +11,7 @@ import { Icon } from 'antd';
 import mitt from 'mitt';
 import { FollowHoc } from '../follow';
 import Bar from '../bar';
+import Lazyer from '../../../common/Lazyer';
 import './panel.scss';
 
 const emitter = mitt();
@@ -107,21 +108,36 @@ class Panel extends PureComponent {
                                 {/* 可添加子组件栏 */}
                                 <div>
                                     <div>可添加子组件:</div>
-                                    {Bar.menus({
-                                        guid: item.guid,
-                                        menus: item.module ? item.module.menus : [],
-                                    })}
+                                    <Lazyer item={item}>
+                                        {mod => Bar.menus({
+                                            guid: item.guid,
+                                            menus: mod.module ? mod.module.menus : [],
+                                        })}
+                                    </Lazyer>
+                                    {/*{Bar.menus({*/}
+                                        {/*guid: item.guid,*/}
+                                        {/*menus: item.module ? item.module.menus : [],*/}
+                                    {/*})}*/}
                                 </div>
 
                                 {/* 属性编辑栏 */}
                                 <div>
-                                    {Bar.edit({
-                                        ...item,
-                                        guid: item.guid,
-                                        editable: item.module ? item.module.editable : {},
-                                        attrs: item.attrs,
-                                        childs: item.children ? item.children : []
-                                    })}
+                                    <Lazyer item={item}>
+                                        {mod => Bar.edit({
+                                            ...item,
+                                            guid: item.guid,
+                                            attrs: item.attrs,
+                                            childs: item.children ? item.children : [],
+                                            editable: mod.module ? mod.module.editable : {},
+                                        })}
+                                    </Lazyer>
+                                    {/*{Bar.edit({*/}
+                                        {/*...item,*/}
+                                        {/*guid: item.guid,*/}
+                                        {/*editable: item.module ? item.module.editable : {},*/}
+                                        {/*attrs: item.attrs,*/}
+                                        {/*childs: item.children ? item.children : []*/}
+                                    {/*})}*/}
                                 </div>
                             </div>
                         )

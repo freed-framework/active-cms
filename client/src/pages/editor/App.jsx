@@ -318,7 +318,11 @@ class App extends Component {
         const looper = (data) => {
             data.forEach(item => {
                 childs[item.guid] = item.children || [];
-                arr = arr.concat(Module.get(item));
+
+                arr = arr.concat(item);
+                // arr = arr.concat(Module.get(item));
+
+                console.log(item)
 
                 if (item.children) {
                     looper(item.children, arr);
@@ -633,13 +637,13 @@ class App extends Component {
                         activeId={this.state.activeId}
                         active={this.state.panelVisible}
                         data={data}
-                        tileData={tileData}
                     />
                 </Follow>
 
                 {/* 右侧的控制面板 */}
                 <Panel
                     activeId={this.state.activeId}
+                    sdata={data}
                     data={tileData}
                     offsetTop={50}
                     onClose={this.handleClosePanel}
