@@ -5,6 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
+import Lazyer from './Lazyer';
 
 class App extends Component {
     constructor(props) {
@@ -12,129 +13,67 @@ class App extends Component {
 
         this.state = {
             data: props.data || [],
-
-            tileData: null,
-        }
-
-        if (this.state.data.length) {
-            this.setDataAndTile(props.data);
         }
     }
 
-    componentDidMount() {
-        if (this.state.data.length) {
-            this.setDataAndTile(this.state.data);
-        }
-    }
+    loop(data) {
+        return data.map(item => (
+            <div
+                key={item.guid}
+            >
+                <Lazyer item={item}>
+                    {mod => {
+                        const App = mod.App;
 
-    componentWillUnmount() {}
+                        // 获取样式
+                        let props = {
+                            style: item.style,
+                            attrs: item.attrs,
+                            guid: item.guid,
+                        };
 
-    componentWillReceiveProps(nextProps) {
-        this.setDataAndTile(nextProps.data);
-    }
+                        // 如果存在需要组件转换情况
+                        let transData = {};
+                        if (item.dataTrans) {
+                            transData = {
+                                ...App.dataTrans(item.dataTrans)
+                            };
+                        }
 
-    /**
-     * 将数据平铺
-     * @param data
-     * @param arr
-     * @return {Array}
-     */
-    data2Tile(data, arr = []) {
-        const looper = (data) => {
-            data.forEach(item => {
-                arr = arr.concat(Module.get(item));
+                        return (
+                            <App
+                                id={item.guid}
+                                key={item.guid}
+                                // 模块名
+                                module={item.name}
+                                {...props}
+                                {...transData.props}
+                            >
+                                {/* 通过数据转换生成的组件的子组件 */}
+                                {transData.childNodes}
 
-                if (item.children) {
-                    looper(item.children, arr);
-                }
-            });
-        }
-
-        looper(data);
-
-        return arr;
-    }
-
-    /**
-     * 设置 state.tabs & state.tileData
-     * @param dataArr
-     * @param callback
-     */
-    setDataAndTile(dataArr = [], callback = () => {}) {
-        // 平铺的绑定了 App 的数据
-        const tileData = {};
-        const tile = this.data2Tile(dataArr);
-
-        Promise.all(tile).then(values => {
-            values.forEach(v => {
-                tileData[v.guid] = v;
-            });
-
-            this.setState({
-                data: dataArr,
-                tileData,
-            }, () => callback);
-        });
-    }
-
-    /**
-     * 原始数据
-     * @param data
-     */
-    loopRender(data) {
-        const tileData = this.state.tileData;
-
-        return data.map(item => {
-            // 获取App 组件
-            const d = tileData[item.guid];
-            const App = d.App;
-
-            // 获取样式
-            let props = {
-                style: item.style,
-                attrs: item.attrs,
-                guid: item.guid,
-            };
-
-            // 如果存在需要组件转换情况
-            let transData = {};
-            if (item.dataTrans) {
-                transData = {
-                    ...App.dataTrans(item.dataTrans)
-                };
-            }
-
-            return (
-                <App
-                    id={item.guid}
-                    key={item.guid}
-                    // 模块名
-                    module={item.name}
-                    {...props}
-                    {...transData.props}
-                >
-                    {/* 通过数据转换生成的组件的子组件 */}
-                    {transData.childNodes}
-
-                    {/* data 数据关系下的父子组件 */}
-                    {item.children && this.loopRender(item.children)}
-                </App>
-            );
-        });
+                                {/* data 数据关系下的父子组件 */}
+                                {item.children && this.loopRender(item.children)}
+                            </App>
+                        );
+                    }}
+                </Lazyer>
+            </div>
+        ));
     }
 
     render() {
-        const { tileData, data } = this.state;
+        const { data } = this.state;
 
-        if (!tileData || data.length === 0) {
+        if (!data) {
             return null;
         }
 
         return (
             <div>
-                {this.loopRender(data)}
+                {this.loop(data)}
             </div>
-        )
+        );
     }
 }
 
