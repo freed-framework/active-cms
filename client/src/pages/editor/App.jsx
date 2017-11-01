@@ -243,61 +243,61 @@ class App extends Component {
 
         // 如果存在id说明是编辑
         if (id) {
-            // getPage(id).then((res) => {
-                const res = {
-                    "code": 200,
-                    "message": "请求成功",
-                    "data": {
-                        "_id": "59dc5ecc10c25c113487e54e",
-                        "title": "123",
-                        "content": [
-                            {
-                                "guid": "ec-module-bd54abf3-42a6-490e-99ac-b4a1686d5fd5",
-                                "name": "tabs",
-                                "dataTrans": {
-                                    "activeKey": "0",
-                                    "data": [
-                                        {
-                                            key: "0",
-                                            title: 'Tab 1.',
-                                            content: 'Content 1',
-                                        },
-                                        {
-                                            key: "1",
-                                            title: 'Tab 2',
-                                            content: 'Content 2',
-                                        },
-                                    ]
-                                }
-                            },
-                            {
-                                "guid": "ab1b2580-8d5e-4412-8a76-f11fa5e086e8",
-                                "name": "layer",
-                                "attrs": {
-                                    "style": {
-                                        "layout": {
-                                            "height": "800",
-                                            "backgroundColor": "rgba(238, 236, 248, 1)",
-                                            "borderStyle": "dashed",
-                                            "borderWidth": 1
-                                        }
-                                    }
-                                },
-                                "children": [{
-                                    "guid": "ec-module-11122-42a6-490e-99ac-b4a1686d5fd5",
-                                    "name": "layer",
-                                }]
-                            }
-                        ]
-                    }
-                }
+            getPage(id).then((res) => {
+                // const res = {
+                //     "code": 200,
+                //     "message": "请求成功",
+                //     "data": {
+                //         "_id": "59dc5ecc10c25c113487e54e",
+                //         "title": "123",
+                //         "content": [
+                //             {
+                //                 "guid": "ec-module-bd54abf3-42a6-490e-99ac-b4a1686d5fd5",
+                //                 "name": "tabs",
+                //                 "dataTrans": {
+                //                     "activeKey": "0",
+                //                     "data": [
+                //                         {
+                //                             key: "0",
+                //                             title: 'Tab 1.',
+                //                             content: 'Content 1',
+                //                         },
+                //                         {
+                //                             key: "1",
+                //                             title: 'Tab 2',
+                //                             content: 'Content 2',
+                //                         },
+                //                     ]
+                //                 }
+                //             },
+                //             {
+                //                 "guid": "ab1b2580-8d5e-4412-8a76-f11fa5e086e8",
+                //                 "name": "layer",
+                //                 "attrs": {
+                //                     "style": {
+                //                         "layout": {
+                //                             "height": "800",
+                //                             "backgroundColor": "rgba(238, 236, 248, 1)",
+                //                             "borderStyle": "dashed",
+                //                             "borderWidth": 1
+                //                         }
+                //                     }
+                //                 },
+                //                 "children": [{
+                //                     "guid": "ec-module-11122-42a6-490e-99ac-b4a1686d5fd5",
+                //                     "name": "layer",
+                //                 }]
+                //             }
+                //         ]
+                //     }
+                // }
 
                 const { data } = res;
 
                 document.title = data.title;
 
                 this.setDataAndTile(data.content);
-            // });
+            });
         }
 
         // 定时保存每分钟保存一次
