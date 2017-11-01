@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { getPage } from '../../services';
-import App from './App';
+import Render from '../../../common/Render';
 
 class Viewer extends Component {
     constructor(props) {
@@ -19,11 +19,9 @@ class Viewer extends Component {
     componentDidMount() {
         const { match = {} } = this.props;
         const { params = {} } = match;
-        const { id } = params;
 
-        // 如果存在id说明是编辑
-        if (id) {
-            getPage(id).then((res) => {
+        if (params.id) {
+            getPage(params.id).then((res) => {
                 const { data } = res;
 
                 document.title = data.title;
@@ -37,7 +35,7 @@ class Viewer extends Component {
 
     render() {
         return (
-            <App
+            <Render
                 data={this.state.data}
             />
         )

@@ -243,55 +243,7 @@ class App extends Component {
 
         // 如果存在id说明是编辑
         if (id) {
-            getPage(id).then((res) => {
-                // const res = {
-                //     "code": 200,
-                //     "message": "请求成功",
-                //     "data": {
-                //         "_id": "59dc5ecc10c25c113487e54e",
-                //         "title": "123",
-                //         "content": [
-                //             {
-                //                 "guid": "ec-module-bd54abf3-42a6-490e-99ac-b4a1686d5fd5",
-                //                 "name": "tabs",
-                //                 "dataTrans": {
-                //                     "activeKey": "0",
-                //                     "data": [
-                //                         {
-                //                             key: "0",
-                //                             title: 'Tab 1.',
-                //                             content: 'Content 1',
-                //                         },
-                //                         {
-                //                             key: "1",
-                //                             title: 'Tab 2',
-                //                             content: 'Content 2',
-                //                         },
-                //                     ]
-                //                 }
-                //             },
-                //             {
-                //                 "guid": "ab1b2580-8d5e-4412-8a76-f11fa5e086e8",
-                //                 "name": "layer",
-                //                 "attrs": {
-                //                     "style": {
-                //                         "layout": {
-                //                             "height": "800",
-                //                             "backgroundColor": "rgba(238, 236, 248, 1)",
-                //                             "borderStyle": "dashed",
-                //                             "borderWidth": 1
-                //                         }
-                //                     }
-                //                 },
-                //                 "children": [{
-                //                     "guid": "ec-module-11122-42a6-490e-99ac-b4a1686d5fd5",
-                //                     "name": "layer",
-                //                 }]
-                //             }
-                //         ]
-                //     }
-                // }
-
+            getPage(id).then(res => {
                 const { data } = res;
 
                 document.title = data.title;
@@ -301,15 +253,15 @@ class App extends Component {
         }
 
         // 定时保存每分钟保存一次
-        this.timer = Observable.interval(60000).subscribe(() => {
-            const $newData = fromJS(this.state.data);
-
-            // 数据修改了才保存
-            if (!is($oldData, $newData)) {
-                this.mittSave('定时保存成功！');
-                $oldData = $newData;
-            }
-        })
+        // this.timer = Observable.interval(60000).subscribe(() => {
+        //     const $newData = fromJS(this.state.data);
+        //
+        //     // 数据修改了才保存
+        //     if (!is($oldData, $newData)) {
+        //         this.mittSave('定时保存成功！');
+        //         $oldData = $newData;
+        //     }
+        // })
 
         this.canvas.addEventListener('click', this.handleActive);
         this.canvas.addEventListener('mouseover', this.handleHover);
@@ -324,7 +276,7 @@ class App extends Component {
         emitter.off('active', this.mittActive);
         emitter.off('viewer', this.mittViewer);
 
-        this.timer.unsubscribe();
+        // this.timer.unsubscribe();
 
         this.canvas.removeEventListener('click', this.handleActive);
         this.canvas.removeEventListener('mouseover', this.handleHover);
@@ -480,6 +432,8 @@ class App extends Component {
 
     /**
      * 移动组件
+     * @param startId
+     * @param endId
      */
     mittMove = ({startId, endId}) => {
         const { data } = this.state;
@@ -540,6 +494,12 @@ class App extends Component {
         })
     }
 
+    /**
+     *
+     * @param guid
+     * @param key
+     * @param value
+     */
     mittModify({ guid, key, value }) {
         this.setState({
             data: module.modify(guid, this.state.data, key, value),
@@ -635,7 +595,7 @@ class App extends Component {
     }
 
     mittViewer() {
-        this.props.history.replace('/view')
+        this.props.history.push(`/view/${this.props.match.params.id}`)
     }
 
     /**
@@ -658,7 +618,9 @@ class App extends Component {
                 />
 
                 {/* Top Menu */}
-                <TopMenu history={history} />
+                <TopMenu
+                    history={history}
+                />
 
                 {/* 左侧工具面板 */}
                 <Follow
@@ -695,7 +657,6 @@ class App extends Component {
                         <Editor
                             activeId={this.state.activeId}
                             data={data}
-                            tileData={tileData}
                         />
                     </div>
                 </div>

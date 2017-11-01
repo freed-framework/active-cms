@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import Immutable from 'immutable';
 import Module from './module';
+import AppComponent from './Components';
 
 class Lazyer extends Component {
     constructor(props) {
