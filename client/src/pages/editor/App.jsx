@@ -297,7 +297,7 @@ class App extends Component {
                 document.title = data.title;
 
                 this.setDataAndTile(data.content);
-            });
+            })
         }
 
         // 定时保存每分钟保存一次
@@ -332,6 +332,29 @@ class App extends Component {
     }
 
     /**
+     * 设置 state.tabs & state.tileData
+     * @param dataArr
+     * @param callback
+     */
+    setDataAndTile(dataArr = [], callback = () => {}) {
+        // 平铺的绑定了 App 的数据
+        const tileData = {};
+        const result = this.data2Tile(dataArr);
+
+        Promise.all(result.tile).then(values => {
+            values.forEach(v => {
+                const children = result.childs[v.guid];
+                tileData[v.guid] = {...v, children: children || []};
+            });
+
+            this.setState({
+                data: dataArr,
+                tileData,
+            }, () => callback);
+        });
+    }
+
+    /**
      * 设置 state.data & state.tileData
      * 将数据平铺
      * @param data
@@ -339,8 +362,10 @@ class App extends Component {
      * @return {Array}
      */
     data2Tile(data, arr = []) {
+        const childs = {};
         const looper = (data) => {
             data.forEach(item => {
+                childs[item.guid] = item.children || [];
                 arr = arr.concat(Module.get(item));
 
                 if (item.children) {
@@ -355,51 +380,7 @@ class App extends Component {
 
         looper(data);
 
-        return arr;
-    }
-
-    /**
-     * 设置 state.tabs & state.tileData
-     * @param dataArr
-     * @param callback
-     */
-    setDataAndTile(dataArr = [], callback = () => {}) {
-        // 平铺的绑定了 App 的数据
-        const tileData = {};
-        const tile = this.data2Tile(dataArr);
-
-        Promise.all(tile).then(values => {
-            values.forEach(v => {
-                tileData[v.guid] = v;
-            });
-
-            this.setState({
-                data: dataArr,
-                tileData,
-            }, () => callback);
-        });
-    }
-
-    /**
-     * 将数据平铺
-     * @param data
-     * @param arr
-     * @return {Array}
-     */
-    data2Tile(data, arr = []) {
-        const looper = (data) => {
-            data.forEach(item => {
-                arr = arr.concat(Module.get(item));
-
-                if (item.children) {
-                    looper(item.children, arr);
-                }
-            });
-        }
-
-        looper(data);
-
-        return arr;
+        return {tile: arr, childs};
     }
 
     /**
@@ -538,10 +519,9 @@ class App extends Component {
      */
     mittEdit({ guid, attr, target, value, type }) {
         const el = document.getElementById(guid);
+        const newData = module.edit(guid, this.state.data, target, attr, value, type);
 
-        this.setState({
-            data: module.edit(guid, this.state.data, target, attr, value, type),
-        }, () => {
+        this.setDataAndTile(newData, () => {
             // 通知 Control 组件修改自身的宽度
             const expr = /width|height|margin/.exec(attr);
             if (expr) {

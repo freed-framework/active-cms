@@ -6,20 +6,28 @@ import Utils from '../../util/util';
 
 export interface HotImagesProps {
     id?: string,
-    style?: any,
-    module?: string
+    module?: string,
+    attrs?: {
+        style?: any
+    },
+    parentStyle?: any
 }
 
 class HotImages extends React.PureComponent<HotImagesProps, any> {
     render() {
-        const { style, id } = this.props;
+        const { id, attrs = {}, parentStyle } = this.props;
+        const { style = {} } = attrs;
+        const newSty = {};
+
+        Object.assign(newSty, parentStyle, style.layout);
+
         return (
             <div
                 {...this.props}
                 className="as-layer-goods"
-                style={style}
+                style={{...newSty}}
             >
-                1231231231231
+                {/* 1231231231 */}
             </div>
         );
     }

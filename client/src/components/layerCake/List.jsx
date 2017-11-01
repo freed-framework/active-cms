@@ -157,7 +157,7 @@ export default class List extends Component {
                         data-name={item.name}
                     >
                         <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
-                        {tileData[item.guid].module.disName || item.name}
+                        {tileData[item.guid] && tileData[item.guid].module.disName || item.name}
                     </div>
 
                     <div className={childCls}>

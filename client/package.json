@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "start": "node ./tool/server.js",
-    "server": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot --port 8888",
+    "server": "./node_modules/.bin/webpack-dev-server --content-base dist --inline --hot --host 172.30.40.16 --port 8888",
     "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",

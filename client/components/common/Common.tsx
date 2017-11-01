@@ -26,8 +26,7 @@ const Common = (ComposedComponent: any) => class Hoc extends React.PureComponent
         const { attrs, children = [], id, module } = this.props;
 
         const classes = classnames('as-common', {
-            'as-common-hasChild': !!children.length,
-            [`as-common-${module}`]: !!module,
+            'as-common-hasChild': !!children.length
         })
 
         return (
