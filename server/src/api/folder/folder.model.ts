@@ -22,6 +22,9 @@ const FolderScgema = new Schema({
     // 创建时间
     createTime: { type: Date, default: Date.now },
 
+    // 层级
+    level: { type: Number, default: 0 },
+
     // 子文件夹
     childrens: [{ type: Schema.Types.ObjectId, ref: 'Folders' }]
 })

@@ -11,6 +11,9 @@ export interface folderInterface {
     // 文件夹名
     name?: String,
 
+    // 层级
+    level?: Number,
+
     // 父文件夹
     parent?: String | null
 }

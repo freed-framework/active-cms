@@ -38,7 +38,7 @@ class Html extends React.Component {
         <style dangerouslySetInnerHTML={{__html: this.props.style}} ></style>
       </head>
       <body>
-      <div id="publishApp" dangerouslySetInnerHTML={{__html: this.props.body}} />
+      <div id="topicRoot" dangerouslySetInnerHTML={{__html: this.props.body}} />
       {/* <script dangerouslySetInnerHTML={{__html: this.props.script}}></script> */}
       {/* {
         extraProps.scripts.map((s) => {
