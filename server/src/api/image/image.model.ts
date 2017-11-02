@@ -9,7 +9,7 @@ import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const UrlSchema = new Schema({
+const ImageSchema = new Schema({
     // folder 链接
     folder: { type: Schema.Types.ObjectId, ref: 'Folders' },
 
@@ -32,4 +32,4 @@ const UrlSchema = new Schema({
     }]
 })
 
-export default mongoose.model('Urls', UrlSchema);
+export default mongoose.model('Urls', ImageSchema);

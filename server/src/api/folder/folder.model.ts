@@ -25,6 +25,9 @@ const FolderScgema = new Schema({
     // 层级
     level: { type: Number, default: 0 },
 
+    // 图片地址
+    images: { type: Schema.Types.ObjectId, ref: 'Urls' },
+
     // 子文件夹
     childrens: [{ type: Schema.Types.ObjectId, ref: 'Folders' }]
 })

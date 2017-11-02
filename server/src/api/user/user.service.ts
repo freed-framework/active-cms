@@ -70,9 +70,10 @@ export class UsersService {
                 throw new HttpException('系统错误', 500);
             }
 
-            const folder: any = folderService.initFolder(user._id, user.userName);
-
-            console.log(folder)
+            const folder: any = folderService.initFolder(user._id, user.userName).then((res) => {
+                user.folder = res._id;
+                user.save();
+            });
 
             return user;
         })

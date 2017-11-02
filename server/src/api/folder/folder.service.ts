@@ -10,15 +10,17 @@ import { HttpException } from '@nestjs/core';
 import FolderModel from './folder.model';
 import { folderInterface } from '../../interfaces/folder.interface'
 
+const showItem = 'name page images _id childrens level urls';
+
 const fetchFolder = {
-    path: 'childrens',
-    select: 'name page _id childrens level',
+    path: 'childrens images',
+    select: showItem,
     populate: {
-        path: 'childrens',
-        select: 'name page _id childrens level',
+        path: 'childrens images',
+        select: showItem,
         populate: {
-            path: 'childrens',
-            select: 'name page _id childrens level',
+            path: 'childrens images',
+            select: showItem,
         }
     }
 }
@@ -64,6 +66,7 @@ export class FolderService {
         return await FolderModel
             .findById(id, {"__v": 0})
             .populate(fetchFolder)
+            .populate('images')
             .exec((err, folder) => {
             if (err) {
                 throw new HttpException('系统错误', 500);

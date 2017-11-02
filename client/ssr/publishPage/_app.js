@@ -8,7 +8,7 @@ import Render from '../../common/render.jsx';
 
 
 if (canUseDOM) {
-  ReactDOM.render(<Render pageData={data} />, document.getElementById('topicRoot'), () => {
+  ReactDOM.render(<Render data={data} />, document.getElementById('topicRoot'), () => {
     console.log('ReactDOM.render');
   });
 }

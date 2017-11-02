@@ -2,19 +2,19 @@ import {
     Module, MiddlewaresConsumer, RequestMethod,
 } from '@nestjs/common';
 
-import { UrlController } from './url.controller';
-import { UrlService } from './url.service';
+import { ImageController } from './image.controller';
+import { ImageService } from './image.service';
 import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Module({
     controllers: [
-        UrlController
+        ImageController
     ],
     components: [
-        UrlService
+        ImageService
     ]
 })
-export class UrlModule {
+export class ImageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
             .apply(AuthMiddleware)
