@@ -35,7 +35,7 @@ class TopMenu extends Component {
                             size="small"
                             onClick={viewer}
                         >
-                            预览和设置
+                            预览
                         </Button>
                         <Button
                             className="ec-editor-btn"

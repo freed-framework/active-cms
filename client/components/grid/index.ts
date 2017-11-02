@@ -4,7 +4,7 @@ import './index.scss';
 interface Config {
     name: string;
     menus?: Array<string>;
-    disName?: string,
+    displayName?: string,
     editable: {
         style?: any,
         href?: any,
@@ -17,7 +17,7 @@ interface Config {
 
 const config: Config = {
     name: 'grid',
-    disName: '列表',
+    displayName: '列表',
     editable: {
         rowcol: [{label: '行列设置', component: 'Grid'}],
         style: {

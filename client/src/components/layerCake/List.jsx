@@ -4,13 +4,12 @@
  *
  * 已选组件列表项
  */
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Font from 'font';
 import classNames from 'classnames';
-
+import Lazyer from '../../../common/Lazyer';
 import DragPop from './DragPop';
 
 import { moveComponent } from '../../pages/editor/App';
@@ -58,7 +57,6 @@ export default class List extends Component {
         active: PropTypes.bool,
         activeId: PropTypes.string,
         onActive: PropTypes.func,
-        tileData: PropTypes.objectOf(PropTypes.any),
     }
 
     componentDidMount() {
@@ -132,7 +130,7 @@ export default class List extends Component {
      * @param isChildren
      */
     loopRender(data, isChildren = false) {
-        const { activeId, tileData } = this.props;
+        const { activeId } = this.props;
 
         const cls = classNames('ec-editor-layer-cake-items', {
             'ec-editor-layer-cake-items-sub': isChildren
@@ -157,7 +155,10 @@ export default class List extends Component {
                         data-name={item.name}
                     >
                         <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
-                        {tileData[item.guid] && tileData[item.guid].module.disName || item.name}
+
+                        <Lazyer item={item}>
+                            {mod => <span>{mod.module.displayName}</span>}
+                        </Lazyer>
                     </div>
 
                     <div className={childCls}>

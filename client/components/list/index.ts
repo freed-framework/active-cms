@@ -3,7 +3,7 @@ import './index.scss';
 
 interface Config {
     name: string;
-    disName: string;
+    displayName: string;
     menus?: Array<string>;
     editable: {
         style?: any,
@@ -19,7 +19,7 @@ interface Config {
 
 const config: Config = {
     name: 'list',
-    disName: '列表',
+    displayName: '列表',
     menus: [],
     editable: {
         items: [{label: '商品数', component: 'GoodsNumber', defaultValue: 1 }],

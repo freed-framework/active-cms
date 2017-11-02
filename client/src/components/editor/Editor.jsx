@@ -8,7 +8,7 @@ import React, { PureComponent, dangerouslySetInnerHTML } from 'react';
 import Immutable from 'immutable';
 import Wrap from './Wrap';
 import Panel from '../panel';
-import Lazyer from '../../../common/Lazyer';
+import Components from '../../../common/Components';
 import './editor.scss';
 
 const getChildNodes = (data) => {
@@ -27,8 +27,6 @@ class Editor extends PureComponent {
             tileData: props.tileData,
         }
     }
-
-    componentWillUnmount() {}
 
     componentWillReceiveProps(nextProps) {
         if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
@@ -57,56 +55,52 @@ class Editor extends PureComponent {
      * 原始数据
      * @param data
      */
-    loopRender(data) {
-        const tileData = this.state.tileData;
-
-        return data.map(item => {
-            // 获取App 组件
-            const d = tileData[item.guid];
-            const App = d.App;
-
-            // 获取样式
-            let props = {
-                style: item.style,
-                attrs: item.attrs,
-                guid: item.guid,
-            };
-
-            // 如果存在需要组件转换情况
-            let transData = {};
-            if (item.dataTrans) {
-                transData = {
-                    ...App.dataTrans(item.dataTrans)
-                };
-            }
-
-            return (
-                <App
-                    id={item.guid}
-                    key={item.guid}
-                    // 模块名
-                    module={item.name}
-                    {...props}
-                    {...transData.props}
-                >
-                    {/* 通过数据转换生成的组件的子组件 */}
-                    {transData.childNodes}
-
-                    {/* data 数据关系下的父子组件 */}
-                    {item.children && this.loopRender(item.children)}
-                </App>
-            );
-        });
-    }
+    // loopRender(data) {
+    //     const tileData = this.state.tileData;
+    //
+    //     return data.map(item => {
+    //         // 获取App 组件
+    //         const d = tileData[item.guid];
+    //         const App = d.App;
+    //
+    //         // 获取样式
+    //         let props = {
+    //             style: item.style,
+    //             attrs: item.attrs,
+    //             guid: item.guid,
+    //         };
+    //
+    //         // 如果存在需要组件转换情况
+    //         let transData = {};
+    //         if (item.dataTrans) {
+    //             transData = {
+    //                 ...App.dataTrans(item.dataTrans)
+    //             };
+    //         }
+    //
+    //         return (
+    //             <App
+    //                 id={item.guid}
+    //                 key={item.guid}
+    //                 // 模块名
+    //                 module={item.name}
+    //                 {...props}
+    //                 {...transData.props}
+    //             >
+    //                 {/* 通过数据转换生成的组件的子组件 */}
+    //                 {transData.childNodes}
+    //
+    //                 {/* data 数据关系下的父子组件 */}
+    //                 {item.children && this.loopRender(item.children)}
+    //             </App>
+    //         );
+    //     });
+    // }
 
     render() {
-        const { data } = this.state;
-
         return (
-            <div className="ec-edit-mobile">
-                {this.loopRender(data)}
-            </div>
-        )
+            <Components data={this.props.data} />
+        );
     }
 }
 

@@ -3,7 +3,7 @@ import './row.scss';
 
 interface Config {
     name: string;
-    disName?: string;
+    displayName?: string;
     menus?: Array<string>;
     editable: {
         style?: any,
@@ -17,7 +17,7 @@ interface Config {
 
 const config: Config = {
     name: 'grid/row',
-    disName: '行',
+    displayName: '行',
     editable: {
         style: {
             layout: ['Basic'],

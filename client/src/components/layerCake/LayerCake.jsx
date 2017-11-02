@@ -14,10 +14,6 @@ import List from './List';
 import './layerCake.scss';
 
 class LayerCake extends PureComponent {
-    static propTypes = {
-        tileData: PropTypes.objectOf(PropTypes.any),
-    }
-
     constructor(props) {
         super(props);
 
@@ -49,7 +45,6 @@ class LayerCake extends PureComponent {
     }
 
     handleActive = (guid) => {
-
         // 实际上被编辑的元素
         const editTarget = document.getElementById(guid);
 
@@ -67,7 +62,7 @@ class LayerCake extends PureComponent {
 
     render() {
         const { data, active, activeId } = this.state;
-        
+
         const cls = classNames('ec-editor-layer-cake', {
             'ec-editor-layer-cake-active': active,
         });
@@ -77,7 +72,6 @@ class LayerCake extends PureComponent {
                 <div className="ec-editor-layer-cake-title">已添加组件</div>
                 <List
                     data={data}
-                    tileData={this.props.tileData}
                     active={active}
                     activeId={activeId}
                     onActive={this.handleActive}
