@@ -11,5 +11,5 @@ import ImageModel from './image.model';
 import { urlInterface } from '../../interfaces/Url.interface'
 
 @Component()
-export class UrlService {
+export class ImageService {
 }

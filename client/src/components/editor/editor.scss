@@ -24,12 +24,14 @@
 }
 
 // .ec-editor-canvas {
-//     background-image: url('../../images/mobile.png');
-//     height: 900px;
-//     width: 440px;
+//     width: 750px;
+//     overflow: hidden;
 //     margin: 0 auto;
-//     background-repeat: no-repeat;
-//     &-inner {
-//         width: 345px;
-//     }
+//     border: 1px solid #a29191;
+//     display: flex;
+// }
+
+// .ec-editor-canvas-inner {
+//     display: flex;
+//     width: inherit;
 // }

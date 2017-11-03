@@ -6,9 +6,12 @@
  */
 import React, { PureComponent, dangerouslySetInnerHTML } from 'react';
 import Immutable from 'immutable';
+import { Upload, Modal, Icon, Button } from 'antd';
+import * as FileUpload from 'react-fileupload';
 import Wrap from './Wrap';
 import Panel from '../panel';
 import Components from '../../../common/Components';
+
 import './editor.scss';
 
 const getChildNodes = (data) => {
@@ -25,8 +28,30 @@ class Editor extends PureComponent {
             data: props.data,
 
             tileData: props.tileData,
+
+            previewVisible: false,
+            previewImage: '',
+            fileList: [{
+                uid: -1,
+                name: 'xxx.png',
+                status: 'done',
+                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            }],
         }
     }
+
+    handleCancel = () => this.setState({ previewVisible: false })
+
+    handlePreview = (file) => {
+        this.setState({
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true,
+        });
+    }
+
+    handleChange = ({ fileList }) => this.setState({ fileList })
+
+
 
     componentWillReceiveProps(nextProps) {
         if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
@@ -97,9 +122,29 @@ class Editor extends PureComponent {
     //     });
     // }
 
-    render() {
+    render(){
+        /*set properties*/
+        const options = {
+            baseUrl: 'http://172.30.40.16:3000/api/image',
+            multiple: true,
+            chooseAndUpload: true,
+            dataType: 'multipart/form-data',
+            param: {
+                fid: 0
+            },
+            uploadSuccess: (props) => {
+                console.log(props)
+            }
+        }
+        /*Use FileUpload with options*/
+        /*Set two dom with ref*/
         return (
-            <Components data={this.props.data} />
+            <div>
+                <FileUpload options={options}>
+                    <button ref='chooseAndUpload'>chooseAndUpload</button>
+                </FileUpload>
+                <Components data={this.props.data} />
+            </div>
         );
     }
 }

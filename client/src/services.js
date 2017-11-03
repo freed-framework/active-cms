@@ -13,8 +13,8 @@ import * as Cookies from 'js-cookie';
 
 const http = new Http();
 
-const apiHost = 'http://www.iting.top/api';
-// const apiHost = 'http://172.30.40.16:3000/api';
+// const apiHost = 'http://www.iting.top/api';
+const apiHost = 'http://172.30.40.16:3000/api';
 
 http.request(
     req => {

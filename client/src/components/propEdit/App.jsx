@@ -10,6 +10,7 @@ import MultiData from './multiData';
 import Grid from './grid';
 import SetTabs from './setTabs';
 import GoodsNumber from './goodsNumber';
+import Upload from './upload';
 
 export {
     Attr,
@@ -22,5 +23,6 @@ export {
     MultiData,
     Grid,
     SetTabs,
-    GoodsNumber
+    GoodsNumber,
+    Upload
 }
