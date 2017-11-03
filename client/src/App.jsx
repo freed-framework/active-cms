@@ -9,7 +9,7 @@ import {
     BrowserRouter,
     Route,
 } from 'react-router-dom';
-import Editor from './pages/editor/App';
+import Editor from './pages/editor';
 import Viewer from './pages/viewer';
 import List from './pages/lists/App';
 

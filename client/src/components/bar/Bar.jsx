@@ -15,6 +15,7 @@ class Bar {
     static handleSizeChange(value) {
         console.log(value)
     }
+
     /**
      * 删除按钮组件
      * @param guid
@@ -22,7 +23,7 @@ class Bar {
      */
     static delete(guid) {
         return (
-            <div
+            <span
                 key="ec-edit-bar-button"
                 className="ec-edit-bar-button"
             >
@@ -37,7 +38,7 @@ class Bar {
                         粘贴
                     </Button>
                 </Button.Group>
-            </div>
+            </span>
         )
     }
 
