@@ -10,15 +10,17 @@ import { HttpException } from '@nestjs/core';
 import FolderModel from './folder.model';
 import { folderInterface } from '../../interfaces/folder.interface'
 
+const showItem = 'name page images _id childrens level urls';
+
 const fetchFolder = {
-    path: 'childrens',
-    select: 'name page _id childrens',
+    path: 'childrens images',
+    select: showItem,
     populate: {
-        path: 'childrens',
-        select: 'name page _id childrens',
+        path: 'childrens images',
+        select: showItem,
         populate: {
-            path: 'childrens',
-            select: 'name page _id childrens',
+            path: 'childrens images',
+            select: showItem,
         }
     }
 }
@@ -64,6 +66,7 @@ export class FolderService {
         return await FolderModel
             .findById(id, {"__v": 0})
             .populate(fetchFolder)
+            .populate('images')
             .exec((err, folder) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
@@ -73,6 +76,10 @@ export class FolderService {
         })
     }
 
+    /**
+     * 获取指定文件夹
+     * @param id 查询指定id
+     */
     async findById(id: String) {
         return await FolderModel
             .findById(id, {"_v": 0, childrens: 0}, (err, folder) => {
@@ -82,5 +89,19 @@ export class FolderService {
     
                 return folder;
             })
+    }
+
+    /**
+     * 初始化文件夹
+     */
+    async initFolder(userId: String, userName: String) {
+        const name: String = `${userName}-初始化文件夹`;
+        return await FolderModel.create({name, ower: userId}, (err, folder) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+
+            return folder;
+        })
     }
 }

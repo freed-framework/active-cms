@@ -6,7 +6,7 @@ import Render from '../../common/Render.jsx';
 
 
 if (canUseDOM) {
-  ReactDOM.render(<Render pageData={data} />, document.getElementById('topicRoot'), () => {
+  ReactDOM.render(<Render data={data} />, document.getElementById('topicRoot'), () => {
     console.log('ReactDOM.render');
   });
 }

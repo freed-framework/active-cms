@@ -6,45 +6,62 @@ import {
 import { FolderService } from './folder.service';
 import CommonService from '../../common/common.service';
 import { CreateFolderDto } from '../../dto/folder.dto';
+import { UrlService } from '../url/url.service';
+
+const urlService = new UrlService();
 
 @Controller('folder')
 export class FolderController {
     constructor(private folderService: FolderService) {}
 
-    @Get()
-    async get(@Request() req, @Response() res) {
-        const { id = '59f7dbf8d94b863f861d92be' } = req.query;
+    @Get('/list/:id')
+    async get(@Request() req, @Response() res, @Param() param) {
+        const { id } = param;
         const result: any = await this.folderService.get(id);
 
-        res.status(HttpStatus.OK).json(result);
+        res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
     }
 
     @Post()
     async add(@Request() req, @Response() res, @Body() body: CreateFolderDto) {
-
-        const {
-            page = '59db14fa89b19208c094782b',
-            user = '59dae48589b19208c0947821',
-            parent = '59f7df1c6e95544a527ea40c',
-            ...props
-        } = body;
+        const { page, parent, ...props } = body;
+        const { user } = req.session;
+        console.log(user)
 
         const parentFolder: any = await this.folderService.findById(parent);
-        let { level = 0 } = parentFolder;
-        console.log(parentFolder)
+        let { level = -1 } = parentFolder || {};
 
-        const result: any = await this.folderService.add({...props, page, user, level: ++level, parent: "59f81214dadbcc92b247849c"});
+        const result: any = await this.folderService.add({...props, page, ower: user._id, level: ++level});
 
-        // parentFolder.update({$addToSet: { childrens: result._id }})
-
-        if (result) {
+        if (result && parent) {
             const update = await this.folderService.update({
-                folder: parent
+                _id: parent
             }, {
                 $addToSet: { childrens: result._id }
             })
         }
 
-        res.status(HttpStatus.OK).json(result);
+        res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
+    }
+
+    @Get('/:id')
+    async findById(@Request() req, @Response() res, @Param('id') id) {
+        const result: any = await this.folderService.findById(id);
+
+        res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
+    }
+
+    @Post('/image')
+    async addImage(@Response() res, @Body() body) {
+        const { folder, image } = body;
+        const result: any = await urlService.findCreate(folder, image);
+
+        const update = await this.folderService.update({
+            _id: result.folder
+        }, {
+            images: result.url
+        })
+
+        res.status(HttpStatus.OK).json(CommonService.commonResponse(update));
     }
 }

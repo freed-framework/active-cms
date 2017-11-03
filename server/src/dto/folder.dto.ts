@@ -8,9 +8,6 @@ export class CreateFolderDto {
         // 文件夹名
         readonly name?: String;
 
-        // 用户
-        readonly user?: String;
-
         // 层级
         readonly level?: Number;
     

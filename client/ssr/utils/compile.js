@@ -100,7 +100,7 @@ export async function compileTemplate(page) {
         output: {
             path: outputPath,
             filename: outputFileName,
-            publicPath: "http://172.30.40.16:8888/"
+            // publicPath: "http://172.30.40.16:8888/"
         },
         module: {
             loaders: loaders

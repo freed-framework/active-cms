@@ -2,6 +2,9 @@ import { Component } from "@nestjs/common";
 import { HttpException } from '@nestjs/core';
 import * as _ from 'lodash';
 import UsersModel from './user.model';
+import { FolderService } from '../folder/folder.service';
+
+const folderService = new FolderService()
 
 @Component()
 export class UsersService {
@@ -62,11 +65,17 @@ export class UsersService {
         const model: any = new UsersModel(user);
         model.setPassword(user.password);
 
-        const result: any = model.save((err, doc) => {
+        const result: any = model.save((err, user: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
-            return doc;
+
+            const folder: any = folderService.initFolder(user._id, user.userName).then((res) => {
+                user.folder = res._id;
+                user.save();
+            });
+
+            return user;
         })
 
         const token = model.generateJwt();

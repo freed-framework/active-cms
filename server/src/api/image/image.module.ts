@@ -2,22 +2,22 @@ import {
     Module, MiddlewaresConsumer, RequestMethod,
 } from '@nestjs/common';
 
-import { FolderController } from './folder.controller';
-import { FolderService } from './folder.service';
+import { ImageController } from './image.controller';
+import { ImageService } from './image.service';
 import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Module({
     controllers: [
-        FolderController
+        ImageController
     ],
     components: [
-        FolderService
+        ImageService
     ]
 })
-export class FolderModule {
+export class ImageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
             .apply(AuthMiddleware)
-            .forRoutes(FolderController)
+            .forRoutes(UrlController)
     }
 }
