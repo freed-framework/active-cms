@@ -5,4 +5,4 @@
  * Des
  */
 
-export default from './Panel';
+export default from './App';
