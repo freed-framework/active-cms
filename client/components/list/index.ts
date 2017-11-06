@@ -13,7 +13,8 @@ interface Config {
         position?: any,
         horizontal?: any,
         vertical?: any,
-        items?: any
+        items?: any,
+        images?: any
     };
 }
 
@@ -23,6 +24,7 @@ const config: Config = {
     menus: [],
     editable: {
         items: [{label: '商品数', component: 'GoodsNumber', defaultValue: 1 }],
+        images: [{label: '上传图片', component: 'Upload'}],
         style: {
             layout: ['Basic'],
             goodsItem: ['Basic']

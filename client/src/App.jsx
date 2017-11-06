@@ -33,6 +33,8 @@ const App = () => (
             <Route exact path="/view/:id" component={Viewer} />
             <Route exact path="/lists" component={List} />
             <Route exact path="/lists/:type" component={List} />
+            <Route exact path="/mobile/edit/:id" component={Editor} />
+            <Route exact path="/mobile/new" component={Editor} />
         </div>
     </BrowserRouter>
 )

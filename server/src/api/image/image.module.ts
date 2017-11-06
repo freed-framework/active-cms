@@ -5,6 +5,7 @@ import {
 import { ImageController } from './image.controller';
 import { ImageService } from './image.service';
 import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
+import { UploadMiddleware } from '../../common/middlewares/upload.middleware';
 
 @Module({
     controllers: [
@@ -18,6 +19,11 @@ export class ImageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
             .apply(AuthMiddleware)
-            .forRoutes(UrlController)
+            .forRoutes(ImageController)
+            .apply(UploadMiddleware)
+            .forRoutes({
+                path: '/*',
+                method: RequestMethod.POST
+            })
     }
 }

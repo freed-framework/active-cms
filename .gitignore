@@ -18,3 +18,5 @@ client/lib/
 
 # 服务端渲染新增中转文件
 client/ssr/publish/
+
+server/images/
