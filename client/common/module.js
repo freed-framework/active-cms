@@ -19,7 +19,7 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            import(`../components/${item.name}/index`)
+            import(`../components/pc/${item.name}/index`)
                 // 返回数据
                 .then(App => resolve({
                     // ...item,
@@ -28,14 +28,14 @@ class Module {
                     name: item.name,
                     // 组件属性对象
                     attrs: item.attrs,
-                    //
+                    // 该数据用于组件内部的转换
                     dataTrans: item.dataTrans,
                     // 返回模块配置 App.config -> module
                     ...(App.config && { module: {...App.config} }),
                     // 返回组件
                     App: App.default,
                 }))
-        })
+        });
     }
 
     /**

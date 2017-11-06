@@ -1,7 +1,5 @@
 import * as React from 'react';
-
-import Common from '../common';
-
+import BaiscComponent from '../../common/hoc/baiscComponent';
 
 export interface GridProps {
     module?: string,
@@ -20,7 +18,6 @@ class Grid extends React.Component<GridProps, any> {
     renderClone = () => {
         const { children, attrs = {} } = this.props;
         const { style = {} } = attrs;
-
         const cols = React.Children.map(children, (item: any, index: number) => {
             if(item) {
                 return React.cloneElement(item, {
@@ -47,4 +44,4 @@ class Grid extends React.Component<GridProps, any> {
     }
 }
 
-export default Common(Grid);
+export default BaiscComponent(Grid);

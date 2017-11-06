@@ -4,10 +4,11 @@
  *
  */
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { getPage } from '../../services';
 import App from './App';
 
-class Viewer extends Component {
+class Editor extends Component {
     constructor(props) {
         super(props);
 
@@ -47,4 +48,4 @@ class Viewer extends Component {
     }
 }
 
-export default Viewer;
+export default Editor;

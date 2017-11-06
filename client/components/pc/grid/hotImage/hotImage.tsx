@@ -1,8 +1,5 @@
 import * as React from 'react';
-
-import Common from '../../common';
-
-import Utils from '../../util/util';
+import BaiscComponent from '../../../common/hoc/baiscComponent';
 
 export interface HotImagesProps {
     id?: string,
@@ -33,4 +30,4 @@ class HotImages extends React.PureComponent<HotImagesProps, any> {
     }
 }
 
-export default Common(HotImages);
+export default BaiscComponent(HotImages);

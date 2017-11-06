@@ -4,7 +4,6 @@
  *
  * Des
  */
-/// <reference path="../../declaration.d.ts" />
 /// <reference path="./fix.d.ts" />
 import * as React from 'react';
 // import Style from './index.scss';

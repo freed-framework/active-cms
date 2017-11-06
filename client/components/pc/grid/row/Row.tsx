@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
-
-import Common from '../../common';
+import BaiscComponent from '../../../common/hoc/baiscComponent';
 
 export interface RowProps {
     className: string,
@@ -46,4 +45,4 @@ class Row extends React.Component<RowProps, any> {
     }
 }
 
-export default Common(Row);
+export default BaiscComponent(Row);
