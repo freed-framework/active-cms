@@ -1,10 +1,10 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import * as EditItem from './App';
 import './propsEdit.scss';
 
-export default class EditAttr extends Component {
+export default class EditAttr extends PureComponent {
     static propTypes = {
         attrs: PropTypes.objectOf(PropTypes.any),
         editable: PropTypes.objectOf(PropTypes.any),
@@ -32,17 +32,20 @@ export default class EditAttr extends Component {
 
             if (key === 'style') {
                 return Object.keys(comps).map((k, i) => {
-                    const attrs = comps[k];
+                    // TODO: 石进华你大爷哟，我没看懂哟
+                    // const attrs = comps[k];
+                    // const { style = {} } = attrs;
+                    const _comps = comps[k];
                     const { style = {} } = attrs;
 
-                    return attrs.map(attr => {
-                        const Item = EditItem[attr];
+                    return _comps.map(attr => {
+                        const Component = EditItem[attr];
 
                         return (
                             <div
                                 key={`${key}-${attr}-${index}`}
                             >
-                                <Item
+                                <Component
                                     compKey={attr}
                                     guid={guid}
                                     target={k}
@@ -55,13 +58,13 @@ export default class EditAttr extends Component {
             } else {
                 return comps.map(attr => {
                     const { label = '', component = '', data = [], ...props } = attr;
-                    const Item = EditItem[component];
+                    const Component = EditItem[component];
 
                     return (
                         <div
                             key={`${key}-${attr}-${index}`}
                         >
-                            <Item
+                            <Component
                                 {...props}
                                 label={label}
                                 compKey={component}

@@ -4,7 +4,7 @@
  *
  * 拾色器组件
  */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { SketchPicker, PhotoshopPicker } from 'react-color';
 import { Popover, Input, Icon } from 'antd';
@@ -25,7 +25,7 @@ function parseRGBA(color = '') {
     return result;
 }
 
-class ColorPicker extends Component {
+class ColorPicker extends PureComponent {
     static propTypes = {
         color: PropTypes.string,
         onChangeComplete: PropTypes.func.isRequired,

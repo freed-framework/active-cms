@@ -4,7 +4,7 @@
  *
  * 背景色选择组件
  */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Popover, Input, Row, Col, Select } from 'antd';
 
@@ -27,7 +27,7 @@ function parseImage(image = '') {
     return result;
 }
 
-class Background extends Component {
+class Background extends PureComponent {
     static propTypes = {
         backgroundColor: PropTypes.string,
         backgroundImage: PropTypes.string,

@@ -5,7 +5,7 @@
  * Des
  */
 import React, { Component } from 'react';
-import { fromJS } from 'immutable';
+import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
 import mitt from 'mitt';
@@ -95,6 +95,14 @@ class App extends Component {
         this.canvas.removeEventListener('click', this.handleActive);
         this.canvas.removeEventListener('mouseover', this.handleHover);
         this.canvas.removeEventListener('mouseout', this.handleOut);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!is(nextProps.data, this.props.data)) {
+            this.setState({
+                data: nextProps.data,
+            })
+        }
     }
 
     /**
@@ -238,26 +246,27 @@ class App extends Component {
      * @param type 修改后值
      */
     mittEdit = ({ guid, attr, target, value, type }) => {
+        // console.log(module.modify(guid, this.state.data, ['attrs', 'style', target, attr], value ));
         const data = module.edit(guid, this.state.data, target, attr, value, type);
 
         this.setState({
             data,
         }, () => {
             // 通知 Control 组件修改自身的宽度
-            const expr = /width|height|margin/.exec(attr);
-            if (expr) {
-                const controlAttr = expr[0];
-                const controlRect = {
-                    ...(this.state.activeRect)
-                };
-
-                controlRect[controlAttr] = parseFloat(value);
-
-                this.setState({
-                    rect: controlRect,
-                    activeRect: controlRect,
-                });
-            }
+            // const expr = /width|height|margin/.exec(attr);
+            // if (expr) {
+            //     const controlAttr = expr[0];
+            //     const controlRect = {
+            //         ...(this.state.activeRect)
+            //     };
+            //
+            //     controlRect[controlAttr] = parseFloat(value);
+            //
+            //     this.setState({
+            //         rect: controlRect,
+            //         activeRect: controlRect,
+            //     });
+            // }
         });
     }
 
