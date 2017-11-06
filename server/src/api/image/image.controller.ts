@@ -49,17 +49,20 @@ function parse(files) {
         const paths = [];
         const fileKeys = Object.keys(files);
         const len = fileKeys.length;
+        let current = 0;
 
-        fileKeys.map((i, index) => {
+        fileKeys.map((i) => {
             const item = files[i];
 
             Object.keys(item).map((j) => {
                 const file = item[j];
-
+console.log(file)
                 upload(file).then((re) => {
                     paths.push(re);
 
-                    if (len === index + 1) {
+                    ++current;
+
+                    if (len === current) {
                         resolve(paths)
                     }
                 })
