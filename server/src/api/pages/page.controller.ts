@@ -100,6 +100,7 @@ export class PageController {
     @UsePipes(new encodeUpdatePipe())
     async updatePage(@Response() res, @Body() body) {
         const { id, page } = body;
+        console.log(page)
         const result = await this.service.updatePage(id, page);
         res.status(HttpStatus.OK).json(result);
     }
