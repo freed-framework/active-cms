@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { user } from '../../actions/user';
+import { userReducer } from '../../reducers';
 
 import './app.scss';
 
@@ -26,7 +27,9 @@ const confirm = Modal.confirm;
 const emitter = mitt();
 
 @connect(
-    () => ({}),
+    () => ({
+        userReducer
+    }),
     dispatch => bindActionCreators({
         user
     }, dispatch)
@@ -76,7 +79,9 @@ class App extends Component {
 
     componentDidMount() {
         let $oldData = fromJS(this.state.data);
-console.log(this.props.user)
+        this.props.user(12312312).then(data => {
+            console.log(data)
+        })
         // 定时保存每分钟保存一次
         // this.timer = Observable.interval(60000).subscribe(() => {
         //     const $newData = fromJS(this.state.data);
@@ -109,6 +114,7 @@ console.log(this.props.user)
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         if (!is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,

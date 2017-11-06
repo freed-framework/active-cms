@@ -20,23 +20,25 @@ const getConfirmation = (message, callback) => {
 
 const supportsHistory = 'pushState' in window.history;
 
-const App = () => (
-    <BrowserRouter
-        forceRefresh={!supportsHistory}
-        getUserConfirmation={getConfirmation}
-        keyLength={12}
-    >
-        <div>
-            <Route exact path="/" component={List} />
-            <Route exact path="/edit/:id" component={Editor} />
-            <Route exact path="/new" component={Editor} />
-            <Route exact path="/view/:id" component={Viewer} />
-            <Route exact path="/lists" component={List} />
-            <Route exact path="/lists/:type" component={List} />
-            <Route exact path="/mobile/edit/:id" component={Editor} />
-            <Route exact path="/mobile/new" component={Editor} />
-        </div>
-    </BrowserRouter>
-)
+const App = () => {
+
+    return (
+        <BrowserRouter
+            forceRefresh={!supportsHistory}
+            getUserConfirmation={getConfirmation}
+            keyLength={12}
+        >
+            <div>
+                <Route exact path="/" component={List} />
+                {/* type: pc=web端，mobile=移动端 */}
+                <Route exact path="/:type/edit/:id" component={Editor} />
+                <Route exact path="/:type/new" component={Editor} />
+                <Route exact path="/view/:id" component={Viewer} />
+                <Route exact path="/lists" component={List} />
+                <Route exact path="/lists/:type" component={List} />
+            </div>
+        </BrowserRouter>
+    )
+}
 
 export default App;

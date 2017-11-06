@@ -124,6 +124,11 @@ export default class List extends Component {
         ReactDOM.unstable_renderSubtreeIntoContainer(this, <DragPop name={name} />, this.container);
     }
 
+    handleActive = (e) => {
+        const id = e.target.getAttribute('data-guid');
+        this.props.onActive(id);
+    }
+
     /**
      * 循环 DOM 节点
      * @param data
@@ -153,6 +158,7 @@ export default class List extends Component {
                         className="ec-editor-layer-cake-content"
                         data-guid={item.guid}
                         data-name={item.name}
+                        onClick={this.handleActive}
                     >
                         <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
 
