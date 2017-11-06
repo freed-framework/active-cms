@@ -12,7 +12,7 @@ class Viewer extends Component {
         super(props);
 
         this.state = {
-            data: null,
+            data: [],
         }
     }
 
@@ -21,24 +21,23 @@ class Viewer extends Component {
         const { params = {} } = match;
 
         if (params.id) {
-            getPage(params.id).then((res) => {
-                const { data } = res;
+            // getPage(params.id).then((res) => {
+                const data = {
+                    content: [{"guid":"ec-module-ceb68fe0-90e8-409a-bbd3-a8660c487b0c","name":"layer","attrs":{"style":{"layout":{"backgroundColor":"#eee"}}},"children":[{"guid":"ec-module-06895ff8-1f0a-402f-970b-46a543e7efb5","name":"tabs","dataTrans":{"data":[{"key":0,"title":"Title1","content":"Content1"},{"key":1,"title":"Title2","content":"Content2"}]}}]}],
+                };
 
-                document.title = data.title;
+                // const { data } = res;
+                // document.title = data.title;
 
                 this.setState({
                     data: data.content,
                 })
-            })
+            // })
         }
     }
 
     render() {
         const { data } = this.state;
-
-        if (!data) {
-            return null;
-        }
 
         return (
             <App

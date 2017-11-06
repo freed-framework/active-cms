@@ -15,7 +15,7 @@ import './panel.scss';
 
 const emitter = mitt();
 
-@FollowHoc
+// @FollowHoc
 class Panel extends PureComponent {
     constructor(props) {
         super(props);

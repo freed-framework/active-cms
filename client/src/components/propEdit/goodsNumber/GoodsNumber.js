@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, InputNumber } from 'antd';
 import { is } from 'immutable';
@@ -32,7 +32,7 @@ function getList(num, oldArr) {
     return rows;
 }
 
-export default class GoodsNumber extends Component {
+export default class GoodsNumber extends PureComponent {
     static propTypes = {
         guid: PropTypes.string,
         attr: PropTypes.objectOf(PropTypes.any),

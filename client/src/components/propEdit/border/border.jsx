@@ -5,7 +5,7 @@
  * @author shijh
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputNumber, Popover } from 'antd';
 import { ChromePicker } from 'react-color';
@@ -13,7 +13,7 @@ import { editComponentByType } from '../../../pages/editor/App';
 
 const Option = Select.Option;
 
-export default class BorderEdit extends Component {
+export default class BorderEdit extends PureComponent {
     static propTypes = {
         guid: PropTypes.string,
         target: PropTypes.string,

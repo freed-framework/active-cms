@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Radio } from 'antd';
 import { editComponent, editComponentByType } from '../../../pages/editor/App';
 
 const RadioGroup = Radio.Group;
 
-class RadioChoose extends Component {
+class RadioChoose extends PureComponent {
     static propTypes = {
 
     }

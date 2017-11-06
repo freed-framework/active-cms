@@ -47,6 +47,9 @@ class Bar {
      * @return {XML}
      */
     static edit(props) {
+        if (!props.editable) {
+            return null;
+        }
 
         return (
             <div>

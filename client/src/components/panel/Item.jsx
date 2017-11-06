@@ -4,63 +4,44 @@
  *
  * Des
  */
-import React from 'react';
-import Lazyer from '../../../common/Lazyer';
+import React, { PureComponent } from 'react';
 import Bar from '../bar';
 
 const Item = (props) => {
     const item = props.item;
-
-    if (!item) {
-        return null;
-    }
+    const { guid, module = {} } = item;
 
     return (
-        <div>
-            <div
-                key={item.guid}
-                className="ec-panel-item"
-            >
-                {/* 目标栏 */}
-                <div>
-                    <Lazyer item={item}>
-                        {mod => {
-                            return <div>{mod.module.displayName} - {Bar.delete(item.guid)}</div>
-                        }}
-                    </Lazyer>
-                </div>
-
-                {/* 可添加子组件栏 */}
-                <div>
-                    <div>可添加子组件:</div>
-                    <Lazyer item={item}>
-                        {mod => Bar.menus({
-                            guid: item.guid,
-                            menus: mod.module ? mod.module.menus : [],
-                        })}
-                    </Lazyer>
-                </div>
-
-                {/* 属性编辑栏 */}
-                <div>
-                    <Lazyer item={item}>
-                        {mod => Bar.edit({
-                            ...item,
-                            guid: item.guid,
-                            attrs: item.attrs,
-                            childs: item.children ? item.children : [],
-                            editable: mod.module ? mod.module.editable : {},
-                        })}
-                    </Lazyer>
-                </div>
+        <div
+            key={guid}
+            className="ec-panel-item"
+        >
+            {/* 目标栏 */}
+            <div>
+                <div>{module.displayName} - {Bar.delete(guid)}</div>
             </div>
-            {props.children}
+
+            {/* 可添加子组件栏 */}
+            <div>
+                <div>可添加子组件:</div>
+                {Bar.menus({
+                    guid,
+                    menus: module ? module.menus : [],
+                })}
+            </div>
+
+            {/* 属性编辑栏 */}
+            <div>
+                {Bar.edit({
+                    ...item,
+                    guid,
+                    attrs: item.attrs,
+                    childs: item.children ? item.children : [],
+                    editable: module ? module.editable : {},
+                })}
+            </div>
         </div>
     )
-}
-
-Item.defaultProps = {
-    item: null,
 }
 
 export default Item;

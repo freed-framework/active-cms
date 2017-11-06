@@ -20,23 +20,21 @@ class Module {
 
         return new Promise((resolve) => {
             import(`../components/${item.name}/index`)
-                .then(App => {
-                    return resolve({
-                        // 返回数据
-                        // ...item,
-                        guid: item.guid,
-                        // 返回组件 name
-                        name: item.name,
-                        // 组件属性对象
-                        attrs: item.attrs,
-                        // 
-                        dataTrans: item.dataTrans,
-                        // 返回模块配置
-                        ...(App.config && { module: {...App.config} }),
-                        // 返回组件
-                        App: App.default,
-                    });
-                })
+                // 返回数据
+                .then(App => resolve({
+                    // ...item,
+                    guid: item.guid,
+                    // 返回组件 name
+                    name: item.name,
+                    // 组件属性对象
+                    attrs: item.attrs,
+                    //
+                    dataTrans: item.dataTrans,
+                    // 返回模块配置 App.config -> module
+                    ...(App.config && { module: {...App.config} }),
+                    // 返回组件
+                    App: App.default,
+                }))
         })
     }
 

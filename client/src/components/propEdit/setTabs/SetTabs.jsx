@@ -4,7 +4,7 @@
  *
  * Des
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 import { editComponentByGuid } from '../../../pages/editor/App';
@@ -36,7 +36,7 @@ const getDefaultByData = (data) => {
     return arr;
 }
 
-class SetTabs extends Component {
+class SetTabs extends PureComponent {
     static defaultProps = {
         dataTrans: {
             data: [],
