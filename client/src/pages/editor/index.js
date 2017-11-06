@@ -34,6 +34,13 @@ class Editor extends Component {
                     data: data.content,
                 })
             // })
+        } else {
+            this.setState({
+                data: [{
+                    "guid": "ec-module-xxxxx",
+                    "name": "layer",
+                }],
+            })
         }
     }
 

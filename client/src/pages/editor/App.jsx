@@ -266,20 +266,20 @@ class App extends Component {
             data,
         }, () => {
             // 通知 Control 组件修改自身的宽度
-            // const expr = /width|height|margin/.exec(attr);
-            // if (expr) {
-            //     const controlAttr = expr[0];
-            //     const controlRect = {
-            //         ...(this.state.activeRect)
-            //     };
-            //
-            //     controlRect[controlAttr] = parseFloat(value);
-            //
-            //     this.setState({
-            //         rect: controlRect,
-            //         activeRect: controlRect,
-            //     });
-            // }
+            const expr = /width|height|margin/.exec(attr);
+            if (expr) {
+                const controlAttr = expr[0];
+                const controlRect = {
+                    ...(this.state.activeRect)
+                };
+
+                controlRect[controlAttr] = parseFloat(value);
+
+                this.setState({
+                    rect: controlRect,
+                    activeRect: controlRect,
+                });
+            }
         });
     }
 
@@ -398,10 +398,10 @@ class App extends Component {
 
     render() {
         const { rect, data } = this.state;
-        const { history } = this.props;
+        const { history, match } = this.props;
 
         return (
-            <div>
+            <div className={`ec-editor-${match.params.type}`}>
                 <Control
                     rect={rect}
                 />
