@@ -92,6 +92,7 @@ class List extends PureComponent {
             <div>
                 {Object.keys(tileData).map(key => (
                     <Item
+                        key={key}
                         item={tileData[key]}
                         activeId={activeId}
                     />
