@@ -2,7 +2,6 @@
  * @file AppComponent.jsx
  * @author denglingbo
  */
-
 import React from 'react';
 import Lazyer from './Lazyer';
 

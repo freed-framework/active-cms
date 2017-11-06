@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import { fromJS } from 'immutable';
-import utils from '../components/util/util';
+import utils from '../../components/util/util';
 
 class Module {
     /**
@@ -19,7 +19,7 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            import(`../components/pc/${item.name}/index`)
+            import(`../../components/pc/${item.name}/index`)
                 // 返回数据
                 .then(App => resolve({
                     // ...item,

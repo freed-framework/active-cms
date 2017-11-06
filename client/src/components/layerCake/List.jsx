@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Font from 'font';
 import classNames from 'classnames';
-import Lazyer from '../../../common/Lazyer';
+import Lazyer from '../../common/Lazyer';
 import DragPop from './DragPop';
 
 import { moveComponent } from '../../pages/editor/App';

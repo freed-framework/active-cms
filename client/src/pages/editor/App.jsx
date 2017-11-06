@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { message, Modal, Input } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../util/util';
-import module from '../../../common/module';
+import module from '../../common/module';
 import { addPage, editPage } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
 

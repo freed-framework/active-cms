@@ -9,7 +9,7 @@ import { is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Collapse } from 'antd';
-import module from '../../../common/module';
+import module from '../../common/module';
 import Item from './Item';
 const Panel = Collapse.Panel;
 

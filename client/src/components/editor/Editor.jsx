@@ -10,7 +10,7 @@ import { Upload, Modal, Icon, Button } from 'antd';
 import * as FileUpload from 'react-fileupload';
 import Wrap from './Wrap';
 import Panel from '../panel';
-import Components from '../../../common/Components';
+import Components from '../../common/Components';
 
 import './editor.scss';
 
