@@ -22,7 +22,6 @@
     "body-parser": "^1.18.0",
     "connect": "^3.6.1",
     "font": "https://github.com/freed-framework/font.git",
-    "freed-spa": "https://github.com/freed-framework/freed-spa",
     "got": "^7.1.0",
     "history": "^4.6.1",
     "http-proxy": "^1.16.2",
@@ -34,8 +33,10 @@
     "react-color": "^2.13.8",
     "react-dom": "^15.4.2",
     "react-fileupload": "^2.4.0",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
     "rxjs": "^5.5.1",
     "styled-components": "^2.1.2",
     "zipfolder": "^1.0.4"

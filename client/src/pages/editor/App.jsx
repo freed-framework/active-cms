@@ -14,12 +14,23 @@ import module from '../../../common/module';
 import { addPage, editPage } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
+import { user } from '../../actions/user';
+
 import './app.scss';
 
 const confirm = Modal.confirm;
 
 const emitter = mitt();
 
+@connect(
+    () => ({}),
+    dispatch => bindActionCreators({
+        user
+    }, dispatch)
+)
 class App extends Component {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
@@ -65,7 +76,7 @@ class App extends Component {
 
     componentDidMount() {
         let $oldData = fromJS(this.state.data);
-
+console.log(this.props.user)
         // 定时保存每分钟保存一次
         // this.timer = Observable.interval(60000).subscribe(() => {
         //     const $newData = fromJS(this.state.data);
@@ -550,4 +561,4 @@ export const viewer = () => {
     emitter.emit('viewer')
 }
 
-export default App;
+export default withRouter(App);
