@@ -13,17 +13,14 @@ import { getRect, createChildren } from '../util/util';
 import module from '../../common/module';
 import { addPage, editPage } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { user } from '../../actions/user';
 import { userReducer } from '../../reducers';
-
 import './app.scss';
 
 const confirm = Modal.confirm;
-
 const emitter = mitt();
 
 @connect(
@@ -80,7 +77,7 @@ class App extends Component {
     componentDidMount() {
         let $oldData = fromJS(this.state.data);
         this.props.user(12312312).then(data => {
-            console.log(data)
+
         })
         // 定时保存每分钟保存一次
         // this.timer = Observable.interval(60000).subscribe(() => {
@@ -114,7 +111,6 @@ class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (!is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,
@@ -326,7 +322,7 @@ class App extends Component {
             title: '请输入页面标题?',
             content: <Input onChange={this.handleChange} />,
             onOk: callback,
-            onCancel() { },
+            onCancel() {},
         });
     }
 

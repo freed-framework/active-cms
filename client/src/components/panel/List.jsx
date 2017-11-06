@@ -7,11 +7,9 @@
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Collapse } from 'antd';
+import { withRouter } from 'react-router-dom';
 import module from '../../common/module';
 import Item from './Item';
-const Panel = Collapse.Panel;
 
 class List extends PureComponent {
     constructor(props) {
@@ -66,9 +64,11 @@ class List extends PureComponent {
      * @return {Array}
      */
     data2Tile(data, arr = []) {
+        const { params } = this.props.match;
+
         const looper = (data) => {
             data.forEach(item => {
-                arr = arr.concat(module.get(item));
+                arr = arr.concat(module.get(item, params.type));
 
                 if (item.children) {
                     looper(item.children, arr);
@@ -111,4 +111,4 @@ List.propTypes = {
     isSub: PropTypes.bool,
 }
 
-export default List;
+export default withRouter(List);

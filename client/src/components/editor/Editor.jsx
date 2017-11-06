@@ -7,6 +7,7 @@
 import React, { PureComponent, dangerouslySetInnerHTML } from 'react';
 import Immutable from 'immutable';
 import { Upload, Modal, Icon, Button } from 'antd';
+import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import Wrap from './Wrap';
 import Panel from '../panel';
@@ -123,6 +124,8 @@ class Editor extends PureComponent {
     // }
 
     render(){
+        const { params } = this.props.match;
+
         /*set properties*/
         const options = {
             baseUrl: 'http://172.30.40.16:3000/api/image',
@@ -143,10 +146,13 @@ class Editor extends PureComponent {
                 {/* <FileUpload options={options}>
                     <button ref='chooseAndUpload'>chooseAndUpload</button>
                 </FileUpload> */}
-                <Components data={this.props.data} />
+                <Components
+                    data={this.props.data}
+                    type={params.type}
+                />
             </div>
         );
     }
 }
 
-export default Editor;
+export default withRouter(Editor);

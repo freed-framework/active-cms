@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Font from 'font';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 import Lazyer from '../../common/Lazyer';
 import DragPop from './DragPop';
 
@@ -51,7 +52,7 @@ function contains(n, targetClass, endClass) {
     return false;
 }
 
-export default class List extends Component {
+class List extends Component {
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.any),
         active: PropTypes.bool,
@@ -135,7 +136,7 @@ export default class List extends Component {
      * @param isChildren
      */
     loopRender(data, isChildren = false) {
-        const { activeId } = this.props;
+        const { activeId, match } = this.props;
 
         const cls = classNames('ec-editor-layer-cake-items', {
             'ec-editor-layer-cake-items-sub': isChildren
@@ -162,7 +163,10 @@ export default class List extends Component {
                     >
                         <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
 
-                        <Lazyer item={item}>
+                        <Lazyer
+                            item={item}
+                            type={match.params.type}
+                        >
                             {mod => <span>{mod.module.displayName}</span>}
                         </Lazyer>
                     </div>
@@ -185,3 +189,5 @@ export default class List extends Component {
         )
     }
 }
+
+export default withRouter(List);

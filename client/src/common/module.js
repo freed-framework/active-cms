@@ -10,16 +10,24 @@ import utils from '../../components/util/util';
 class Module {
     /**
      * 异步加载组件
+     * @param type 获取某个类型的库的 key
      * @param item
      */
-    static asyncComponent(item) {
+    static asyncComponent(item, type) {
+        // 目前仅调用 components/pc or components/mobile
+        if (!type || (type !== 'pc' && type !== 'mobile')) {
+            return Promise.reject({
+                msg: 'Lib Type Error.',
+            });
+        }
+
         // 如果已经有组件被创建，则直接 resolve
         if (item.App && item.module) {
             return Promise.resolve(item);
         }
 
         return new Promise((resolve) => {
-            import(`../../components/pc/${item.name}/index`)
+            import(`../../components/${type}/${item.name}/index`)
                 // 返回数据
                 .then(App => resolve({
                     // ...item,
@@ -40,11 +48,12 @@ class Module {
 
     /**
      * 获取组件
-     * @param item
+     * @param item { ...item, name: xxx }
+     * @param type 获取某个类型的库的 key
      * @return {*}
      */
-    static get(item) {
-        return this.asyncComponent(item);
+    static get(item, type) {
+        return this.asyncComponent(item, type);
     }
 
     /**

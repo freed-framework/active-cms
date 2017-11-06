@@ -34,7 +34,7 @@ class Lazyer extends Component {
             mod: null
         });
 
-        Module.asyncComponent(props.item)
+        Module.asyncComponent(props.item, props.type)
             .then(module => {
                 if (module) {
                     this.setState({
