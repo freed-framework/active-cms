@@ -8,7 +8,7 @@
 import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import ImageModel from './image.model';
-import { urlInterface } from '../../interfaces/Url.interface'
+import { urlInterface } from '../../interfaces/url.interface'
 
 @Component()
 export class ImageService {
