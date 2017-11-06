@@ -43,6 +43,9 @@ class Module {
                     // 返回组件
                     App: App.default,
                 }))
+                .catch(ex => {
+                    console.log(ex);
+                })
         });
     }
 
