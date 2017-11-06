@@ -53,14 +53,6 @@ class Panel extends PureComponent {
         }
     }
 
-    componentDidMount() {
-        const data = this.state.data;
-
-        data.forEach(d => {
-            console.log(d)
-        })
-    }
-
     handleClose = () => {
         this.props.onClose();
     }
@@ -96,7 +88,7 @@ class Panel extends PureComponent {
                 <div className="ec-panel-main">
                     <List
                         data={data}
-                        isSub={false}
+                        activeId={activeId}
                     />
                 </div>
             </div>

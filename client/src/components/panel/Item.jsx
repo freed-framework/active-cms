@@ -4,17 +4,21 @@
  *
  * Des
  */
-import React, { PureComponent } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 import Bar from '../bar';
 
 const Item = (props) => {
     const item = props.item;
     const { guid, module = {} } = item;
+    const cls = classNames('ec-panel-item', {
+        'ec-panel-item-active': props.activeId === guid,
+    });
 
     return (
         <div
             key={guid}
-            className="ec-panel-item"
+            className={cls}
         >
             {/* 目标栏 */}
             <div>

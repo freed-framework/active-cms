@@ -20,7 +20,7 @@ class List extends PureComponent {
         this.state = {
             data: props.data,
             tileData: null,
-            isSub: props.isSub,
+            activeId: props.activeId,
         }
     }
 
@@ -28,10 +28,12 @@ class List extends PureComponent {
         if (!is(this.props.data, nextProps.data)) {
             this.setDataAndTile(nextProps.data);
         }
-    }
 
-    componentDidMount() {
-
+        if (!is(this.props.activeId, nextProps.activeId)) {
+            this.setState({
+                activeId: nextProps.activeId,
+            })
+        }
     }
 
     /**
@@ -80,7 +82,7 @@ class List extends PureComponent {
     }
 
     render() {
-        const { tileData } = this.state;
+        const { tileData, activeId } = this.state;
 
         if (!tileData) {
             return null;
@@ -89,7 +91,10 @@ class List extends PureComponent {
         return (
             <div>
                 {Object.keys(tileData).map(key => (
-                    <Item item={tileData[key]} />
+                    <Item
+                        item={tileData[key]}
+                        activeId={activeId}
+                    />
                 ))}
             </div>
         )

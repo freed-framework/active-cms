@@ -59,8 +59,10 @@ $layoutWidth: 300px;
 
     /* 每一个目标的编辑容器 */
     &-item {
-        &-hide {
-            display: none;
+        display: none;
+
+        &-active {
+            display: block;
         }
     }
 }
