@@ -140,9 +140,9 @@ class Editor extends PureComponent {
         /*Set two dom with ref*/
         return (
             <div>
-                <FileUpload options={options}>
+                {/* <FileUpload options={options}>
                     <button ref='chooseAndUpload'>chooseAndUpload</button>
-                </FileUpload>
+                </FileUpload> */}
                 <Components data={this.props.data} />
             </div>
         );
