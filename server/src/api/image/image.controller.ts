@@ -56,7 +56,7 @@ function parse(files) {
 
             Object.keys(item).map((j) => {
                 const file = item[j];
-console.log(file)
+
                 upload(file).then((re) => {
                     paths.push(re);
 
