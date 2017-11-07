@@ -16,7 +16,7 @@ import './setTabs.scss';
  * @param options
  */
 const getItem = (key, options = { title: 'Title', content: 'Content' }) => ({
-    key,
+    key: key.toString(),
     title: options.title,
     content: options.content,
 });

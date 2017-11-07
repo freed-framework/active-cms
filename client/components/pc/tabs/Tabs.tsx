@@ -24,8 +24,13 @@ class Tabs extends React.Component<TabsProps, TabsState> {
     static dataTrans(result: any) {
         const { data, activeKey } = result;
         const childNodes:any[] = [];
+        let defaultActiveKey:string = activeKey;
 
-        data.forEach((d:any) => {
+        data.forEach((d:any, index:number) => {
+            if (defaultActiveKey == null && index === 0) {
+                defaultActiveKey = d.key;
+            }
+
             childNodes.push(
                 <TabPane key={d.key} tab={d.title}>
                     {d.content}
@@ -35,7 +40,7 @@ class Tabs extends React.Component<TabsProps, TabsState> {
 
         return {
             props: {
-                activeKey,
+                activeKey: defaultActiveKey,
             },
             childNodes,
         };

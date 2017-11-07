@@ -85,6 +85,10 @@ class Panel extends PureComponent {
                     <span className="ec-panel-title-text">编辑面板</span>
                 </div>
 
+                <div>
+
+                </div>
+
                 <div className="ec-panel-main">
                     <List
                         data={data}

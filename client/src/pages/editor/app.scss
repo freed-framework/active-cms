@@ -13,7 +13,6 @@ body {
     z-index: 1;
 
     &-inner {
-        width: 1200px;
         overflow: hidden;
         margin: 0 auto;
     }
@@ -24,5 +23,21 @@ body {
         &-title {
             display: inline-block;
         }
+    }
+}
+
+.ec-editor-pc {
+
+    .ec-editor-canvas-inner {
+        width: 1200px;
+        min-height: 400px;
+    }
+}
+
+.ec-editor-mobile {
+
+    .ec-editor-canvas-inner {
+        width: 750px;
+        min-height: 400px;
     }
 }
