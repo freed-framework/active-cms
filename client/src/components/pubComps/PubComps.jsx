@@ -29,7 +29,7 @@ class PubComps extends PureComponent {
                         >
                             <Font type="layers" />
                             <br />
-                            <span>楼层</span>
+                            <span>布局</span>
                         </div>
                     </Col>
                     <Col span={12}>
