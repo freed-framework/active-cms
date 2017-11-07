@@ -1,9 +1,5 @@
+/// <reference path="../../config.d.ts" />
 import Text from './Text';
-
-interface Config {
-    name: string;
-    editable: any;
-}
 
 export const config: Config = {
     name: 'text',

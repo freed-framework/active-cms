@@ -1,21 +1,19 @@
+/// <reference path="../../config.d.ts" />
 import Grid from './Grid';
 import './index.scss';
 
-interface Config {
-    name: string;
-    menus?: Array<string>;
-    displayName?: string,
+interface GridConfig extends Config {
     editable: {
-        style?: any,
-        href?: any,
-        row?: any,
-        col?: any,
-        component?: any,
-        rowcol: Array<any>
+        style?: any;
+        href?: any;
+        row?: any;
+        col?: any;
+        component?: any;
+        rowcol: Array<any>;
     };
 }
 
-const config: Config = {
+const config: GridConfig = {
     name: 'grid',
     displayName: '列表',
     editable: {

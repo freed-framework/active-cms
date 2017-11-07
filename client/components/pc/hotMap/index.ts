@@ -1,16 +1,15 @@
+/// <reference path="../../config.d.ts" />
 import hotMap from './hotMap';
 import './hotMap.scss';
 
-interface Config {
-    name: string;
-    menus?: Array<string>;
+interface HotMapConfig extends Config {
     editable: {
         style?: any,
         href?: any
     };
 }
 
-const config: Config = {
+const config: HotMapConfig = {
     name: 'hotMap',
     editable: {
         style: {
