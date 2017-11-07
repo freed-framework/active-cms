@@ -1,3 +1,4 @@
+import List from './List';
 
 interface Config {
     name: string;
@@ -9,8 +10,9 @@ interface Config {
 const config: Config = {
     name: 'xx',
     displayName: 'xxx',
-    menus: [''],
+    menus: [],
     editable: {
+        items: [{label: '商品数', component: 'GoodsNumber', defaultValue: 1 }],
         style: {
             layout: ['Basic'],
         },
@@ -20,3 +22,5 @@ const config: Config = {
 export {
     config,
 }
+
+export default List;

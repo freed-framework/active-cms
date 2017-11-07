@@ -11,6 +11,7 @@ import Grid from './grid';
 import SetTabs from './setTabs';
 import GoodsNumber from './goodsNumber';
 import Upload from './upload';
+import ClickArea from './clickArea';
 
 export {
     Attr,
@@ -24,5 +25,6 @@ export {
     Grid,
     SetTabs,
     GoodsNumber,
-    Upload
+    Upload,
+    ClickArea,
 }

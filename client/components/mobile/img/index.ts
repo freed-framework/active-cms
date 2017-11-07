@@ -1,4 +1,6 @@
 
+import Img from './Img';
+
 interface Config {
     name: string;
     displayName?: string,
@@ -20,3 +22,5 @@ const config: Config = {
 export {
     config,
 }
+
+export default Img;
