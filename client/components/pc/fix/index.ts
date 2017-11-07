@@ -1,23 +1,16 @@
-/**
- * @file index.ts
- * @author denglingbo
- *
- * Des
- */
+/// <reference path="../../config.d.ts" />
 import Fix from './Fix';
 import './index.scss';
 
-interface Config {
-    name: string;
-    menus?: Array<string>;
+interface FixConfig extends Config {
     editable: {
-        style?: any,
-        distanceLeft?: any,
-        distanceTop?: any,
-        target?: any,
-        position?: any,
-        horizontal?: any,
-        vertical?: any
+        style?: any;
+        distanceLeft?: any;
+        distanceTop?: any;
+        target?: any;
+        position?: any;
+        horizontal?: any;
+        vertical?: any;
     };
 }
 

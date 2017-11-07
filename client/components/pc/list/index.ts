@@ -1,20 +1,18 @@
+/// <reference path="../../config.d.ts" />
 import List from './list';
 import './index.scss';
 
-interface Config {
-    name: string;
-    displayName: string;
-    menus?: Array<string>;
+interface ListConfig extends Config {
     editable: {
-        style?: any,
-        distanceLeft?: any,
-        distanceTop?: any,
-        target?: any,
-        position?: any,
-        horizontal?: any,
-        vertical?: any,
-        items?: any,
-        images?: any
+        style?: any;
+        distanceLeft?: any;
+        distanceTop?: any;
+        target?: any;
+        position?: any;
+        horizontal?: any;
+        vertical?: any;
+        items?: any;
+        images?: any;
     };
 }
 

@@ -1,11 +1,5 @@
+/// <reference path="../../config.d.ts" />
 import Tabs from './Tabs';
-
-interface Config {
-    name: string;
-    displayName: string;
-    menus: Array<string>;
-    editable: any;
-}
 
 export const config: Config = {
     name: 'tabs',
@@ -19,8 +13,6 @@ export const config: Config = {
             title: ['Basic'],
             main: ['Basic'],
         },
-
-
     }
 };
 

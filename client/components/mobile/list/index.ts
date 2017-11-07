@@ -20,5 +20,3 @@ const config: Config = {
 export {
     config,
 }
-
-export default Floor;

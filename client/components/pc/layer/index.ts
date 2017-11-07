@@ -1,14 +1,9 @@
+/// <reference path="../../config.d.ts" />
 import Floor from './Layer';
-
-interface Config {
-    name: string;
-    displayName?: string,
-    menus: Array<string>;
-    editable: any;
-}
 
 const config: Config = {
     name: 'layer',
+    isCommon: true,
     displayName: '布局',
     menus: ['preImage', 'tabs', 'layer', 'img', 'float', 'hotMap', 'goods', 'grid', 'list'],
     editable: {
