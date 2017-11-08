@@ -13,18 +13,17 @@ interface Props {
 
 class Img extends React.Component<Props, undefined> {
     render() {
-        // console.log(this.props)
         const { attrs = {} } = this.props;
         const { src = '', style = {} } = attrs;
         return (
             <div>
-            <img
-                src={src}
-                style={{
-                    ...(style && {...style.layout})
-                }}
-            />
-                {this.props.children}
+                <span>123123</span>
+                <img
+                    src={src}
+                    style={{
+                        ...(style && {...style.layout})
+                    }}
+                />
             </div>
         )
     }

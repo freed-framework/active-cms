@@ -1,4 +1,7 @@
 
+/// <reference path="../../config.d.ts" />
+import Img from './Img';
+
 interface Config {
     name: string;
     displayName?: string,
@@ -7,16 +10,16 @@ interface Config {
 }
 
 const config: Config = {
-    name: 'xx',
-    displayName: 'xxx',
+    name: 'img',
+    displayName: '图片',
     menus: [''],
     editable: {
-        style: {
-            layout: ['Basic'],
-        },
+        src: [{label: '地址', component: 'ImgUrl' }] 
     }
 };
 
 export {
     config,
 }
+
+export default Img;

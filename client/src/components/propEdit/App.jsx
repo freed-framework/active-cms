@@ -11,6 +11,8 @@ import Grid from './grid';
 import SetTabs from './setTabs';
 import GoodsNumber from './goodsNumber';
 import Upload from './upload';
+import ImgUrl from './imgUrl';
+import MobileList from './mobileList';
 
 export {
     Attr,
@@ -24,5 +26,7 @@ export {
     Grid,
     SetTabs,
     GoodsNumber,
-    Upload
+    Upload,
+    ImgUrl,
+    MobileList
 }

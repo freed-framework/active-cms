@@ -21,10 +21,12 @@ export class ImageModule {
         consumer
             .apply(AuthMiddleware)
             .forRoutes(ImageController)
-            .apply([UploadMiddleware, FileMiddleware])
+            .apply(FileMiddleware)
             .forRoutes({
-                path: '/*',
+                path: '/image',
                 method: RequestMethod.POST
             })
     }
 }
+
+//[UploadMiddleware]

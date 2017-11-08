@@ -1,4 +1,7 @@
 
+/// <reference path="../../config.d.ts" />
+import List from './List';
+
 interface Config {
     name: string;
     displayName?: string,
@@ -7,16 +10,16 @@ interface Config {
 }
 
 const config: Config = {
-    name: 'xx',
-    displayName: 'xxx',
+    name: 'list',
+    displayName: '列表',
     menus: [''],
     editable: {
-        style: {
-            layout: ['Basic'],
-        },
+        src: [{label: '图片', component: 'MobileList' }] 
     }
 };
 
 export {
     config,
 }
+
+export default List;

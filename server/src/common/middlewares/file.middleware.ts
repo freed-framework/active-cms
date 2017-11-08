@@ -16,8 +16,9 @@ export class FileMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
             // 代理到公司上传图片服务器
-            proxy.web(req, res, { target: 'http://127.0.0.1' }, (e) => {
-                next()
+            proxy.web(req, res, { target: 'http://172.30.40.20:8082/sc/commonUploadFile/uploadImageFiles?_=1'  }, (...e) => {
+                console.log(e);
+                next();
             })
         }
     }
