@@ -1,4 +1,3 @@
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import * as EditItem from './App';
@@ -23,11 +22,25 @@ export default class EditAttr extends PureComponent {
 
                 return (
                     <Component
+                        {...this.props}
                         key={index}
                         guid={guid}
-                        {...this.props}
                     />
                 )
+            }
+
+            if (key === 'components') {
+                return comps.map((item, i) => {
+                    const Component = EditItem[item.component];
+
+                    return (
+                        <Component
+                            {...this.props}
+                            key={`${index}-${i}`}
+                            guid={guid}
+                        />
+                    )
+                });
             }
 
             if (key === 'style') {

@@ -1,11 +1,11 @@
 /// <reference path="../../config.d.ts" />
-import Floor from './Layer';
+import Layer from './Layer';
 
 const config: Config = {
-    name: 'layer',
+    name: 'mobile/layer',
     isCommon: true,
     displayName: '布局',
-    menus: ['layer', 'img', 'list'],
+    // menus: ['layer', 'img', 'list'],
     editable: {
         style: {
             layout: ['Basic'],
@@ -17,4 +17,4 @@ export {
     config,
 }
 
-export default Floor;
+export default Layer;

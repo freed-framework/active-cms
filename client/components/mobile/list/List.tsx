@@ -1,7 +1,7 @@
 /// <reference path="./list.d.ts" />
 import * as React from 'react';
 
-export default class List extends React.Component<ListProps, any> {
+class List extends React.Component<ListProps, any> {
     render() {
         const { attrs = {}, id } = this.props;
         const { style = {}, src = '' } = attrs;
@@ -20,3 +20,5 @@ export default class List extends React.Component<ListProps, any> {
         );
     }
 }
+
+export default List;

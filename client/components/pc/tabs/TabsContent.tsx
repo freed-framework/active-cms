@@ -27,7 +27,9 @@ class TabsContent extends React.Component<TabsContentProps, any> {
 
     render() {
         return (
-            <div className="ac-tabs-content">{this.renderTitle()}</div>
+            <div className="ac-tabs-content">
+                { this.renderTitle() }
+            </div>
         )
     }
 }

@@ -1,4 +1,3 @@
-
 /// <reference path="../../config.d.ts" />
 import List from './List';
 

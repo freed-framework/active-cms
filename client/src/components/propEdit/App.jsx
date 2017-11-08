@@ -13,6 +13,8 @@ import GoodsNumber from './goodsNumber';
 import Upload from './upload';
 import ImgUrl from './imgUrl';
 import MobileList from './mobileList';
+import ClickArea from './clickArea';
+import EditDataNumber from './editDataNumber';
 
 export {
     Attr,
@@ -28,5 +30,7 @@ export {
     GoodsNumber,
     Upload,
     ImgUrl,
-    MobileList
+    MobileList,
+    ClickArea,
+    EditDataNumber,
 }

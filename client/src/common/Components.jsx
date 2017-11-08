@@ -34,8 +34,8 @@ const AppComponent = (props) => {
     const type = props.type;
     const App = props.component;
 
-    // 获取样式
-    let p = {
+    // 获取属性
+    let allProps = {
         style: item.style,
         attrs: item.attrs,
         guid: item.guid,
@@ -43,7 +43,7 @@ const AppComponent = (props) => {
 
     // 如果存在需要组件转换情况
     let transData = {};
-    if (item.dataTrans) {
+    if (item.dataTrans && App.dataTrans) {
         transData = {
             ...App.dataTrans(item.dataTrans)
         };
@@ -55,11 +55,12 @@ const AppComponent = (props) => {
             key={item.guid}
             // 模块名
             module={item.name}
-            {...p}
+            {...allProps}
             {...transData.props}
+            {...item.componentProps}
         >
             {/* 通过数据转换生成的组件的子组件 */}
-            {transData.childNodes}
+            {transData.childNodes ? transData.childNodes : null}
 
             {/* data 数据关系下的父子组件 */}
             {item.children && loop(item.children, type)}

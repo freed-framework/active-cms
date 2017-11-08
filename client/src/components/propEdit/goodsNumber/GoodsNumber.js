@@ -59,7 +59,9 @@ export default class GoodsNumber extends PureComponent {
     handleChange = (value) => {
         const { guid, attr, target } = this.props;
 
-        const rows = getList(value, this.childs)
+        const rows = getList(value, this.childs);
+
+        console.log(rows)
 
         editComponentByType({guid, attr, target, value: rows}, 'children');
     }
@@ -71,7 +73,7 @@ export default class GoodsNumber extends PureComponent {
             <div>
                <Row>
                     <Col span={24}>
-                        <span>行</span>
+                        <span>数量</span>
                         <InputNumber
                             min={1}
                             max={100}

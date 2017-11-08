@@ -52,8 +52,6 @@ class Editor extends PureComponent {
 
     handleChange = ({ fileList }) => this.setState({ fileList })
 
-
-
     componentWillReceiveProps(nextProps) {
         if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
             this.setState({
