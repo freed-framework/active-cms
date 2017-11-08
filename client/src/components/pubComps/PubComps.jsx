@@ -33,19 +33,22 @@ class PubComps extends PureComponent {
                 //     console.log(mod[k].default)
                 // })
 
-                console.log(mod);
+                // console.log(mod);
             })
 
     }
 
     render() {
+        const { match } = this.props;
+        const type = match.params.type;
+
         return (
             <div className="ec-editor-pub-comps ec-editor-layout-fixed">
                 <div className="ec-editor-layout-fixed-title">通用组件</div>
                 <Row className="ec-editor-layout-fixed-main">
                     <Col span={12}>
                         <div
-                            data-name="layer"
+                            data-name={`${type}/layer`}
                             onClick={addComponent}
                             className="ec-editor-pub-comps-items"
                         >
@@ -56,7 +59,7 @@ class PubComps extends PureComponent {
                     </Col>
                     <Col span={12}>
                         <div
-                            data-name="fix"
+                            data-name={`${type}/fix`}
                             onClick={addComponent}
                             className="ec-editor-pub-comps-items"
                         >
@@ -67,7 +70,7 @@ class PubComps extends PureComponent {
                     </Col>
                     <Col span={12}>
                         <div
-                            data-name="tabs"
+                            data-name={`${type}/tabs`}
                             onClick={addComponent}
                             className="ec-editor-pub-comps-items"
                         >
@@ -78,7 +81,7 @@ class PubComps extends PureComponent {
                     </Col>
                     <Col span={12}>
                         <div
-                            data-name="list"
+                            data-name={`${type}/list`}
                             onClick={addComponent}
                             className="ec-editor-pub-comps-items"
                         >

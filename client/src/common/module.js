@@ -27,22 +27,28 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            import(`../../components/${type}/${item.name}/index`)
+            import(`../../components/${item.name}/index`)
                 // 返回数据
-                .then(App => resolve({
-                    // ...item,
-                    guid: item.guid,
-                    // 返回组件 name
-                    name: item.name,
-                    // 组件属性对象
-                    attrs: item.attrs,
-                    // 该数据用于组件内部的转换
-                    dataTrans: item.dataTrans,
-                    // 返回模块配置 App.config -> module
-                    ...(App.config && { module: {...App.config} }),
-                    // 返回组件
-                    App: App.default,
-                }))
+                .then(App => {
+                    const conf = App.config;
+
+                    return resolve({
+                        // ...item,
+                        guid: item.guid,
+                        // 组件属性对象
+                        attrs: item.attrs,
+                        // 返回组件 name
+                        name: conf.name,
+                        // 该数据用于组件内部的转换
+                        dataTrans: item.dataTrans,
+                        // 该 props 用于实际组件将要展开的数据
+                        componentProps: item.componentProps,
+                        // 返回模块配置 App.config -> module
+                        ...(conf && { module: { ...conf } }),
+                        // 返回组件
+                        App: App.default,
+                    })
+                })
                 .catch(ex => {
                     console.log(ex);
                 })

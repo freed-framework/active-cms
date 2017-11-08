@@ -12,6 +12,7 @@ import SetTabs from './setTabs';
 import GoodsNumber from './goodsNumber';
 import Upload from './upload';
 import ClickArea from './clickArea';
+import EditDataNumber from './editDataNumber';
 
 export {
     Attr,
@@ -27,4 +28,5 @@ export {
     GoodsNumber,
     Upload,
     ClickArea,
+    EditDataNumber,
 }

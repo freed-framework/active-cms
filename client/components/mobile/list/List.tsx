@@ -10,23 +10,25 @@ export interface ListProps {
     children: Array<any>;
     module?: string;
     id: string;
+
+    data?: Array<any>;
+
     attrs?: {
         style?: any;
     }
 }
 
-class List extends React.Component<ListProps, any> {
-    renderClone = () => {
-        const { children, attrs = {} } = this.props;
-        const { style = {} } = attrs;
+export interface ListState {
+    data: Array<any>;
+}
 
-        return React.Children.map(children, (item: any) => {
-            if(item) {
-                return React.cloneElement(item, {
-                    parentStyle: style.goodsItem || {}
-                })
-            }
-        })
+class List extends React.Component<ListProps, ListState> {
+    constructor(props: ListProps) {
+        super(props);
+
+        this.state = {
+            data: props.data,
+        }
     }
 
     render() {
@@ -39,7 +41,6 @@ class List extends React.Component<ListProps, any> {
                 style={{...style.layout}}
                 className="tmc-list"
             >
-                { this.renderClone() }
             </div>
         );
     }

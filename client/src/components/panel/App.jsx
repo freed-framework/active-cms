@@ -34,7 +34,7 @@ class Panel extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.state.data, nextProps.data)) {
+        if (!is(this.props.data, nextProps.data)) {
             this.setState({
                 data: nextProps.data,
             })

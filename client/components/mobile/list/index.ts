@@ -8,11 +8,14 @@ interface Config {
 }
 
 const config: Config = {
-    name: 'xx',
+    name: 'mobile/list',
     displayName: 'xxx',
     menus: [],
     editable: {
-        items: [{label: '商品数', component: 'GoodsNumber', defaultValue: 1 }],
+        components: [
+            { component: 'EditDataNumber', defaultValue: 1 },
+            { component: 'ClickArea' },
+        ],
         style: {
             layout: ['Basic'],
         },
