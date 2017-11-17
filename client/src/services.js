@@ -6,15 +6,11 @@
  */
 
 import Http from 'freed-spa/src/util/http';
-
-import Login from './components/login';
-
 import * as Cookies from 'js-cookie';
+import Login from './components/login';
+import { apiHost } from './config';
 
 const http = new Http();
-
-// const apiHost = 'http://www.iting.top/api';
-const apiHost = 'http://172.30.40.16:3000/api';
 
 http.request(
     req => {

@@ -10,19 +10,11 @@ import utils from '../../components/util/util';
 class Module {
     /**
      * 异步加载组件
-     * @param type 获取某个类型的库的 key
      * @param item
      */
-    static asyncComponent(item, type) {
-        // 目前仅调用 components/pc or components/mobile
-        if (!type || (type !== 'pc' && type !== 'mobile')) {
-            return Promise.reject({
-                msg: 'Lib Type Error.',
-            });
-        }
-
+    static asyncComponent(item) {
         // 如果已经有组件被创建，则直接 resolve
-        if (item.App && item.module) {
+        if (item.App) {
             return Promise.resolve(item);
         }
 
@@ -30,23 +22,23 @@ class Module {
             import(`../../components/${item.name}/index`)
                 // 返回数据
                 .then(App => {
-                    const conf = App.config;
-
                     return resolve({
                         // ...item,
                         guid: item.guid,
-                        // 组件属性对象
-                        attrs: item.attrs,
                         // 返回组件 name
-                        name: conf.name,
-                        // 该数据用于组件内部的转换
-                        dataTrans: item.dataTrans,
-                        // 该 props 用于实际组件将要展开的数据
-                        componentProps: item.componentProps,
-                        // 返回模块配置 App.config -> module
-                        ...(conf && { module: { ...conf } }),
+                        // name: conf.name,
                         // 返回组件
                         App: App.default,
+                        // 返回模块配置 App.config -> module
+                        ...(App.config && { config: { ...App.config } }),
+                        // 组件属性对象
+                        ...(item.attrs && {attrs: { ...item.attrs }}),
+                        // 该数据用于组件内部的转换
+                        ...(item.dataTrans && {dataTrans: { ...item.dataTrans }}),
+                        // 
+                        ...(item.children && {children: { ...item.children }}),
+                        // 该 props 用于实际组件将要展开的数据
+                        ...(item.componentProps && {componentProps: { ...item.componentProps }}),
                     })
                 })
                 .catch(ex => {
@@ -57,12 +49,11 @@ class Module {
 
     /**
      * 获取组件
-     * @param item { ...item, name: xxx }
      * @param type 获取某个类型的库的 key
      * @return {*}
      */
-    static get(item, type) {
-        return this.asyncComponent(item, type);
+    static get(item) {
+        return this.asyncComponent(item);
     }
 
     /**

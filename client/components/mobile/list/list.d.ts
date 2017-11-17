@@ -1,13 +1,10 @@
 
 interface ListProps {
     id: string;
-
-    children?: React.ReactNode;
-
     module?: string;
-
-    attrs?: {
-        style?: any;
-        src?: any
-    }
+    cols?: number;
+    style?: any;
+    src?: any;
+    extendsProps?: any;
+    children?: React.ReactNode;
 }

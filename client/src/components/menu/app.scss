@@ -1,0 +1,12 @@
+$padding: 20px;
+
+.ec-editor-menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #31364a;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    z-index: 9999;
+}

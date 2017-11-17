@@ -254,6 +254,19 @@ class utils {
             return item;
         })
     }
+
+    /**
+     * children NodeArray to Array
+     * @param nodes
+     * @return {Array}
+     */
+    static childNodes2Array = (nodes) => {
+        if (!nodes) {
+            return null;
+        }
+
+        return Object.keys(nodes).map(key => nodes[key]);
+    }
 }
 
 export default utils;

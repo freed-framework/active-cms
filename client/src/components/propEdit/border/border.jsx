@@ -9,7 +9,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Select, InputNumber, Popover } from 'antd';
 import { ChromePicker } from 'react-color';
-import { editComponentByType } from '../../../pages/editor/App';
+import { editComponentByType, editComponentByGuid } from '../../../pages/editor/App';
 
 const Option = Select.Option;
 
@@ -18,6 +18,10 @@ export default class BorderEdit extends PureComponent {
         guid: PropTypes.string,
         target: PropTypes.string,
         style: PropTypes.objectOf(PropTypes.any),
+    }
+    
+    static defaultProps = {
+        style: {},
     }
 
     constructor(props) {
@@ -39,7 +43,12 @@ export default class BorderEdit extends PureComponent {
         this.setState({
             col: hex
         }, () => {
-            editComponentByType({guid, attr: 'borderColor', target, value: hex})
+            // editComponentByType({guid, attr: 'borderColor', target, value: hex});
+            editComponentByGuid(
+                guid,
+                ['componentProps', 'style', target, 'borderColor'],
+                hex
+            )
         })
     }
 
@@ -49,7 +58,12 @@ export default class BorderEdit extends PureComponent {
         this.setState({
             sty: value
         }, () => {
-            editComponentByType({guid, attr: 'borderStyle', target, value})
+            // editComponentByType({guid, attr: 'borderStyle', target, value})
+            editComponentByGuid(
+                guid,
+                ['componentProps', 'style', target, 'borderStyle'],
+                value
+            )
         })
     }
 
@@ -59,7 +73,12 @@ export default class BorderEdit extends PureComponent {
         this.setState({
             wid: value
         }, () => {
-            editComponentByType({guid, attr: 'borderWidth', target, value})
+            // editComponentByType({guid, attr: 'borderWidth', target, value})
+            editComponentByGuid(
+                guid,
+                ['componentProps', 'style', target, 'borderWidth'],
+                value
+            )
         })
     }
 

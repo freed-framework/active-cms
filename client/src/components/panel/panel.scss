@@ -15,7 +15,6 @@ $layoutWidth: 300px;
         @extend .ec-editor-layout-fixed;
 
         overflow-y: auto;
-        top: 50px;
         bottom: 0;
         right: -$layoutWidth;
         width: $layoutWidth;

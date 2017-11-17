@@ -37,7 +37,18 @@ body {
 .ec-editor-mobile {
 
     .ec-editor-canvas-inner {
+        background: #eee;
         width: 750px;
         min-height: 400px;
+        transform-origin: 50% 0;
+        transform: scale(0.5);
+    }
+}
+
+.ec-editor-canvas-inner {
+    .tmc-img {
+        img {
+            pointer-events: none;
+        }
     }
 }

@@ -1,3 +1,23 @@
 .tmc-list {
-    
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+
+    &-cols-2 {
+        .tmc-img {
+            flex: 0 0 50%;
+        }
+    }
+
+    &-cols-3 {
+        .tmc-img {
+            flex: 0 0 33.3%;
+        }
+    }
+
+    &-cols-4 {
+        .tmc-img {
+            flex: 0 0 25%;
+        }
+    }
 }

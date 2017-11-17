@@ -10,8 +10,7 @@ import './layer.scss';
 
 class Layer extends React.PureComponent<Props, any> {
     render() {
-        const { attrs = {}, id } = this.props;
-        const { style = {} } = attrs;
+        const { id, style = {} } = this.props;
 
         return (
             <div

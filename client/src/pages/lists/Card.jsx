@@ -158,7 +158,7 @@ export default class componentName extends Component {
     handleShareOk = (users) => {
         const { data = {} } = this.props;
         const pageId = data._id;
-        const shareData = this.users.map((item) => {
+        const shareData = this.users.map(item => {
             for (let i = 0; i < users.length; i++) {
                 if (item === users[i].userDspName) {
                     return {
@@ -173,7 +173,7 @@ export default class componentName extends Component {
             return false;
         }
 
-        sharePage({"users": shareData}).then((res) => {
+        sharePage({ users: shareData }).then(() => {
             message.success('分享成功')
         })
     }
@@ -182,7 +182,7 @@ export default class componentName extends Component {
      * 确认分享弹出框
      */
     handleShare = () => {
-        fetchAllUsers().then((res) => {
+        fetchAllUsers().then(res => {
             confirm({
                 title: '请选择要分享的人',
                 content: this.renderSelect(res.data),

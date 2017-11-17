@@ -251,6 +251,7 @@ class App extends Component {
     }
 
     /**
+     * TODO 将弃用
      * 编辑组件属性
      * @param guid 组件id
      * @param attr 修改属性
@@ -284,14 +285,18 @@ class App extends Component {
     }
 
     /**
-     *
+     * 通过 guid 进行数据修改
      * @param guid
      * @param key
      * @param value
      */
     mittModify = ({ guid, key, value }) => {
-        this.setState({
-            data: module.modify(guid, this.state.data, key, value),
+        // 黑科技，如果不添加 timer，当默认数据出现多次接近同时调用的时候，state.data 并未更新
+        setTimeout(() => {
+            const data = module.modify(guid, this.state.data, key, value);
+            this.setState({
+                data,
+            });
         });
     }
 
@@ -412,9 +417,8 @@ class App extends Component {
                 />
 
                 {/* 左侧工具面板 */}
-                <Follow
+                <div
                     className="ec-editor-left-panel ec-editor-layout-fixed"
-                    offsetTop={50}
                 >
                     <PubComps />
 
@@ -423,7 +427,7 @@ class App extends Component {
                         active={this.state.panelVisible}
                         data={data}
                     />
-                </Follow>
+                </div>
 
                 {/* 右侧的控制面板 */}
                 <Panel

@@ -1,15 +1,10 @@
 
 interface Props {
     id: string;
-
-    children?: React.ReactNode;
-
     module?: string;
-
-    attrs?: {
-        style?: any;
-        target?: any;
-        position?: any;
-        horizontal?: any;
-    }
+    style?: any;
+    target?: any;
+    position?: any;
+    horizontal?: any;
+    children?: React.ReactNode;
 }

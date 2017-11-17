@@ -24,7 +24,7 @@ class Lazyer extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!Immutable.is(nextProps.item, this.props.item)) {
+        if (!Immutable.is(nextProps, this.props)) {
             this.load(nextProps);
         }
     }
@@ -34,12 +34,16 @@ class Lazyer extends Component {
             mod: null
         });
 
-        Module.asyncComponent(props.item, props.type)
+        Module.asyncComponent(props.item)
             .then(module => {
                 if (module) {
                     this.setState({
-                        mod: module
-                    })
+                        // mod: module
+                        mod: {
+                            module,
+                            ...props,
+                        }
+                    });
                 }
             });
     }

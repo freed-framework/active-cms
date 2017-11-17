@@ -6,7 +6,9 @@ export const config: Config = {
     displayName: 'TAB 标签',
     menus: [],
     editable: {
-        component: 'SetTabs',
+        components: [{
+            component: 'SetTabs',
+        }],
 
         style: {
             layout: ['Basic'],

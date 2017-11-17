@@ -7,53 +7,90 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
-import { editComponent, editComponentByType } from '../../../pages/editor/App';
+import { editComponent, editComponentByType, editComponentByGuid } from '../../../pages/editor/App';
+import defaultStyleHoc from '../../../common/hoc/defaultStyleHoc';
 import BorderEdit from '../border';
-
 import Background from '../background';
 
+@defaultStyleHoc
 class BasicEdit extends PureComponent {
     static propTypes = {
         target: PropTypes.string,
         guid: PropTypes.string,
-        compKey: PropTypes.string,
-        attrs: PropTypes.objectOf(PropTypes.any),
-        items: PropTypes.objectOf(PropTypes.any),
-        label: PropTypes.string,
+    }
+
+    static defaultProps = {
+        componentProps: {},
+        defaultValue: {},
     }
 
     constructor(props) {
         super(props);
+        const { componentProps = {}, target } = props;
+        const { style = {} } = componentProps;
+        const propsStyle = style[target] || {};
 
         this.state = {
-            width: props.style.width,
-            height: props.style.height,
-            margin: props.style.margin,
-            padding: props.style.padding,
-            border: props.style.border,
-            background: props.style.background,
-            backgroundColor: props.style.backgroundColor,
-            backgroundImage: props.style.backgroundImage
+            width: propsStyle.width,
+            height: propsStyle.height,
+            margin: propsStyle.margin,
+            padding: propsStyle.padding,
+            border: propsStyle.border,
+            background: propsStyle.background,
+            backgroundColor: propsStyle.backgroundColor,
+            backgroundImage: propsStyle.backgroundImage,
         }
     }
 
     onBackgroundChange = ({option, value}) => {
-        const { target, guid } = this.props;
-        editComponentByType({guid, attr: option, target, value});
+        const { guid, target } = this.props;
+
+        // editComponentByType({guid, attr: option, target, value});
+
+        const keys = target ?
+            ['componentProps', 'style', target, option] :
+            ['componentProps', 'style', option];
+
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
     }
 
     handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
+
+        // 要修改某个元素的对应关系, layout, main, ...
+        const { target, guid } = this.props;
+
+        const keys = target ?
+            ['componentProps', 'style', target, attr] :
+            ['componentProps', 'style', attr];
 
         this.setState({
-            [attr]: event.currentTarget.value,
+            [attr]: value,
         });
 
-        editComponent(event);
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
     }
 
     render() {
-        const { target, guid } = this.props;
+        const { target, guid, componentProps } = this.props;
+
+        // 这里的componentProps 应该从 defaultValue merge
+        const { style = {} } = componentProps;
+        const propsStyle = style[target];
+        const borderProps = {
+            style: propsStyle,
+            target,
+            guid,
+        }
 
         return (
             <div>
@@ -65,7 +102,6 @@ class BasicEdit extends PureComponent {
                             <input
                                 type="text"
                                 data-guid={guid}
-                                data-target={target}
                                 data-attr="width"
                                 onChange={this.handleChange}
                                 value={this.state.width}
@@ -78,7 +114,6 @@ class BasicEdit extends PureComponent {
                             <input
                                 type="text"
                                 data-guid={guid}
-                                data-target={target}
                                 data-attr="height"
                                 onChange={this.handleChange}
                                 value={this.state.height}
@@ -93,7 +128,6 @@ class BasicEdit extends PureComponent {
                             <input
                                 type="text"
                                 data-guid={guid}
-                                data-target={target}
                                 data-attr="margin"
                                 onChange={this.handleChange}
                                 value={this.state.margin}
@@ -106,7 +140,6 @@ class BasicEdit extends PureComponent {
                             <input
                                 type="text"
                                 data-guid={guid}
-                                data-target={target}
                                 data-attr="padding"
                                 onChange={this.handleChange}
                                 value={this.state.padding}
@@ -116,11 +149,7 @@ class BasicEdit extends PureComponent {
                 </Row>
                 <div className="ec-editor-basic-props ec-editor-basic-props-border">
                     <label htmlFor="">边框</label>
-                    <BorderEdit
-                        {...this.props}
-                    />
-                    
-
+                    <BorderEdit { ...borderProps } />
                 </div>
 
                 <div className="ec-editor-basic-props ec-editor-basic-props-background">
@@ -142,10 +171,6 @@ class BasicEdit extends PureComponent {
             </div>
         )
     }
-}
-
-BasicEdit.defaultProps = {
-    style: {},
 }
 
 export default BasicEdit;

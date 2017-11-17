@@ -10,7 +10,7 @@ import Bar from '../bar';
 
 const Item = (props) => {
     const item = props.item;
-    const { guid, module = {} } = item;
+    const { guid, config = {} } = item;
     const cls = classNames('ec-panel-item', {
         'ec-panel-item-active': props.activeId === guid,
     });
@@ -22,15 +22,14 @@ const Item = (props) => {
         >
             {/* 目标栏 */}
             <div>
-                <div>{module.displayName} - {Bar.delete(guid)}</div>
+                <div>{config.displayName} - {Bar.delete(guid)}</div>
             </div>
 
             {/* 可添加子组件栏 */}
             <div>
-                <div>可添加子组件:</div>
                 {Bar.menus({
                     guid,
-                    menus: module ? module.menus : [],
+                    menus: config ? config.menus : [],
                 })}
             </div>
 
@@ -39,9 +38,9 @@ const Item = (props) => {
                 {Bar.edit({
                     ...item,
                     guid,
-                    attrs: item.attrs,
-                    childs: item.children ? item.children : [],
-                    editable: module ? module.editable : {},
+                    // attrs: item.attrs,
+                    // childs: item.children ? item.children : [],
+                    editable: config ? config.editable : {},
                 })}
             </div>
         </div>

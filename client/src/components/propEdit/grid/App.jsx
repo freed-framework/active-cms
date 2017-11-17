@@ -82,7 +82,7 @@ function getNewRows(newRow, oldRow, oldArr) {
     const item = {
         name: 'grid/row',
         children: []
-    }
+    };
     let newArr = [];
 
     if (oldRow > newRow) {
@@ -155,8 +155,7 @@ export default class Grid extends PureComponent {
 
     parseGrid = () => {
         const { row, col } = this.state;
-        const { childrens, history } = this.oldData
-        
+        const { childrens, history } = this.oldData;
         const { guid, attr, target } = this.props;
 
         let rows = [];

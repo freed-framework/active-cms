@@ -1,19 +1,32 @@
 /// <reference path="../../config.d.ts" />
 import List from './List';
 
-interface Config {
-    name: string;
-    displayName?: string,
-    menus: Array<string>;
-    editable: any;
-}
-
 const config: Config = {
-    name: 'list',
-    displayName: '列表',
-    menus: [''],
-    editable: {
-        src: [{label: '图片', component: 'MobileList' }] 
+    name: 'mobile/list',
+    displayName: '图片列表',
+    menus: [],
+    editable: [
+        {
+            component: 'MobileList',
+        },
+        {
+            component: 'Basic',
+            target: 'layout',
+        },
+    ],
+
+    defaultValues: {
+        cols: 2,
+        style: {
+            layout: {
+                padding: 10,
+            }
+        },
+        extendsProps: {
+            style: {
+                padding: 10,
+            }
+        }
     }
 };
 

@@ -29,4 +29,9 @@ interface Config {
      * 哪些属性可编辑
      */
     editable?: any;
+
+    /**
+     * 默认属性
+     */
+    defaultValues?: any;
 }

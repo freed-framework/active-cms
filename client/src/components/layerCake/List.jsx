@@ -167,7 +167,7 @@ class List extends Component {
                             item={item}
                             type={match.params.type}
                         >
-                            {mod => <span>{mod.module.displayName}</span>}
+                            {mod => <span>{mod.module.config.displayName}</span>}
                         </Lazyer>
                     </div>
 

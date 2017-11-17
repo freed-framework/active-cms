@@ -1,22 +1,33 @@
 /// <reference path="./img.d.ts" />
 import * as React from 'react';
+import './img.scss';
 
 class Img extends React.Component<ImgProps, any> {
+    constructor(props: ImgProps) {
+        super(props);
+    }
+
+    handleClick = () => {
+        // console.log(this.props.url);
+        // window.location.href = this.props.url;
+    }
+
     render() {
-        const { attrs = {}, id } = this.props;
-        const { style = {}, src = '' } = attrs;
+        const { id, style = {}, src = '', extendsProps = {} } = this.props;
+        const styleProps = {
+            ...(style && { ...style.layout }),
+            ...(extendsProps && { ...extendsProps.style })
+        };
 
         return (
             <div
                 id={id}
                 className="tmc-img"
                 data-module={this.props.module}
-                style={{
-                    ...(style && {...style.layout})
-                }}
+                onClick={this.handleClick}
+                style={styleProps}
             >
                 <img src={src} />
-                {/* {this.props.children} */}
             </div>
         )
     }

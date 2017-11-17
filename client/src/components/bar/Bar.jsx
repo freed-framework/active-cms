@@ -7,7 +7,7 @@
 import React  from 'react';
 import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
 import { Button, Radio } from 'antd';
-
+import Lazyer from '../../common/Lazyer';
 // import PropsEdit from '../propEdit/PropsEdit';
 import EditAttr from '../propEdit';
 
@@ -73,18 +73,33 @@ class Bar {
         }
 
         return (
-            <Button.Group size={'small'}>
-                {menus.map((item, i) => (
-                    <Button
-                        key={i}
-                        data-guid={guid}
-                        data-name={item}
-                        onClick={addComponent}
-                    >
-                        {item}
-                    </Button>
-                ))}
-            </Button.Group>
+            <div>
+                <div>可添加子组件:</div>
+                <Button.Group size={'small'}>
+                    {menus.map((name, i) => {
+                        if (name === '') {
+                            return null;
+                        }
+
+                        return (
+                            <Lazyer
+                                key={i}
+                                item={{ name }}
+                            >
+                                {mod => (
+                                    <Button
+                                        data-guid={guid}
+                                        data-name={mod.module.config.name}
+                                        onClick={addComponent}
+                                    >
+                                        {mod.module.config.displayName}
+                                    </Button>
+                                )}
+                            </Lazyer>
+                        )
+                    })}
+                </Button.Group>
+            </div>
         );
     }
 }
