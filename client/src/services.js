@@ -141,3 +141,14 @@ export const login = (params) => http.post(`${apiHost}/users/login`, params);
  * 退出登录
  */
 export const logout = () => http.get(`${apiHost}/users/logout`);
+
+/**
+ * 上传zip
+ * description String 否 活动描述
+ * effectTime Date 否 生效时间
+ * invalidTime Date 否 有效时间
+ * activityName String 否 活动名称
+ * uploadUserId String 是 上传用户ID
+ * file file 是 zip文件
+ */
+export const zip = () => http.get(`${apiHost}/upload/zip`);

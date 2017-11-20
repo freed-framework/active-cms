@@ -369,7 +369,7 @@ class App extends Component {
                     content: this.state.data
                 }).then((res) => {
                     message.success(text || '保存成功')
-                    this.props.history.replace(`/edit/${res.data.id}${location.hash}`)
+                    this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
             })
         }

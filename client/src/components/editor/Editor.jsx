@@ -123,27 +123,8 @@ class Editor extends PureComponent {
 
     render(){
         const { params } = this.props.match;
-
-        /*set properties*/
-        const options = {
-            baseUrl: 'http://172.30.40.16:3000/api/image',
-            multiple: true,
-            chooseAndUpload: true,
-            dataType: 'multipart/form-data',
-            param: {
-                fid: 0
-            },
-            uploadSuccess: (props) => {
-                console.log(props)
-            }
-        }
-        /*Use FileUpload with options*/
-        /*Set two dom with ref*/
         return (
             <div>
-                {/* <FileUpload options={options}>
-                    <button ref='chooseAndUpload'>chooseAndUpload</button>
-                </FileUpload> */}
                 <Components
                     data={this.props.data}
                     type={params.type}

@@ -8,8 +8,8 @@
  * 后端请求接口
  * @type {string}
  */
-export const apiHost = 'http://www.iting.top/api';
-// const apiHost = 'http://172.30.40.16:3000/api';
+// export const apiHost = 'http://www.iting.top/api';
+export const apiHost = 'http://172.30.40.16:3000/api';
 
 /**
  * 上传图片基本配置

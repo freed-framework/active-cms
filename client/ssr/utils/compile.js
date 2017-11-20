@@ -5,6 +5,27 @@ import ncp from 'ncp';
 import mkdirp from 'mkdirp';
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+const autoprefixer = require('autoprefixer');
+const pxtorem = require('postcss-pxtorem');
+// rem + css前缀
+const postcssOpts = {
+    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+    plugins: () => [
+        autoprefixer({
+            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4'],
+        }),
+        pxtorem({
+            rootValue: 100 * (750 / 750),
+            unitPrecision: 5,
+            propList: ['*'],
+            selectorBlackList: [],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 0
+        })
+    ],
+};
+
 const loaders = [
     {
         test: /\.jsx?$/,
@@ -22,7 +43,7 @@ const loaders = [
             fallback: 'style-loader',
             use: [
                 'css-loader',
-                'autoprefixer-loader',
+                { loader: 'postcss-loader', options: postcssOpts },
                 'sass-loader',
             ],
         })
@@ -34,7 +55,7 @@ const loaders = [
             fallback: 'style-loader',
             use: [
                 'css-loader',
-                'autoprefixer-loader',
+                { loader: 'postcss-loader', options: postcssOpts },
                 'less-loader',
             ]
         })
@@ -50,7 +71,7 @@ const loaders = [
             fallback: 'style-loader',
             use: [
                 'css-loader',
-                'autoprefixer-loader'
+                { loader: 'postcss-loader', options: postcssOpts }
             ]
         })
     },
@@ -71,14 +92,6 @@ const plugins = [
     new ExtractTextPlugin({
         filename: '[name].css',
         allChunks: true,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-        output: {
-            comments: false,  // remove all comments
-        },
-        compress: {
-            warnings: false
-        }
     })
 ];
 

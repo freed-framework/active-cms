@@ -18,6 +18,7 @@ const download = async (req, res, next) => {
         page.data = content;
         page.name = title;
     })
+
     try {
         const data = await compileTemplate(page);
         const props = {};

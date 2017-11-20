@@ -59,7 +59,7 @@ export default class TopMenu extends Component {
     }
 
     handleAdd = () => {
-        this.props.history.push('/new')
+        this.props.history.push('/mobile/new')
     }
 
     handleSearch = (value) => {
