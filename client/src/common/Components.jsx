@@ -8,6 +8,10 @@ import Img from '../../components/mobile/img';
 
 /**
  * 创建单个 Component
+ * <TODO START>
+ *     此处 props 需要传递一个属性来判断是否需要对 componentProps 进行 px 转换的配置
+ *     { pxTrans: true, rootFontSize: 100 }
+ * <TODO END>
  * @param props
  * @return {XML}
  * @constructor
