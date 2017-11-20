@@ -10,7 +10,7 @@
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
     "ssr": "./node_modules/.bin/nodemon -w ./ssr/**/*.js --exec ts-node ./ssr/main.js",
-    "ssr-build": "./node_modules/.bin/webpack --progress --config=./webpack.config.ssr.js",
+    "ssr-build": " ts-node ./ssr/main.js",
     "build": "./node_modules/.bin/webpack --config=./webpack.config.js"
   },
   "pre-commit": [
