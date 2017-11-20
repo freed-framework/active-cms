@@ -2,6 +2,7 @@
  * @file util.js
  * @author denglingbo
  *
+ * 工具类
  */
 
 /**
@@ -10,7 +11,7 @@
  * @param {number} rootFontSize
  */
 export const px2rem = (px, rootFontSize = 100) => (
-    px.replace(/(\d+)px/gi, (match, word)  => (
-        `${Number(word) / rootValue}rem`
+    px.replace(/(\d+)px/gi, (match, word) => (
+        `${Number(word) / rootFontSize}rem`
     ))
 )
