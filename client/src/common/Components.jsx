@@ -26,7 +26,6 @@ const AppComponent = (props) => {
         ...(item.atts && { attrs: item.attrs }),
         ...(item.guid && { guid: item.guid }),
         ...(item.componentProps && { ...item.componentProps }),
-
         // 这里如果有子组件需要通过 data 数据来继承 的属性，由 children loop 的时候添加到 props.extendsProps 上
         ...(props.extendsProps && { extendsProps: props.extendsProps })
     };
