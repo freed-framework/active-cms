@@ -25,7 +25,7 @@ cd /var/web/active-cms/server
 echo "install..."
 cnpm install
 
-echo "build..."
+echo "build server..."
 npm run prestart:prod
 
 echo "start server pm2 ..."
