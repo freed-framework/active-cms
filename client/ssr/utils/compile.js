@@ -108,10 +108,10 @@ const resolve = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
 };
 
-export async function compileTemplate(page) {
+export async function compileTemplate(page, id) {
     const data = page.data;
     const pageName = page.name;
-    console.log('start to compile template: ', pageName);
+    console.log('start to compile template: ', `${pageName}`);
     const inputPath = path.join(__dirname, '../publishPage/');
     const inputFileName = '_app.js';
     const outputPath = path.join(__dirname, '../publish/',  `${pageName}/`);

@@ -27,7 +27,7 @@ const download = async (req, res, next) => {
         const htmlString = ReactDOMServer.renderToStaticMarkup(<Html  {...props} />);
         const destHtml = data.outputPath + '/index.html';
         fs.writeFileSync(destHtml, htmlString);
-        const folderPath = path.join(__dirname, 'publish', page.name);
+        const folderPath = path.join(__dirname, '../render', `${page.name}`);
         const folderZipPath = folderPath + '.zip';
         let access = true;
         await fs.access(folderPath, (err) => {
@@ -36,7 +36,9 @@ const download = async (req, res, next) => {
             }
         });
         if (access) {
+            console.log('zip......')
             await zip.zipFolder({folderPath: folderPath});
+            console.log('download......')
             res.download(folderZipPath);
         }
         else {

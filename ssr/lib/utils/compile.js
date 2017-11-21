@@ -34,14 +34,14 @@ var compileTemplate = exports.compileTemplate = function () {
                         console.log('start to compile template: ', pageName);
                         inputPath = _path2.default.join(__dirname, '../publishPage/');
                         inputFileName = '_app.js';
-                        outputPath = _path2.default.join(__dirname, '../../renderPages/', pageName + '/');
+                        outputPath = _path2.default.join(__dirname, '../../render/', pageName + '/');
                         outputFileName = 'app.bundle.js';
                         config = {
                             entry: inputPath + inputFileName,
                             output: {
                                 path: outputPath,
-                                filename: outputFileName
-                                // publicPath: "http://172.30.40.16:8888/"
+                                filename: outputFileName,
+                                publicPath: "./"
                             },
                             module: {
                                 loaders: loaders

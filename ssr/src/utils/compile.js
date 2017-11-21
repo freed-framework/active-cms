@@ -114,14 +114,14 @@ export async function compileTemplate(page) {
     console.log('start to compile template: ', pageName);
     const inputPath = path.join(__dirname, '../publishPage/');
     const inputFileName = '_app.js';
-    const outputPath = path.join(__dirname, '../../renderPages/',  `${pageName}/`);
+    const outputPath = path.join(__dirname, '../../render/',  `${pageName}/`);
     const outputFileName = 'app.bundle.js';
     var config = {
         entry: inputPath + inputFileName,
         output: {
             path: outputPath,
             filename: outputFileName,
-            // publicPath: "http://172.30.40.16:8888/"
+            publicPath: "./"
         },
         module: {
             loaders: loaders
