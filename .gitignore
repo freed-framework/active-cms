@@ -22,4 +22,4 @@ client/ssr/publish/
 server/images/
 
 ssr/node_modules
-ssr/renderPages/
+ssr/render/
