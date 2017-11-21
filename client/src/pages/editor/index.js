@@ -45,7 +45,14 @@ class Editor extends Component {
                                     "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_03.jpg"
                                 }
                             }
-                        ]
+                        ],
+                        "componentProps": {
+                            "style": {
+                                "layout": {
+                                    "padding": "20"
+                                }
+                            }
+                        }
                     },
                     {
                         "guid": "ec-module-a40cabe9-20f5-4354-a973-390679b86191",
