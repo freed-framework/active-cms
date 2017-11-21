@@ -32,8 +32,10 @@ echo "start server pm2 ..."
 pm2 start ./pm2.config.js --env ${name}
 
 echo "leave server ..."
+cd ../
 
 echo "enter ssr ..."
+cd /ssr
 
 echo "install..."
 cnpm install
@@ -42,6 +44,6 @@ echo "build..."
 npm run build
 
 echo "start ssr pm2 ..."
-pm2 start 
+pm2 start ./pm2.config.js --env ${name}
 
 echo "启动成功"
