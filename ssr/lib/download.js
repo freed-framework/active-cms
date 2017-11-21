@@ -54,7 +54,7 @@ var download = function () {
                         id = req.query.id;
                         page = {};
                         _context.next = 4;
-                        return (0, _got2.default)('http://172.30.40.16:3000/api/page/query/' + id).then(function (response) {
+                        return (0, _got2.default)('http://www.iting.top/api/page/query/' + id).then(function (response) {
                             var _JSON$parse$data = JSON.parse(response.body).data,
                                 content = _JSON$parse$data.content,
                                 title = _JSON$parse$data.title;
