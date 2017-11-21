@@ -28,8 +28,7 @@ export class ApplicationModule implements NestModule {
         // consumer.apply(PassportMiddleware).forRoutes({path: '/*', method: RequestMethod.ALL})
         consumer
             .apply(DevelopmentMiddleware)
-            .forRoutes({path: '/*', method: RequestMethod.ALL});
-            consumer
+            .forRoutes({path: '/*', method: RequestMethod.ALL})
             .apply(PublishMiddleware)
             .forRoutes({path: '/publish/zip', method: RequestMethod.ALL});
     }

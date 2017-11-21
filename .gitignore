@@ -20,3 +20,6 @@ client/lib/
 client/ssr/publish/
 
 server/images/
+
+ssr/node_modules
+ssr/renderPages/

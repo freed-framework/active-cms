@@ -35,37 +35,11 @@ class ImgUrl extends PureComponent {
         const { guid } = this.props;
 
         /*set properties*/
-        // const options = {
-        //     baseUrl: 'http://172.30.40.16:3000/api/image',
-        //     chooseAndUpload: true,
-        //     dataType: 'multipart/form-data',
-        //     fileFieldName: 'file',
-        //     uploadSuccess: (props) => {
-        //         const { data } = props;
-        //         const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
-
-        //         this.setState({
-        //             src: url,
-        //         });
-
-        //         editComponentByGuid(
-        //             guid,
-        //             ['componentProps', 'src'],
-        //             url
-        //         );
-
-        //     },
-        // }
-        /*Use FileUpload with options*/
-        /*Set two dom with ref*/
         const options = {
-            baseUrl: 'http://172.30.40.16:3000/api/publish/zip',
+            baseUrl: 'http://172.30.40.16:3000/api/image',
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            paramAddToField: {
-                "uploadUserId": 123123
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
@@ -82,6 +56,32 @@ class ImgUrl extends PureComponent {
 
             },
         }
+        /*Use FileUpload with options*/
+        /*Set two dom with ref*/
+        // const options = {
+        //     baseUrl: 'http://172.30.40.16:3000/api/publish/zip',
+        //     chooseAndUpload: true,
+        //     dataType: 'multipart/form-data',
+        //     fileFieldName: 'file',
+        //     paramAddToField: {
+        //         "uploadUserId": 123123
+        //     },
+        //     uploadSuccess: (props) => {
+        //         const { data } = props;
+        //         const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
+
+        //         this.setState({
+        //             src: url,
+        //         });
+
+        //         editComponentByGuid(
+        //             guid,
+        //             ['componentProps', 'src'],
+        //             url
+        //         );
+
+        //     },
+        // }
         return (
             <div>
                 <div className="ec-editor-basic-props ec-editor-basic-props-attr">

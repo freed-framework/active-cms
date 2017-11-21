@@ -92,6 +92,14 @@ const plugins = [
     new ExtractTextPlugin({
         filename: '[name].css',
         allChunks: true,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+        output: {
+            comments: false,  // remove all comments
+        },
+        compress: {
+            warnings: false
+        }
     })
 ];
 
@@ -124,6 +132,7 @@ export async function compileTemplate(page) {
 
     const pageToString = JSON.stringify(data);
     const varScripts = `const data = ${pageToString}\n\n`;
+    console.log(varScripts)
     const appScript = fs.readFileSync(path.join(inputPath, '_app_template.js')).toString();
     const allScript = varScripts + appScript;
     fs.writeFileSync(path.join(inputPath, inputFileName), allScript);
