@@ -20,7 +20,7 @@ echo "stop pm2..."
 pm2 stop all
 
 echo "enter server"
-cd /server
+cd /var/web/active-cms/server
 
 echo "install..."
 cnpm install
@@ -35,7 +35,7 @@ echo "leave server ..."
 cd ../
 
 echo "enter ssr ..."
-cd /ssr
+cd /var/web/active-cms/ssr
 
 echo "install..."
 cnpm install
