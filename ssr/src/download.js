@@ -13,7 +13,7 @@ import Html from '../lib/publishPage/html';
 const download = async (req, res, next) => {
     const { id } = req.query;
     const page = {}
-    await got(`http://172.30.40.16:3000/api/page/query/${id}`).then(response => {
+    await got(`http://www.iting.top/api/page/query/${id}`).then(response => {
         const { content, title } = JSON.parse(response.body).data;
         page.data = content;
         page.name = title;
