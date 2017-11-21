@@ -1,7 +1,7 @@
 module.exports = {
   apps : [
       {
-        name: "myapp",
+        name: "ssr",
         script: "./lib/index.js",
         watch: true,
         env: {
