@@ -27,7 +27,7 @@ echo "build"
 npm run build
 
 echo "stop pm2..."
-pm2 stop all
+pm2 delete all
 
 echo "enter server"
 cd /var/web/active-cms/server
@@ -55,8 +55,5 @@ npm run build
 
 echo "start ssr pm2 ..."
 npm run pm2-${name}
-
-echo "pm2 update..."
-pm2 update
 
 echo "启动成功"
