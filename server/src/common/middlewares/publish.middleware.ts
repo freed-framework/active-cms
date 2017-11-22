@@ -8,7 +8,7 @@
 import { HttpStatus, Middleware, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as httpProxy from 'http-proxy';
-import ENV from '../../../../conf/env';
+import ENV from '../../config/env';
 
 const proxy = httpProxy.createProxyServer({});
 
