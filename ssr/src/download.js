@@ -5,6 +5,10 @@ import ReactDOMServer from 'react-dom/server';
 import got from 'got';
 
 import zip from 'zipfolder';
+import ENV from '../../../../conf/env';
+
+const nodeENV = process.env.NODE_ENV;
+
 
 
 import { compileTemplate } from '../lib/utils/compile';
@@ -13,7 +17,7 @@ import Html from '../lib/publishPage/html';
 const download = async (req, res, next) => {
     const { id } = req.query;
     const page = {}
-    await got(`http://www.iting.top/api/page/query/${id}`).then(response => {
+    await got(`${ENV.domain}/api/page/query/${id}`).then(response => {
         const { content, title } = JSON.parse(response.body).data;
         page.data = content;
         page.name = title;

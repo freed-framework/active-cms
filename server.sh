@@ -44,6 +44,6 @@ echo "build..."
 npm run build
 
 echo "start ssr pm2 ..."
-pm2 start ./pm2.config.js --env ${name}
+npm run pm2-${name}
 
 echo "启动成功"

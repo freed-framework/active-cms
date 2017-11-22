@@ -8,7 +8,9 @@
  * 后端请求接口
  * @type {string}
  */
-export const apiHost = 'http://www.iting.top/api';
+import ENV from '../../conf/env';
+
+export const apiHost = `${ENV.domain}/api`;
 // export const apiHost = 'http://172.30.40.16:3000/api';
 
 /**
@@ -16,7 +18,7 @@ export const apiHost = 'http://www.iting.top/api';
  * @type {{baseUrl: string, multiple: boolean, chooseAndUpload: boolean, dataType: string, fileFieldName: string}}
  */
 export const uploadImage = {
-    baseUrl: 'http://www.iting.top/api/image',
+    baseUrl: `${apiHost}/image`,
     multiple: true,
     chooseAndUpload: true,
     dataType: 'multipart/form-data',
