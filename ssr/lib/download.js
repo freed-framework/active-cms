@@ -36,6 +36,10 @@ var _zipfolder = require('zipfolder');
 
 var _zipfolder2 = _interopRequireDefault(_zipfolder);
 
+var _env = require('./env');
+
+var _env2 = _interopRequireDefault(_env);
+
 var _compile = require('../lib/utils/compile');
 
 var _html = require('../lib/publishPage/html');
@@ -43,6 +47,8 @@ var _html = require('../lib/publishPage/html');
 var _html2 = _interopRequireDefault(_html);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var nodeENV = process.env.NODE_ENV;
 
 var download = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
@@ -54,7 +60,7 @@ var download = function () {
                         id = req.query.id;
                         page = {};
                         _context.next = 4;
-                        return (0, _got2.default)('http://www.iting.top/api/page/query/' + id).then(function (response) {
+                        return (0, _got2.default)(_env2.default.domain + '/api/page/query/' + id).then(function (response) {
                             var _JSON$parse$data = JSON.parse(response.body).data,
                                 content = _JSON$parse$data.content,
                                 title = _JSON$parse$data.title;
@@ -141,6 +147,8 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
+
+    __REACT_HOT_LOADER__.register(nodeENV, 'nodeENV', 'src/download.js');
 
     __REACT_HOT_LOADER__.register(download, 'download', 'src/download.js');
 

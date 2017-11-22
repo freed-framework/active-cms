@@ -1,7 +1,7 @@
 /**
  * client server ssr 三个平台环境变量
  */
-var ENV = {
+const ENV = {
     /**
      * 外部地址
      */
