@@ -18,8 +18,10 @@ echo "pull..."
 git pull
 
 echo "enter client ..."
-
 cd /var/web/active-cms/client
+
+echo "install client"
+cnpm install
 
 echo "build"
 npm run build
