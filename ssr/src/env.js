@@ -1,7 +1,7 @@
 /**
  * client server ssr 三个平台环境变量
  */
-var ENV = {
+const ENV = {
     /**
      * 外部地址
      */
@@ -16,4 +16,4 @@ var ENV = {
     domain: "http://www.iting.top"
 }
 
-module.exports = ENV;
+export default ENV;

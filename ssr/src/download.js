@@ -5,11 +5,9 @@ import ReactDOMServer from 'react-dom/server';
 import got from 'got';
 
 import zip from 'zipfolder';
-import ENV from '../../../../conf/env';
+import ENV from './env';
 
 const nodeENV = process.env.NODE_ENV;
-
-
 
 import { compileTemplate } from '../lib/utils/compile';
 import Html from '../lib/publishPage/html';

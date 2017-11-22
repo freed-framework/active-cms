@@ -16,4 +16,4 @@ var ENV = {
     domain: "http://www.iting.top"
 }
 
-module.exports = ENV;
+exports.default = ENV;
