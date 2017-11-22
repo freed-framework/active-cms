@@ -52,14 +52,15 @@ var nodeENV = process.env.NODE_ENV;
 
 var download = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
-        var id, page, data, props, htmlString, destHtml, folderPath, folderZipPath, access;
+        var id, page, timeStmp, data, props, htmlString, destHtml, folderPath, folderZipPath, access;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
                         id = req.query.id;
                         page = {};
-                        _context.next = 4;
+                        timeStmp = '' + id + new Date() * 1;
+                        _context.next = 5;
                         return (0, _got2.default)(_env2.default.domain + '/api/page/query/' + id).then(function (response) {
                             var _JSON$parse$data = JSON.parse(response.body).data,
                                 content = _JSON$parse$data.content,
@@ -69,12 +70,12 @@ var download = function () {
                             page.name = title;
                         });
 
-                    case 4:
-                        _context.prev = 4;
-                        _context.next = 7;
-                        return (0, _compile.compileTemplate)(page);
+                    case 5:
+                        _context.prev = 5;
+                        _context.next = 8;
+                        return (0, _compile.compileTemplate)(page, timeStmp);
 
-                    case 7:
+                    case 8:
                         data = _context.sent;
                         props = {};
 
@@ -84,54 +85,54 @@ var download = function () {
                         destHtml = data.outputPath + '/index.html';
 
                         _fs2.default.writeFileSync(destHtml, htmlString);
-                        folderPath = _path2.default.join(__dirname, '../render', '' + page.name);
+                        folderPath = _path2.default.join(__dirname, '../render', timeStmp);
                         folderZipPath = folderPath + '.zip';
                         access = true;
-                        _context.next = 19;
+                        _context.next = 20;
                         return _fs2.default.access(folderPath, function (err) {
                             if (err) {
                                 access = false;
                             }
                         });
 
-                    case 19:
+                    case 20:
                         if (!access) {
-                            _context.next = 27;
+                            _context.next = 28;
                             break;
                         }
 
                         console.log('zip......');
-                        _context.next = 23;
+                        _context.next = 24;
                         return _zipfolder2.default.zipFolder({ folderPath: folderPath });
 
-                    case 23:
+                    case 24:
                         console.log('download......');
                         res.download(folderZipPath);
-                        _context.next = 28;
+                        _context.next = 29;
                         break;
 
-                    case 27:
+                    case 28:
                         res.status(404).send({
                             retcode: 404,
                             msg: 'zip 压缩包不存在'
                         });
 
-                    case 28:
-                        _context.next = 33;
+                    case 29:
+                        _context.next = 34;
                         break;
 
-                    case 30:
-                        _context.prev = 30;
-                        _context.t0 = _context['catch'](4);
+                    case 31:
+                        _context.prev = 31;
+                        _context.t0 = _context['catch'](5);
 
                         next(_context.t0);
 
-                    case 33:
+                    case 34:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[4, 30]]);
+        }, _callee, undefined, [[5, 31]]);
     }));
 
     return function download(_x, _x2, _x3) {

@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import fs from 'fs';
 import ncp from 'ncp';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import ENV from '../env';
 
 const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
@@ -108,20 +109,21 @@ const resolve = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
 };
 
-export async function compileTemplate(page) {
+export async function compileTemplate(page, timeStmp) {
     const data = page.data;
     const pageName = page.name;
+
     console.log('start to compile template: ', pageName);
     const inputPath = path.join(__dirname, '../publishPage/');
     const inputFileName = '_app.js';
-    const outputPath = path.join(__dirname, '../../render/',  `${pageName}/`);
+    const outputPath = path.join(__dirname, '../../render/',  timeStmp, '/');
     const outputFileName = 'app.bundle.js';
     var config = {
         entry: inputPath + inputFileName,
         output: {
             path: outputPath,
             filename: outputFileName,
-            publicPath: "./"
+            publicPath: `${ENV.publicPath}/${timeStmp}/`
         },
         module: {
             loaders: loaders
@@ -137,6 +139,7 @@ export async function compileTemplate(page) {
     console.log(path.join(inputPath, inputFileName))
     fs.writeFileSync(path.join(inputPath, inputFileName), allScript);
     var compiler = webpack(config);
+
     return new Promise((resolve, reject) => {
         compiler.run((err, stats) => {
             if (err) {

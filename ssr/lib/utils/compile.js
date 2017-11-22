@@ -22,7 +22,7 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var compileTemplate = exports.compileTemplate = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(page) {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(page, timeStmp) {
         var data, pageName, inputPath, inputFileName, outputPath, outputFileName, config, pageToString, varScripts, appScript, allScript, compiler;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
@@ -31,17 +31,18 @@ var compileTemplate = exports.compileTemplate = function () {
                         data = page.data;
                         pageName = page.name;
 
+
                         console.log('start to compile template: ', pageName);
                         inputPath = _path2.default.join(__dirname, '../publishPage/');
                         inputFileName = '_app.js';
-                        outputPath = _path2.default.join(__dirname, '../../render/', pageName + '/');
+                        outputPath = _path2.default.join(__dirname, '../../render/', timeStmp, '/');
                         outputFileName = 'app.bundle.js';
                         config = {
                             entry: inputPath + inputFileName,
                             output: {
                                 path: outputPath,
                                 filename: outputFileName,
-                                publicPath: "./"
+                                publicPath: _env2.default.publicPath + '/' + timeStmp + '/'
                             },
                             module: {
                                 loaders: loaders
@@ -90,7 +91,7 @@ var compileTemplate = exports.compileTemplate = function () {
         }, _callee, this);
     }));
 
-    return function compileTemplate(_x) {
+    return function compileTemplate(_x, _x2) {
         return _ref.apply(this, arguments);
     };
 }();
@@ -114,6 +115,10 @@ var _ncp2 = _interopRequireDefault(_ncp);
 var _extractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 var _extractTextWebpackPlugin2 = _interopRequireDefault(_extractTextWebpackPlugin);
+
+var _env = require('../env');
+
+var _env2 = _interopRequireDefault(_env);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
