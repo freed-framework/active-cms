@@ -27,6 +27,9 @@ var ROOT_PATH = path.resolve(__dirname);
 // }
 // 调用 framework
 
+const PRO_ROOT = path.resolve(process.cwd(), '../');
+const ROOT = path.resolve(process.cwd(), '');
+
 var webpackConfig = {
     devtool: 'source-map',
     entry: {
@@ -93,6 +96,10 @@ var webpackConfig = {
                             ],
                         }
                     }
+                ],
+                include: [
+                    path.resolve(ROOT, './src'),
+                    path.resolve(ROOT, './components'),
                 ],
             },
             {
