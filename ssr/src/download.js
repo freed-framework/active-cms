@@ -14,7 +14,9 @@ import Html from '../lib/publishPage/html';
 
 const download = async (req, res, next) => {
     const { id } = req.query;
-    const page = {}
+    const page = {};
+    const timeStmp = `${id}${new Date() * 1}`;
+
     await got(`${ENV.domain}/api/page/query/${id}`).then(response => {
         const { content, title } = JSON.parse(response.body).data;
         page.data = content;
@@ -22,14 +24,14 @@ const download = async (req, res, next) => {
     })
 
     try {
-        const data = await compileTemplate(page);
+        const data = await compileTemplate(page, timeStmp);
         const props = {};
         props.script = data.fileContent.toString();
         props.style = data.styleContent.toString();
         const htmlString = ReactDOMServer.renderToStaticMarkup(<Html  {...props} />);
         const destHtml = data.outputPath + '/index.html';
         fs.writeFileSync(destHtml, htmlString);
-        const folderPath = path.join(__dirname, '../render', `${page.name}`);
+        const folderPath = path.join(__dirname, '../render', timeStmp);
         const folderZipPath = folderPath + '.zip';
         let access = true;
         await fs.access(folderPath, (err) => {

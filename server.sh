@@ -9,6 +9,7 @@ fi
 echo "delete dist"
 rm -rf /var/web/active-cms/server/dist
 rm -rf /var/web/active-cms/ssr/lib
+rm -rf /var/web/active-cms/client/dist
 
 echo "start..."
 cd /var/web/active-cms
@@ -16,8 +17,17 @@ cd /var/web/active-cms
 echo "pull..."
 git pull
 
+echo "enter client ..."
+cd /var/web/active-cms/client
+
+echo "install client"
+cnpm install
+
+echo "build"
+npm run build
+
 echo "stop pm2..."
-pm2 stop all
+pm2 delete all
 
 echo "enter server"
 cd /var/web/active-cms/server
