@@ -9,10 +9,10 @@ import PropTypes from 'prop-types'
 import Font from 'font';
 import classnames from 'classnames';
 import moment from 'moment';
-import { Modal, Input, Select, message } from 'antd';
+import { Modal, Input, Select, message, Progress, Spin } from 'antd';
 import { Observable } from 'rxjs';
 
-import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage } from '../../services';
+import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage, push } from '../../services';
 
 const confirm = Modal.confirm;
 
@@ -29,6 +29,7 @@ export default class componentName extends Component {
         onFetchList: PropTypes.func,
         current: PropTypes.string,
         reg: PropTypes.objectOf(PropTypes.any),
+        socket: PropTypes.objectOf(PropTypes.any)
     }
 
     constructor(props) {
@@ -39,12 +40,14 @@ export default class componentName extends Component {
         const oldTime = fork ? forkTime : createTime;
 
         this.state = {
-            formNow: formNowFun(oldTime)
+            formNow: formNowFun(oldTime),
+            progress: 0
         }
     }
 
     componentDidMount() {
-        const { forkTime = '', createTime = '', fork } = this.props.data;
+        const { socket } = this.props;
+        const { forkTime = '', createTime = '', fork, _id } = this.props.data;
         const oldTime = fork ? forkTime : createTime;
 
         this.timer = Observable.interval(1000).subscribe(() => {
@@ -52,10 +55,26 @@ export default class componentName extends Component {
                 formNow: formNowFun(oldTime)
             })
         })
+
+        socket.on(`push:progress:${_id}`, (res) => {
+            this.setState({
+                progress: res.progress
+            }, () => {
+                const { progress } = res;
+                if (progress === 100) {
+                    message.success('推送成功');
+                }
+            })
+        })
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.state.formNow === nextState.formNow) {
+        const { pushId } = nextProps.data
+        if (
+            this.state.formNow === nextState.formNow
+            && this.state.progress === nextState.progress
+            && this.props.data.pushId === pushId
+        ) {
             return false;
         }
         return true;
@@ -231,21 +250,43 @@ export default class componentName extends Component {
                 }
             </Select>
         )
+    }    
+
+    handlePush = () => {
+        const { data = {}, socket } = this.props;
+        confirm({
+            title: '确认推送页面？',
+            content: '',
+            onOk: () => {
+                push({
+                    id: data._id,
+                    uploadUserId: 123123123
+                }).then(() => {
+                    this.props.onFetchList()
+                })
+                .catch(() => {
+                })
+            },
+            onCancel() {},
+        });
     }
 
     render() {
         const { data = {}, current, reg } = this.props;
-        const { formNow } = this.state;
+        const { formNow, progress } = this.state;
         const isOwer = user._id === data.owerUser._id;
+        const isPushing = progress === 0 || progress === 100;
 
         return (
             <div
                 className={classnames(
                     'page-list-card', {
                         'page-list-card-publish': data.publish,
-                        'page-list-card-isFork': data.fork
+                        'page-list-card-isFork': data.fork,
+                        'page-list-card-pushed': data.pushId
                     })
                 }
+                key={data._id}
             >
                 <div
                     className='page-list-card-imgWrap'
@@ -280,6 +321,9 @@ export default class componentName extends Component {
                                 })
                             }}
                         />
+                        {
+                            data.pushId
+                        }
                         <span className={'page-list-card-title-right'}>
                             {
                                 formNow
@@ -342,9 +386,34 @@ export default class componentName extends Component {
                                     <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
                                 </li>
                             }
+                            {
+                                current !== 'publish' && isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handlePush}
+                                >
+                                    {
+                                        !isPushing
+                                        ? <Spin size="small" />
+                                        : <Font type={'clipboard-upload'} />
+                                    }
+                                    <span className="page-list-card-text">{
+                                        isPushing
+                                        ? '推送'
+                                        : '推送中...'
+                                    }</span>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
+                {
+                    progress !== 0 && progress !== 100
+                    ? <div className="page-list-card-progress">
+                        <Progress percent={progress} strokeWidth={5} status="active" showInfo={false} />
+                    </div>
+                    : null
+                }
             </div>
         )
     }

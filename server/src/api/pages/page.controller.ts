@@ -100,7 +100,6 @@ export class PageController {
     @UsePipes(new encodeUpdatePipe())
     async updatePage(@Response() res, @Body() body) {
         const { id, page } = body;
-        console.log(page)
         const result = await this.service.updatePage(id, page);
         res.status(HttpStatus.OK).json(result);
     }
@@ -116,4 +115,25 @@ export class PageController {
         });
         res.status(HttpStatus.OK).json(result);
     }
+
+    @Post('/changeTitle')
+    async changeTitle(@Response() res, @Body() body) {
+        const { id, title } = body;
+        const result = await this.service.changeTitle(id, title);
+        res.status(HttpStatus.OK).json(result);
+    }
+
+    @Get('/push/:id/:pushId')
+    async pushId(@Response() res, @Body() body, @Param() param) {
+        const { id, pushId } = param;
+        const result = await this.service.pushId(id, pushId);
+        res.status(HttpStatus.OK).json(result);
+    }
+
+    @Post('/push')
+    async push(@Response() res, @Body() body) {
+        const result: any = await this.service.push(body);
+        res.status(HttpStatus.OK).json(result);
+    }
+
 }

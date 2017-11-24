@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
+import io from 'socket.io-client';
 
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
@@ -25,6 +26,10 @@ window.user = {
     "birthday": "2017-10-09T02:52:53.330Z",
     "sex": 1
 }
+
+const socket = io('http://localhost:5555', {
+    path: '/push'
+});
 
 class List extends Component {
     static propTypes = {
@@ -127,6 +132,7 @@ class List extends Component {
                                     data={item.shareTime ? item.page : item}
                                     history={history}
                                     onFetchList={this.handleFetchList}
+                                    socket={socket}
                                 />
                             })
                     }

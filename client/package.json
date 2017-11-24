@@ -38,6 +38,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "rxjs": "^5.5.1",
+    "socket.io": "^2.0.4",
     "styled-components": "^2.1.2",
     "zipfolder": "^1.0.4"
   },
