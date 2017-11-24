@@ -39,7 +39,9 @@ const PageSchema = new Schema({
     // 是否发布
     publish: { type: Boolean, default: false },
     // 属于移动端还是pc端, 0：是pc端， 1：是mobile端
-    belong: { type: Number, default: 0 }
+    belong: { type: Number, default: 0 },
+    // 发布id
+    pushId: { type: Number, default: 0 }
 }, {
     versionKey: false
 });

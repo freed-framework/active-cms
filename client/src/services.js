@@ -8,9 +8,11 @@
 import Http from 'freed-spa/src/util/http';
 import * as Cookies from 'js-cookie';
 import Login from './components/login';
-import { apiHost } from './config';
+import { apiHost, ssrHost } from './config';
 
 const http = new Http();
+
+http.axios.defaults.timeout = 140000;
 
 http.request(
     req => {
@@ -152,3 +154,13 @@ export const logout = () => http.get(`${apiHost}/users/logout`);
  * file file 是 zip文件
  */
 export const zip = () => http.get(`${apiHost}/upload/zip`);
+
+/**
+ * 推送页面
+ * description String 否 活动描述
+ * effectTime Date 否 生效时间
+ * invalidTime Date 否 有效时间
+ * activityName String 否 活动名称
+ * uploadUserId String 是 上传用户ID
+ */
+export const push = (params) => http.post(`${apiHost}/page/push`, params);

@@ -1,9 +1,11 @@
 import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as _ from 'lodash';
+import * as request from 'request';
 import PageModel from './page.model';
 import CommonService from '../../common/common.service';
 import { ForkService, ShareService } from '../';
+import { resolve } from 'url';
 const forkService = new ForkService();
 const shareService = new ShareService();
 
@@ -192,5 +194,71 @@ export class PageService {
             return doc;
         })
         return  CommonService.commonResponse({id: result._id});
+    }
+
+    /**
+     * 修改title
+     * @param {string} id 页面id
+     * @param {string} title 新title信息
+     */
+    async changeTitle(id, title) {
+        const result: any = await PageModel.findByIdAndUpdate(id, {$set: {title: title}}, (err, doc) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+            return doc;
+        })
+
+        return CommonService.commonResponse(result);
+    }
+
+    /**
+     * 写入id
+     * @param {string} id 页面id
+     * @param {number} pushId 推送id
+     */
+    async pushId(id, pushId) {
+        const result: any = await PageModel.findByIdAndUpdate(id, {$set: {pushId: pushId}}, (err, doc) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+            return doc;
+        })
+
+        return CommonService.commonResponse(result);
+    }
+
+    /**
+     * 推送页面
+     * @param body {Object} http body
+     */
+    async push(body) {
+        const {
+            id, uploadUserId,
+            ...field
+        } = body;
+
+        const page: any = await this.getPage(id);
+
+        return new Promise((resolve, reject) => {
+            request({
+                url: 'http://localhost:12345/ssr/push',
+                method: "POST",
+                json: true,
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: {id, uploadUserId, ...field, content: page.content, title: page.title}
+            }, (err, response, res) => {
+                if (err) {
+                    throw new HttpException('系统错误', 500);
+                }
+                const { data } = res;
+                const re: any = this.pushId(id, data);
+
+                resolve({code: 200, message: "请求成功", data });
+            });
+        })
+        
     }
 }

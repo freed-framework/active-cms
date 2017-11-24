@@ -1,9 +1,8 @@
-
 /**
- * @file publish.middleware.ts
+ * @file push.middleware.ts
  * @author shijh
  *
- * 发布zip
+ * 推送
  */
 import { HttpStatus, Middleware, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
@@ -15,11 +14,11 @@ const proxy = httpProxy.createProxyServer({});
 const nodeENV = process.env.NODE_ENV;
 
 @Middleware()
-export class PublishMiddleware implements NestMiddleware {
+export class PushMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
             // 代理到公司上传图片服务器
-            proxy.web(req, res, { target: `${ENV.api[nodeENV]}/commonUploadFile/uploadZip?_=1`  }, (e) => {
+            proxy.web(req, res, { target: `http://localhost:12345/ssr/push`  }, (e) => {
                 console.log(e);
                 next();
             })

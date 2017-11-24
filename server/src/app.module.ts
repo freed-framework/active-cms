@@ -3,6 +3,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { DevelopmentMiddleware } from './common/middlewares/development.middleware';
 import { CatsController } from './api/cats/cats.controller';
 import { PublishMiddleware } from './common/middlewares/publish.middleware';
+import { PushMiddleware } from './common/middlewares/push.middlerware';
 
 import { CatsModule } from './api/cats/cats.module';
 import { UsersModule } from './api/user/user.module';
@@ -31,6 +32,9 @@ export class ApplicationModule implements NestModule {
             .forRoutes({path: '/*', method: RequestMethod.ALL})
             // 上传zip活动页拦截器
             .apply(PublishMiddleware)
-            .forRoutes({path: '/publish/zip', method: RequestMethod.ALL});
+            .forRoutes({path: '/publish/zip', method: RequestMethod.ALL})
+            // 推送页面
+            // .apply(PushMiddleware)
+            // .forRoutes({path: '/ssr/push', method: RequestMethod.ALL})
     }
 }
