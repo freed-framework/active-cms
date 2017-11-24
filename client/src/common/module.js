@@ -22,16 +22,18 @@ class Module {
             import(`../../components/${item.name}/index`)
                 // 返回数据
                 .then(App => {
+                    const Component = App.default;
+
                     return resolve({
                         // ...item,
                         guid: item.guid,
-                        // 返回组件 name
-                        // name: conf.name,
                         // 返回组件
-                        App: App.default,
-                        // 返回模块配置 App.config -> module
-                        ...(App.config && { config: { ...App.config } }),
-                        // 组件属性对象
+                        App: Component,
+                        // displayName
+                        ...(item.displayName && { displayName: item.displayName }),
+                        // 返回模块配置
+                        ...(Component.config && { config: { ...Component.config } }),
+                        // <TODO> 组件属性对象 将废弃
                         ...(item.attrs && {attrs: { ...item.attrs }}),
                         // 该数据用于组件内部的转换
                         ...(item.dataTrans && {dataTrans: { ...item.dataTrans }}),

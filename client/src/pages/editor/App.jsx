@@ -70,6 +70,7 @@ class App extends Component {
         emitter.on('save', this.mittSave);
         emitter.on('edit', this.mittEdit);
         emitter.on('modify', this.mittModify);
+        emitter.on('sort', this.mittSort);
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
     }
@@ -297,6 +298,12 @@ class App extends Component {
             this.setState({
                 data,
             });
+        });
+    }
+
+    mittSort = (data) => {
+        this.setState({
+            data,
         });
     }
 
@@ -551,6 +558,10 @@ export const activeComponent = (guid, target) => {
         guid,
         target,
     });
+}
+
+export const sortComponent = (data) => {
+    emitter.emit('sort', data);
 }
 
 /**

@@ -4,7 +4,8 @@ import Layer from './Layer';
 const config: Config = {
     name: 'mobile/layer',
     isCommon: true,
-    displayName: '布局',
+    displayName: '楼层',
+    iconType: 'layers',
     menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
     editable: [
         {
@@ -21,8 +22,6 @@ const config: Config = {
     }
 };
 
-export {
-    config,
-}
+Layer.config = config;
 
 export default Layer;

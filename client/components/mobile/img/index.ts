@@ -10,8 +10,6 @@ const config: Config = {
     }]
 };
 
-export {
-    config,
-}
+Img.config = config;
 
 export default Img;

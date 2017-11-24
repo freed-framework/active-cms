@@ -8,12 +8,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Font from 'font';
+import { Icon } from 'antd';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
+import { fromJS } from 'immutable';
 import Lazyer from '../../common/Lazyer';
 import DragPop from './DragPop';
-
-import { moveComponent } from '../../pages/editor/App';
+import Utils from '../../../components/util/util';
+import { moveComponent, sortComponent, editComponentByGuid } from '../../pages/editor/App';
 
 function GetRect(element) {
     const rect = element.getBoundingClientRect();
@@ -53,6 +55,15 @@ function contains(n, targetClass, endClass) {
 }
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editId: null,
+            displayName: null,
+        }
+    }
+
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.any),
         active: PropTypes.bool,
@@ -62,15 +73,15 @@ class List extends Component {
 
     componentDidMount() {
         this.dom = ReactDOM.findDOMNode(this);
-        window.addEventListener('mousedown', this.onMouseDown);
-        window.addEventListener('mousemove', this.onMouseMove);
-        window.addEventListener('mouseup', this.onMouseUp);
+        // window.addEventListener('mousedown', this.onMouseDown);
+        // window.addEventListener('mousemove', this.onMouseMove);
+        // window.addEventListener('mouseup', this.onMouseUp);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('mousedown', this.onMouseDown);
-        window.removeEventListener('mousemove', this.onMouseMove);
-        window.removeEventListener('mouseup', this.onMouseUp);
+        // window.removeEventListener('mousedown', this.onMouseDown);
+        // window.removeEventListener('mousemove', this.onMouseMove);
+        // window.removeEventListener('mouseup', this.onMouseUp);
         // document.body.removeChild(this.container);
     }
 
@@ -126,9 +137,132 @@ class List extends Component {
     }
 
     handleActive = (e) => {
-        const id = e.target.getAttribute('data-guid');
+        const id = e.currentTarget.getAttribute('data-guid');
         this.props.onActive(id);
     }
+
+    /**
+     * 进行排序
+     * @param e
+     */
+    handleSort = (e) => {
+        const { data } = this.props;
+        const id = e.target.getAttribute('data-guid');
+        const fromIndex = e.target.getAttribute('data-index');
+        const toIndex = e.target.value;
+        const $data = fromJS(data);
+        let $dealData = fromJS([]);
+
+        Utils.find($data, id, ($finder, deep) => {
+            const d = deep;
+            d.pop();
+
+            $dealData = $data.updateIn(d, (value) => {
+                return Utils.takeTo(value, fromIndex, toIndex);
+            });
+        }, {
+            findBy: 'guid'
+        });
+
+        sortComponent($dealData.toJS());
+    }
+
+    /**
+     * 修改组件名称
+     * @param e
+     */
+    handleChangeName = (e) => {
+        const id = e.currentTarget.getAttribute('data-guid');
+        const value = e.currentTarget.value;
+
+        this.setState({
+            displayName: value,
+        })
+
+        editComponentByGuid(
+            id,
+            ['displayName'],
+            value
+        )
+    }
+
+    handleEdit = (e) => {
+        const editId = e.currentTarget.getAttribute('data-guid');
+        const displayName = e.currentTarget.getAttribute('data-name');
+        const value = e.currentTarget.value;
+
+        this.setState({
+            editId,
+            displayName,
+        });
+    }
+
+    handleBlur = (e) => {
+        this.setState({
+            editId: null,
+            displayName: null,
+        });
+    }
+
+    /**
+     * 获取展示名
+     * @param item
+     * @return {XML}
+     */
+    getDisplayName(item) {
+        if (this.state.editId === item.guid) {
+            return (
+                <span>
+                    <input
+                        ref={ref => { this.editName = ref }}
+                        className="ec-editor-layer-cake-name"
+                        data-guid={item.guid}
+                        onChange={this.handleChangeName}
+                        onBlur={this.handleBlur}
+                        value={this.state.displayName}
+                    />
+                </span>
+            )
+        }
+
+        if (item.displayName) {
+            return (
+                <span>
+                    <span>{item.displayName}</span>
+                    <span
+                        data-guid={item.guid}
+                        data-name={item.displayName}
+                        onClick={this.handleEdit}
+                    >
+                        <Icon type="edit" />
+                    </span>
+                </span>
+            )
+        }
+
+        return (
+            <Lazyer
+                item={item}
+            >
+                {mod => {
+                    return (
+                        <span>
+                            <span>{mod.module.config.displayName}</span>
+                            <span
+                                data-guid={item.guid}
+                                data-name={mod.module.config.displayName}
+                                onClick={this.handleEdit}
+                            >
+                                <Icon type="edit" />
+                            </span>
+                        </span>
+                    )
+                }}
+            </Lazyer>
+        )
+    }
+
+
 
     /**
      * 循环 DOM 节点
@@ -139,16 +273,15 @@ class List extends Component {
         const { activeId, match } = this.props;
 
         const cls = classNames('ec-editor-layer-cake-items', {
-            'ec-editor-layer-cake-items-sub': isChildren
+            'ec-editor-layer-cake-items-sub': isChildren,
         });
 
-        return data.map(item => {
+        return data.map((item, index) => {
             const isActive = activeId === item.guid;
-
             const childCls = classNames({
                 'ec-editor-layer-cake-items-active': isActive,
                 'ec-editor-layer-cake-items-not-active': !isActive
-            })
+            });
 
             return (
                 <div
@@ -159,16 +292,23 @@ class List extends Component {
                         className="ec-editor-layer-cake-content"
                         data-guid={item.guid}
                         data-name={item.name}
-                        onClick={this.handleActive}
                     >
-                        <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
-
-                        <Lazyer
-                            item={item}
-                            type={match.params.type}
+                        <span
+                            data-guid={item.guid}
+                            onClick={this.handleActive}
                         >
-                            {mod => <span>{mod.module.config.displayName}</span>}
-                        </Lazyer>
+                            <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
+                        </span>
+
+                        {this.getDisplayName(item)}
+
+                        <input
+                            className="ec-editor-layer-cake-index"
+                            data-guid={item.guid}
+                            data-index={index}
+                            value={index}
+                            onChange={this.handleSort}
+                        />
                     </div>
 
                     <div className={childCls}>

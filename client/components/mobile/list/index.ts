@@ -3,7 +3,9 @@ import List from './List';
 
 const config: Config = {
     name: 'mobile/list',
+    isCommon: true,
     displayName: '图片列表',
+    iconType: 'layers',
     menus: [],
     editable: [
         {
@@ -24,14 +26,14 @@ const config: Config = {
         },
         extendsProps: {
             style: {
-                padding: 10,
+                layout: {
+                    padding: 10,
+                }
             }
         }
     }
 };
 
-export {
-    config,
-}
+List.config = config;
 
 export default List;
