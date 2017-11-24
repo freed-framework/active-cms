@@ -1,8 +1,11 @@
 /// <reference path="./img.d.ts" />
 import * as React from 'react';
+import config from './config';
 import './img.scss';
 
 class Img extends React.Component<ImgProps, any> {
+    static config: Config = config;
+
     constructor(props: ImgProps) {
         super(props);
     }
