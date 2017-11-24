@@ -37,6 +37,7 @@ class Viewer extends Component {
         return (
             <Render
                 data={this.state.data}
+                pageType={this.props.pageType}
             />
         )
     }

@@ -135,7 +135,7 @@ export async function compileTemplate(page, timeStmp, id, sendProgress) {
     };
 
     const pageToString = JSON.stringify(data);
-    const varScripts = `const data = ${pageToString}\n\n`;
+    const varScripts = `const data = ${pageToString}\n\nconst pageType = "mobile"\n\n`;
     const appScript = fs.readFileSync(path.join(inputPath, '_app_template.js')).toString();
     const allScript = varScripts + appScript;
     console.log(path.join(inputPath, inputFileName))

@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
 import io from 'socket.io-client';
+import ENV from '../../../../conf/env';
 
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
@@ -27,7 +28,7 @@ window.user = {
     "sex": 1
 }
 
-const socket = io('http://localhost:5555', {
+const socket = io(`${ENV}/socket`, {
     path: '/push'
 });
 
