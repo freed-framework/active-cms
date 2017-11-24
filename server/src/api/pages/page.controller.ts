@@ -136,4 +136,10 @@ export class PageController {
         res.status(HttpStatus.OK).json(result);
     }
 
+    @Get('/delete/push/:id')
+    async pushDelete(@Response() res, @Body() body, @Param('id') id) {
+        const result: any = await this.service.pushDelete(id);
+        res.status(HttpStatus.OK).json(result);
+    }
+
 }

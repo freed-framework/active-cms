@@ -6,8 +6,12 @@ import PageModel from './page.model';
 import CommonService from '../../common/common.service';
 import { ForkService, ShareService } from '../';
 import { resolve } from 'url';
+import ENV from '../../config/env';
+
 const forkService = new ForkService();
 const shareService = new ShareService();
+
+const nodeENV = process.env.NODE_ENV;
 
 @Component()
 export class PageService {
@@ -259,6 +263,27 @@ export class PageService {
                 resolve({code: 200, message: "请求成功", data });
             });
         })
-        
+    }
+
+    /**
+     * 删除推送（内部接口）
+     * @param id {string} 推送的id
+     */
+    async pushDelete(id) {
+        return new Promise((resolve, reject) => {
+            request(`${ENV.api[nodeENV]}/commonUploadFile/deleteZipById?id=${id}`, (err, response, body) => {
+                if (err) {
+                    reject(err);
+                }
+
+                PageModel.update({pushId: id}, {pushId: 0}, (err, doc) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve({code: 200, message: "删除成功", data: {}});
+                })
+            });
+        })
     }
 }
