@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
+  "main": "./dist/main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon -w *.*.ts --exec ts-node ./src/main.ts",
     "dev": "cross-env NODE_ENV=test nodemon -w *.*.ts --exec ts-node ./src/main.ts",
