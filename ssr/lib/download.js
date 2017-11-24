@@ -90,6 +90,10 @@ function sendProgress(id, message, progress, data) {
     io.emit('push:progress:' + id, { code: 200, message: message, progress: progress, data: data });
 }
 
+function sendProgressFail(id, message, progress, data) {
+    io.emit('push:progress:' + id, { code: 500, message: message, progress: progress, data: data });
+}
+
 var download = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
         var _req$body, id, uploadUserId, content, title, field, page, timeStmp, data, props, htmlString, destHtml, folderPath, folderZipPath, access, formData;
@@ -179,7 +183,7 @@ var download = function () {
                         break;
 
                     case 30:
-                        sendProgress(id, "推送失败");
+                        sendProgressFail(id, "推送失败", 0);
                         res.status(404).send({
                             retcode: 404,
                             msg: 'zip 压缩包不存在'
@@ -193,7 +197,7 @@ var download = function () {
                         _context.prev = 34;
                         _context.t0 = _context['catch'](4);
 
-                        sendProgress(id, "推送失败");
+                        sendProgressFail(id, "推送失败", 0);
                         next(_context.t0);
 
                     case 38:
@@ -223,6 +227,8 @@ var _temp = function () {
     __REACT_HOT_LOADER__.register(nodeENV, 'nodeENV', 'src/download.js');
 
     __REACT_HOT_LOADER__.register(sendProgress, 'sendProgress', 'src/download.js');
+
+    __REACT_HOT_LOADER__.register(sendProgressFail, 'sendProgressFail', 'src/download.js');
 
     __REACT_HOT_LOADER__.register(download, 'download', 'src/download.js');
 

@@ -53,7 +53,7 @@ var compileTemplate = exports.compileTemplate = function () {
                             resolve: resolve
                         };
                         pageToString = (0, _stringify2.default)(data);
-                        varScripts = 'const data = ' + pageToString + '\n\n';
+                        varScripts = 'const data = ' + pageToString + '\n\nconst pageType = "mobile"\n\n';
                         appScript = _fs2.default.readFileSync(_path2.default.join(inputPath, '_app_template.js')).toString();
                         allScript = varScripts + appScript;
 

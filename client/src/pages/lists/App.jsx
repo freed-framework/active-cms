@@ -32,6 +32,10 @@ const socket = io(`${ENV.domain}`, {
     path: '/push'
 });
 
+socket.on('disconnect', () => {
+    console.log('disconnect');
+});
+
 class List extends Component {
     static propTypes = {
         match: PropTypes.objectOf(PropTypes.any),
