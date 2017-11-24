@@ -60,7 +60,10 @@ export default class componentName extends Component {
             this.setState({
                 progress: res.progress
             }, () => {
-                const { progress } = res;
+                const { progress, code } = res;
+                if (code === 500) {
+                    message.success('推送失败');
+                }
                 if (progress === 100) {
                     message.success('推送成功');
                 }

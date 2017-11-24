@@ -30,6 +30,10 @@ function sendProgress(id, message, progress , data) {
     io.emit(`push:progress:${id}`, {code: 200, message, progress, data});
 }
 
+function sendProgressFail(id, message, progress, data) {
+    io.emit(`push:progress:${id}`, {code: 500, message, progress, data});
+}
+
 const download = async (req, res, next) => {
     /**
      * id {string} 页面id
@@ -95,14 +99,14 @@ const download = async (req, res, next) => {
             });
         }
         else {
-            sendProgress(id, "推送失败");
+            sendProgressFail(id, "推送失败", 0);
             res.status(404).send({
                 retcode: 404,
                 msg: 'zip 压缩包不存在'
             });
         }
     } catch (err) {
-        sendProgress(id, "推送失败");
+        sendProgressFail(id, "推送失败", 0);
         next(err);
     }
 }
