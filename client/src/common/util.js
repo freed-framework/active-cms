@@ -15,3 +15,14 @@ export const px2rem = (px, rootFontSize = 100) => (
         `${Number(word) / rootFontSize}rem`
     ))
 )
+
+/**
+ * 直接将数字(string number)转换为 rem
+ * @param px
+ * @param rootFontSize
+ */
+export const num2rem = (px, rootFontSize = 100) => (
+    px.toString().replace(/(\d+)$/gi, (match, word) => (
+        `${Number(word) / rootFontSize}rem`
+    ))
+)

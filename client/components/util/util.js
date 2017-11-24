@@ -92,6 +92,25 @@ class utils {
         return null;
     }
 
+
+    /**
+     * 修改数组中指定数据的索引位置
+     *
+     * @param $arr Immutable Array
+     * @param fromIndex
+     * @param toIndex
+     */
+    static takeTo($arr, fromIndex, toIndex) {
+        const $newArr = $arr;
+        const $take = $arr.get(fromIndex);
+
+        return $newArr
+        // 从数组中取出指定位置的数据
+            .delete(fromIndex)
+            // 放入指定的索引位置
+            .insert(toIndex, $take);
+    }
+
     /**
      * 向指定位置插入值
      * @param {Array} data 目标数组 

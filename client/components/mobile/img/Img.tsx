@@ -14,9 +14,10 @@ class Img extends React.Component<ImgProps, any> {
 
     render() {
         const { id, style = {}, src = '', extendsProps = {} } = this.props;
+
         const styleProps = {
             ...(style && { ...style.layout }),
-            ...(extendsProps && { ...extendsProps.style })
+            ...(extendsProps && extendsProps.style && { ...extendsProps.style.layout })
         };
 
         return (

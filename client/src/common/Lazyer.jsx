@@ -38,7 +38,6 @@ class Lazyer extends Component {
             .then(module => {
                 if (module) {
                     this.setState({
-                        // mod: module
                         mod: {
                             module,
                             ...props,

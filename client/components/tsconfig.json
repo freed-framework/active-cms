@@ -12,6 +12,7 @@
         ],
         "jsx": "Preserve",
         "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
         "allowJs": true,
         "typeRoots": [
             "node_modules/@types"

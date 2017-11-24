@@ -15,6 +15,8 @@ interface Config {
      */
     isCommon?: boolean;
 
+    iconType?: string;
+
     /**
      * 用于显示的组件名字
      */

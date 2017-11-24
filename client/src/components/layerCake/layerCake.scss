@@ -11,15 +11,27 @@
 
     &-main {
         @extend .ec-editor-layout-fixed-main;
+
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    &-index {
+        width: 20px;
+    }
+
+    &-name {
+        max-width: 50px;
+        display: inline-block;
     }
 
     &-items {
         margin-bottom: 5px;
         cursor: pointer;
 
-        span {
-            pointer-events: none;
-        }
+        //span {
+        //    pointer-events: none;
+        //}
 
         &-sub {
             margin-bottom: 0;
