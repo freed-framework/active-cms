@@ -5,7 +5,7 @@ import View from '../../../client/src/pages/viewer';
 
 
 if (canUseDOM) {
-  ReactDOM.render(<View data={data} />, document.getElementById('topicRoot'), () => {
+  ReactDOM.render(<View data={data} pageType={pageType} />, document.getElementById('topicRoot'), () => {
     console.log('ReactDOM.render');
   });
 }
