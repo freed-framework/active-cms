@@ -246,7 +246,7 @@ export class PageService {
 
         return new Promise((resolve, reject) => {
             request({
-                url: 'http://localhost:12345/ssr/push',
+                url: `${ENV.domain}/ssr/push`,
                 method: "POST",
                 json: true,
                 headers: {
