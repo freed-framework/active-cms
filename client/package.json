@@ -9,7 +9,8 @@
     "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
-    "build": "./node_modules/.bin/webpack --config=./webpack.config.js"
+    "build": "./node_modules/.bin/webpack --config=./webpack.config.js",
+    "build-ssr": "./node_modules/.bin/webpack --config=./webpack.config.ssr.js"
   },
   "pre-commit": [
     "pre-commit"

@@ -75,7 +75,6 @@ var compileTemplate = exports.compileTemplate = function () {
                                     }
                                     var fileContent = _fs2.default.readFileSync(outputFilePath);
                                     var styleContent = _fs2.default.readFileSync(outputStylePath);
-                                    compiler = null;
                                     resolve({
                                         stats: stats,
                                         fileContent: fileContent,

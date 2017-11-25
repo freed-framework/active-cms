@@ -84,7 +84,7 @@ function sendProgressFail(io, id, message, progress, data) {
 
 var download = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
-        var socket, _req$body, id, uploadUserId, content, title, field, page, timeStmp, data, props, htmlString, destHtml, folderPath, folderZipPath, access, formData;
+        var socket, _req$body, id, uploadUserId, content, title, field, page, timeStmp, _template, props, htmlString, destHtml, folderPath, folderZipPath, formData;
 
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
@@ -111,38 +111,26 @@ var download = function () {
                         return (0, _compile.compileTemplate)(page, timeStmp, id, sendProgress, socket);
 
                     case 8:
-                        data = _context.sent;
+                        _template = _context.sent;
 
                         sendProgress(socket, id, "构建完成", 60);
                         props = {};
 
-                        props.script = data.fileContent.toString();
-                        props.style = data.styleContent.toString();
+                        props.script = _template.fileContent.toString();
+                        props.style = _template.styleContent.toString();
                         htmlString = _server2.default.renderToStaticMarkup(_react2.default.createElement(_html2.default, props));
-                        destHtml = data.outputPath + '/index.html';
+                        destHtml = _template.outputPath + '/index.html';
 
                         _fs2.default.writeFileSync(destHtml, htmlString);
                         folderPath = _path2.default.join(__dirname, '../render', timeStmp);
                         folderZipPath = folderPath + '.zip';
-                        access = true;
-                        _context.next = 21;
-                        return _fs2.default.access(folderPath, function (err) {
-                            if (err) {
-                                access = false;
-                            }
-                        });
 
-                    case 21:
-                        if (!access) {
-                            _context.next = 31;
-                            break;
-                        }
 
                         sendProgress(socket, id, "打包中", 70);
-                        _context.next = 25;
+                        _context.next = 21;
                         return _zipfolder2.default.zipFolder({ folderPath: folderPath });
 
-                    case 25:
+                    case 21:
                         sendProgress(socket, "打包完成", 80);
                         // res.download(folderZipPath);
 
@@ -167,35 +155,26 @@ var download = function () {
                             (0, _rimraf2.default)(folderPath, {}, function () {});
                             (0, _rimraf2.default)(folderZipPath, {}, function () {});
                             sendProgress(socket, id, "推送成功", 100, body);
+                            _template = null;
                             res.status(200).send(body);
                         });
-                        _context.next = 33;
+                        _context.next = 32;
                         break;
 
-                    case 31:
-                        sendProgressFail(socket, id, "推送失败", 0);
-                        res.status(404).send({
-                            retcode: 404,
-                            msg: 'zip 压缩包不存在'
-                        });
-
-                    case 33:
-                        _context.next = 39;
-                        break;
-
-                    case 35:
-                        _context.prev = 35;
+                    case 27:
+                        _context.prev = 27;
                         _context.t0 = _context['catch'](5);
 
                         sendProgressFail(socket, id, "推送失败", 0);
+                        template = null;
                         next(_context.t0);
 
-                    case 39:
+                    case 32:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[5, 35]]);
+        }, _callee, undefined, [[5, 27]]);
     }));
 
     return function download(_x, _x2, _x3) {
