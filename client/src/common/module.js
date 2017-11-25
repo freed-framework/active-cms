@@ -19,7 +19,6 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            console.log(item.name)
             import(`../../components/${item.name}/index`)
                 // 返回数据
                 .then(App => {

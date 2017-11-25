@@ -1,5 +1,5 @@
 /// <reference path="../../config.d.ts" />
-import List from './list';
+import List from './List';
 import './index.scss';
 
 interface ListConfig extends Config {
