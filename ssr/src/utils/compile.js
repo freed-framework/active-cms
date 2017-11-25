@@ -109,11 +109,11 @@ const resolve = {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
 };
 
-export async function compileTemplate(page, timeStmp, id, sendProgress) {
+export async function compileTemplate(page, timeStmp, id, sendProgress, socket) {
     const data = page.data;
     const pageName = page.name;
 
-    sendProgress(id, '打包中', 10);
+    sendProgress(socket, id, '打包中', 10);
 
     console.log('start to compile template: ', pageName);
     const inputPath = path.join(__dirname, '../publishPage/');
@@ -140,7 +140,7 @@ export async function compileTemplate(page, timeStmp, id, sendProgress) {
     const allScript = varScripts + appScript;
     console.log(path.join(inputPath, inputFileName))
     fs.writeFileSync(path.join(inputPath, inputFileName), allScript);
-    sendProgress(id, '打包中', 20);
+    sendProgress(socket, id, '打包中', 20);
     var compiler = webpack(config);
 
     return new Promise((resolve, reject) => {

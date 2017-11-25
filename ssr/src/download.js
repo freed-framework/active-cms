@@ -9,32 +9,23 @@ import zip from 'zipfolder';
 import request from 'request';
 import rimraf from 'rimraf';
 import ENV from './env';
-const io = require('socket.io')(5555, {
-    path: '/push',
-    serveClient: false,
-    pingInterval: 10000,
-    pingTimeout: 5000,
-    cookie: false
-});
+
 
 const nodeENV = process.env.NODE_ENV;
 
 import { compileTemplate } from '../lib/utils/compile';
 import Html from '../lib/publishPage/html';
 
-io.on('connection', (socket) => {
-    socket.emit('connection', '链接成功');
-});
-
-function sendProgress(id, message, progress , data) {
+function sendProgress(io, id, message, progress , data) {
     io.emit(`push:progress:${id}`, {code: 200, message, progress, data});
 }
 
-function sendProgressFail(id, message, progress, data) {
+function sendProgressFail(io, id, message, progress, data) {
     io.emit(`push:progress:${id}`, {code: 500, message, progress, data});
 }
 
 const download = async (req, res, next) => {
+    const { socket } = req;
     /**
      * id {string} 页面id
      * uploadUserId {string} 上传用户
@@ -47,14 +38,14 @@ const download = async (req, res, next) => {
         id, uploadUserId, content, title,
         ...field
     } = req.body;
-    sendProgress(id, "开始构建", 1);
+    sendProgress(socket, id, "开始构建", 1);
 
     const page = {data: content, name: title};
     const timeStmp = `${id}${new Date() * 1}`;
 
     try {
-        const data = await compileTemplate(page, timeStmp ,id ,sendProgress);
-        sendProgress(id, "构建完成", 60);
+        const data = await compileTemplate(page, timeStmp ,id ,sendProgress, socket);
+        sendProgress(socket, id, "构建完成", 60);
         const props = {};
         props.script = data.fileContent.toString();
         props.style = data.styleContent.toString();
@@ -70,9 +61,9 @@ const download = async (req, res, next) => {
             }
         });
         if (access) {
-            sendProgress(id, "打包中", 70);
+            sendProgress(socket, id, "打包中", 70);
             await zip.zipFolder({ folderPath: folderPath });
-            sendProgress("打包完成", 80);
+            sendProgress(socket, "打包完成", 80);
             // res.download(folderZipPath);
 
             var formData = {
@@ -85,7 +76,7 @@ const download = async (req, res, next) => {
                     }
                 }
             };
-            sendProgress(id, "推送zip", 85);
+            sendProgress(socket, id, "推送zip", 85);
             request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, body) => {
                 body = JSON.parse(body) || {};
                 if (err) {
@@ -94,19 +85,19 @@ const download = async (req, res, next) => {
                 }
                 rimraf(folderPath, {}, () => { });
                 rimraf(folderZipPath, {}, () => { });
-                sendProgress(id, "推送成功", 100, body);
+                sendProgress(socket, id, "推送成功", 100, body);
                 res.status(200).send(body)
             });
         }
         else {
-            sendProgressFail(id, "推送失败", 0);
+            sendProgressFail(socket, id, "推送失败", 0);
             res.status(404).send({
                 retcode: 404,
                 msg: 'zip 压缩包不存在'
             });
         }
     } catch (err) {
-        sendProgressFail(id, "推送失败", 0);
+        sendProgressFail(socket, id, "推送失败", 0);
         next(err);
     }
 }
