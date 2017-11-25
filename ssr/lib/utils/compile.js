@@ -22,7 +22,7 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var compileTemplate = exports.compileTemplate = function () {
-    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(page, timeStmp, id, sendProgress) {
+    var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(page, timeStmp, id, sendProgress, socket) {
         var data, pageName, inputPath, inputFileName, outputPath, outputFileName, config, pageToString, varScripts, appScript, allScript, compiler;
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
@@ -32,7 +32,7 @@ var compileTemplate = exports.compileTemplate = function () {
                         pageName = page.name;
 
 
-                        sendProgress(id, '打包中', 10);
+                        sendProgress(socket, id, '打包中', 10);
 
                         console.log('start to compile template: ', pageName);
                         inputPath = _path2.default.join(__dirname, '../publishPage/');
@@ -59,12 +59,13 @@ var compileTemplate = exports.compileTemplate = function () {
 
                         console.log(_path2.default.join(inputPath, inputFileName));
                         _fs2.default.writeFileSync(_path2.default.join(inputPath, inputFileName), allScript);
-                        sendProgress(id, '打包中', 20);
+                        sendProgress(socket, id, '打包中', 20);
                         compiler = (0, _webpack2.default)(config);
                         return _context.abrupt('return', new _promise2.default(function (resolve, reject) {
                             compiler.run(function (err, stats) {
                                 if (err) {
                                     reject(err);
+                                    compiler = null;
                                 } else {
                                     var outputFilePath = _path2.default.join(outputPath, outputFileName);
                                     var outputStylePath = _path2.default.join(outputPath, 'main.css');
@@ -94,7 +95,7 @@ var compileTemplate = exports.compileTemplate = function () {
         }, _callee, this);
     }));
 
-    return function compileTemplate(_x, _x2, _x3, _x4) {
+    return function compileTemplate(_x, _x2, _x3, _x4, _x5) {
         return _ref.apply(this, arguments);
     };
 }();

@@ -157,7 +157,6 @@ export async function compileTemplate(page, timeStmp, id, sendProgress, socket) 
                 }
                 const fileContent = fs.readFileSync(outputFilePath);
                 const styleContent = fs.readFileSync(outputStylePath);
-                compiler = null;
                 resolve({
                     stats: stats,
                     fileContent: fileContent,

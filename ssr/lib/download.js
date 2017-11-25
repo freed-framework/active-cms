@@ -72,36 +72,25 @@ var _html2 = _interopRequireDefault(_html);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var io = require('socket.io')(5555, {
-    path: '/push',
-    serveClient: false,
-    pingInterval: 10000,
-    pingTimeout: 5000,
-    cookie: false
-});
-
 var nodeENV = process.env.NODE_ENV;
 
-io.on('connection', function (socket) {
-    socket.emit('connection', '链接成功');
-});
-
-function sendProgress(id, message, progress, data) {
+function sendProgress(io, id, message, progress, data) {
     io.emit('push:progress:' + id, { code: 200, message: message, progress: progress, data: data });
 }
 
-function sendProgressFail(id, message, progress, data) {
+function sendProgressFail(io, id, message, progress, data) {
     io.emit('push:progress:' + id, { code: 500, message: message, progress: progress, data: data });
 }
 
 var download = function () {
     var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(req, res, next) {
-        var _req$body, id, uploadUserId, content, title, field, page, timeStmp, data, props, htmlString, destHtml, folderPath, folderZipPath, access, formData;
+        var socket, _req$body, id, uploadUserId, content, title, field, page, timeStmp, data, props, htmlString, destHtml, folderPath, folderZipPath, access, formData;
 
         return _regenerator2.default.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
+                        socket = req.socket;
                         /**
                          * id {string} 页面id
                          * uploadUserId {string} 上传用户
@@ -110,20 +99,21 @@ var download = function () {
                          * invalidTime {Date} 有效时间
                          * activityName {sting} 活动名称
                          */
+
                         _req$body = req.body, id = _req$body.id, uploadUserId = _req$body.uploadUserId, content = _req$body.content, title = _req$body.title, field = (0, _objectWithoutProperties3.default)(_req$body, ['id', 'uploadUserId', 'content', 'title']);
 
-                        sendProgress(id, "开始构建", 1);
+                        sendProgress(socket, id, "开始构建", 1);
 
                         page = { data: content, name: title };
                         timeStmp = '' + id + new Date() * 1;
-                        _context.prev = 4;
-                        _context.next = 7;
-                        return (0, _compile.compileTemplate)(page, timeStmp, id, sendProgress);
+                        _context.prev = 5;
+                        _context.next = 8;
+                        return (0, _compile.compileTemplate)(page, timeStmp, id, sendProgress, socket);
 
-                    case 7:
+                    case 8:
                         data = _context.sent;
 
-                        sendProgress(id, "构建完成", 60);
+                        sendProgress(socket, id, "构建完成", 60);
                         props = {};
 
                         props.script = data.fileContent.toString();
@@ -135,25 +125,25 @@ var download = function () {
                         folderPath = _path2.default.join(__dirname, '../render', timeStmp);
                         folderZipPath = folderPath + '.zip';
                         access = true;
-                        _context.next = 20;
+                        _context.next = 21;
                         return _fs2.default.access(folderPath, function (err) {
                             if (err) {
                                 access = false;
                             }
                         });
 
-                    case 20:
+                    case 21:
                         if (!access) {
-                            _context.next = 30;
+                            _context.next = 31;
                             break;
                         }
 
-                        sendProgress(id, "打包中", 70);
-                        _context.next = 24;
+                        sendProgress(socket, id, "打包中", 70);
+                        _context.next = 25;
                         return _zipfolder2.default.zipFolder({ folderPath: folderPath });
 
-                    case 24:
-                        sendProgress("打包完成", 80);
+                    case 25:
+                        sendProgress(socket, "打包完成", 80);
                         // res.download(folderZipPath);
 
                         formData = (0, _extends3.default)({
@@ -167,7 +157,7 @@ var download = function () {
                             }
                         });
 
-                        sendProgress(id, "推送zip", 85);
+                        sendProgress(socket, id, "推送zip", 85);
                         _request2.default.post({ url: _env2.default.domain + '/api/publish/zip', formData: formData }, function (err, httpResponse, body) {
                             body = JSON.parse(body) || {};
                             if (err) {
@@ -176,36 +166,36 @@ var download = function () {
                             }
                             (0, _rimraf2.default)(folderPath, {}, function () {});
                             (0, _rimraf2.default)(folderZipPath, {}, function () {});
-                            sendProgress(id, "推送成功", 100, body);
+                            sendProgress(socket, id, "推送成功", 100, body);
                             res.status(200).send(body);
                         });
-                        _context.next = 32;
+                        _context.next = 33;
                         break;
 
-                    case 30:
-                        sendProgressFail(id, "推送失败", 0);
+                    case 31:
+                        sendProgressFail(socket, id, "推送失败", 0);
                         res.status(404).send({
                             retcode: 404,
                             msg: 'zip 压缩包不存在'
                         });
 
-                    case 32:
-                        _context.next = 38;
+                    case 33:
+                        _context.next = 39;
                         break;
 
-                    case 34:
-                        _context.prev = 34;
-                        _context.t0 = _context['catch'](4);
+                    case 35:
+                        _context.prev = 35;
+                        _context.t0 = _context['catch'](5);
 
-                        sendProgressFail(id, "推送失败", 0);
+                        sendProgressFail(socket, id, "推送失败", 0);
                         next(_context.t0);
 
-                    case 38:
+                    case 39:
                     case 'end':
                         return _context.stop();
                 }
             }
-        }, _callee, undefined, [[4, 34]]);
+        }, _callee, undefined, [[5, 35]]);
     }));
 
     return function download(_x, _x2, _x3) {
@@ -221,8 +211,6 @@ var _temp = function () {
     if (typeof __REACT_HOT_LOADER__ === 'undefined') {
         return;
     }
-
-    __REACT_HOT_LOADER__.register(io, 'io', 'src/download.js');
 
     __REACT_HOT_LOADER__.register(nodeENV, 'nodeENV', 'src/download.js');
 

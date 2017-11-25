@@ -44,60 +44,48 @@ const download = async (req, res, next) => {
     const timeStmp = `${id}${new Date() * 1}`;
 
     try {
-        const data = await compileTemplate(page, timeStmp ,id ,sendProgress, socket);
+        const template = await compileTemplate(page, timeStmp ,id ,sendProgress, socket);
         sendProgress(socket, id, "构建完成", 60);
         const props = {};
-        props.script = data.fileContent.toString();
-        props.style = data.styleContent.toString();
+        props.script = template.fileContent.toString();
+        props.style = template.styleContent.toString();
         const htmlString = ReactDOMServer.renderToStaticMarkup(<Html  {...props} />);
-        const destHtml = data.outputPath + '/index.html';
+        const destHtml = template.outputPath + '/index.html';
         fs.writeFileSync(destHtml, htmlString);
         const folderPath = path.join(__dirname, '../render', timeStmp);
         const folderZipPath = folderPath + '.zip';
-        let access = true;
-        await fs.access(folderPath, (err) => {
-            if (err) {
-                access = false;
-            }
-        });
-        if (access) {
-            sendProgress(socket, id, "打包中", 70);
-            await zip.zipFolder({ folderPath: folderPath });
-            sendProgress(socket, "打包完成", 80);
-            // res.download(folderZipPath);
 
-            var formData = {
-                uploadUserId: uploadUserId,
-                ...field,
-                file: {
-                    value: fs.createReadStream(folderZipPath),
-                    options: {
-                        filename: `${timeStmp}.zip`
-                    }
+        sendProgress(socket, id, "打包中", 70);
+        await zip.zipFolder({ folderPath: folderPath });
+        sendProgress(socket, "打包完成", 80);
+        // res.download(folderZipPath);
+
+        var formData = {
+            uploadUserId: uploadUserId,
+            ...field,
+            file: {
+                value: fs.createReadStream(folderZipPath),
+                options: {
+                    filename: `${timeStmp}.zip`
                 }
-            };
-            sendProgress(socket, id, "推送zip", 85);
-            request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, body) => {
-                body = JSON.parse(body) || {};
-                if (err) {
-                    res.status(500).send(err);
-                    return;
-                }
-                rimraf(folderPath, {}, () => { });
-                rimraf(folderZipPath, {}, () => { });
-                sendProgress(socket, id, "推送成功", 100, body);
-                res.status(200).send(body)
-            });
-        }
-        else {
-            sendProgressFail(socket, id, "推送失败", 0);
-            res.status(404).send({
-                retcode: 404,
-                msg: 'zip 压缩包不存在'
-            });
-        }
+            }
+        };
+        sendProgress(socket, id, "推送zip", 85);
+        request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, body) => {
+            body = JSON.parse(body) || {};
+            if (err) {
+                res.status(500).send(err);
+                return;
+            }
+            rimraf(folderPath, {}, () => { });
+            rimraf(folderZipPath, {}, () => { });
+            sendProgress(socket, id, "推送成功", 100, body);
+            template = null;
+            res.status(200).send(body);
+        });
     } catch (err) {
         sendProgressFail(socket, id, "推送失败", 0);
+        template = null;
         next(err);
     }
 }
