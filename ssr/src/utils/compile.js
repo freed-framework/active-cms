@@ -156,6 +156,7 @@ export async function compileTemplate(page, timeStmp, id, sendProgress) {
                 }
                 const fileContent = fs.readFileSync(outputFilePath);
                 const styleContent = fs.readFileSync(outputStylePath);
+                compiler = null;
                 resolve({
                     stats: stats,
                     fileContent: fileContent,
@@ -163,7 +164,6 @@ export async function compileTemplate(page, timeStmp, id, sendProgress) {
                     outputPath: outputPath,
                     outputFileName: outputFileName,
                 });
-                console.log('end compile template: ', pageName);
             }
         });
     });
