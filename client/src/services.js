@@ -5,7 +5,7 @@
  * @author shijh
  */
 
-import Http from 'freed-spa/src/util/http';
+import Http from 'freed-spa/lib/util/http';
 import * as Cookies from 'js-cookie';
 import Login from './components/login';
 import { apiHost, ssrHost } from './config';
