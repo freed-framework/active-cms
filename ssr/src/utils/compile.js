@@ -147,6 +147,7 @@ export async function compileTemplate(page, timeStmp, id, sendProgress) {
         compiler.run((err, stats) => {
             if (err) {
                 reject(err);
+                compiler = null;
             } else {
                 const outputFilePath = path.join(outputPath, outputFileName);
                 const outputStylePath = path.join(outputPath, 'main.css');
