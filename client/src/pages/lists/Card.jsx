@@ -69,6 +69,14 @@ export default class componentName extends Component {
                 }
             })
         })
+
+        socket.on('disconnect', () => {
+            this.setState({
+                progress: 0
+            }, () => {
+                message.success('推送失败');
+            })
+        });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
