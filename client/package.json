@@ -21,6 +21,7 @@
     "body-parser": "^1.18.0",
     "connect": "^3.6.1",
     "font": "https://github.com/freed-framework/font.git",
+    "freed-spa": "https://github.com/freed-framework/freed-spa.git",
     "got": "^7.1.0",
     "history": "^4.6.1",
     "http-proxy": "^1.16.2",

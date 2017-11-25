@@ -106,7 +106,7 @@ const plugins = [
 
 const resolve = {
     // 省略后缀
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
 };
 
 export async function compileTemplate(page, timeStmp, id, sendProgress) {
