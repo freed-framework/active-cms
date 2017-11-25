@@ -44,7 +44,7 @@ const download = async (req, res, next) => {
     const timeStmp = `${id}${new Date() * 1}`;
 
     try {
-        const template = await compileTemplate(page, timeStmp ,id ,sendProgress, socket);
+        let template = await compileTemplate(page, timeStmp ,id ,sendProgress, socket);
         sendProgress(socket, id, "构建完成", 60);
         const props = {};
         props.script = template.fileContent.toString();
