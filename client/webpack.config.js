@@ -42,7 +42,7 @@ var webpackConfig = {
     },
     output: {
         path: path.resolve(process.cwd(), './dist/'),
-        publicPath: '/ssrPath/',
+        publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[name].[chunkhash].chunk.js'
     },
