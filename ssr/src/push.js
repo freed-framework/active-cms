@@ -13,10 +13,10 @@ const download = (req, res, next) => {
         message: "开始构建"
     })
 
-    Template(id, socket).then(({folderZipPath, baseUrl, timeStmp}) => {
+    Template(body.id, socket, body).then(({folderZipPath, baseUrl, timeStmp}) => {
         UploadZip({folderZipPath, baseUrl, timeStmp, body})
-        .then((res) =>{
-            res.status(200).json(res);
+        .then((result) =>{
+            res.status(200).json(result);
 
             socket.emit(`push:progress:${body.id}`, {
                 code: 200,

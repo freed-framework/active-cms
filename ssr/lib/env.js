@@ -22,7 +22,7 @@ var ENV = {
   /**
    * zip包地址
    */
-  publicPath: "http://sit.db.com/html"
+  publicPath: "http://sit.db.com/html/"
 };
 
 var _default = ENV;

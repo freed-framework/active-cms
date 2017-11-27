@@ -18,6 +18,7 @@ const nodeENV = process.env.NODE_ENV;
 export class PublishMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
+            console.log(`${ENV.api[nodeENV]}/commonUploadFile/uploadZip?_=1`)
             // 代理到公司上传图片服务器
             proxy.web(req, res, { target: `${ENV.api[nodeENV]}/commonUploadFile/uploadZip?_=1`  }, (e) => {
                 console.log(e);

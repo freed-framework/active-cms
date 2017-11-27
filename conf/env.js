@@ -13,8 +13,8 @@ var ENV = {
     /**
      * 项目域名
      */
-    // domain: "http://www.iting.top"
-    domain: "http://localhost:3000"
+    domain: "http://www.iting.top"
+    // domain: "http://localhost:3000"
 }
 
 export default ENV;
