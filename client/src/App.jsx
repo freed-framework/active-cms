@@ -12,6 +12,9 @@ import {
 import Editor from './pages/editor';
 import Viewer from './pages/viewer';
 import List from './pages/lists/App';
+import Login from './user/Login';
+import Register from './user/Register';
+import RegisterResult from './user/RegisterResult';
 
 const getConfirmation = (message, callback) => {
     const allowTransition = window.confirm(message);
@@ -36,6 +39,9 @@ const App = () => {
                 <Route exact path="/view/:id" component={Viewer} />
                 <Route exact path="/lists" component={List} />
                 <Route exact path="/lists/:type" component={List} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/registerResult" component={RegisterResult} />
             </div>
         </BrowserRouter>
     )

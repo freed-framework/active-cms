@@ -8,6 +8,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var StatsPlugin = require('stats-webpack-plugin');
 
 var ROOT_PATH = path.resolve(__dirname);
 
@@ -70,7 +71,12 @@ var webpackConfig = {
             compress: {
                 warnings: false
             }
-        })
+        }),
+
+        // new StatsPlugin('stats.json', {
+        //     chunkModules: true,
+        //     exclude: [/node_modules[\\\/]react/]
+        // })
     ],
     resolve: {
         // 省略后缀
