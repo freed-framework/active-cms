@@ -34,10 +34,13 @@ class Viewer extends Component {
     }
 
     render() {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+
         return (
             <Render
                 data={this.state.data}
-                pageType={this.props.pageType}
+                pageType="mobile"
             />
         )
     }
