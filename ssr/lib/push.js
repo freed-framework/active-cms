@@ -31,13 +31,13 @@ var download = function download(req, res, next) {
         message: "开始构建"
     });
 
-    (0, _template2.default)(id, socket).then(function (_ref) {
+    (0, _template2.default)(body.id, socket, body).then(function (_ref) {
         var folderZipPath = _ref.folderZipPath,
             baseUrl = _ref.baseUrl,
             timeStmp = _ref.timeStmp;
 
-        (0, _uploadZip2.default)({ folderZipPath: folderZipPath, baseUrl: baseUrl, timeStmp: timeStmp, body: body }).then(function (res) {
-            res.status(200).json(res);
+        (0, _uploadZip2.default)({ folderZipPath: folderZipPath, baseUrl: baseUrl, timeStmp: timeStmp, body: body }).then(function (result) {
+            res.status(200).json(result);
 
             socket.emit('push:progress:' + body.id, {
                 code: 200,

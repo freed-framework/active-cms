@@ -19,7 +19,7 @@ class Module {
         }
 
         return new Promise((resolve) => {
-            import(`../../components/${item.name}/index`)
+            import(`../../components/mobile/${item.name}/index`)
                 // 返回数据
                 .then(App => {
                     const Component = App.default;

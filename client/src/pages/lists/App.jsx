@@ -29,7 +29,7 @@ window.user = {
 }
 
 // `${ENV.domain}`
-const socket = io('http://localhost:5555', {
+const socket = io(`${ENV.domain}`, {
     path: '/push'
 });
 

@@ -25,6 +25,7 @@ cnpm install
 
 echo "build"
 npm run build
+npm run build-ssr
 
 echo "stop pm2..."
 pm2 delete all

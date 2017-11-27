@@ -13,11 +13,11 @@ const ENV = {
     /**
      * 项目域名
      */
-    domain: "http://localhost:3000",
+    domain: "http://www.iting.top",
     /**
      * zip包地址
      */
-    publicPath: "http://sit.db.com/html",
+    publicPath: "http://sit.db.com/html/",
 }
 
 export default ENV;
