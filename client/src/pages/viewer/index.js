@@ -13,6 +13,7 @@ class Viewer extends Component {
 
         this.state = {
             data: props.data || [],
+            pageType: null,
         }
     }
 
@@ -28,19 +29,17 @@ class Viewer extends Component {
 
                 this.setState({
                     data: data.content,
+                    pageType: data.pageType,
                 })
             })
         }
     }
 
     render() {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-
         return (
             <Render
                 data={this.state.data}
-                pageType="mobile"
+                pageType={this.state.pageType}
             />
         )
     }
