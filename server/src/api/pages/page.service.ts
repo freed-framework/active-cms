@@ -254,7 +254,11 @@ export class PageService {
                 headers: {
                     "content-type": "application/json",
                 },
-                body: {id, uploadUserId, ...field, content: newPage.content, title: newPage.title}
+                body: {
+                    id, uploadUserId, ...field,
+                    content: newPage.content,
+                    title: newPage.title, pageType: newPage.pageType
+                }
             }, (err, response, res) => {
                 if (err) {
                     throw new HttpException('系统错误', 500);

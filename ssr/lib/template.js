@@ -34,6 +34,7 @@ var cpy = require('cpy');
 
 
 var nodeENV = process.env.NODE_ENV;
+var isMobile = true;
 
 var publicPath = /(\/ssrPath\/)/ig;
 
@@ -59,7 +60,7 @@ var Template = function Template(id, socket, body) {
       message: "开始复制页面"
     });
 
-    cpy(['../client/dist-ssr/*'], baseUrl).then(function () {
+    cpy(['../client/' + (isMobile ? 'pkg-mobile' : 'pkg-pc') + '/*'], baseUrl).then(function () {
 
       socket.emit('push:progress:' + id, {
         code: 200,
@@ -78,22 +79,15 @@ var Template = function Template(id, socket, body) {
       _fs2.default.writeFileSync(baseUrl + '/vendor.js', newVendorString);
 
       // 修改index.js 中模板数据
-      var scriptString = _fs2.default.readFileSync(baseUrl + '/index.jsx', "utf-8");
+      var scriptString = _fs2.default.readFileSync(baseUrl + '/index.js', "utf-8");
       var newScriptString = scriptString.replace(/{data:\[\],pageType:\"mobile\"}/ig, function () {
         return '{data: ' + (0, _stringify2.default)(body.content) + ',pageType: "mobile"}';
       });
 
-<<<<<<< HEAD
-      _fs2.default.writeFileSync(baseUrl + '/index.jsx', newScriptString);
-      _zipfolder2.default.zipFolder({ folderPath: baseUrl });
-
-      resolve({ folderZipPath: folderZipPath, baseUrl: baseUrl, timeStmp: timeStmp });
-=======
       _fs2.default.writeFileSync(baseUrl + '/index.js', newScriptString);
       _zipfolder2.default.zipFolder({ folderPath: baseUrl }, function () {
         resolve({ folderZipPath: folderZipPath, baseUrl: baseUrl, timeStmp: timeStmp });
       });
->>>>>>> 283c583e0cc3094679b137e8f3d0dcfeb9ea135e
     });
   });
 };
@@ -108,6 +102,8 @@ var _temp = function () {
   }
 
   __REACT_HOT_LOADER__.register(nodeENV, 'nodeENV', 'src/template.js');
+
+  __REACT_HOT_LOADER__.register(isMobile, 'isMobile', 'src/template.js');
 
   __REACT_HOT_LOADER__.register(publicPath, 'publicPath', 'src/template.js');
 

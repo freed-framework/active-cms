@@ -4,7 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var push = require('./push');
-var io = require('socket.io')(5556, {
+var io = require('socket.io')(5555, {
   path: '/push',
   serveClient: false,
   pingInterval: 10000,
@@ -38,11 +38,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(io, 'io', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(io, 'io', 'src/index.js');
 
-  __REACT_HOT_LOADER__.register(app, 'app', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(app, 'app', 'src/index.js');
 
-  __REACT_HOT_LOADER__.register(server, 'server', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(server, 'server', 'src/index.js');
 }();
 
 ;

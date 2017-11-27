@@ -18,7 +18,7 @@ var ENV = {
   /**
    * 项目域名
    */
-  domain: "http://localhost:3000",
+  domain: "http://www.iting.top",
   /**
    * zip包地址
    */
