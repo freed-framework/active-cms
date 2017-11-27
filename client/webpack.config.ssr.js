@@ -44,7 +44,7 @@ var webpackConfig = {
         path: path.resolve(process.cwd(), './dist-ssr/'),
         publicPath: '/ssrPath/',
         filename: '[name].js',
-        chunkFilename: '[name].[chunkhash].chunk.js'
+        chunkFilename: '[name].chunk.js'
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({

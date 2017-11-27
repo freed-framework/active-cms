@@ -10,7 +10,9 @@
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
     "build": "./node_modules/.bin/webpack --config=./webpack.config.js",
-    "build-ssr": "./node_modules/.bin/webpack --config=./webpack.config.ssr.js"
+    "build-ssr": "./node_modules/.bin/webpack --config=./webpack.config.ssr.js",
+    "build-ssr-mobile": "./node_modules/.bin/webpack --config=./webpack.config.render-mobile.js",
+    "build-ssr-pc": "./node_modules/.bin/webpack --config=./webpack.config.render-pc.js"
   },
   "pre-commit": [
     "pre-commit"

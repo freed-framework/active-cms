@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import Wrap from './Wrap';
 import Panel from '../panel';
-import Components from '../../common/Components';
+import Render from '../../common/render/Render';
 
 import './editor.scss';
 
@@ -80,7 +80,7 @@ class Editor extends PureComponent {
 
         return (
             <div>
-                <Components
+                <Render
                     data={this.props.data}
                     pageType={params.type}
                 />
