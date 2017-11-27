@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { getPage } from '../../services';
-import Render from '../../common/Render';
+import Render from '../../common/render/Render';
 
 class Viewer extends Component {
     constructor(props) {

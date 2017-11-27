@@ -1,32 +1,18 @@
 /**
  * @file AppComponent.jsx
  * @author denglingbo
+ *
+ * 创建单个 Component
+ * <TODO START>
+ *     此处 props 需要传递一个属性来判断是否需要对 componentProps 进行 px 转换的配置
+ *     { transPx: true, rootFontSize: 100 }
+ * <TODO END>
+ * @param props
+ * @return {XML}
+ * @constructor
  */
 import React from 'react';
-import Lazyer from './Lazyer';
-import Img from '../../components/mobile/img';
-import { num2rem } from './util';
-
-/**
- * 转换数据
- * @param data
- */
-function transPx(data) {
-    const transExpr = /^(width|height|padding|margin)$/;
-    const trans = JSON.parse(JSON.stringify(data));
-
-    Object.keys(trans).forEach(k => {
-        const item = trans[k];
-
-        Object.keys(item).forEach(key => {
-            if (transExpr.test(key)) {
-                item[key] = num2rem(item[key]);
-            }
-        })
-    });
-
-    return trans;
-}
+import { num2rem, transPx } from './util';
 
 /**
  * 创建单个 Component
@@ -83,8 +69,8 @@ const AppComponent = (props) => {
             {/* 通过数据转换生成的组件的子组件 */}
             {transData.childNodes ? transData.childNodes : null}
 
-            {/* data 数据关系下的父子组件 */}
-            {item.children && loop({
+            {/* 由 this.props.children 继续交给外部调用的位置进行渲染 */}
+            {item.children && props.children({
                 data: item.children,
                 pageType: props.pageType,
                 ...(allProps.extendsProps && { extendsProps: allProps.extendsProps }),
@@ -93,33 +79,4 @@ const AppComponent = (props) => {
     );
 }
 
-/**
- *
- * @param data
- * @param pageType
- * @param extendsProps
- */
-const loop = (props) => props.data.map(item => (
-    <Lazyer
-        key={item.guid}
-        item={item}
-    >
-        {mod => (
-            <AppComponent {...{
-                ...mod,
-                ...(props.extendsProps && { extendsProps: props.extendsProps }),
-                pageType: props.pageType,
-            }} />
-        )}
-    </Lazyer>
-));
-
-const App = props => (
-    <div>{loop(props)}</div>
-);
-
-App.defaultProps = {
-    data: [],
-}
-
-export default App;
+export default AppComponent;

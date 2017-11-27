@@ -37,10 +37,10 @@ var webpackConfig = {
             'react',
             'react-dom',
         ],
-        index: './src/ssr',
+        index: './render/pc/App.jsx',
     },
     output: {
-        path: path.resolve(process.cwd(), './dist-ssr/'),
+        path: path.resolve(process.cwd(), './dist-pc/'),
         publicPath: '/ssrPath/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
@@ -53,7 +53,7 @@ var webpackConfig = {
 
         new HtmlWebPlugin({
             filename: 'index.html',
-            template: './src/ssr.html',
+            template: './render/pc/index.html',
             chunks: ['vendor', 'index'],
             inject: 'body',
         }),
@@ -63,14 +63,14 @@ var webpackConfig = {
             allChunks: true,
         }),
 
-        new webpack.optimize.UglifyJsPlugin({
-            output: {
-                comments: false,  // remove all comments
-            },
-            compress: {
-                warnings: false
-            }
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     output: {
+        //         comments: false,  // remove all comments
+        //     },
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
     ],
     resolve: {
         // 省略后缀
@@ -93,6 +93,7 @@ var webpackConfig = {
                 ],
                 include: [
                     path.resolve(ROOT, './src'),
+                    path.resolve(ROOT, './render'),
                     path.resolve(ROOT, './components'),
                 ],
             },

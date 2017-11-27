@@ -7,10 +7,14 @@
 
 import React, { Component } from 'react';
 import Immutable from 'immutable';
-import Module from './module';
-import AppComponent from './Components';
+import propTypes from 'prop-types';
 
 class Lazyer extends Component {
+    static propTypes = {
+        item: propTypes.any,
+        loader: propTypes.func,
+    }
+
     constructor(props) {
         super(props);
 
@@ -30,21 +34,24 @@ class Lazyer extends Component {
     }
 
     load(props) {
+        // API
         this.setState({
             mod: null
         });
 
-        Module.asyncComponent(props.item)
-            .then(module => {
-                if (module) {
-                    this.setState({
-                        mod: {
-                            module,
-                            ...props,
-                        }
-                    });
-                }
-            });
+        if (this.props.loader) {
+            this.props.loader(props.item)
+                .then(module => {
+                    if (module) {
+                        this.setState({
+                            mod: {
+                                module,
+                                ...props,
+                            }
+                        });
+                    }
+                });
+        }
     }
 
     render() {

@@ -12,7 +12,7 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import { fromJS } from 'immutable';
-import Lazyer from '../../common/Lazyer';
+import Lazyer from '../../common/lazyer';
 import DragPop from './DragPop';
 import Utils from '../../../components/util/util';
 import { moveComponent, sortComponent, editComponentByGuid } from '../../pages/editor/App';

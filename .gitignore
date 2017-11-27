@@ -1,5 +1,8 @@
 # webpack compile ignore
 dist/
+client/dist-ssr/
+client/dist-pc/
+client/dist-mobile/
 client/public/
 
 # node ignore

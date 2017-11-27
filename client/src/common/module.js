@@ -6,56 +6,16 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import utils from '../../components/util/util';
+import loader from './loader/loader';
 
 class Module {
-    /**
-     * 异步加载组件
-     * @param item
-     */
-    static asyncComponent(item) {
-        // 如果已经有组件被创建，则直接 resolve
-        if (item.App) {
-            return Promise.resolve(item);
-        }
-
-        return new Promise((resolve) => {
-            import(`../../components/${item.name}/index`)
-                // 返回数据
-                .then(App => {
-                    const Component = App.default;
-
-                    return resolve({
-                        // ...item,
-                        guid: item.guid,
-                        // 返回组件
-                        App: Component,
-                        // displayName
-                        ...(item.displayName && { displayName: item.displayName }),
-                        // 返回模块配置
-                        ...(Component.config && { config: { ...Component.config } }),
-                        // <TODO> 组件属性对象 将废弃
-                        ...(item.attrs && {attrs: { ...item.attrs }}),
-                        // 该数据用于组件内部的转换
-                        ...(item.dataTrans && {dataTrans: { ...item.dataTrans }}),
-                        // 
-                        ...(item.children && {children: { ...item.children }}),
-                        // 该 props 用于实际组件将要展开的数据
-                        ...(item.componentProps && {componentProps: { ...item.componentProps }}),
-                    })
-                })
-                .catch(ex => {
-                    console.log(ex);
-                })
-        });
-    }
-
     /**
      * 获取组件
      * @param type 获取某个类型的库的 key
      * @return {*}
      */
     static get(item) {
-        return this.asyncComponent(item);
+        return loader(item);
     }
 
     /**
