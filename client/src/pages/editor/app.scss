@@ -102,6 +102,11 @@ body {
 }
 .ec-editor-pub-comps-items {
     height: 80px;
+    padding-top: 14px;
+}
+.ec-editor-layer-cake-index {
+    background: none;
+    text-align: center;
 }
 .ec-editor-layer-cake-title {
     background: #2D2D32;
@@ -113,16 +118,16 @@ body {
     display: block;
 }
 .ec-editor-menu {
-    width: 190px;
+    width: 170px;
     height: 300px;
-    left: 74px;
+    left: 84px;
     bottom: 10px;
-    background:rgba(45,48,53,1);
-    opacity:0.8;
-    border-radius: 20px ;
+    background: #2d3035;
+    opacity: 0.8;
+    border-radius: 20px;
 }
 .ant-btn-sm {
-    width: 190px;
+    width: 170px;
     height: 60px;
     font-size: 16px;
     background: none;
@@ -157,4 +162,20 @@ body {
 }
 .ec-editor-layer-cake-index{
     height: 20px;
+}
+.menu-button{
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    z-index: 999999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #CC504A;
+    text-align: center;
+    .anticon-appstore-o{
+        line-height: 60px;
+        font-size: 26px;
+        color: #fff;
+    }
 }

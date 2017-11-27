@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
-import { message, Modal, Input } from 'antd';
+import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../util/util';
 import module from '../../common/module';
@@ -444,7 +444,10 @@ class App extends Component {
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
-
+                {/* 菜单导航栏 */}
+                <div className="menu-button">
+                    <Icon type="appstore-o" />
+                </div>
                 {/* 模块 */}
                 <div
                     ref={ref => { this.canvas = ref }}
