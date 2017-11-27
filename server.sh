@@ -57,4 +57,6 @@ npm run build
 echo "start ssr pm2 ..."
 npm run pm2-${name}
 
+pm2 restart all
+
 echo "启动成功"
