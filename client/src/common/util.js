@@ -26,3 +26,24 @@ export const num2rem = (px, rootFontSize = 100) => (
         `${Number(word) / rootFontSize}rem`
     ))
 )
+
+/**
+ * 转换数据
+ * @param data
+ */
+export const transPx = (data) => {
+    const transExpr = /^(width|height|padding|margin)$/;
+    const trans = JSON.parse(JSON.stringify(data));
+
+    Object.keys(trans).forEach(k => {
+        const item = trans[k];
+
+        Object.keys(item).forEach(key => {
+            if (transExpr.test(key)) {
+                item[key] = num2rem(item[key]);
+            }
+        })
+    });
+
+    return trans;
+}

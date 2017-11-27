@@ -28,6 +28,7 @@ window.user = {
     "sex": 1
 }
 
+// `${ENV.domain}`
 const socket = io(`${ENV.domain}`, {
     path: '/push'
 });

@@ -7,7 +7,7 @@
 import React  from 'react';
 import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
 import { Button, Radio } from 'antd';
-import Lazyer from '../../common/Lazyer';
+import Lazyer from '../../common/lazyer';
 // import PropsEdit from '../propEdit/PropsEdit';
 import EditAttr from '../propEdit';
 

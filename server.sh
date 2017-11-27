@@ -25,6 +25,7 @@ cnpm install
 
 echo "build"
 npm run build
+npm run build-ssr
 
 echo "stop pm2..."
 pm2 delete all
@@ -55,5 +56,7 @@ npm run build
 
 echo "start ssr pm2 ..."
 npm run pm2-${name}
+
+pm2 restart all
 
 echo "启动成功"

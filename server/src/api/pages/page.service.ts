@@ -2,11 +2,12 @@ import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as _ from 'lodash';
 import * as request from 'request';
+import { resolve } from 'url';
 import PageModel from './page.model';
 import CommonService from '../../common/common.service';
 import { ForkService, ShareService } from '../';
-import { resolve } from 'url';
 import ENV from '../../config/env';
+import Utils from '../../common/utils';
 
 const forkService = new ForkService();
 const shareService = new ShareService();
@@ -243,6 +244,7 @@ export class PageService {
         } = body;
 
         const page: any = await this.getPage(id);
+        let newPage: any = Utils.parseContent(page);
 
         return new Promise((resolve, reject) => {
             request({
@@ -252,7 +254,7 @@ export class PageService {
                 headers: {
                     "content-type": "application/json",
                 },
-                body: {id, uploadUserId, ...field, content: page.content, title: page.title}
+                body: {id, uploadUserId, ...field, content: newPage.content, title: newPage.title}
             }, (err, response, res) => {
                 if (err) {
                     throw new HttpException('系统错误', 500);
