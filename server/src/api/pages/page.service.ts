@@ -257,7 +257,8 @@ export class PageService {
                 body: {
                     id, uploadUserId, ...field,
                     content: newPage.content,
-                    title: newPage.title, pageType: newPage.pageType
+                    title: newPage.title,
+                    pageType: newPage.pageType
                 }
             }, (err, response, res) => {
                 if (err) {

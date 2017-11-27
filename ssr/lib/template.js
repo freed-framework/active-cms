@@ -40,6 +40,9 @@ var publicPath = /(\/ssrPath\/)/ig;
 
 var Template = function Template(id, socket, body) {
   return new _promise2.default(function (resolve, reject) {
+      console.log(body)
+    var pageType = body.pageType;
+
     var timeStmp = '' + id + new Date() * 1;
     var baseUrl = _path2.default.join(__dirname, '../render', timeStmp);
     var folderZipPath = baseUrl + '.zip';
@@ -53,14 +56,14 @@ var Template = function Template(id, socket, body) {
     if (!_fs2.default.existsSync(baseUrl)) {
       _fs2.default.mkdirSync(baseUrl);
     }
-
+    console.log(pageType);
     socket.emit('push:progress:' + id, {
       code: 200,
       progress: 12,
       message: "开始复制页面"
     });
-
-    cpy(['../client/' + (isMobile ? 'pkg-mobile' : 'pkg-pc') + '/*'], baseUrl).then(function () {
+console.log('../client/pkg-' + pageType + '/*');
+    cpy(['../client/pkg-' + pageType + '/*'], baseUrl).then(function () {
 
       socket.emit('push:progress:' + id, {
         code: 200,
