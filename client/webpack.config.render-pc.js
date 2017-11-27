@@ -40,7 +40,7 @@ var webpackConfig = {
         index: './render/pc/App.jsx',
     },
     output: {
-        path: path.resolve(process.cwd(), './dist-pc/'),
+        path: path.resolve(process.cwd(), './pkg-pc/'),
         publicPath: '/ssrPath/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'

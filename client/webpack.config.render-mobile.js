@@ -40,7 +40,7 @@ var webpackConfig = {
         index: './render/mobile/App.jsx',
     },
     output: {
-        path: path.resolve(process.cwd(), './dist-mobile/'),
+        path: path.resolve(process.cwd(), './pkg-mobile/'),
         publicPath: '/ssrPath/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
