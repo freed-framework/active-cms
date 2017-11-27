@@ -30,33 +30,38 @@ class TopMenu extends Component {
                     size="small"
                     onClick={viewer}
                 >
-                    预览
+                    <Icon type="eye-o" />
+                    <span>预览</span>
                 </Button>
                 <Button
                     className="ec-editor-btn"
                     size="small"
                     onClick={saveData}
                 >
-                    保存
+                    <Icon type="save" />
+                    <span>保存</span>
                 </Button>
                 <Button
                     className="ec-editor-btn"
                     size="small"
                 >
-                    发布
+                    <Icon type="appstore-o" />
+                    <span>发布</span>
                 </Button>
                 <Button
                     className="ec-editor-btn"
                     size="small"
                     onClick={this.handleGoBack}
                 >
-                    返回
+                    <Icon type="rollback" />
+                    <span>返回</span>
                 </Button>
                 <Button
                     className="ec-editor-btn ec-editor-btn-red"
                     size="small"
                 >
-                    退出
+                    <Icon type="poweroff" />
+                    <span>退出</span>
                 </Button>
             </div>
         )

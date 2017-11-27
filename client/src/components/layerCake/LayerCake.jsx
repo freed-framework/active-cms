@@ -7,6 +7,7 @@
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import PropTypes from 'prop-types';
+import { Icon } from 'antd';
 import classNames from 'classnames';
 import { activeComponent } from '../../pages/editor/App';
 import List from './List';
@@ -69,7 +70,10 @@ class LayerCake extends PureComponent {
 
         return (
             <div className={cls}>
-                <div className="ec-editor-layer-cake-title">已添加组件</div>
+                <div className="ec-editor-layer-cake-title">
+                    <Icon type="check-circle-o" />
+                    <span>已添加组件</span>
+                </div>
                 <List
                     data={data}
                     active={active}

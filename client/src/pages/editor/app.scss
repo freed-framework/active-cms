@@ -76,3 +76,85 @@ body {
         }
     }
 }
+.ec-editor-left-panel{
+    display: flex;
+    height: 100%;
+}
+.ec-editor-pub-comps {
+    width: 80px;
+    font-size: 14px;
+    background: #212125 100%;
+    color: #fff;
+    .icon-font,
+    .icon-layers{
+        display: block;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+}
+.ec-editor-layer-cake {
+    width: 160px;
+    background: #24272E 100%;
+    color: #fff;
+}
+.ec-panel-title {
+    background: #2D2D32 100%;
+}
+.ec-editor-pub-comps-items {
+    height: 80px;
+}
+.ec-editor-layer-cake-title {
+    background: #2D2D32;
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+}
+.ec-editor-basic-props label {
+    display: block;
+}
+.ec-editor-menu {
+    width: 190px;
+    height: 300px;
+    left: 74px;
+    bottom: 10px;
+    background:rgba(45,48,53,1);
+    opacity:0.8;
+    border-radius: 20px ;
+}
+.ant-btn-sm {
+    width: 190px;
+    height: 60px;
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: #fff;
+    text-align: left;
+    padding-left: 50px;
+}
+.ant-btn:hover,
+.ant-btn:focus,
+.ant-btn:active,
+.ant-btn.active {
+    background: none;
+    color: #CC504A;
+}
+.ec-editor-pub-comps-items:hover{
+    background: #56B1FF;
+}
+.ec-editor-layer-cake-main {
+    font-size: 14px;
+}
+.ec-editor-layer-cake-items-not-active,
+.ec-editor-layer-cake-content
+.ec-editor-layer-cake-items,
+.ec-editor-layer-cake-items-sub{
+    // height: 40px;
+    line-height: 40px;
+}
+
+.ec-editor-layer-cake-content:hover {
+    background: #2D3035;
+}
+.ec-editor-layer-cake-index{
+    height: 20px;
+}
