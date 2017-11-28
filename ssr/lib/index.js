@@ -38,11 +38,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(io, 'io', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(io, 'io', 'src/index.js');
 
-  __REACT_HOT_LOADER__.register(app, 'app', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(app, 'app', 'src/index.js');
 
-  __REACT_HOT_LOADER__.register(server, 'server', 'src/index.jsx');
+  __REACT_HOT_LOADER__.register(server, 'server', 'src/index.js');
 }();
 
 ;

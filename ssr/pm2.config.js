@@ -2,7 +2,7 @@ module.exports = {
   apps : [
       {
         name: "ssr",
-        script: "./lib/index.jsx",
+        script: "./lib/index.js",
         watch: true,
         env: {
             "PORT": 1234,

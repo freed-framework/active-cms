@@ -373,6 +373,7 @@ class App extends Component {
 
                 addPage({
                     title,
+                    pageType: params.type,
                     content: this.state.data
                 }).then((res) => {
                     message.success(text || '保存成功')
