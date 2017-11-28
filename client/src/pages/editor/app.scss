@@ -84,7 +84,8 @@ body {
     width: 80px;
     font-size: 14px;
     background: #212125 100%;
-    color: #fff;
+    color: #DEDEE0;
+    margin-bottom: 0;
     .icon-font,
     .icon-layers{
         display: block;
@@ -95,7 +96,7 @@ body {
 .ec-editor-layer-cake {
     width: 160px;
     background: #24272E 100%;
-    color: #fff;
+    color: #8E8E94;
 }
 .ec-panel-title {
     background: #2D2D32 100%;
@@ -113,6 +114,10 @@ body {
     height: 44px;
     line-height: 44px;
     font-size: 16px;
+    color: #DEDEE0;
+    .anticon-check-circle-o{
+        padding-right: 4px;
+    }
 }
 .ec-editor-basic-props label {
     display: block;
@@ -179,3 +184,42 @@ body {
         color: #fff;
     }
 }
+.show-right{
+    position: fixed;
+    left: 62px;
+    top: 476px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    text-align: center;
+    .anticon-right:before{
+        font-size: 24px;
+        color: #8E8E94;
+        line-height: 44px;
+    }
+}
+input[type="text"] {
+    border: 1px solid #2D2D32;
+    padding: 3px 5px;
+    background: #2D2D32;
+}
+.ec-panel-layout-visible {
+    background: #212125 100%;
+    font-size: 14px;
+}
+.ant-select-selection--single,
+.ec-edit-border-color,
+.ant-input-number,
+.ant-input-number-input,
+.ant-btn,
+.ant-btn-small{
+    background: #2D2D32;
+    border: 1px solid #2D2D32;
+    color: #8E8E94;
+}
+.ec-panel-main {
+    color: #8E8E94;
+}
+
+

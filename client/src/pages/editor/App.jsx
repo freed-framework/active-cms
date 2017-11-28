@@ -428,7 +428,10 @@ class App extends Component {
                     className="ec-editor-left-panel ec-editor-layout-fixed"
                 >
                     <PubComps />
-
+                    <div className="show-right">
+                        {/* <Icon type="right-circle-o" />*/}
+                        <Icon type="right" />
+                    </div>
                     <LayerCake
                         activeId={this.state.activeId}
                         active={this.state.panelVisible}
