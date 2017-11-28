@@ -76,150 +76,153 @@ body {
         }
     }
 }
-.ec-editor-left-panel{
-    display: flex;
-    height: 100%;
-}
-.ec-editor-pub-comps {
-    width: 80px;
-    font-size: 14px;
-    background: #212125 100%;
-    color: #DEDEE0;
-    margin-bottom: 0;
-    .icon-font,
-    .icon-layers{
-        display: block;
-        font-size: 20px;
-        margin-bottom: 10px;
+.ec-editor-mobile{
+    .ec-editor-left-panel{
+        display: flex;
+        height: 100%;
     }
-}
-.ec-editor-layer-cake {
-    width: 160px;
-    background: #24272E 100%;
-    color: #8E8E94;
-}
-.ec-panel-title {
-    background: #2D2D32 100%;
-}
-.ec-editor-pub-comps-items {
-    height: 80px;
-    padding-top: 14px;
-}
-.ec-editor-layer-cake-index {
-    background: none;
-    text-align: center;
-}
-.ec-editor-layer-cake-title {
-    background: #2D2D32;
-    height: 44px;
-    line-height: 44px;
-    font-size: 16px;
-    color: #DEDEE0;
-    .anticon-check-circle-o{
-        padding-right: 4px;
+    .ec-editor-pub-comps {
+        width: 80px;
+        font-size: 14px;
+        background: #212125 100%;
+        color: #DEDEE0;
+        margin-bottom: 0;
+        .icon-font,
+        .icon-layers{
+            display: block;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
     }
-}
-.ec-editor-basic-props label {
-    display: block;
-}
-.ec-editor-menu {
-    width: 170px;
-    height: 300px;
-    left: 84px;
-    bottom: 10px;
-    background: #2d3035;
-    opacity: 0.8;
-    border-radius: 20px;
-}
-.ant-btn-sm {
-    width: 170px;
-    height: 60px;
-    font-size: 16px;
-    background: none;
-    border: none;
-    color: #fff;
-    text-align: left;
-    padding-left: 50px;
-}
-.ant-btn:hover,
-.ant-btn:focus,
-.ant-btn:active,
-.ant-btn.active {
-    background: none;
-    color: #CC504A;
-}
-.ec-editor-pub-comps-items:hover{
-    background: #56B1FF;
-}
-.ec-editor-layer-cake-main {
-    font-size: 14px;
-}
-.ec-editor-layer-cake-items-not-active,
-.ec-editor-layer-cake-content
-.ec-editor-layer-cake-items,
-.ec-editor-layer-cake-items-sub{
-    // height: 40px;
-    line-height: 40px;
-}
-
-.ec-editor-layer-cake-content:hover {
-    background: #2D3035;
-}
-.ec-editor-layer-cake-index{
-    height: 20px;
-}
-.menu-button{
-    position: fixed;
-    left: 10px;
-    bottom: 20px;
-    z-index: 999999;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #CC504A;
-    text-align: center;
-    .anticon-appstore-o{
-        line-height: 60px;
-        font-size: 26px;
-        color: #fff;
-    }
-}
-.show-right{
-    position: fixed;
-    left: 62px;
-    top: 476px;
-    z-index: 999;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    text-align: center;
-    .anticon-right:before{
-        font-size: 24px;
+    .ec-editor-layer-cake {
+        width: 160px;
+        background: #24272E 100%;
         color: #8E8E94;
-        line-height: 44px;
     }
-}
-input[type="text"] {
-    border: 1px solid #2D2D32;
-    padding: 3px 5px;
-    background: #2D2D32;
-}
-.ec-panel-layout-visible {
-    background: #212125 100%;
-    font-size: 14px;
-}
-.ant-select-selection--single,
-.ec-edit-border-color,
-.ant-input-number,
-.ant-input-number-input,
-.ant-btn,
-.ant-btn-small{
-    background: #2D2D32;
-    border: 1px solid #2D2D32;
-    color: #8E8E94;
-}
-.ec-panel-main {
-    color: #8E8E94;
+    .ec-panel-title {
+        background: #2D2D32;
+        color: #DEDEE0;
+    }
+    .ec-editor-pub-comps-items {
+        height: 80px;
+        padding-top: 14px;
+    }
+    .ec-editor-layer-cake-index {
+        background: none;
+        text-align: center;
+    }
+    .ec-editor-layer-cake-title {
+        background: #2D2D32;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
+        color: #DEDEE0;
+        .anticon-check-circle-o{
+            padding-right: 4px;
+        }
+    }
+    .ec-editor-basic-props label {
+        display: block;
+    }
+    .ec-editor-menu {
+        width: 170px;
+        height: 300px;
+        left: 84px;
+        bottom: 10px;
+        background: #2d3035;
+        opacity: 0.8;
+        border-radius: 20px;
+    }
+    .ant-btn-sm {
+        width: 150px;
+        height: 60px;
+        font-size: 16px;
+        background: none;
+        border: none;
+        color: #fff;
+        text-align: left;
+        padding-left: 50px;
+    }
+    .ant-btn:hover,
+    .ant-btn:focus,
+    .ant-btn:active,
+    .ant-btn.active {
+        background: none;
+        color: #CC504A;
+    }
+    .ec-editor-pub-comps-items:hover{
+        background: #56B1FF;
+    }
+    .ec-editor-layer-cake-main {
+        font-size: 14px;
+    }
+    .ec-editor-layer-cake-items-not-active,
+    .ec-editor-layer-cake-content
+    .ec-editor-layer-cake-items,
+    .ec-editor-layer-cake-items-sub{
+        // height: 40px;
+        line-height: 40px;
+    }
+
+    .ec-editor-layer-cake-content:hover {
+        background: #2D3035;
+    }
+    .ec-editor-layer-cake-index{
+        height: 20px;
+    }
+    .menu-button{
+        position: fixed;
+        left: 10px;
+        bottom: 20px;
+        z-index: 999999;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #CC504A;
+        text-align: center;
+        .anticon-appstore-o{
+            line-height: 60px;
+            font-size: 26px;
+            color: #fff;
+        }
+    }
+    .show-right{
+        position: fixed;
+        left: 62px;
+        top: 476px;
+        z-index: 999;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        text-align: center;
+        .anticon-right:before{
+            font-size: 24px;
+            color: #8E8E94;
+            line-height: 44px;
+        }
+    }
+    input[type="text"] {
+        border: 1px solid #2D2D32;
+        padding: 3px 5px;
+        background: #2D2D32;
+    }
+    .ec-panel-layout-visible {
+        background: #212125 100%;
+        font-size: 14px;
+    }
+    .ant-select-selection--single,
+    .ec-edit-border-color,
+    .ant-input-number,
+    .ant-input-number-input,
+    .ant-btn,
+    .ant-btn-small{
+        background: #2D2D32;
+        border: 1px solid #2D2D32;
+        color: #8E8E94;
+    }
+    .ec-panel-main {
+        color: #8E8E94;
+    }
 }
 
 
