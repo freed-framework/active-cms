@@ -14,6 +14,9 @@ import Bundle from 'freed-spa/lib/bundle';
 import Editor from 'bundle-loader?lazy!./pages/editor';
 import Viewer from 'bundle-loader?lazy!./pages/viewer';
 import List from 'bundle-loader?lazy!./pages/lists/App';
+import Login from './user/Login';
+import Register from './user/Register';
+import RegisterResult from './user/RegisterResult';
 
 const getConfirmation = (message, callback) => {
     const allowTransition = window.confirm(message);
@@ -58,6 +61,9 @@ const App = () => {
                     path="/lists:type"
                     render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
                 />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/registerResult" component={RegisterResult} />
             </div>
         </BrowserRouter>
     )

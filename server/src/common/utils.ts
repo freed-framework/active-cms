@@ -13,18 +13,20 @@ export default class Utils {
         }
         if (data instanceof Array) {
             return data.map((item) => {
-                const { content, _id, title } = item;
+                const { content, _id, title, pageType } = item;
                 return {
                     _id,
                     title,
+                    pageType,
                     content: JSON.parse(LZString.decompressFromBase64(content || ''))
                 }
             })
         } else {
-            const { content, _id, title } = data;
+            const { content, _id, title, pageType } = data;
             return {
                 _id,
                 title,
+                pageType,
                 content: JSON.parse(LZString.decompressFromBase64(content || ''))
             }
         }

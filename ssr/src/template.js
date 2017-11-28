@@ -6,11 +6,13 @@ const cpy = require('cpy');
 import ENV from './env';
 
 const nodeENV = process.env.NODE_ENV;
+const isMobile = true;
 
 const publicPath = /(\/ssrPath\/)/ig;
 
 const Template = (id, socket, body) => {
   return new Promise((resolve, reject) => {
+    const { pageType } = body;
     const timeStmp = `${id}${new Date() * 1}`;
     const baseUrl = path.join(__dirname, '../render', timeStmp);
     const folderZipPath = baseUrl + '.zip';
@@ -31,7 +33,7 @@ const Template = (id, socket, body) => {
       message: "开始复制页面"
     })
 
-    cpy(['../client/dist-ssr/*'], baseUrl).then(() => {
+    cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
 
       socket.emit(`push:progress:${id}`, {
         code: 200,
