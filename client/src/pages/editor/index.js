@@ -4,22 +4,10 @@
  *
  */
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { getPage } from '../../services';
 import App from './App';
-
-/**
- * 适用于移动端
- * @type {Element}
- */
-const docEl = document.documentElement;
-const resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
-let rate;
-const recalc = () => {
-    const clientWidth = docEl.clientWidth;
-    if (!clientWidth) return;
-    rate = 100 * (750 / 750);
-    docEl.style.fontSize = `${rate}px`;
-};
+import { calc, resizeEvt } from '../../common/mobileCalc';
 
 class Editor extends Component {
     constructor(props) {
@@ -35,8 +23,8 @@ class Editor extends Component {
         const { params = {} } = match;
 
         if (params.type === 'mobile') {
-            recalc();
-            window.addEventListener(resizeEvt, recalc, false);
+            calc(750);
+            window.addEventListener(resizeEvt, calc, false);
         }
 
         if (params.id) {
@@ -131,7 +119,7 @@ class Editor extends Component {
 
     componentWillUnmount() {
         if (params.type === 'mobile') {
-            window.removeEventListener(resizeEvt, recalc, false);
+            window.removeEventListener(resizeEvt, calc, false);
         }
     }
 
@@ -146,4 +134,4 @@ class Editor extends Component {
     }
 }
 
-export default Editor;
+export default withRouter(Editor);

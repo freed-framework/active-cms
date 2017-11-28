@@ -32,7 +32,7 @@ class MobileList extends PureComponent {
 
         this.state = {
             cols: props.componentProps.cols,
-            padding: props.componentProps.extendsProps.style.padding,
+            padding: props.componentProps.extendsProps.style.layout.padding,
         }
 
         this.arr = utils.childNodes2Array(props.children) || [];
@@ -56,7 +56,7 @@ class MobileList extends PureComponent {
 
         if (name === 'childPadding') {
             this.changeValue(
-                ['componentProps', 'extendsProps', 'style', 'padding'],
+                ['componentProps', 'extendsProps', 'style', 'layout','padding'],
                 'padding',
                 value
             );
