@@ -297,7 +297,7 @@ class List extends Component {
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
-                            <Font size="13" type={isActive ? 'note-text2' : 'note-text'} />
+                            <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />
                         </span>
 
                         {this.getDisplayName(item)}

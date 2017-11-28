@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { is } from 'immutable';
 import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
@@ -8,7 +10,20 @@ class TopMenu extends Component {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
     }
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            visible: props.visible,
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if (!is(this.state.visible, nextProps.visible)) {
+            this.setState({
+                visible: nextProps.visible,
+            });
+        }
+    }
     handleGoBack = () => {
         const { length, goBack, replace } = this.props.history;
 
@@ -21,9 +36,13 @@ class TopMenu extends Component {
     }
 
     render() {
+        const { visible } = this.state;
+        const clsMenu = classNames('ec-editor-menu', {
+            'hide': !visible,
+        });
         return (
             <div
-                className="ec-editor-menu"
+                className={clsMenu}
             >
                 <Button
                     className="ec-editor-btn"

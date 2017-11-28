@@ -19,7 +19,7 @@ export default class BorderEdit extends PureComponent {
         target: PropTypes.string,
         style: PropTypes.objectOf(PropTypes.any),
     }
-    
+
     static defaultProps = {
         style: {},
     }
@@ -94,7 +94,7 @@ export default class BorderEdit extends PureComponent {
                     onChange={this.handleWidthChange}
                 />
                 <Select
-                    style={{width: '60px', 'margin': '0 6px'}}
+                    style={{width: '60px'}}
                     onChange={this.handleChange}
                     value={sty}
                 >
@@ -141,7 +141,7 @@ export default class BorderEdit extends PureComponent {
                         style={{backgroundColor: col}}
                     />
                 </Popover>
-                
+
             </div>
         )
     }
