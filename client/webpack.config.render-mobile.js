@@ -31,7 +31,7 @@ const PRO_ROOT = path.resolve(process.cwd(), '../');
 const ROOT = path.resolve(process.cwd(), '');
 
 var webpackConfig = {
-    // devtool: 'source-map',
+    devtool: false,
     entry: {
         vendor: [
             'react',
@@ -40,12 +40,18 @@ var webpackConfig = {
         index: './render/mobile/App.jsx',
     },
     output: {
-        path: path.resolve(process.cwd(), './pkg-mobile/'),
-        publicPath: '/ssrPath/',
+        path: path.resolve(process.cwd(), './dist/'),
+        publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
     },
     plugins: [
+        // 开启全局的模块热替换（HMR）
+        new webpack.HotModuleReplacementPlugin(),
+
+        // 当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
+        new webpack.NamedModulesPlugin(),
+
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity
@@ -57,20 +63,6 @@ var webpackConfig = {
             chunks: ['vendor', 'index'],
             inject: 'body',
         }),
-
-        new ExtractTextPlugin({
-            filename: '[name].css',
-            allChunks: true,
-        }),
-
-        // new webpack.optimize.UglifyJsPlugin({
-        //     output: {
-        //         comments: false,  // remove all comments
-        //     },
-        //     compress: {
-        //         warnings: false
-        //     }
-        // })
     ],
     resolve: {
         // 省略后缀
@@ -84,6 +76,7 @@ var webpackConfig = {
                 use: [
                     {
                         loader: 'babel-loader',
+                        // options: babelOptions,
                         options: {
                             plugins: [
                                 ['import', [{ libraryName: 'antd', style: 'css' }]],
@@ -102,28 +95,29 @@ var webpackConfig = {
                 use: ['babel-loader', 'ts-loader'],
                 exclude: /node_modules/,
             },
+            // {
+            //     enforce: 'pre',
+            //     test: /\.js$/,
+            //     loader: 'source-map-loader'
+            // },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'sass-loader',
-                    ],
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader',
+                    'sass-loader',
+                ]
             },
             // less 加载器
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'less-loader',
-                    ]
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader',
+                    'less-loader',
+                ]
             },
             // css 加载器
             // Reference: https://github.com/webpack/style-loader
@@ -132,13 +126,11 @@ var webpackConfig = {
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader'
-                    ]
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader'
+                ]
             },
             {
                 // JSON资源文件加载器
