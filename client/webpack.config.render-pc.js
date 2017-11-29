@@ -58,14 +58,14 @@ var webpackConfig = {
             inject: 'body',
         }),
 
-        // new webpack.optimize.UglifyJsPlugin({
-        //     output: {
-        //         comments: false,  // remove all comments
-        //     },
-        //     compress: {
-        //         warnings: false
-        //     }
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+            output: {
+                comments: false,  // remove all comments
+            },
+            compress: {
+                warnings: false
+            }
+        })
     ],
     resolve: {
         // 省略后缀
