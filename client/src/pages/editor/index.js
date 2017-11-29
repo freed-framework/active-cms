@@ -120,7 +120,7 @@ class Editor extends Component {
     componentWillUnmount() {
         const { match = {} } = this.props;
         const { params = {} } = match;
-        
+
         if (params.type === 'mobile') {
             window.removeEventListener(resizeEvt, calc, false);
         }
