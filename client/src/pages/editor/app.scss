@@ -76,6 +76,7 @@ body {
     }
 }
 .ec-editor-mobile{
+    background: #2B2B2E;
     .ec-editor-left-panel{
         display: flex;
         height: 100%;
@@ -241,6 +242,9 @@ body {
     }
     .ec-panel-close {
         margin-top: -21px;
+    }
+    .ant-btn-group {
+        margin: 6px 0;
     }
     .ant-select-selection--single,
     .ec-edit-border-color,
