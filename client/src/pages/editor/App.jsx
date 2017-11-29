@@ -7,7 +7,8 @@
 import React, { Component } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
-import { message, Modal, Input } from 'antd';
+import classNames from 'classnames';
+import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../util/util';
 import module from '../../common/module';
@@ -49,7 +50,8 @@ class App extends Component {
 
             activeId: null,
             panelVisible: false,
-
+            layerCakeVisible: false,
+            menuVisible: false,
             /**
              * 后端返回的原始数据
              * 该数据包含层级关系，components.App module config 等数据 不包含在此
@@ -61,7 +63,6 @@ class App extends Component {
              */
             copyData: null
         };
-
         emitter.on('delete', this.mittDelete);
         emitter.on('copy', this.mittCopy);
         emitter.on('paste', this.mittPaste);
@@ -409,10 +410,31 @@ class App extends Component {
         });
     }
 
-    render() {
-        const { rect, data } = this.state;
-        const { history, match } = this.props;
+    /**
+     * 显示/关闭 已添加组件
+     */
+    handleShow = () => {
+        const layerCakeVisible = this.state.layerCakeVisible;
+        this.setState({
+            layerCakeVisible: !layerCakeVisible,
+        });
+    }
+    /**
+     * 显示/关闭 menu
+     */
+    handleShowMenu = () => {
+        const menuVisible = this.state.menuVisible;
+        this.setState({
+            menuVisible: !menuVisible,
+        });
+    }
 
+    render() {
+        const { rect, data, layerCakeVisible, menuVisible } = this.state;
+        const { history, match } = this.props;
+        const cls = classNames('show-right', {
+            'closeRight': layerCakeVisible,
+        });
         return (
             <div className={`ec-editor-${match.params.type}`}>
                 <Control
@@ -422,6 +444,7 @@ class App extends Component {
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
+                    visible={menuVisible}
                 />
 
                 {/* 左侧工具面板 */}
@@ -429,10 +452,17 @@ class App extends Component {
                     className="ec-editor-left-panel ec-editor-layout-fixed"
                 >
                     <PubComps />
-
+                    <div
+                        // className="show-right"
+                        className={cls}
+                        onClick={this.handleShow}
+                    >
+                        {/* <Icon type="right-circle-o" />*/}
+                        <Icon type="right" />
+                    </div>
                     <LayerCake
                         activeId={this.state.activeId}
-                        active={this.state.panelVisible}
+                        active={this.state.layerCakeVisible}
                         data={data}
                     />
                 </div>
@@ -445,7 +475,13 @@ class App extends Component {
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
-
+                {/* 菜单导航栏 */}
+                <div
+                    className="menu-button"
+                    onClick={this.handleShowMenu}
+                >
+                    <Icon type="appstore-o" />
+                </div>
                 {/* 模块 */}
                 <div
                     ref={ref => { this.canvas = ref }}

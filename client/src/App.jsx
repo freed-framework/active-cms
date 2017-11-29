@@ -8,10 +8,12 @@ import React from 'react';
 import {
     BrowserRouter,
     Route,
+    Switch,
 } from 'react-router-dom';
-import Editor from './pages/editor';
-import Viewer from './pages/viewer';
-import List from './pages/lists/App';
+import Bundle from 'freed-spa/lib/bundle';
+import Editor from 'bundle-loader?lazy!./pages/editor';
+import Viewer from 'bundle-loader?lazy!./pages/viewer';
+import List from 'bundle-loader?lazy!./pages/lists/App';
 import Login from './user/Login';
 import Register from './user/Register';
 import RegisterResult from './user/RegisterResult';
@@ -32,13 +34,33 @@ const App = () => {
             keyLength={12}
         >
             <div>
-                <Route exact path="/" component={List} />
+                <Route
+                    path="/"
+                    exact
+                    render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
+                />
                 {/* type: pc=web端，mobile=移动端 */}
-                <Route exact path="/:type/edit/:id" component={Editor} />
-                <Route exact path="/:type/new" component={Editor} />
-                <Route exact path="/view/:id" component={Viewer} />
-                <Route exact path="/lists" component={List} />
-                <Route exact path="/lists/:type" component={List} />
+                <Route
+                    path="/:type/edit/:id"
+                    render={() => <Bundle load={Editor}>{(App) => <App />}</Bundle>}
+                />
+                <Route
+                    path="/:type/new"
+                    render={() => <Bundle load={Editor}>{(App) => <App />}</Bundle>}
+                />
+                <Route
+                    path="/view/:id"
+                    render={() => <Bundle load={Viewer}>{(App) => <App />}</Bundle>}
+                />
+                <Route
+                    path="/lists"
+                    exact
+                    render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
+                />
+                <Route
+                    path="/lists:type"
+                    render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
+                />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/registerResult" component={RegisterResult} />

@@ -8,6 +8,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
+import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import ENV from '../../../../conf/env';
 
@@ -162,4 +163,4 @@ class List extends Component {
     }
 }
 
-export default List;
+export default withRouter(List);

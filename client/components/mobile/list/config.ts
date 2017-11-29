@@ -4,7 +4,7 @@ const config: Config = {
     name: 'mobile/list',
     isCommon: true,
     displayName: '图片列表',
-    iconType: 'layers',
+    iconType: 'pictures',
     menus: [],
     editable: [
         {

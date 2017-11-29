@@ -72,10 +72,10 @@ var webpackConfig = {
         //     inject: 'body',
         // }),
 
-        new ExtractTextPlugin({
-            filename: '[name].css',
-            allChunks: true,
-        }),
+        // new ExtractTextPlugin({
+        //     filename: '[name].css',
+        //     allChunks: true,
+        // }),
     ],
     resolve: {
         // 省略后缀
@@ -114,26 +114,38 @@ var webpackConfig = {
             // },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'sass-loader',
-                    ],
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader',
+                    'sass-loader',
+                ]
+                // use: ExtractTextPlugin.extract({
+                //     fallback: 'style-loader',
+                //     use: [
+                //         'css-loader',
+                //         'autoprefixer-loader',
+                //         'sass-loader',
+                //     ],
+                // })
             },
             // less 加载器
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'less-loader',
-                    ]
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader',
+                    'less-loader',
+                ]
+                // loader: ExtractTextPlugin.extract({
+                //     fallback: 'style-loader',
+                //     use: [
+                //         'css-loader',
+                //         'autoprefixer-loader',
+                //         'less-loader',
+                //     ]
+                // })
             },
             // css 加载器
             // Reference: https://github.com/webpack/style-loader
@@ -142,13 +154,18 @@ var webpackConfig = {
             // Reference: https://github.com/webpack/extract-text-webpack-plugin
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader'
-                    ]
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'autoprefixer-loader'
+                ]
+                // loader: ExtractTextPlugin.extract({
+                //     fallback: 'style-loader',
+                //     use: [
+                //         'css-loader',
+                //         'autoprefixer-loader'
+                //     ]
+                // })
             },
             {
                 // JSON资源文件加载器
