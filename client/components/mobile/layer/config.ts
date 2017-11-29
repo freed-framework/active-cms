@@ -15,7 +15,7 @@ const config: Config = {
     defaultValues: {
         style: {
             layout: {
-                padding: 10,
+                padding: 0,
             }
         }
     }
