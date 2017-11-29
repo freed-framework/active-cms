@@ -58,7 +58,7 @@ const App = () => {
                     render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
                 />
                 <Route
-                    path="/lists:type"
+                    path="/lists/:type"
                     render={() => <Bundle load={List}>{(App) => <App />}</Bundle>}
                 />
                 <Route exact path="/login" component={Login} />
