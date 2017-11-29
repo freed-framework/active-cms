@@ -41,7 +41,7 @@ var webpackConfig = {
     },
     output: {
         path: path.resolve(process.cwd(), './pkg-mobile/'),
-        publicPath: '/',
+        publicPath: '/ssrPath/',
         filename: '[name].js',
         chunkFilename: '[name].chunk.js'
     },
