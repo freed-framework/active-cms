@@ -17,6 +17,7 @@
     "pre-commit"
   ],
   "dependencies": {
+    "freed-multi": "https://github.com/freed-framework/freed-multi.git",
     "antd": "^2.10.4",
     "autoprefixer": "^7.1.6",
     "babel-runtime": "6.x",
@@ -51,6 +52,7 @@
     "@types/node": "^8.0.30",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
+    "antd-mobile": "^2.0.3",
     "autoprefixer-loader": "^3.2.0",
     "awesome-typescript-loader": "^3.2.3",
     "axios": "^0.16.1",
@@ -100,6 +102,7 @@
     "process": "^0.11.10",
     "prop-types": "^15.5.10",
     "react-hot-loader": "^3.0.0-beta.3",
+    "react-native": "^0.50.4",
     "sass-loader": "^6.0.3",
     "source-map-loader": "^0.2.1",
     "stats-webpack-plugin": "^0.6.1",

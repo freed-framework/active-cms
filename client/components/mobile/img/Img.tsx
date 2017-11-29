@@ -2,6 +2,7 @@
 import * as React from 'react';
 import config from './config';
 import './img.scss';
+import Native from '../native/index.js';
 
 class Img extends React.Component<ImgProps, any> {
     static config: Config = config;
@@ -13,6 +14,7 @@ class Img extends React.Component<ImgProps, any> {
     handleClick = () => {
         // console.log(this.props.url);
         // window.location.href = this.props.url;
+        Native.redirect(this.props.url);
     }
 
     render() {

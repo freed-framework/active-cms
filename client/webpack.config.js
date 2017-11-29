@@ -80,6 +80,9 @@ var webpackConfig = {
     resolve: {
         // 省略后缀
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        alias: {
+            // xyz$: path.resolve(__dirname, 'path/to/file.js')
+        }
     },
     module: {
         rules: [
