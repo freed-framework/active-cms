@@ -42,14 +42,17 @@ const App = () => {
                 {/* type: pc=web端，mobile=移动端 */}
                 <Route
                     path="/:type/edit/:id"
+                    exact
                     render={() => <Bundle load={Editor}>{(App) => <App />}</Bundle>}
                 />
                 <Route
                     path="/:type/new"
+                    exact
                     render={() => <Bundle load={Editor}>{(App) => <App />}</Bundle>}
                 />
                 <Route
                     path="/view/:id"
+                    exact
                     render={() => <Bundle load={Viewer}>{(App) => <App />}</Bundle>}
                 />
                 <Route
