@@ -31,7 +31,6 @@ body {
 .ec-editor-canvas {
     position: relative;
     z-index: 1;
-
     &-inner {
         overflow: hidden;
         margin: 0 auto;
@@ -76,3 +75,189 @@ body {
         }
     }
 }
+.ec-editor-mobile{
+    background: #2B2B2E;
+    .ec-editor-left-panel{
+        display: flex;
+        height: 100%;
+    }
+    .ec-editor-pub-comps {
+        width: 80px;
+        font-size: 14px;
+        background: #212125 100%;
+        color: #DEDEE0;
+        margin-bottom: 0;
+        .icon-font,
+        .icon-layers{
+            display: block;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    }
+    .ec-editor-layer-cake {
+        width: 160px;
+        background: #24272E 100%;
+        color: #8E8E94;
+    }
+    .ec-panel-title {
+        background: #2D2D32;
+        color: #DEDEE0;
+        font-size: 16px;
+        height: 44px;
+        line-height: 44px;
+    }
+    .ec-editor-pub-comps-items {
+        height: 80px;
+        padding-top: 14px;
+    }
+    .ec-editor-layer-cake-index {
+        background: none;
+        text-align: center;
+        height: 14px;
+        width: 14px;
+        font-size: 12px;
+        border: 1px solid;
+        margin-left: 4px;
+    }
+
+    .ec-editor-layer-cake-title {
+        background: #2D2D32;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
+        color: #DEDEE0;
+        .anticon-check-circle-o{
+            padding-right: 4px;
+        }
+    }
+    .ec-editor-basic-props label {
+        display: block;
+    }
+    .ec-editor-basic-props button{
+        margin-top: 8px;
+    }
+    .ec-editor-menu {
+        width: 170px;
+        height: 300px;
+        left: 84px;
+        bottom: 10px;
+        background: #2d3035;
+        opacity: 0.8;
+        border-radius: 20px;
+    }
+    .ant-btn-sm {
+        width: 120px;
+        height: 60px;
+        font-size: 16px;
+        background: none;
+        border: none;
+        color: #DEDEE0;
+        text-align: left;
+        margin-left: 20px;
+    }
+    .ant-btn:hover,
+    .ant-btn:focus,
+    .ant-btn:active,
+    .ant-btn.active {
+        background: none;
+        color: #CC504A;
+    }
+    .ec-editor-pub-comps-items:hover{
+        background: #56B1FF;
+    }
+    .ec-editor-layer-cake-main {
+        font-size: 14px;
+    }
+    .ec-editor-layer-cake-items-not-active,
+    .ec-editor-layer-cake-content
+    .ec-editor-layer-cake-items,
+    .ec-editor-layer-cake-items-sub{
+        // height: 40px;
+        line-height: 40px;
+    }
+
+    .ec-editor-layer-cake-content:hover {
+        background: #2D3035;
+    }
+    .ec-editor-layout-fixed{
+        opacity: 1;
+    }
+    .menu-button{
+        position: fixed;
+        left: 10px;
+        bottom: 20px;
+        z-index: 999999;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #CC504A;
+        text-align: center;
+        .anticon-appstore-o{
+            line-height: 60px;
+            font-size: 26px;
+            color: #fff;
+        }
+    }
+    .show-right{
+        position: fixed;
+        left: 56px;
+        top: 476px;
+        z-index: 999;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        text-align: center;
+        background: #212125;
+        .anticon-right:before{
+            font-size: 24px;
+            color: #8E8E94;
+            line-height: 44px;
+            padding-left: 8px;
+        }
+    }
+    .closeRight{
+        transform: rotate(180deg);
+    }
+    input[type="text"] {
+        border: 1px solid #2D2D32;
+        padding: 3px 5px;
+        background: #2D2D32;
+        color: #8E8E94;
+    }
+    .ec-panel-layout button{
+        background: #2D2D32;
+        color: #8E8E94;
+        border: 1px solid #2d2d32;
+    }
+    .ec-editor-basic-props label {
+        margin-bottom: 4px;
+        margin-top: 4px;
+    }
+    .ec-panel-layout-visible {
+        background: #212125 100%;
+        font-size: 14px;
+    }
+    .ec-panel-title-text{
+        padding: 0 5px 5px 20px;
+    }
+    .ec-panel-close {
+        margin-top: -21px;
+    }
+    .ant-btn-group {
+        margin: 6px 0;
+    }
+    .ant-select-selection--single,
+    .ec-edit-border-color,
+    .ant-input-number,
+    .ant-input-number-input,
+    .ant-btn-small{
+        background: #2D2D32;
+        border: 1px solid #2D2D32;
+        color: #8E8E94;
+    }
+    .ec-panel-main {
+        color: #8E8E94;
+    }
+}
+
+
