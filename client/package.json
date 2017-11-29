@@ -10,8 +10,8 @@
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
     "build": "./node_modules/.bin/webpack --config=./webpack.config.js",
-    "build-mobile": "./node_modules/.bin/webpack --config=./webpack.config.render-mobile.js",
-    "build-pc": "./node_modules/.bin/webpack --config=./webpack.config.render-pc.js"
+    "build-mobile": "NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-mobile.js",
+    "build-pc": "NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-pc.js"
   },
   "pre-commit": [
     "pre-commit"
