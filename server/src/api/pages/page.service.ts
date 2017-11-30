@@ -266,6 +266,7 @@ export class PageService {
                 if (err) {
                     throw new HttpException('系统错误', 500);
                 }
+                console.log(res)
                 const { data } = res;
                 const re: any = this.pushId(id, data);
 

@@ -150,7 +150,7 @@ var webpackConfig = {
             {
                 // 图片加载器
                 test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?[=a-z0-9]+)?$/,
-                loader: 'url-loader?limit=10000&name=images/[hash].[ext]'
+                loader: 'url-loader?limit=10000&name=[hash].[ext]'
             },
         ]
     },
