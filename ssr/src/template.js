@@ -52,10 +52,10 @@ const Template = (id, socket, body) => {
                 message: "替换html文件"
             })
 
-            // 修改vendor中地址
-            const svendorString = fs.readFileSync(baseUrl + '/vendor.js', "utf-8");
-            const newVendorString = svendorString.replace(publicPath, `${ENV.publicPath}${timeStmp}/`);
-            fs.writeFileSync(baseUrl + '/vendor.js', newVendorString);
+            // // 修改vendor中地址
+            // const svendorString = fs.readFileSync(baseUrl + '/vendor.js', "utf-8");
+            // const newVendorString = svendorString.replace(publicPath, `${ENV.publicPath}${timeStmp}/`);
+            // fs.writeFileSync(baseUrl + '/vendor.js', newVendorString);
 
             socket.emit(`push:progress:${id}`, {
                 code: 200,
@@ -65,8 +65,13 @@ const Template = (id, socket, body) => {
 
             // 修改index.js 中模板数据
             const scriptString = fs.readFileSync(baseUrl + '/index.js', "utf-8");
-            const newScriptString = scriptString.replace(/{data:\[\],pageType:\"mobile\"}/ig, function () {
-                return `{data: ${JSON.stringify(body.content)},pageType: "${pageType}"}`
+            const newScriptString = scriptString.replace(/({data:\[\],pageType:\"mobile\"})|(\/ssrPath\/)/ig, function ($0, $1, $2) {
+                if ($1) {
+                    return `{data: ${JSON.stringify(body.content)},pageType: "${pageType}"}`;
+                }
+                if ($2) {
+                    return `${ENV.publicPath}${timeStmp}/`;
+                }
             });
 
             socket.emit(`push:progress:${id}`, {
