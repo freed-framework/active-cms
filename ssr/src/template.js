@@ -4,9 +4,7 @@ import zip from 'zipfolder';
 var process = require('child_process');
 
 const cpy = require('cpy');
-import ENV from './env';
 
-const nodeENV = process.env.NODE_ENV;
 const isMobile = true;
 
 const publicPath = /(\/ssrPath\/)/ig;
