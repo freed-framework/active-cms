@@ -127,7 +127,7 @@ export default class componentName extends Component {
      */
     handleEdit = () => {
         const { data = {} } = this.props;
-        this.props.history.push(`/edit/${data._id}`);
+        this.props.history.push(`/${data.pageType}/edit/${data._id}`);
     }
 
     /**
@@ -135,7 +135,7 @@ export default class componentName extends Component {
      */
     handleView = () => {
         const { data = {} } = this.props;
-        this.props.history.push(`/view/${data._id}`);
+        this.props.history.push(`/${data.pageType}/view/${data._id}`);
     }
 
     /**

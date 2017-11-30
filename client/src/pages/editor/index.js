@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getPage } from '../../services';
 import App from './App';
-import { calc, resizeEvt } from '../../common/mobileCalc';
+import { calc, resizeEvt } from '../../common/mobileMock';
 
 class Editor extends Component {
     constructor(props) {
@@ -25,6 +25,8 @@ class Editor extends Component {
         if (params.type === 'mobile') {
             calc(750);
             window.addEventListener(resizeEvt, calc, false);
+
+
         }
 
         if (params.id) {
@@ -56,7 +58,8 @@ class Editor extends Component {
                         "componentProps": {
                             "style": {
                                 "layout": {
-                                    "padding": "10"
+                                    "padding": "10",
+                                    "height": "800",
                                 }
                             }
                         }
@@ -69,7 +72,8 @@ class Editor extends Component {
                                 "guid": "ec-module-ce995704-f115-4a9f-b124-92d2c6f8e000",
                                 "name": "mobile/img",
                                 "componentProps": {
-                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg",
+                                    "url": "baidu.com"
                                 }
                             },
                             {
@@ -88,7 +92,42 @@ class Editor extends Component {
                                 }
                             },
                             {
-                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dcec15cdf7",
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce2cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c2ec15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-3dcec15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29d45cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dc515cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
                                 "name": "mobile/img",
                                 "componentProps": {
                                     "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
@@ -118,6 +157,9 @@ class Editor extends Component {
     }
 
     componentWillUnmount() {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+
         if (params.type === 'mobile') {
             window.removeEventListener(resizeEvt, calc, false);
         }

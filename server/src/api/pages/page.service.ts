@@ -99,7 +99,8 @@ export class PageService {
 
         const {
             _id, forkId, owerUser, forkTime,
-            fork, createUser, createTime, content
+            fork, createUser, createTime, content,
+            pageType
         } = page;
 
        const pageDta = await this.addPage({
@@ -108,6 +109,7 @@ export class PageService {
             forkNum: 0,
             fork: true,
             createUser,
+            pageType,
             title,
             body: {
                 content: content ? content : {},

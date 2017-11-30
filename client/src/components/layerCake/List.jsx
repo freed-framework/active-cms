@@ -188,6 +188,7 @@ class List extends Component {
     }
 
     handleEdit = (e) => {
+        // e.stopPropagation();
         const editId = e.currentTarget.getAttribute('data-guid');
         const displayName = e.currentTarget.getAttribute('data-name');
         const value = e.currentTarget.value;
@@ -298,11 +299,10 @@ class List extends Component {
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
-                            {/*<Font size="16" type={isActive ? 'document-text4' : 'document-text3'} />*/}
                             <img src={doc} />
+                            {/* <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />*/}
+                            {this.getDisplayName(item)}
                         </span>
-
-                        {this.getDisplayName(item)}
 
                         <input
                             className="ec-editor-layer-cake-index"
