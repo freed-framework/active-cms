@@ -5,6 +5,7 @@ import { is } from 'immutable';
 import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
+import back from '../../images/icon-svg/back.svg';
 
 class TopMenu extends Component {
     static propTypes = {
@@ -72,7 +73,8 @@ class TopMenu extends Component {
                     size="small"
                     onClick={this.handleGoBack}
                 >
-                    <Icon type="rollback" />
+                    {/*<Icon type="rollback" />*/}
+                    <img src={back} />
                     <span>返回</span>
                 </Button>
                 <Button

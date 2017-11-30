@@ -84,7 +84,7 @@ class ImgUrl extends PureComponent {
         }
         return (
             <div>
-                <div className="ec-editor-basic-props ec-editor-basic-props-attr">
+                <div className="ec-editor-basic-props ec-editor-basic-props-attr ec-editor-basic-props-img">
                     <p>
                         <label htmlFor="">图片地址</label>
                         <input

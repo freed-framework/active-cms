@@ -16,7 +16,7 @@ const Option = Select.Option;
 
 /**
  * 格式化image字符转
- * @param {string} color 颜色rgba字符串 
+ * @param {string} color 颜色rgba字符串
  * @return {Object|undefined} result {r: x, g: x, b: x, a: x} | undefined
  */
 function parseImage(image = '') {
@@ -96,7 +96,7 @@ class Background extends PureComponent {
                     />
                 )
             default:
-                return null;    
+                return null;
         }
     }
 

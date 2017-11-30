@@ -20,6 +20,7 @@ import { withRouter } from 'react-router-dom';
 import { user } from '../../actions/user';
 import { userReducer } from '../../reducers';
 import './app.scss';
+import icon from '../../images/icon-svg/icon.svg';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -323,6 +324,7 @@ class App extends Component {
 
             // 设置panel 编辑面板的显示状态
             panelVisible: !!guid,
+            menuVisible: false,
         });
     }
 
@@ -420,7 +422,7 @@ class App extends Component {
         });
     }
     /**
-     * 显示/关闭 menu
+     * 显示 menu
      */
     handleShowMenu = () => {
         const menuVisible = this.state.menuVisible;
@@ -457,7 +459,6 @@ class App extends Component {
                         className={cls}
                         onClick={this.handleShow}
                     >
-                        {/* <Icon type="right-circle-o" />*/}
                         <Icon type="right" />
                     </div>
                     <LayerCake
@@ -480,7 +481,7 @@ class App extends Component {
                     className="menu-button"
                     onClick={this.handleShowMenu}
                 >
-                    <Icon type="appstore-o" />
+                    <img src={icon} />
                 </div>
                 {/* 模块 */}
                 <div
