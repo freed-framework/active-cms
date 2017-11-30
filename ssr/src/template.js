@@ -33,7 +33,7 @@ const Template = (id, socket, body) => {
       message: "开始复制页面"
     })
 
-    cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
+    cpy([`../client/pkg-${pageType}/**/*`], baseUrl).then(() => {
 
       socket.emit(`push:progress:${id}`, {
         code: 200,
@@ -54,7 +54,7 @@ const Template = (id, socket, body) => {
       // 修改index.js 中模板数据
       const scriptString = fs.readFileSync(baseUrl + '/index.js', "utf-8");
       const newScriptString = scriptString.replace(/{data:\[\],pageType:\"mobile\"}/ig, function() {
-        return `{data: ${JSON.stringify(body.content)},pageType: "mobile"}`
+        return `{data: ${JSON.stringify(body.content)},pageType: ${pageType}}`
       });
 
       fs.writeFileSync(baseUrl + '/index.js', newScriptString);
