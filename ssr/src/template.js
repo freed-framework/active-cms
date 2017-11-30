@@ -33,7 +33,7 @@ const Template = (id, socket, body) => {
       message: "开始复制页面"
     })
 
-    cpy([`../client/pkg-${pageType}/**/*`], baseUrl).then(() => {
+    cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
 
       socket.emit(`push:progress:${id}`, {
         code: 200,
