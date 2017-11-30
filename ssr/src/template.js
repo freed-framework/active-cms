@@ -35,10 +35,6 @@ const Template = (id, socket, body) => {
         })
 
         cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
-            if (error !== null) {
-                console.log('exec error: ' + error);
-                return;
-            }
             socket.emit(`push:progress:${id}`, {
                 code: 200,
                 progress: 30,
@@ -50,16 +46,34 @@ const Template = (id, socket, body) => {
             const newHtmlString = htmlString.replace(publicPath, `${ENV.publicPath}${timeStmp}/`);
             fs.writeFileSync(baseUrl + '/index.html', newHtmlString);
 
+            socket.emit(`push:progress:${id}`, {
+                code: 200,
+                progress: 40,
+                message: "替换html文件"
+            })
+
             // 修改vendor中地址
             const svendorString = fs.readFileSync(baseUrl + '/vendor.js', "utf-8");
             const newVendorString = svendorString.replace(publicPath, `${ENV.publicPath}${timeStmp}/`);
             fs.writeFileSync(baseUrl + '/vendor.js', newVendorString);
+
+            socket.emit(`push:progress:${id}`, {
+                code: 200,
+                progress: 50,
+                message: "替换vendor.js文件"
+            })
 
             // 修改index.js 中模板数据
             const scriptString = fs.readFileSync(baseUrl + '/index.js', "utf-8");
             const newScriptString = scriptString.replace(/{data:\[\],pageType:\"mobile\"}/ig, function () {
                 return `{data: ${JSON.stringify(body.content)},pageType: ${pageType}}`
             });
+
+            socket.emit(`push:progress:${id}`, {
+                code: 200,
+                progress: 60,
+                message: "替换index.js文件"
+            })
 
             fs.writeFileSync(baseUrl + '/index.js', newScriptString);
             zip.zipFolder({ folderPath: baseUrl }, () => {
