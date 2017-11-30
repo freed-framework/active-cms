@@ -28,8 +28,8 @@ npm run build
 npm run build-mobile
 npm run build-pc
 
-chmod -R 777 /var/web/active-cms/client/pkg-mobile
-chmod -R 777 /var/web/active-cms/client/pkg-pc
+chmod -R 777 /var/web/active-cms/client/pkg-mobile/images
+chmod -R 777 /var/web/active-cms/client/pkg-pc/images
 
 echo "stop pm2..."
 pm2 delete all 
