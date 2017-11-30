@@ -30,6 +30,22 @@ var ROOT_PATH = path.resolve(__dirname);
 const PRO_ROOT = path.resolve(process.cwd(), '../');
 const ROOT = path.resolve(process.cwd(), '');
 
+// svg去除多余
+const svgoConfig = {
+    plugins: [
+        { removeTitle: true },
+        { convertColors: { shorthex: true } },
+        { convertPathData: true },
+        { cleanupAttrs: true },
+        { removeComments: true },
+        { removeDesc: true },
+        { removeUselessDefs: true },
+        { removeEmptyAttrs: true },
+        { removeHiddenElems: true },
+        { removeEmptyText: true }
+    ]
+};
+
 var webpackConfig = {
     devtool: false,
     entry: {
@@ -151,7 +167,27 @@ var webpackConfig = {
                 // 图片加载器
                 test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?[=a-z0-9]+)?$/,
                 loader: 'url-loader?limit=10000&name=images/[hash].[ext]'
-            }
+            },
+
+            // svg
+            {
+                test: /\.(svg)$/i,
+                use: [
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            include: [
+                                require.resolve('antd-mobile').replace(/warn\.js$/, ''),  // 1. 属于 antd-mobile 内置 svg 文件
+                                path.resolve(__dirname, 'src/svg-folder'),                // 2. 自己私人的 svg 存放目录
+                            ]
+                        }
+                    },
+                    {
+                        loader: 'svgo-loader',
+                        options: svgoConfig
+                    }
+                ],
+            },
         ]
     },
 };
