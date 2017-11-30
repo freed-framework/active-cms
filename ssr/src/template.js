@@ -3,7 +3,7 @@ import fs from 'fs';
 import zip from 'zipfolder';
 var child_process = require('child_process');
 
-const cpy = require('cpy');
+const copy = require('copy');
 import ENV from './env';
 
 const nodeENV = process.env.NODE_ENV;
@@ -34,8 +34,7 @@ const Template = (id, socket, body) => {
             message: "开始复制页面"
         })
 
-        const originPath = path.resolve(__dirname, `../../client/pkg-${pageType}/*`);
-        child_process.exec(`cp -R ${originPath} ${baseUrl}`, (error, stdout, stderr) => {
+        copy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
             if (error !== null) {
                 console.log('exec error: ' + error);
                 return;
@@ -66,12 +65,8 @@ const Template = (id, socket, body) => {
             zip.zipFolder({ folderPath: baseUrl }, () => {
                 resolve({ folderZipPath, baseUrl, timeStmp });
             });
+
         });
-
-        // cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
-
-
-        // });
     })
 
 }
