@@ -3,7 +3,7 @@ import fs from 'fs';
 import zip from 'zipfolder';
 var child_process = require('child_process');
 
-const copy = require('copy');
+const cpy = require('cpy');
 import ENV from './env';
 
 const nodeENV = process.env.NODE_ENV;
@@ -34,7 +34,7 @@ const Template = (id, socket, body) => {
             message: "开始复制页面"
         })
 
-        copy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
+        cpy([`../client/pkg-${pageType}/*`], baseUrl).then(() => {
             if (error !== null) {
                 console.log('exec error: ' + error);
                 return;
