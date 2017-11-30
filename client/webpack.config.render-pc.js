@@ -46,15 +46,15 @@ var webpackConfig = {
         chunkFilename: '[name].chunk.js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: Infinity
+        // }),
 
         new HtmlWebPlugin({
             filename: 'index.html',
             template: './render/pc/index.html',
-            chunks: ['vendor', 'index'],
+            chunks: ['index'],
             inject: 'body',
         }),
 

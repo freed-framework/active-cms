@@ -52,15 +52,15 @@ var webpackConfig = {
         // 当模块热替换（HMR）时在浏览器控制台输出对用户更友好的模块名字信息
         new webpack.NamedModulesPlugin(),
 
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: Infinity
+        // }),
 
         new HtmlWebPlugin({
             filename: 'index.html',
             template: './render/mobile/index.html',
-            chunks: ['vendor', 'index'],
+            chunks: ['index'],
             inject: 'body',
         }),
 
