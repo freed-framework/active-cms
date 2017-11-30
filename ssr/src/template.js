@@ -1,10 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import zip from 'zipfolder';
-var process = require('child_process');
+var child_process = require('child_process');
 
 const cpy = require('cpy');
+import ENV from './env';
 
+const nodeENV = process.env.NODE_ENV;
 const isMobile = true;
 
 const publicPath = /(\/ssrPath\/)/ig;
@@ -33,7 +35,7 @@ const Template = (id, socket, body) => {
         })
 
         const originPath = path.resolve(__dirname, `../../client/pkg-${pageType}/*`);
-        process.exec(`cp -R ${originPath} ${baseUrl}`, (error, stdout, stderr) => {
+        child_process.exec(`cp -R ${originPath} ${baseUrl}`, (error, stdout, stderr) => {
             if (error !== null) {
                 console.log('exec error: ' + error);
                 return;
