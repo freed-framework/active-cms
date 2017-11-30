@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Affix, Button } from 'antd';
 
-export default class HanleMenu extends Component {
+export default class HanleMenu extends PureComponent {
     static propTypes = {
 
     }

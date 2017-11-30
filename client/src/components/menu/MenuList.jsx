@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Font from 'font';
 import { Row, Col, Button, Icon, Input, Select } from 'antd';
@@ -13,7 +13,7 @@ const routes = {
     share: '/lists/share'
 }
 
-export default class TopMenu extends Component {
+export default class TopMenu extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
         onSearch: PropTypes.func,

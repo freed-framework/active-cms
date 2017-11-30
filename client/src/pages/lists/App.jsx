@@ -5,7 +5,7 @@
  * 列表页面
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
 import { withRouter } from 'react-router-dom';
@@ -34,7 +34,7 @@ const socket = io(`${ENV.domain}`, {
     path: '/push'
 });
 
-class List extends Component {
+class List extends PureComponent {
     static propTypes = {
         match: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),

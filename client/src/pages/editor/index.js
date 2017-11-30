@@ -3,13 +3,13 @@
  * @author denglingbo
  *
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getPage } from '../../services';
 import App from './App';
 import { calc, resizeEvt } from '../../common/mobileMock';
 
-class Editor extends Component {
+class Editor extends PureComponent {
     constructor(props) {
         super(props);
 
@@ -30,15 +30,15 @@ class Editor extends Component {
         }
 
         if (params.id) {
-            getPage(params.id).then((res) => {
+            getPage(params.id)
+                .then((res) => {
+                    const { data } = res;
+                    document.title = data.title;
 
-                const { data } = res;
-                document.title = data.title;
-
-                this.setState({
-                    data: data.content,
+                    this.setState({
+                        data: data.content,
+                    })
                 })
-            })
         } else {
             this.setState({
                 data: [
@@ -128,6 +128,76 @@ class Editor extends Component {
                             },
                             {
                                 "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf17",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce152cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce215cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29d3ce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-a2b8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61d2e5d61-ddbb-435b-ab8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61d1e5d61-ddbb-435b-ab8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-mod2ule-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de25d61-ddbb-435b-ab8c-29dce15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-2435b-ab8c-29dce15cdf7",
                                 "name": "mobile/img",
                                 "componentProps": {
                                     "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"

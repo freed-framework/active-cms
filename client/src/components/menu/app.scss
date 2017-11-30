@@ -2,15 +2,23 @@ $padding: 20px;
 
 .ec-editor-menu {
     position: fixed;
-    left: 0;
-    bottom: 0;
-    height: 50px;
     line-height: 50px;
-    display: inline-block;
     z-index: 9999;
     display: block;
-    background-image: url(../../images/1.png);
+    //background-image: url(../../images/1.png);
+    background: #000;
+    width: 194px;
+    height: 300px;
+    left: 74px;
+    bottom: 10px;
+    border-radius: 20px;
+    transition: all .4s;
+    transform: perspective(600) rotateY(0deg);
+    transform-origin: 0 0;
+    opacity: .8;
 }
-.hide{
-    display: none;
+
+.hide {
+    transform: perspective(600) rotateY(90deg);
+    opacity: .2;
 }
