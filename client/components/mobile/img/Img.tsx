@@ -13,8 +13,6 @@ class Img extends React.Component<ImgProps, any> {
     }
 
     handleClick = () => {
-        // console.log(this.props.url);
-        // window.location.href = this.props.url;
         Native.redirect(this.props.url);
     }
 
