@@ -66,7 +66,7 @@ const Template = (id, socket, body) => {
             // 修改index.js 中模板数据
             const scriptString = fs.readFileSync(baseUrl + '/index.js', "utf-8");
             const newScriptString = scriptString.replace(/{data:\[\],pageType:\"mobile\"}/ig, function () {
-                return `{data: ${JSON.stringify(body.content)},pageType: ${pageType}}`
+                return `{data: ${JSON.stringify(body.content)},pageType: "${pageType}"}`
             });
 
             socket.emit(`push:progress:${id}`, {
