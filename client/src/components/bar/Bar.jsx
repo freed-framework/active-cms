@@ -53,7 +53,7 @@ class Bar {
 
         return (
             <div>
-                <div>组件属性编辑:</div>
+                <div className="div-title">组件属性编辑:</div>
                 <EditAttr
                     {...props}
                 />

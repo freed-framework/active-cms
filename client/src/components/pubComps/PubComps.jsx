@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom';
 import { Row, Col, Button, Icon } from 'antd';
 import { addComponent } from '../../pages/editor/App';
 import './pubComps.scss';
+import piclist2 from '../../images/icon-svg/piclist2.svg';
 
 class PubComps extends PureComponent {
     constructor() {
@@ -64,7 +65,8 @@ class PubComps extends PureComponent {
                                         onClick={addComponent}
                                         className="ec-editor-pub-comps-items"
                                     >
-                                        <Font type={conf.iconType} />
+
+                                        {conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}
                                         <span>{conf.displayName}</span>
                                     </div>
                                 </Col>

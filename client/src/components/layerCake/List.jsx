@@ -16,6 +16,7 @@ import Lazyer from '../../common/lazyer';
 import DragPop from './DragPop';
 import Utils from '../../../components/util/util';
 import { moveComponent, sortComponent, editComponentByGuid } from '../../pages/editor/App';
+import doc from '../../images/icon-svg/doc.svg';
 
 function GetRect(element) {
     const rect = element.getBoundingClientRect();
@@ -298,8 +299,8 @@ class List extends Component {
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
-                            <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />
-
+                            <img src={doc} />
+                            {/* <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />*/}
                             {this.getDisplayName(item)}
                         </span>
 

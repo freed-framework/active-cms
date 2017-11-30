@@ -18,11 +18,25 @@
     -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .5);
     background-color: #999;
 }
+@keyframes fade-in {
+    0% {display:none;}
+    100% {display: block;}
+}
+@keyframes action_scaleOut{
+    0%{transform: scale(0.2);opacity: 0;}
+    100%{ transform: scale(1);opacity: 1;}
+}
 
+@keyframes action_translateX{
+    0%{transform: translateX(-50px);background: #2B2B2E;}
+    100%{ transform: translateX(0px);background: #24272E;}
+}
 
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    // background: #2B2B2E !important;
 }
 
 /**
@@ -31,6 +45,7 @@ body {
 .ec-editor-canvas {
     position: relative;
     z-index: 1;
+    min-height: 100%;
     &-inner {
         overflow: hidden;
         margin: 0 auto;
@@ -64,7 +79,7 @@ body {
         min-height: 400px;
         transform-origin: 50% 0;
         transform: scale(0.5);
-        box-shadow: 0px 0px 14px 0 #666;
+        box-shadow: 0px 0px 12px 0 #666;
     }
 }
 
@@ -83,7 +98,7 @@ body {
     }
     .ec-editor-pub-comps {
         width: 80px;
-        font-size: 14px;
+        font-size: 12px;
         background: #212125 100%;
         color: #DEDEE0;
         margin-bottom: 0;
@@ -94,17 +109,29 @@ body {
             margin-bottom: 10px;
         }
     }
+
     .ec-editor-layer-cake {
+        z-index: 88;
         width: 160px;
         background: #24272E 100%;
         color: #8E8E94;
+        animation: action_translateX;
+        animation-duration: 0.5s;
+        -webkit-animation:action_translateX 0.5s;
     }
     .ec-panel-title {
         background: #2D2D32;
         color: #DEDEE0;
-        font-size: 16px;
+        font-size: 14px;
         height: 44px;
         line-height: 44px;
+        margin-bottom: 14px;
+    }
+    .ec-panel-item-active>div{
+        margin-bottom: 14px;
+    }
+    .div-title{
+        margin-bottom: 6px;
     }
     .ec-editor-pub-comps-items {
         height: 80px;
@@ -124,7 +151,7 @@ body {
         background: #2D2D32;
         height: 44px;
         line-height: 44px;
-        font-size: 16px;
+        font-size: 14px;
         color: #DEDEE0;
         .anticon-check-circle-o{
             padding-right: 4px;
@@ -136,24 +163,68 @@ body {
     .ec-editor-basic-props button{
         margin-top: 8px;
     }
+    .ec-editor-basic-props-background {
+        width: 244px;
+        .inline-block{
+            width: 100%;
+        }
+        input[type="text"]{
+            width: 164px;
+        }
+    }
+    .ec-editor-basic-props-border{
+        .ant-select-selection--single{
+            margin: 0 1px;
+        }
+    }
+    .ec-panel-item .ec-editor-basic-props-img p{
+        label{
+            display: block;
+        }
+        input[type="text"]{
+            width: 240px;
+        }
+    }
+    .ec-editor-basic-props-attr input[type="text"]{
+        width: 240px;
+    }
+    .ec-editor-basic-props-attr p{
+        margin-bottom: 14px;
+        label{
+            display: inline-block;
+            width: 80px;
+        }
+        input[type="text"]{
+            display: inline-block;
+            width: 176px;
+        }
+    }
     .ec-editor-menu {
-        width: 170px;
+        width: 194px;
         height: 300px;
-        left: 84px;
+        left: 74px;
         bottom: 10px;
-        background: #2d3035;
-        opacity: 0.8;
         border-radius: 20px;
+        animation: action_scaleOut;
+        animation-duration: 1s;
+        -webkit-animation:action_scaleOut 1s;
     }
     .ant-btn-sm {
         width: 120px;
         height: 60px;
-        font-size: 16px;
+        font-size: 14px;
         background: none;
         border: none;
         color: #DEDEE0;
         text-align: left;
-        margin-left: 20px;
+        margin-left: 44px;
+        img{
+            margin-right: 8px;
+        }
+    }
+    .ant-row {
+        margin-bottom: 16px;
+        margin-top: 16px;
     }
     .ant-btn:hover,
     .ant-btn:focus,
@@ -163,16 +234,19 @@ body {
         color: #CC504A;
     }
     .ec-editor-pub-comps-items:hover{
-        background: #56B1FF;
+        background: #0255DF;
     }
     .ec-editor-layer-cake-main {
-        font-size: 14px;
+        font-size: 12px;
+        max-height: 100%;
+        padding-bottom: 20px;
+        /*overflow: scroll;*/
+
     }
     .ec-editor-layer-cake-items-not-active,
     .ec-editor-layer-cake-content
     .ec-editor-layer-cake-items,
     .ec-editor-layer-cake-items-sub{
-        // height: 40px;
         line-height: 40px;
     }
 
@@ -190,7 +264,6 @@ body {
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: #CC504A;
         text-align: center;
         .anticon-appstore-o{
             line-height: 60px;
@@ -201,10 +274,12 @@ body {
     .show-right{
         position: fixed;
         left: 56px;
-        top: 476px;
+        top: 50%;
+        margin-top: -24px;
         z-index: 999;
         width: 48px;
         height: 48px;
+        line-height: 48px;
         border-radius: 50%;
         text-align: center;
         background: #212125;
@@ -217,25 +292,28 @@ body {
     }
     .closeRight{
         transform: rotate(180deg);
+        line-height: 48px;
+        padding-right: 20px;
     }
     input[type="text"] {
         border: 1px solid #2D2D32;
         padding: 3px 5px;
         background: #2D2D32;
         color: #8E8E94;
+        width: 120px;
     }
     .ec-panel-layout button{
         background: #2D2D32;
         color: #8E8E94;
         border: 1px solid #2d2d32;
+        padding: 0 4px;
     }
     .ec-editor-basic-props label {
         margin-bottom: 4px;
-        margin-top: 4px;
     }
     .ec-panel-layout-visible {
         background: #212125 100%;
-        font-size: 14px;
+        font-size: 12px;
     }
     .ec-panel-title-text{
         padding: 0 5px 5px 20px;
@@ -257,6 +335,10 @@ body {
     }
     .ec-panel-main {
         color: #8E8E94;
+        padding: 0 20px;
+    }
+    .ant-btn-group-sm > .ant-btn {
+        line-height: 22px;
     }
 }
 
