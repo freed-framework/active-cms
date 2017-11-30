@@ -239,9 +239,15 @@ body {
     .ec-editor-layer-cake-main {
         font-size: 12px;
         max-height: 100%;
+        padding: 0;
         padding-bottom: 20px;
         /*overflow: scroll;*/
 
+    }
+    .ec-editor-layer-cake-items-sub {
+        margin-bottom: 0;
+        margin-left: 0;
+        padding-left: 18px;
     }
     .ec-editor-layer-cake-items-not-active,
     .ec-editor-layer-cake-content
@@ -249,8 +255,11 @@ body {
     .ec-editor-layer-cake-items-sub{
         line-height: 40px;
     }
-
-    .ec-editor-layer-cake-content:hover {
+    .ec-editor-layer-cake-content{
+        padding-left: 4px;
+    }
+    .ec-editor-layer-cake-content:hover,
+    .ec-editor-layer-cake-items-sub:hover {
         background: #2D3035;
     }
     .ec-editor-layout-fixed{
