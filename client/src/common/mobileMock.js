@@ -23,6 +23,25 @@ const calc = (width) => {
     docEl.style.fontSize = `${rate}px`;
 };
 
+/**
+ * <START> cordova mock
+ */
+setTimeout(function() {
+    var evt = document.createEvent('HTMLEvents');
+    evt.initEvent('deviceready', true, true);
+    document.dispatchEvent(evt);
+}, 100);
+
+window.YTNavigation = {
+    redirect: function (url, options) {
+        console.log(url);
+        // window.location.href = `/${url}`;
+    },
+};
+/**
+ * <END> cordova mock
+ */
+
 export {
     calc,
     resizeEvt,

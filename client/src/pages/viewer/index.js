@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getPage } from '../../services';
 import Render from '../../common/render/Render';
-import { calc, resizeEvt } from '../../common/mobileCalc';
+import { calc, resizeEvt } from '../../common/mobileMock';
 import '../../css/reset-mobile.css';
 
 class Viewer extends Component {
