@@ -58,7 +58,8 @@ class Editor extends Component {
                         "componentProps": {
                             "style": {
                                 "layout": {
-                                    "padding": "10"
+                                    "padding": "10",
+                                    "height": "800",
                                 }
                             }
                         }
@@ -91,7 +92,42 @@ class Editor extends Component {
                                 }
                             },
                             {
-                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dcec15cdf7",
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce2cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c2ec15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-3dcec15cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29d45cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dc515cdf7",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
+                                }
+                            },
+                            {
+                                "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
                                 "name": "mobile/img",
                                 "componentProps": {
                                     "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"

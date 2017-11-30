@@ -3,6 +3,7 @@ import * as React from 'react';
 import config from './config';
 import './img.scss';
 import Native from '../native/index.js';
+import LazyLoad from '../lazy-load/index.js';
 
 class Img extends React.Component<ImgProps, any> {
     static config: Config = config;
@@ -33,7 +34,9 @@ class Img extends React.Component<ImgProps, any> {
                 onClick={this.handleClick}
                 style={styleProps}
             >
-                <img src={src} />
+                <LazyLoad overflow>
+                    <img src={src} />
+                </LazyLoad>
             </div>
         )
     }
