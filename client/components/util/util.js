@@ -186,9 +186,8 @@ class utils {
         this.find($data, guid, ($finder, deep) => {
             const setBy = deep.concat(['children']);
             const child = $finder.toJS().children || [];
-
             // 防止guid重复
-            child.push(this.changeGuid([copyData])[0])
+            child.push(this.changeGuid([copyData])[0]);
 
             const $child = fromJS(child);
 

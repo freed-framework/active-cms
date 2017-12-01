@@ -19,6 +19,9 @@ class Upload extends Component {
             },
             uploadSuccess: (props) => {
                 console.log(props)
+            },
+            uploadFail: (resp) => {
+                console.log(resp)
             }
         }
 

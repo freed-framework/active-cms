@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Modal } from 'antd';
 import * as FileUpload from 'react-fileupload';
+import { is } from 'immutable';
 import defaultStyleHoc from '../../../common/hoc/defaultStyleHoc';
 import utils from '../../../../components/util/util';
 import module from '../../../common/module';
@@ -34,9 +35,16 @@ class MobileList extends PureComponent {
             cols: props.componentProps.cols,
             padding: props.componentProps.extendsProps.style.layout.padding,
             height: props.componentProps.extendsProps.style.layout.height,
+            arr: utils.childNodes2Array(props.children) || [],
         }
+    }
 
-        this.arr = utils.childNodes2Array(props.children) || [];
+    componentWillReceiveProps(nextProps) {
+        if (!is(nextProps.children, this.props.children)) {
+            this.setState({
+                arr: utils.childNodes2Array(nextProps.children) || [],
+            })
+        }
     }
 
     /**
@@ -93,17 +101,23 @@ class MobileList extends PureComponent {
     uploadSuccess = (res) => {
         const data = createImgData(res.data);
 
-        this.changeData(this.arr.concat(data));
+        this.changeData(this.state.arr.concat(data));
     }
 
-    changeData(data) {
-        this.arr = data;
+    uploadFail = () => {
+        console.log(this.state.arr);
+    }
 
-        editComponentByGuid(
-            this.props.guid,
-            ['children'],
-            data,
-        );
+    changeData(arr) {
+        this.setState({
+            arr,
+        }, () => {
+            editComponentByGuid(
+                this.props.guid,
+                ['children'],
+                this.state.arr,
+            );
+        });
     }
 
     showConfirm = () => {
@@ -112,9 +126,7 @@ class MobileList extends PureComponent {
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
-            onOk: () => {
-                this.changeData([]);
-            },
+            onOk: () => this.changeData([]),
         });
     }
 
@@ -125,10 +137,13 @@ class MobileList extends PureComponent {
         const options = {
             baseUrl: 'http://172.30.40.16:3000/api/image',
             multiple: true,
+            accept: 'image/*',
+            timeout: 1,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            uploadSuccess: this.uploadSuccess
+            uploadSuccess: this.uploadSuccess,
+            uploadError: this.uploadFail,
         }
         /*Use FileUpload with options*/
         /*Set two dom with ref*/
@@ -170,10 +185,11 @@ class MobileList extends PureComponent {
                         <button
                             onClick={this.showConfirm}
                         >
-                            删除所有图片
+                            <span>删除所有图片</span>
+                            <span>({this.state.arr.length})</span>
                         </button>
                         <FileUpload options={options}>
-                            <button ref='chooseAndUpload'>chooseAndUpload</button>
+                            <button ref='chooseAndUpload'>批量上传图片</button>
                         </FileUpload>
                     </p>
                     <p>

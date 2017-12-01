@@ -129,14 +129,29 @@ class Module {
     }
 
     /**
-     * 粘贴组件
+     * 粘贴组件 <TODO> 石进华，你个逗比，module 就是处理数据的，你居然放在 util
      * @param guid
      * @param data
      * @param copyData
      * @return {*}
      */
     static paste(guid, data, copyData) {
-        return utils.pasteByGuid(data, guid, copyData);
+        const $data = fromJS(data);
+
+        return this.findByGuid(guid, $data, ($finder, deep) => {
+            if (deep.length === 1) {
+                return $data.concat(utils.changeGuid([copyData]));
+            }
+
+            deep.pop();
+
+            return $data.setIn(
+                deep,
+                $data.getIn(deep).concat(utils.changeGuid([copyData]))
+            );
+        }).toJS();
+
+        // return utils.pasteByGuid(data, guid, copyData);
     }
 
     /**

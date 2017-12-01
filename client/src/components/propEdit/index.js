@@ -27,6 +27,7 @@ export default class EditAttr extends PureComponent {
                 defaultValues: {
                     ...config.defaultValues
                 },
+                children: this.props.children,
                 componentProps,
             };
 
