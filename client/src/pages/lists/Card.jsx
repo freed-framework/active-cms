@@ -4,7 +4,7 @@
  *
  * 卡片组件
  */
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Font from 'font';
 import classnames from 'classnames';
@@ -22,7 +22,7 @@ function formNowFun(time) {
     return moment(time).locale('zh-cn').fromNow()
 }
 
-export default class componentName extends Component {
+export default class componentName extends PureComponent {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any).isRequired,
         history: PropTypes.objectOf(PropTypes.any),

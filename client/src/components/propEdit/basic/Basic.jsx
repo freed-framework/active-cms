@@ -58,26 +58,32 @@ class BasicEdit extends PureComponent {
         );
     }
 
-    handleChange = (event) => {
-        const attr = event.currentTarget.getAttribute('data-attr');
-        const value = event.currentTarget.value;
-
+    handleKeyUp = (event) => {
         // 要修改某个元素的对应关系, layout, main, ...
         const { target, guid } = this.props;
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
 
         const keys = target ?
             ['componentProps', 'style', target, attr] :
             ['componentProps', 'style', attr];
 
+        if (event.keyCode === 13) {
+            editComponentByGuid(
+                guid,
+                keys,
+                value,
+            );
+        }
+    }
+
+    handleChange = (event) => {
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
+
         this.setState({
             [attr]: value,
         });
-
-        editComponentByGuid(
-            guid,
-            keys,
-            value,
-        );
     }
 
     render() {
@@ -104,6 +110,7 @@ class BasicEdit extends PureComponent {
                                 data-guid={guid}
                                 data-attr="width"
                                 onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
                                 value={this.state.width}
                             />
                         </div>

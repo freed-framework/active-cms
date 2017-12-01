@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { is } from 'immutable';
@@ -7,7 +7,7 @@ import { Row, Col, Button, Icon } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
 import back from '../../images/icon-svg/back.svg';
 
-class TopMenu extends Component {
+class TopMenu extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
     }

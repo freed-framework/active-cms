@@ -46,15 +46,15 @@ var webpackConfig = {
         chunkFilename: '[name].chunk.js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     minChunks: Infinity
+        // }),
 
         new HtmlWebPlugin({
             filename: 'index.html',
             template: './render/pc/index.html',
-            chunks: ['vendor', 'index'],
+            chunks: ['index'],
             inject: 'body',
         }),
 
@@ -144,7 +144,7 @@ var webpackConfig = {
             {
                 // 图片加载器
                 test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?[=a-z0-9]+)?$/,
-                loader: 'url-loader?limit=10000&name=images/[hash].[ext]'
+                loader: 'url-loader?limit=10000&name=[hash].[ext]'
             }
         ]
     },

@@ -4,7 +4,7 @@
  *
  * Des
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -33,7 +33,7 @@ const emitter = mitt();
         user
     }, dispatch)
 )
-class App extends Component {
+class App extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
     }

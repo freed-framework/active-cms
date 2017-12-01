@@ -4,7 +4,7 @@
  *
  * 已选组件列表项
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Font from 'font';
@@ -55,7 +55,7 @@ function contains(n, targetClass, endClass) {
     return false;
 }
 
-class List extends Component {
+class List extends PureComponent {
     constructor(props) {
         super(props);
 

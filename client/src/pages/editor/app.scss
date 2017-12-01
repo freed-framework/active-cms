@@ -222,22 +222,6 @@ body {
             width: 176px;
         }
     }
-    .ec-editor-menu {
-        width: 180px;
-        height: 282px;
-        left: 70px;
-        bottom: 20px;
-        border-radius: 20px;
-        animation: action_scaleOut;
-        animation-duration: 0.1s;
-        -webkit-animation:action_scaleOut 0.1s;
-        button {
-            border-bottom: 1px solid #383737;;
-        }
-        button:last-child {
-            border-bottom: 0;
-        }
-    }
     .ant-btn-sm {
         width: 120px;
         height: 56px;

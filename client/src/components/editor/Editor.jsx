@@ -75,7 +75,7 @@ class Editor extends PureComponent {
         // }
     }
 
-    render() {console.log(this.props.match)
+    render() {
         const { params } = this.props.match;
 
         return (
