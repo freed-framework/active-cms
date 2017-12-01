@@ -5,11 +5,11 @@
  * Des
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Immutable from 'immutable';
 import propTypes from 'prop-types';
 
-class Lazyer extends Component {
+class Lazyer extends PureComponent {
     static propTypes = {
         item: propTypes.any,
         loader: propTypes.func,
