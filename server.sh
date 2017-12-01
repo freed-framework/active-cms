@@ -6,19 +6,21 @@ else
     name=$1
 fi
 
+projectPath = ${projectPath}
+
 echo "delete dist"
-rm -rf /var/web/active-cms/server/dist
-rm -rf /var/web/active-cms/ssr/lib
-rm -rf /var/web/active-cms/client/dist
+rm -rf ${projectPath}/server/dist
+rm -rf ${projectPath}/ssr/lib
+rm -rf ${projectPath}/client/dist
 
 echo "start..."
-cd /var/web/active-cms
+cd ${projectPath}
 
 echo "pull..."
 git pull
 
 echo "enter client ..."
-cd /var/web/active-cms/client
+cd ${projectPath}/client
 
 echo "install client"
 cnpm install
@@ -32,7 +34,7 @@ echo "stop pm2..."
 pm2 delete all 
 
 echo "enter server"
-cd /var/web/active-cms/server
+cd ${projectPath}/server
 
 echo "install..."
 cnpm install
@@ -47,7 +49,7 @@ echo "leave server ..."
 cd ../
 
 echo "enter ssr ..."
-cd /var/web/active-cms/ssr
+cd ${projectPath}/ssr
 
 echo "install..."
 cnpm install
