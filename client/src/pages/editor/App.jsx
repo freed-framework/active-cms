@@ -94,8 +94,8 @@ class App extends PureComponent {
         // })
 
         this.canvas.addEventListener('click', this.handleActive);
-        this.canvas.addEventListener('mouseover', this.handleHover);
-        this.canvas.addEventListener('mouseout', this.handleOut);
+        // this.canvas.addEventListener('mouseover', this.handleHover);
+        // this.canvas.addEventListener('mouseout', this.handleOut);
     }
 
     componentWillUnmount() {
@@ -109,8 +109,8 @@ class App extends PureComponent {
         // this.timer.unsubscribe();
 
         this.canvas.removeEventListener('click', this.handleActive);
-        this.canvas.removeEventListener('mouseover', this.handleHover);
-        this.canvas.removeEventListener('mouseout', this.handleOut);
+        // this.canvas.removeEventListener('mouseover', this.handleHover);
+        // this.canvas.removeEventListener('mouseout', this.handleOut);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -128,7 +128,6 @@ class App extends PureComponent {
     handleActive = (event) => {
         // guid 作为 id 被添加到组件上
         const guid = event.target.getAttribute('id');
-
         this.mittActive({
             guid,
             target: event.target,
@@ -149,9 +148,9 @@ class App extends PureComponent {
             });
         } else {
             // 保持激活状态
-            this.setState({
-                rect: this.state.activeRect,
-            });
+            // this.setState({
+            //     rect: this.state.activeRect,
+            // });
         }
     }
 
@@ -295,12 +294,12 @@ class App extends PureComponent {
      */
     mittModify = ({ guid, key, value }) => {
         // 黑科技，如果不添加 timer，当默认数据出现多次接近同时调用的时候，state.data 并未更新
-        setTimeout(() => {
+        // setTimeout(() => {
             const data = module.modify(guid, this.state.data, key, value);
             this.setState({
                 data,
             });
-        });
+        // });
     }
 
     mittSort = (data) => {
@@ -437,6 +436,7 @@ class App extends PureComponent {
         const cls = classNames('show-right', {
             'close-right': layerCakeVisible,
         });
+
         return (
             <div className={`ec-editor-${match.params.type}`}>
                 <Control
@@ -475,6 +475,7 @@ class App extends PureComponent {
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
+
                 {/* 菜单导航栏 */}
                 <div
                     className="menu-button"
@@ -482,6 +483,7 @@ class App extends PureComponent {
                 >
                     <img src={icon} />
                 </div>
+
                 {/* 模块 */}
                 <div
                     ref={ref => { this.canvas = ref }}

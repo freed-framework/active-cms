@@ -31,7 +31,6 @@ class PubComps extends PureComponent {
 
                 Object.keys(mod).forEach(k => {
                     keys.push(k);
-                    console.log(k)
                 });
 
                 this.setState({
