@@ -33,6 +33,7 @@ class MobileList extends PureComponent {
         this.state = {
             cols: props.componentProps.cols,
             padding: props.componentProps.extendsProps.style.layout.padding,
+            height: props.componentProps.extendsProps.style.layout.height,
         }
 
         this.arr = utils.childNodes2Array(props.children) || [];
@@ -58,6 +59,14 @@ class MobileList extends PureComponent {
             this.changeValue(
                 ['componentProps', 'extendsProps', 'style', 'layout','padding'],
                 'padding',
+                value
+            );
+        }
+
+        if (name === 'childHeight') {
+            this.changeValue(
+                ['componentProps', 'extendsProps', 'style', 'layout','height'],
+                'height',
                 value
             );
         }
@@ -145,6 +154,16 @@ class MobileList extends PureComponent {
                             name="childPadding"
                             onChange={this.handleChange}
                             value={this.state.padding}
+                        />
+                    </p>
+                    <p>
+                        <label htmlFor="">图片高度</label>
+                        <input
+                            type="text"
+                            data-guid={guid}
+                            name="childHeight"
+                            onChange={this.handleChange}
+                            value={this.state.height}
                         />
                     </p>
                     <p>

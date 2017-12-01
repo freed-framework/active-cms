@@ -53,11 +53,11 @@ class Editor extends PureComponent {
     handleChange = ({ fileList }) => this.setState({ fileList })
 
     componentWillReceiveProps(nextProps) {
-        if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
-            this.setState({
-                tileData: nextProps.tileData,
-            });
-        }
+        // if (!Immutable.is(nextProps.tileData, this.props.tileData)) {
+        //     this.setState({
+        //         tileData: nextProps.tileData,
+        //     });
+        // }
 
         if (!Immutable.is(nextProps.data, this.props.data)) {
             this.setState({
@@ -83,6 +83,7 @@ class Editor extends PureComponent {
                 <Render
                     data={this.props.data}
                     pageType={params.type}
+                    isEdit={true}
                 />
             </div>
         );

@@ -127,11 +127,17 @@ class App extends PureComponent {
      */
     handleActive = (event) => {
         // guid 作为 id 被添加到组件上
-        const guid = event.target.getAttribute('id');
-        this.mittActive({
-            guid,
-            target: event.target,
-        });
+        const target = event.target;
+        const guid = target.getAttribute('id');
+        const module = target.getAttribute('data-module');
+
+        if (module) {
+            this.mittActive({
+                guid,
+                target,
+                rect: getRect(target),
+            });
+        }
     }
 
     /**
@@ -494,7 +500,6 @@ class App extends PureComponent {
                         className="ec-editor-canvas-inner"
                     >
                         <Editor
-                            activeId={this.state.activeId}
                             data={data}
                         />
                     </div>

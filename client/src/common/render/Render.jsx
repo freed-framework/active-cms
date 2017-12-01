@@ -27,6 +27,7 @@ const loop = (props) => props.data.map(item => (
                 ...mod,
                 ...(props.extendsProps && { extendsProps: props.extendsProps }),
                 pageType: props.pageType,
+                isEdit: props.isEdit,
             }}>
                 {(childProps) => loop(childProps)}
             </AppComponent>

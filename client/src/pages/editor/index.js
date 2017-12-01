@@ -215,7 +215,8 @@ class Editor extends PureComponent {
                             "extendsProps": {
                                 "style": {
                                     "layout": {
-                                        "padding": "10"
+                                        "padding": "10",
+                                        "height": "350"
                                     }
                                 }
                             }

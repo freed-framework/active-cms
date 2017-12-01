@@ -17,12 +17,22 @@ class Img extends React.Component<ImgProps, any> {
     }
 
     render() {
-        const { id, style = {}, src = '', extendsProps = {} } = this.props;
+        const { id, style = {}, src = '', extendsProps = {}, isEdit } = this.props;
 
         const styleProps = {
             ...(style && { ...style.layout }),
             ...(extendsProps && extendsProps.style && { ...extendsProps.style.layout })
         };
+
+        const child = isEdit ?
+            ( <img src={src} /> ) :
+            (
+                <LazyLoad
+                    overflow
+                >
+                    <img src={src} />
+                </LazyLoad>
+            );
 
         return (
             <div
@@ -32,9 +42,7 @@ class Img extends React.Component<ImgProps, any> {
                 onClick={this.handleClick}
                 style={styleProps}
             >
-                <LazyLoad overflow>
-                    <img src={src} />
-                </LazyLoad>
+                { child }
             </div>
         )
     }
