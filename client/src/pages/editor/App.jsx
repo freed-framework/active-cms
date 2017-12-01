@@ -94,8 +94,8 @@ class App extends PureComponent {
         // })
 
         this.canvas.addEventListener('click', this.handleActive);
-        this.canvas.addEventListener('mouseover', this.handleHover);
-        this.canvas.addEventListener('mouseout', this.handleOut);
+        // this.canvas.addEventListener('mouseover', this.handleHover);
+        // this.canvas.addEventListener('mouseout', this.handleOut);
     }
 
     componentWillUnmount() {
@@ -109,8 +109,8 @@ class App extends PureComponent {
         // this.timer.unsubscribe();
 
         this.canvas.removeEventListener('click', this.handleActive);
-        this.canvas.removeEventListener('mouseover', this.handleHover);
-        this.canvas.removeEventListener('mouseout', this.handleOut);
+        // this.canvas.removeEventListener('mouseover', this.handleHover);
+        // this.canvas.removeEventListener('mouseout', this.handleOut);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -128,7 +128,6 @@ class App extends PureComponent {
     handleActive = (event) => {
         // guid 作为 id 被添加到组件上
         const guid = event.target.getAttribute('id');
-
         this.mittActive({
             guid,
             target: event.target,
