@@ -45,6 +45,7 @@ class TopMenu extends PureComponent {
             <div
                 className={clsMenu}
             >
+                <div className="triangle-left" />
                 <Button
                     className="ec-editor-btn"
                     size="small"
@@ -73,8 +74,9 @@ class TopMenu extends PureComponent {
                     size="small"
                     onClick={this.handleGoBack}
                 >
-                    {/*<Icon type="rollback" />*/}
-                    <img src={back} />
+                    <Icon type="rollback" />
+                    {/*<Font type="back" />*/}
+                    {/*<img src={back} />*/}
                     <span>返回</span>
                 </Button>
                 <Button

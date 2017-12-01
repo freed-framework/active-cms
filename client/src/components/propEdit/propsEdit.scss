@@ -11,15 +11,28 @@ input[type="text"] {
     &-props {
         margin-bottom: 4px;
         label {
+            display: block;
             margin-right: 2px;
+        }
+        button{
+            margin-top: 8px;
         }
         &-width, &-height, &-margin, &-padding {
             input {
                 width: 80px;
             }
         }
+        &-border{
+            .ant-select-selection--single{
+                margin: 0 1px;
+            }
+        }
         &-background {
-            input {
+            width: 244px;
+            .inline-block{
+                width: 100%;
+            }
+            input[type="text"]{
                 width: 164px;
             }
         }

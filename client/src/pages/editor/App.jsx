@@ -440,7 +440,7 @@ class App extends PureComponent {
         const { rect, data, layerCakeVisible, menuVisible } = this.state;
         const { history, match } = this.props;
         const cls = classNames('show-right', {
-            'closeRight': layerCakeVisible,
+            'close-right': layerCakeVisible,
         });
 
         return (
@@ -448,7 +448,6 @@ class App extends PureComponent {
                 <Control
                     rect={rect}
                 />
-
                 {/* Top Menu */}
                 <TopMenu
                     history={history}

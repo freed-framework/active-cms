@@ -299,7 +299,7 @@ class List extends PureComponent {
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
-                            <img src={doc} />
+                            <img src={require('../../images/icon-svg/doc.svg')} />
                             {/* <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />*/}
                             {this.getDisplayName(item)}
                         </span>
