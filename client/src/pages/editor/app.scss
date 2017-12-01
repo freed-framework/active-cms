@@ -18,18 +18,15 @@
     -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .5);
     background-color: #999;
 }
-@keyframes fade-in {
-    0% {display:none;}
-    100% {display: block;}
-}
+
 @keyframes action_scaleOut{
     0%{transform: scale(0.2);opacity: 0;}
     100%{ transform: scale(1);opacity: 1;}
 }
 
 @keyframes action_translateX{
-    0%{transform: translateX(-50px);background: #2B2B2E;}
-    100%{ transform: translateX(0px);background: #24272E;}
+    0%{transform: translateX(-30px);opacity: 0;}
+    100%{ transform: translateX(0px);opacity: 1;}
 }
 
 body {
@@ -113,11 +110,19 @@ body {
     .ec-editor-layer-cake {
         z-index: 88;
         width: 160px;
+        height: 100%;
         background: #24272E 100%;
         color: #8E8E94;
+        position: fixed;
+        left: 80px;
         animation: action_translateX;
-        animation-duration: 0.5s;
-        -webkit-animation:action_translateX 0.5s;
+        animation-duration: 0.1s;
+        -webkit-animation:action_translateX 0.1s;
+    }
+    .ec-editor-layer-cake-active{
+        /*animation: action_translateX;
+        animation-duration: 0.1s;
+        -webkit-animation:action_translateX 0.1s;*/
     }
     .ec-panel-title {
         background: #2D2D32;
@@ -125,7 +130,10 @@ body {
         font-size: 14px;
         height: 44px;
         line-height: 44px;
-        margin-bottom: 14px;
+        margin-bottom: 0;
+    }
+    .ec-panel-item-active{
+        padding-top: 10px;
     }
     .ec-panel-item-active>div{
         margin-bottom: 14px;
@@ -153,8 +161,10 @@ body {
         line-height: 44px;
         font-size: 14px;
         color: #DEDEE0;
+        margin-bottom: 0;
+        padding-left: 10px;
         .anticon-check-circle-o{
-            padding-right: 4px;
+            padding-right: 5px;
         }
     }
     .ec-editor-basic-props label {
@@ -177,6 +187,19 @@ body {
             margin: 0 1px;
         }
     }
+    .ant-select-selection,
+    .ant-input,
+    .ant-input-number-input,
+    .ec-edit-border-color,
+    .ant-input-number,
+    .ant-btn-group-sm > .ant-btn{
+        border-radius: 0;
+    }
+
+    /*.ant-select-dropdown-menu-item{
+        background: #2D2D32;
+        color: #8E8E94;
+    }*/
     .ec-panel-item .ec-editor-basic-props-img p{
         label{
             display: block;
@@ -200,24 +223,32 @@ body {
         }
     }
     .ec-editor-menu {
-        width: 194px;
-        height: 300px;
-        left: 74px;
-        bottom: 10px;
+        width: 180px;
+        height: 282px;
+        left: 70px;
+        bottom: 20px;
         border-radius: 20px;
         animation: action_scaleOut;
-        animation-duration: 1s;
-        -webkit-animation:action_scaleOut 1s;
+        animation-duration: 0.1s;
+        -webkit-animation:action_scaleOut 0.1s;
+        button {
+            border-bottom: 1px solid #383737;;
+        }
+        button:last-child {
+            border-bottom: 0;
+        }
     }
     .ant-btn-sm {
         width: 120px;
-        height: 60px;
+        height: 56px;
         font-size: 14px;
         background: none;
         border: none;
         color: #DEDEE0;
         text-align: left;
-        margin-left: 44px;
+        margin-left: 36px;
+        padding-left: 10px;
+        border-radius: 0;
         img{
             margin-right: 8px;
         }
@@ -248,15 +279,21 @@ body {
         margin-bottom: 0;
         margin-left: 0;
         padding-left: 18px;
+        .ec-editor-layer-cake-content{
+            height: 36px;
+            line-height: 36px;
+        }
     }
     .ec-editor-layer-cake-items-not-active,
-    .ec-editor-layer-cake-content
     .ec-editor-layer-cake-items,
     .ec-editor-layer-cake-items-sub{
         line-height: 40px;
     }
     .ec-editor-layer-cake-content{
         padding-left: 4px;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 12px;
     }
     .ec-editor-layer-cake-content:hover,
     .ec-editor-layer-cake-items-sub:hover {
@@ -279,6 +316,10 @@ body {
             font-size: 26px;
             color: #fff;
         }
+        img{
+            width: 50px;
+            height: 50px;
+        }
     }
     .show-right{
         position: fixed;
@@ -295,7 +336,7 @@ body {
         .anticon-right:before{
             font-size: 24px;
             color: #8E8E94;
-            line-height: 44px;
+            line-height: 48px;
             padding-left: 8px;
         }
     }
@@ -348,6 +389,10 @@ body {
     }
     .ant-btn-group-sm > .ant-btn {
         line-height: 22px;
+    }
+    .ant-select-dropdown-menu li{
+        background: #2D2D32;
+        color: #8E8E94;
     }
 }
 

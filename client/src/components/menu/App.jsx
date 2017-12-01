@@ -73,8 +73,9 @@ class TopMenu extends Component {
                     size="small"
                     onClick={this.handleGoBack}
                 >
-                    {/*<Icon type="rollback" />*/}
-                    <img src={back} />
+                    <Icon type="rollback" />
+                    {/*<Font type="back" />*/}
+                    {/*<img src={back} />*/}
                     <span>返回</span>
                 </Button>
                 <Button
