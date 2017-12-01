@@ -45,6 +45,7 @@ class TopMenu extends PureComponent {
             <div
                 className={clsMenu}
             >
+                <div className="triangle-left" />
                 <Button
                     className="ec-editor-btn"
                     size="small"

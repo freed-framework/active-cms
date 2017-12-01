@@ -7,7 +7,7 @@ $layoutWidth: 300px;
     &-close {
         position: absolute;
         top: 50%;
-        margin-top: -14px;
+        margin-top: -21px;
     }
 
     /* 外部容器 */
@@ -21,18 +21,30 @@ $layoutWidth: 300px;
 
         &-visible {
             right: 0;
-
+            background: #212125 100%;
+            font-size: 12px;
             .ec-panel-title-button {
                 left: 0;
-                background: #bbb;
+                background: #2D2D32;
             }
+        }
+        button{
+            background: #2D2D32;
+            color: #8E8E94;
+            border: 1px solid #2d2d32;
+            padding: 0 4px;
         }
     }
 
     $buttonWidth: 15px;
     &-title {
         @extend .ec-editor-layout-fixed-title;
-
+        background: #2D2D32;
+        color: #DEDEE0;
+        font-size: 14px;
+        height: 44px;
+        line-height: 44px;
+        margin-bottom: 0;
         &-button {
             position: absolute;
             left: -$buttonWidth;
@@ -45,7 +57,7 @@ $layoutWidth: 300px;
         }
 
         &-text {
-            padding: 0 5px 5px 15px;
+            padding: 0 5px 5px 20px;
             height: 30px;
             line-height: 30px;
             display: inline-block;
@@ -54,15 +66,26 @@ $layoutWidth: 300px;
 
     &-main {
         @extend .ec-editor-layout-fixed-main;
+        color: #8E8E94;
+        padding: 0 20px;
     }
 
     /* 每一个目标的编辑容器 */
     &-item {
         display: none;
-
         &-active {
             display: block;
+            padding-top: 10px;
+            &>div{
+            margin-bottom: 14px;
         }
+        // label{
+        //     display: block;
+        // }
+        // input[type="text"]{
+        //     width: 240px;
+        // }
+    }
     }
 }
 

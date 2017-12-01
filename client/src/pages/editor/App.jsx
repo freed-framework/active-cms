@@ -435,14 +435,13 @@ class App extends PureComponent {
         const { rect, data, layerCakeVisible, menuVisible } = this.state;
         const { history, match } = this.props;
         const cls = classNames('show-right', {
-            'closeRight': layerCakeVisible,
+            'close-right': layerCakeVisible,
         });
         return (
             <div className={`ec-editor-${match.params.type}`}>
                 <Control
                     rect={rect}
                 />
-
                 {/* Top Menu */}
                 <TopMenu
                     history={history}

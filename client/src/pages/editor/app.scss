@@ -24,10 +24,6 @@
     100%{ transform: scale(1);opacity: 1;}
 }
 
-@keyframes action_translateX{
-    0%{transform: translateX(-30px);opacity: 0;}
-    100%{ transform: translateX(0px);opacity: 1;}
-}
 
 body {
     margin: 0;
@@ -93,100 +89,17 @@ body {
         display: flex;
         height: 100%;
     }
-    .ec-editor-pub-comps {
-        width: 80px;
-        font-size: 12px;
-        background: #212125 100%;
-        color: #DEDEE0;
-        margin-bottom: 0;
-        .icon-font,
-        .icon-layers{
-            display: block;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-    }
 
-    .ec-editor-layer-cake {
-        z-index: 88;
-        width: 160px;
-        height: 100%;
-        background: #24272E 100%;
-        color: #8E8E94;
-        position: fixed;
-        left: 80px;
-        animation: action_translateX;
-        animation-duration: 0.1s;
-        -webkit-animation:action_translateX 0.1s;
-    }
-    .ec-editor-layer-cake-active{
-        /*animation: action_translateX;
-        animation-duration: 0.1s;
-        -webkit-animation:action_translateX 0.1s;*/
-    }
-    .ec-panel-title {
-        background: #2D2D32;
-        color: #DEDEE0;
-        font-size: 14px;
-        height: 44px;
-        line-height: 44px;
-        margin-bottom: 0;
-    }
-    .ec-panel-item-active{
-        padding-top: 10px;
-    }
-    .ec-panel-item-active>div{
-        margin-bottom: 14px;
-    }
     .div-title{
         margin-bottom: 6px;
     }
-    .ec-editor-pub-comps-items {
-        height: 80px;
-        padding-top: 14px;
-    }
-    .ec-editor-layer-cake-index {
-        background: none;
-        text-align: center;
-        height: 14px;
-        width: 14px;
-        font-size: 12px;
-        border: 1px solid;
-        margin-left: 4px;
-    }
 
-    .ec-editor-layer-cake-title {
-        background: #2D2D32;
-        height: 44px;
-        line-height: 44px;
-        font-size: 14px;
-        color: #DEDEE0;
-        margin-bottom: 0;
-        padding-left: 10px;
-        .anticon-check-circle-o{
-            padding-right: 5px;
-        }
-    }
-    .ec-editor-basic-props label {
-        display: block;
-    }
-    .ec-editor-basic-props button{
-        margin-top: 8px;
-    }
     .ec-editor-basic-props-background {
-        width: 244px;
-        .inline-block{
-            width: 100%;
-        }
         input[type="text"]{
             width: 164px;
         }
     }
-    .ec-editor-basic-props-border{
-        .ant-select-selection--single{
-            margin: 0 1px;
-        }
-    }
+
     .ant-select-selection,
     .ant-input,
     .ant-input-number-input,
@@ -222,21 +135,7 @@ body {
             width: 176px;
         }
     }
-    .ant-btn-sm {
-        width: 120px;
-        height: 56px;
-        font-size: 14px;
-        background: none;
-        border: none;
-        color: #DEDEE0;
-        text-align: left;
-        margin-left: 36px;
-        padding-left: 10px;
-        border-radius: 0;
-        img{
-            margin-right: 8px;
-        }
-    }
+
     .ant-row {
         margin-bottom: 16px;
         margin-top: 16px;
@@ -248,41 +147,7 @@ body {
         background: none;
         color: #CC504A;
     }
-    .ec-editor-pub-comps-items:hover{
-        background: #0255DF;
-    }
-    .ec-editor-layer-cake-main {
-        font-size: 12px;
-        max-height: 100%;
-        padding: 0;
-        padding-bottom: 20px;
-        /*overflow: scroll;*/
 
-    }
-    .ec-editor-layer-cake-items-sub {
-        margin-bottom: 0;
-        margin-left: 0;
-        padding-left: 18px;
-        .ec-editor-layer-cake-content{
-            height: 36px;
-            line-height: 36px;
-        }
-    }
-    .ec-editor-layer-cake-items-not-active,
-    .ec-editor-layer-cake-items,
-    .ec-editor-layer-cake-items-sub{
-        line-height: 40px;
-    }
-    .ec-editor-layer-cake-content{
-        padding-left: 4px;
-        height: 40px;
-        line-height: 40px;
-        padding-left: 12px;
-    }
-    .ec-editor-layer-cake-content:hover,
-    .ec-editor-layer-cake-items-sub:hover {
-        background: #2D3035;
-    }
     .ec-editor-layout-fixed{
         opacity: 1;
     }
@@ -324,7 +189,7 @@ body {
             padding-left: 8px;
         }
     }
-    .closeRight{
+    .close-right{
         transform: rotate(180deg);
         line-height: 48px;
         padding-right: 20px;
@@ -336,25 +201,10 @@ body {
         color: #8E8E94;
         width: 120px;
     }
-    .ec-panel-layout button{
-        background: #2D2D32;
-        color: #8E8E94;
-        border: 1px solid #2d2d32;
-        padding: 0 4px;
-    }
     .ec-editor-basic-props label {
         margin-bottom: 4px;
     }
-    .ec-panel-layout-visible {
-        background: #212125 100%;
-        font-size: 12px;
-    }
-    .ec-panel-title-text{
-        padding: 0 5px 5px 20px;
-    }
-    .ec-panel-close {
-        margin-top: -21px;
-    }
+
     .ant-btn-group {
         margin: 6px 0;
     }
@@ -367,17 +217,51 @@ body {
         border: 1px solid #2D2D32;
         color: #8E8E94;
     }
-    .ec-panel-main {
-        color: #8E8E94;
-        padding: 0 20px;
-    }
+
     .ant-btn-group-sm > .ant-btn {
         line-height: 22px;
     }
-    .ant-select-dropdown-menu li{
+    // .ant-select-dropdown-menu li{
+    //     background: #2D2D32;
+    //     color: #8E8E94;
+    // }
+    // .ant-select-dropdown,
+    // .ant-select-dropdown--single,
+    // .ant-select-dropdown-placement-bottomLeft,
+    // .ant-select-dropdown-hidden,
+    // .ant-select-dropdown-menu-item-selected,
+    // .ant-select-dropdown-menu-item{
+    //     background: #2D2D32;
+    //     color: #8E8E94;
+    // }
+    .ant-input-number-handler-wrap {
+        border-left: 1px solid #212125;
         background: #2D2D32;
+
+    }
+    .ant-input-number-handler-down {
+        border-top: 1px solid #212125;
+    }
+    .ant-select-dropdown{
+        background: #2D2D32;
+    }
+}
+
+.ant-select-dropdown-menu-item-active{
+    background: none;
+    color: #8E8E94;
+    &:hover{
         color: #8E8E94;
     }
 }
+.ant-select-dropdown-menu-item,
+.ant-select-dropdown-menu-item-selected{
+    background: #2D3035;
+    color: #8E8E94;
+    &:hover{
+        background: #2D2D32;
+    }
+}
+
 
 

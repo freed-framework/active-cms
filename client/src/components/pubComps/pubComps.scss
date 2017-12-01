@@ -1,12 +1,25 @@
 .ec-editor-pub-comps {
     position: static;
-    width: 100px;
-    margin-bottom: 10px;
-
-    &-items {
-        text-align: center;
+    width: 80px;
+    font-size: 12px;
+    background: #212125;
+    color: #DEDEE0;
+    margin-bottom: 0;
+    .icon-font,
+    .icon-layers{
+        display: block;
+        font-size: 20px;
         margin-bottom: 10px;
+    }
+    &-items {
+        height: 80px;
         cursor: pointer;
+        margin-bottom: 10px;
+        padding-top: 14px;
+        text-align: center;
+        &:hover{
+            background: #0255DF;
+        }
     }
 }
 
