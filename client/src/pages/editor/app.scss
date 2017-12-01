@@ -1,4 +1,5 @@
 @import "../../../style/reset.css";
+@import "./edit-module-hack.scss";
 
 ::-webkit-scrollbar-track
 {
@@ -83,13 +84,6 @@ body {
     }
 }
 
-.ec-editor-canvas-inner {
-    .tmc-img {
-        img {
-            pointer-events: none;
-        }
-    }
-}
 .ec-editor-mobile{
     background: #2B2B2E;
     .ec-editor-left-panel{

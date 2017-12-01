@@ -1,0 +1,12 @@
+
+.pointer-events-disabled {
+    pointer-events: none;
+}
+
+.ec-editor-canvas-inner {
+    .tmc-img {
+        img, .imgWarp {
+            @extend .pointer-events-disabled;
+        }
+    }
+}
