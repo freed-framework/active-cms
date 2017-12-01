@@ -149,9 +149,9 @@ class App extends PureComponent {
             });
         } else {
             // 保持激活状态
-            this.setState({
-                rect: this.state.activeRect,
-            });
+            // this.setState({
+            //     rect: this.state.activeRect,
+            // });
         }
     }
 
@@ -295,12 +295,12 @@ class App extends PureComponent {
      */
     mittModify = ({ guid, key, value }) => {
         // 黑科技，如果不添加 timer，当默认数据出现多次接近同时调用的时候，state.data 并未更新
-        setTimeout(() => {
+        // setTimeout(() => {
             const data = module.modify(guid, this.state.data, key, value);
             this.setState({
                 data,
             });
-        });
+        // });
     }
 
     mittSort = (data) => {
@@ -437,6 +437,7 @@ class App extends PureComponent {
         const cls = classNames('show-right', {
             'closeRight': layerCakeVisible,
         });
+
         return (
             <div className={`ec-editor-${match.params.type}`}>
                 <Control
@@ -476,6 +477,7 @@ class App extends PureComponent {
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
+
                 {/* 菜单导航栏 */}
                 <div
                     className="menu-button"
@@ -483,6 +485,7 @@ class App extends PureComponent {
                 >
                     <img src={icon} />
                 </div>
+
                 {/* 模块 */}
                 <div
                     ref={ref => { this.canvas = ref }}
