@@ -37,31 +37,33 @@ class Editor extends PureComponent {
                         data: data.content,
                     })
                 })
-        } else {
+        }
+
+        if (this.props.isMock) {
             this.setState({
                 data: [
-                    // {
-                    //     "guid": "ec-module-addbed91-6089-4d04-8224-4fc09138f71d",
-                    //     "name": "mobile/layer",
-                    //     "displayName": "哈哈哈",
-                    //     "children": [
-                    //         {
-                    //             "guid": "ec-module-1bcbcd12-aeb2-450d-83be-83a2bb4c2b02",
-                    //             "name": "mobile/img",
-                    //             "componentProps": {
-                    //                 "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_03.jpg"
-                    //             }
-                    //         }
-                    //     ],
-                    //     "componentProps": {
-                    //         "style": {
-                    //             "layout": {
-                    //                 "padding": "10",
-                    //                 // "height": "800",
-                    //             }
-                    //         }
-                    //     }
-                    // },
+                    {
+                        "guid": "ec-module-addbed91-6089-4d04-8224-4fc09138f71d",
+                        "name": "mobile/layer",
+                        "displayName": "哈哈哈",
+                        "children": [
+                            {
+                                "guid": "ec-module-1bcbcd12-aeb2-450d-83be-83a2bb4c2b02",
+                                "name": "mobile/img",
+                                "componentProps": {
+                                    "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_03.jpg"
+                                }
+                            }
+                        ],
+                        "componentProps": {
+                            "style": {
+                                "layout": {
+                                    "padding": "10",
+                                    // "height": "800",
+                                }
+                            }
+                        }
+                    },
                     {
                         "guid": "ec-module-a40cabe9-20f5-4354-a973-390679b86191",
                         "name": "mobile/list",

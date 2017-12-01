@@ -50,6 +50,12 @@ const App = () => {
                     exact
                     render={() => <Bundle load={Editor}>{(App) => <App />}</Bundle>}
                 />
+                {/* for test */}
+                <Route
+                    path="/:type/mock"
+                    exact
+                    render={() => <Bundle load={Editor}>{(App) => <App isMock />}</Bundle>}
+                />
                 <Route
                     path="/view/:id"
                     exact
