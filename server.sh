@@ -6,21 +6,19 @@ else
     name=$1
 fi
 
-projectPath = ${projectPath}
-
 echo "delete dist"
-rm -rf ${projectPath}/server/dist
-rm -rf ${projectPath}/ssr/lib
-rm -rf ${projectPath}/client/dist
+rm -rf /var/web/active-cms/server/dist
+rm -rf /var/web/active-cms/ssr/lib
+rm -rf /var/web/active-cms/client/dist
 
 echo "start..."
-cd ${projectPath}
+cd /var/web/active-cms
 
 echo "pull..."
 git pull
 
 echo "enter client ..."
-cd ${projectPath}/client
+cd /var/web/active-cms/client
 
 echo "install client"
 cnpm install
@@ -31,10 +29,11 @@ npm run build-mobile
 npm run build-pc
 
 echo "stop pm2..."
+pm2 stop all
 pm2 delete all 
 
 echo "enter server"
-cd ${projectPath}/server
+cd /var/web/active-cms/server
 
 echo "install..."
 cnpm install
@@ -49,7 +48,7 @@ echo "leave server ..."
 cd ../
 
 echo "enter ssr ..."
-cd ${projectPath}/ssr
+cd /var/web/active-cms/ssr
 
 echo "install..."
 cnpm install
