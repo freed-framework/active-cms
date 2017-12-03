@@ -45,6 +45,8 @@ const AppComponent = (props) => {
         ...(item.style && { style: item.style }),
         ...(item.atts && { attrs: item.attrs }),
         ...(item.guid && { guid: item.guid }),
+        // 给 components 组件判断是否是编辑模式
+        ...(props.isEdit && { isEdit: props.isEdit }),
         ...(componentProps && { ...componentProps }),
         // 这里如果有子组件需要通过 data 数据来继承 的属性，由 children loop 的时候添加到 props.extendsProps 上
         ...(extendsProps && { ...extendsProps })
@@ -72,8 +74,10 @@ const AppComponent = (props) => {
             {/* 由 this.props.children 继续交给外部调用的位置进行渲染 */}
             {item.children && props.children({
                 data: item.children,
-                pageType: props.pageType,
                 ...(allProps.extendsProps && { extendsProps: allProps.extendsProps }),
+                // 给 components 组件判断是否是编辑模式
+                ...(props.isEdit && { isEdit: props.isEdit }),
+                pageType: props.pageType,
             })}
         </App>
     );
