@@ -37,9 +37,12 @@ body {
  * 画布
  */
 .ec-editor-canvas {
-    position: relative;
+    position: absolute;
     z-index: 1;
     min-height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    background: #2B2B2E;
     &-inner {
         overflow: hidden;
         margin: 0 auto;
@@ -66,7 +69,7 @@ body {
  * mobile 画布配置
  */
 .ec-editor-mobile {
-
+    min-height: 100%;
     .ec-editor-canvas-inner {
         background: #fff;
         width: 750px;
@@ -103,10 +106,6 @@ body {
         border-radius: 0;
     }
 
-    /*.ant-select-dropdown-menu-item{
-        background: #2D2D32;
-        color: #8E8E94;
-    }*/
     .ec-panel-item .ec-editor-basic-props-img p{
         label{
             display: block;
@@ -215,19 +214,7 @@ body {
     .ant-btn-group-sm > .ant-btn {
         line-height: 22px;
     }
-    // .ant-select-dropdown-menu li{
-    //     background: #2D2D32;
-    //     color: #8E8E94;
-    // }
-    // .ant-select-dropdown,
-    // .ant-select-dropdown--single,
-    // .ant-select-dropdown-placement-bottomLeft,
-    // .ant-select-dropdown-hidden,
-    // .ant-select-dropdown-menu-item-selected,
-    // .ant-select-dropdown-menu-item{
-    //     background: #2D2D32;
-    //     color: #8E8E94;
-    // }
+
     .ant-input-number-handler-wrap {
         border-left: 1px solid #212125;
         background: #2D2D32;
