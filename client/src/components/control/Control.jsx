@@ -9,6 +9,7 @@ import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
 import { Icon } from 'antd';
+import { deleteComponent, copyComponent, } from '../../pages/editor/App';
 import './control.scss';
 
 class Control extends PureComponent {
@@ -60,7 +61,7 @@ class Control extends PureComponent {
         })
     }
 
-    render() {
+    render(guid) {
         const { rect } = this.state;
 
         const styles = {
@@ -76,10 +77,10 @@ class Control extends PureComponent {
                 }}
             >
                 <div className="edit-tools">
-                    <span>
+                    <span onClick={() => deleteComponent(guid)}>
                         <Icon type="delete" />
                     </span>
-                    <span>
+                    <span onClick={() => copyComponent(guid)}>
                         <Icon type="copy" />
                     </span>
                 </div>

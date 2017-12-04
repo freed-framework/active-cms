@@ -84,8 +84,8 @@ class LayerCake extends PureComponent {
                         className="ec-editor-layer-cake-title-edit"
                         onClick={this.handleEdit}
                     >
-                        编辑
-                        <Icon type="edit" />
+                        {editVisible ? '完成' : '编辑'}
+                        {/* <Icon type="edit" />*/}
                     </span>
                 </div>
                 <List

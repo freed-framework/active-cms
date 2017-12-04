@@ -78,6 +78,12 @@
             .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
                 line-height: 28px;
             }
+            &-name{
+                // display: inline-block;
+                // width: 100%;
+                // height: 100%;
+                // text-overflow: ellipsis;
+            }
         }
         //span {
         //    pointer-events: none;
@@ -92,10 +98,10 @@
                 color: #8E8E94;
 
             }
-
-            .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
-            .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
-                line-height: 28px;
+            &-no-child{
+                & > .ant-collapse-header .arrow{
+                    display: none !important;
+                }
             }
         }
 
@@ -130,7 +136,7 @@
     border-radius: 0;
     border-bottom: 0;
 }
-.edit-hide{
+.hide{
     display: none;
 }
 .show{
@@ -154,6 +160,7 @@
     margin-right: 4px;
     margin-left: 4px;
 }
+
 /*滚动条样式*/
 .ec-editor-layer-cake-main::-webkit-scrollbar {/*滚动条整体样式*/
     width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -162,10 +169,10 @@
 .ec-editor-layer-cake-main::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
     border-radius: 5px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
 }
 .ec-editor-layer-cake-main::-webkit-scrollbar-track {/*滚动条里面轨道*/
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     border-radius: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.5);
 }

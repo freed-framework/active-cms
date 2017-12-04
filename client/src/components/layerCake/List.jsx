@@ -217,7 +217,7 @@ class List extends PureComponent {
     getDisplayName(item) {
         const { editVisible} = this.props;
         const hidecls = classNames({
-            'edit-hide': !editVisible,
+            'hide': !editVisible,
             'show': editVisible,
         })
         if (this.state.editId === item.guid) {
@@ -283,22 +283,24 @@ class List extends PureComponent {
      */
     loopRender(data, isChildren = false) {
         const { activeId, match, editVisible } = this.props;
-
-        const cls = classNames('ec-editor-layer-cake-items', {
+        let cls = classNames('ec-editor-layer-cake-items', {
             'ec-editor-layer-cake-items-sub': isChildren,
         });
-
         return data.map((item, index) => {
+            if (!item.children) {
+                cls += ' ec-editor-layer-cake-items-sub-no-child';
+            }
             const isActive = activeId === item.guid;
             const childCls = classNames({
                 'ec-editor-layer-cake-items-active': isActive,
-                'ec-editor-layer-cake-items-not-active': !isActive
+                'ec-editor-layer-cake-items-not-active': !isActive,
             });
 
             const editCls = classNames({
                 'ec-editor-layer-cake-index': editVisible,
-                'ec-editor-layer-cake-index-hide': !editVisible
+                'ec-editor-layer-cake-index-hide': !editVisible,
             });
+
             const aaa = (
                 <div>
                     <div
@@ -307,6 +309,7 @@ class List extends PureComponent {
                         data-name={item.name}
                     >
                         <span
+                            className="ec-editor-layer-cake-content-name"
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
@@ -330,7 +333,10 @@ class List extends PureComponent {
                     className={cls}
                     header={aaa}
                 >
-                    <Collapse className={childCls}>
+                    <Collapse
+                        className={childCls}
+                        defaultActiveKey="1"
+                    >
                         {item.children && this.loopRender(item.children, true)}
                     </Collapse>
                 </Panel>
@@ -340,7 +346,6 @@ class List extends PureComponent {
 
     render() {
         const { data } = this.props;
-
         return (
             <Collapse className="ec-editor-layer-cake-main">
                 {this.loopRender(data)}
