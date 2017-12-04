@@ -14,6 +14,7 @@ import deviceready from './deviceready';
  * @param {Object} options 配置参数
  */
 export default (url, options) => {
+    console.log('redirect IMG: ', url);
     if (!url) {
         return;
     }

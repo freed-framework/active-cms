@@ -8,6 +8,7 @@
 
 export default new Promise((resolve) => {
     document.addEventListener('deviceready', () => {
+        console.log('cms deviceready');
         resolve();
     }, false);
 });
