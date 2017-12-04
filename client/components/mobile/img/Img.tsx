@@ -13,6 +13,7 @@ class Img extends React.Component<ImgProps, any> {
     }
 
     handleClick = () => {
+        console.log('cms IMG: ', this.props.url);
         Native.redirect(this.props.url);
     }
 

@@ -72,7 +72,7 @@ class LayerCake extends PureComponent {
         const { data, active, activeId, editVisible } = this.state;
 
         const cls = classNames('ec-editor-layer-cake', {
-            'ec-editor-layer-cake-hide': !active,
+            'ec-editor-layer-cake-active': active,
         });
 
         return (

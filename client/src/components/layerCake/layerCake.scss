@@ -1,6 +1,7 @@
 @import "../../css/common.scss";
 
 .ec-editor-layer-cake {
+    @include bezierAnimate('out-back');
     z-index: 88;
     position: fixed;
     left: 80px;
@@ -8,10 +9,10 @@
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    transition: all .2s;
+    transform: translateX(-160px);
 
-    &-hide {
-        transform: translateX(-160px);
+    &-active {
+        transform: translateX(0);
     }
 
     &-title {
@@ -24,7 +25,7 @@
         margin-bottom: 0;
         padding-left: 10px;
 
-        .anticon-check-circle-o{
+        .anticon-check-circle-o {
             padding-right: 5px;
         }
 
