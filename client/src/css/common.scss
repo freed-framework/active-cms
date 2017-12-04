@@ -1,12 +1,27 @@
 /**
+ * css3 bezier transition
+ */
+$bezier-obj: (
+    in-back: '.6, -.28, .735, .045',
+    out-back: '.175, .885, .32, 1.275',
+    out-quint: '.23, 1, .32, 1'
+);
+@mixin bezierAnimate($type: 'out-quint', $dur: 0.2s, $prop: all, $delay: 0s) {
+    @each $key, $val in $bezier-obj {
+        @if $key == $type {
+            transition: $prop $dur cubic-bezier(#{$val}) $delay;
+        }
+    }
+}
+
+/**
  * fixed 属性的编辑模块的通用样式
  */
 .ec-editor-layout-fixed {
+    @include bezierAnimate('out-quint');
+
     position: fixed;
     padding: 0;
-    // background: #fff;
-    // box-shadow: 0 0 6px -4px #999;
-    transition: all .2s;
     z-index: 888;
     opacity: 0.96;
     top: 0;
