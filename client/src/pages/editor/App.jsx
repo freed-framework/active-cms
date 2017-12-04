@@ -131,13 +131,11 @@ class App extends PureComponent {
         const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
 
-        if (module) {
-            this.mittActive({
-                guid,
-                target,
-                rect: getRect(target),
-            });
-        }
+        this.mittActive({
+            guid,
+            target,
+            rect: getRect(target),
+        });
     }
 
     /**
