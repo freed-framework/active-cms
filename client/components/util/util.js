@@ -105,7 +105,7 @@ class utils {
         const $take = $arr.get(fromIndex);
 
         return $newArr
-        // 从数组中取出指定位置的数据
+            // 从数组中取出指定位置的数据
             .delete(fromIndex)
             // 放入指定的索引位置
             .insert(toIndex, $take);
