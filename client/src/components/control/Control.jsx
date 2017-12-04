@@ -8,6 +8,7 @@
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
+import { Icon } from 'antd';
 import './control.scss';
 
 class Control extends PureComponent {
@@ -74,6 +75,14 @@ class Control extends PureComponent {
                     ...styles
                 }}
             >
+                <div className="edit-tools">
+                    <span>
+                        <Icon type="delete" />
+                    </span>
+                    <span>
+                        <Icon type="copy" />
+                    </span>
+                </div>
                 {this.renderLine(['top', 'right', 'bottom', 'left'])}
             </div>
         );

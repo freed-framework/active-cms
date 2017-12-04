@@ -71,11 +71,11 @@
         // margin-bottom: 5px;
         cursor: pointer;
         .ec-editor-layer-cake-content{
-            height: 36px;
-            line-height: 36px;
+            height: 28px;
+            line-height: 28px;
             .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
             .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
-                line-height: 36px;
+                line-height: 28px;
             }
         }
         //span {
@@ -86,14 +86,14 @@
             margin-left: 0;
             // padding-left: 18px;
             .ec-editor-layer-cake-content{
-                height: 36px;
-                line-height: 36px;
+                height: 28px;
+                line-height: 28px;
                 color: #8E8E94;
 
             }
             .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
             .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
-                line-height: 36px;
+                line-height: 28px;
             }
         }
 
@@ -103,7 +103,8 @@
     }
 
     &-content {
-        padding-left: 46px;
+        padding-left: 40px;
+        padding-right: 24px;
         color: #DEDEE0;
         img{
             width: 11px;
@@ -147,8 +148,8 @@
 .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
     color: #DEDEE0;
-    line-height: 36px;
-    left: 28px;
+    line-height: 28px;
+    left: 24px;
 }
 .anticon-edit{
     margin-right: 4px;
