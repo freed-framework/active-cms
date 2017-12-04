@@ -1,20 +1,18 @@
 @import "../../css/common.scss";
-@keyframes action_translateX{
-    0%{transform: translateX(-30px);opacity: 0;}
-    100%{ transform: translateX(0px);opacity: 1;}
-}
 
 .ec-editor-layer-cake {
-    z-: 88;
+    z-index: 88;
     position: fixed;
     left: 80px;
     width: 160px;
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    animation: action_translateX;
-    animation-duration: 0.1s;
-    -webkit-animation:action_translateX 0.1s;
+    transition: all .2s;
+
+    &-hide {
+        transform: translateX(-160px);
+    }
 
     &-title {
         // @extend .ec-editor-layout-fixed-title;
@@ -25,9 +23,11 @@
         color: #DEDEE0;
         margin-bottom: 0;
         padding-left: 10px;
+
         .anticon-check-circle-o{
             padding-right: 5px;
         }
+
         &-edit{
             position: absolute;
             right: 12px;
@@ -70,6 +70,7 @@
     &-items {
         // margin-bottom: 5px;
         cursor: pointer;
+
         .ec-editor-layer-cake-content{
             height: 36px;
             line-height: 36px;
@@ -91,6 +92,7 @@
                 color: #8E8E94;
 
             }
+
             .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
             .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
                 line-height: 36px;
@@ -115,9 +117,6 @@
             background: #2D3035;
         }
     }
-}
-.ec-editor-layer-cake-active{
-    display: none;
 }
 .ant-collapse,
 .ant-collapse-content{
