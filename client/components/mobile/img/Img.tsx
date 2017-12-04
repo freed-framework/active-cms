@@ -28,9 +28,7 @@ class Img extends React.Component<ImgProps, any> {
         const child = isEdit ?
             ( <img src={src} /> ) :
             (
-                <LazyLoad
-                    overflow
-                >
+                <LazyLoad overflow>
                     <img src={src} />
                 </LazyLoad>
             );
