@@ -1,9 +1,10 @@
 /// <reference path="./img.d.ts" />
 import * as React from 'react';
 import config from './config';
-import './img.scss';
-import Native from '../native/index.js';
+// <TODO> 暂时使用当前组件项目下
 import LazyLoad from '../lazy-load/index.js';
+import redirect from 'freed-multi/lib/native/redirect.js';
+import './img.scss';
 
 class Img extends React.Component<ImgProps, any> {
     static config: Config = config;
@@ -13,8 +14,7 @@ class Img extends React.Component<ImgProps, any> {
     }
 
     handleClick = () => {
-        console.log('cms IMG: ', this.props.url);
-        Native.redirect(this.props.url);
+        redirect(this.props.url, {});
     }
 
     render() {
