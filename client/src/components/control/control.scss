@@ -2,12 +2,12 @@
     position: absolute;
     visibility: hidden;
     z-index: 887;
-    background: rgba(0, 0, 0, 0.2);
+    background: #9BA5AE;
     pointer-events: none;
-
+    opacity: .5;
     &-line {
         position: absolute;
-        background: #333;
+        background: #fff;
         pointer-events: visible;
     }
 

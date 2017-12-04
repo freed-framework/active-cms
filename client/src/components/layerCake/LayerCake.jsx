@@ -22,6 +22,7 @@ class LayerCake extends PureComponent {
             activeId: props.activeId,
             data: props.data,
             active: props.active,
+            editVisible: false,
         }
     }
 
@@ -61,8 +62,14 @@ class LayerCake extends PureComponent {
 
     }
 
+    handleEdit = () => {
+        const editVisible = this.state.editVisible;
+        this.setState({
+            editVisible: !editVisible,
+        })
+    }
     render() {
-        const { data, active, activeId } = this.state;
+        const { data, active, activeId, editVisible } = this.state;
 
         const cls = classNames('ec-editor-layer-cake', {
             'ec-editor-layer-cake-active': !active,
@@ -73,12 +80,20 @@ class LayerCake extends PureComponent {
                 <div className="ec-editor-layer-cake-title">
                     <Icon type="check-circle-o" />
                     <span>已添加组件</span>
+                    <span
+                        className="ec-editor-layer-cake-title-edit"
+                        onClick={this.handleEdit}
+                    >
+                        编辑
+                        <Icon type="edit" />
+                    </span>
                 </div>
                 <List
                     data={data}
                     active={active}
                     activeId={activeId}
                     onActive={this.handleActive}
+                    editVisible={editVisible}
                 />
             </div>
         );

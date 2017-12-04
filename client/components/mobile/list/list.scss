@@ -2,7 +2,8 @@
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
-
+    border: 1px solid #697177;
+    min-height: 30px;
     &-cols-2 {
         .tmc-img {
             flex: 0 0 50%;
