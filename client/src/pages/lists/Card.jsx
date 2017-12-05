@@ -271,7 +271,8 @@ export default class componentName extends PureComponent {
             onOk: () => {
                 push({
                     id: data._id,
-                    uploadUserId: 123123123
+                    uploadUserId: 123123123,
+                    zipId: data.pushId
                 }).then(() => {
                     this.props.onFetchList()
                 })

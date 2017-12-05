@@ -15,12 +15,13 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
      * activityName {sting} 活动名称
      */
     const {
-        id, uploadUserId, content, title,
+        id, uploadUserId, content, title, zipId,
         ...field
     } = body;
 
     const formData = {
       uploadUserId: uploadUserId,
+      id: zipId,
       ...field,
       file: {
           value: fs.createReadStream(folderZipPath),
