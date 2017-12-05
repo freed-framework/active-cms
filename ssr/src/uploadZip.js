@@ -21,7 +21,6 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
 
     const formData = {
       uploadUserId: uploadUserId,
-      id: zipId,
       ...field,
       file: {
           value: fs.createReadStream(folderZipPath),
@@ -30,6 +29,9 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
           }
       }
     };
+
+    zipId && (formData.id = zipId)
+    
 
     request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, res) => {
         res = JSON.parse(res) || {};
