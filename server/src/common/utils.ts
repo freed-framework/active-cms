@@ -27,6 +27,7 @@ export default class Utils {
                 _id,
                 title,
                 pageType,
+                pushId,
                 content: JSON.parse(LZString.decompressFromBase64(content || ''))
             }
         }
