@@ -76,14 +76,14 @@ class Control extends PureComponent {
                     ...styles
                 }}
             >
-                <div className="edit-tools">
+                {/* <div className="edit-tools">
                     <span onClick={() => deleteComponent(guid)}>
                         <Icon type="delete" />
                     </span>
-                    <span onClick={() => copyComponent(guid)}>
+                    <span onClick={() => console.log(111)}>
                         <Icon type="copy" />
                     </span>
-                </div>
+                </div>*/}
                 {this.renderLine(['top', 'right', 'bottom', 'left'])}
             </div>
         );

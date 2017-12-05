@@ -222,7 +222,7 @@ class List extends PureComponent {
         })
         if (this.state.editId === item.guid) {
             return (
-                <span>
+                <span className="ec-editor-layer-cake-content-name">
                     <input
                         ref={ref => { this.editName = ref }}
                         className="ec-editor-layer-cake-name"
@@ -238,7 +238,7 @@ class List extends PureComponent {
         if (item.displayName) {
             return (
                 <span>
-                    <span>{item.displayName}</span>
+                    <span className="ec-editor-layer-cake-content-name">{item.displayName}</span>
                     <span
                         data-guid={item.guid}
                         data-name={item.displayName}
@@ -258,7 +258,7 @@ class List extends PureComponent {
                 {mod => {
                     return (
                         <span>
-                            <span>{mod.module.config.displayName}</span>
+                            <span className="ec-editor-layer-cake-content-name">{mod.module.config.displayName}</span>
                             <span
                                 data-guid={item.guid}
                                 data-name={mod.module.config.displayName}
@@ -309,12 +309,10 @@ class List extends PureComponent {
                         data-name={item.name}
                     >
                         <span
-                            className="ec-editor-layer-cake-content-name"
                             data-guid={item.guid}
                             onClick={this.handleActive}
                         >
                             {/* <img src={require('../../images/icon-svg/doc.svg')} />*/}
-                            {/* <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />*/}
                             {this.getDisplayName(item)}
                         </span>
                         <input
@@ -335,7 +333,6 @@ class List extends PureComponent {
                 >
                     <Collapse
                         className={childCls}
-                        defaultActiveKey="1"
                     >
                         {item.children && this.loopRender(item.children, true)}
                     </Collapse>
@@ -347,7 +344,9 @@ class List extends PureComponent {
     render() {
         const { data } = this.props;
         return (
-            <Collapse className="ec-editor-layer-cake-main">
+            <Collapse
+                className="ec-editor-layer-cake-main"
+            >
                 {this.loopRender(data)}
             </Collapse>
         )
