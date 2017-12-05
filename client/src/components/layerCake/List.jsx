@@ -217,12 +217,12 @@ class List extends PureComponent {
     getDisplayName(item) {
         const { editVisible} = this.props;
         const hidecls = classNames({
-            'edit-hide': !editVisible,
+            'hide': !editVisible,
             'show': editVisible,
         })
         if (this.state.editId === item.guid) {
             return (
-                <span>
+                <span className="ec-editor-layer-cake-content-name">
                     <input
                         ref={ref => { this.editName = ref }}
                         className="ec-editor-layer-cake-name"
@@ -238,7 +238,7 @@ class List extends PureComponent {
         if (item.displayName) {
             return (
                 <span>
-                    <span>{item.displayName}</span>
+                    <span className="ec-editor-layer-cake-content-name">{item.displayName}</span>
                     <span
                         data-guid={item.guid}
                         data-name={item.displayName}
@@ -258,7 +258,7 @@ class List extends PureComponent {
                 {mod => {
                     return (
                         <span>
-                            <span>{mod.module.config.displayName}</span>
+                            <span className="ec-editor-layer-cake-content-name">{mod.module.config.displayName}</span>
                             <span
                                 data-guid={item.guid}
                                 data-name={mod.module.config.displayName}
@@ -283,22 +283,24 @@ class List extends PureComponent {
      */
     loopRender(data, isChildren = false) {
         const { activeId, match, editVisible } = this.props;
-
-        const cls = classNames('ec-editor-layer-cake-items', {
+        let cls = classNames('ec-editor-layer-cake-items', {
             'ec-editor-layer-cake-items-sub': isChildren,
         });
-
         return data.map((item, index) => {
+            if (!item.children) {
+                cls += ' ec-editor-layer-cake-items-sub-no-child';
+            }
             const isActive = activeId === item.guid;
             const childCls = classNames({
                 'ec-editor-layer-cake-items-active': isActive,
-                'ec-editor-layer-cake-items-not-active': !isActive
+                'ec-editor-layer-cake-items-not-active': !isActive,
             });
 
             const editCls = classNames({
                 'ec-editor-layer-cake-index': editVisible,
-                'ec-editor-layer-cake-index-hide': !editVisible
+                'ec-editor-layer-cake-index-hide': !editVisible,
             });
+
             const aaa = (
                 <div>
                     <div
@@ -311,7 +313,6 @@ class List extends PureComponent {
                             onClick={this.handleActive}
                         >
                             {/* <img src={require('../../images/icon-svg/doc.svg')} />*/}
-                            {/* <Font size="14" type={isActive ? 'document-text4' : 'document-text3'} />*/}
                             {this.getDisplayName(item)}
                         </span>
                         <input
@@ -330,7 +331,9 @@ class List extends PureComponent {
                     className={cls}
                     header={aaa}
                 >
-                    <Collapse className={childCls}>
+                    <Collapse
+                        className={childCls}
+                    >
                         {item.children && this.loopRender(item.children, true)}
                     </Collapse>
                 </Panel>
@@ -340,9 +343,10 @@ class List extends PureComponent {
 
     render() {
         const { data } = this.props;
-
         return (
-            <Collapse className="ec-editor-layer-cake-main">
+            <Collapse
+                className="ec-editor-layer-cake-main"
+            >
                 {this.loopRender(data)}
             </Collapse>
         )

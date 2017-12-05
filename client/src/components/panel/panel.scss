@@ -73,12 +73,19 @@ $layoutWidth: 300px;
     /* 每一个目标的编辑容器 */
     &-item {
         display: none;
+        &-name{
+            @include textEllipsis(90px);
+            margin-bottom: -5px;
+            border: 1px solid;
+            text-align: center;
+        }
         &-active {
             display: block;
             padding-top: 10px;
             &>div{
             margin-bottom: 14px;
         }
+
         // label{
         //     display: block;
         // }
