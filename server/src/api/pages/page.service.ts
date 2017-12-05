@@ -244,20 +244,13 @@ export class PageService {
             id, uploadUserId,
             ...field
         } = body;
-console.log(body)
+
         const page: any = await this.getPage(id);
-        console.log(page)
         let newPage: any = Utils.parseContent(page);
-//${ENV.domain}
-console.log({
-    id, uploadUserId, ...field,
-    content: newPage.content,
-    title: newPage.title,
-    pageType: newPage.pageType
-})
+
         return new Promise((resolve, reject) => {
             request({
-                url: `http://localhost:12345/ssr/push`,
+                url: `${ENV.domain}/ssr/push`,
                 method: "POST",
                 json: true,
                 headers: {
