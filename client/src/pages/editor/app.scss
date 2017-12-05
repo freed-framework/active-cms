@@ -43,6 +43,7 @@ body {
     margin: 0 auto;
     width: 100%;
     background: #2B2B2E;
+
     &-inner {
         overflow: hidden;
         margin: 0 auto;
@@ -65,24 +66,9 @@ body {
     }
 }
 
-/**
- * mobile 画布配置
- */
 .ec-editor-mobile {
-    min-height: 100%;
-    .ec-editor-canvas-inner {
-        background: #fff;
-        width: 750px;
-        min-height: 400px;
-        transform-origin: 50% 0;
-        transform: scale(0.5);
-        box-shadow: 0px 0px 12px 0 #666;
-    }
-}
-
-.ec-editor-mobile{
-
     background: #2B2B2E;
+
     .ec-editor-left-panel{
         display: flex;
         height: 100%;
