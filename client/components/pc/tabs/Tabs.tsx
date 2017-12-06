@@ -3,9 +3,12 @@ import React from 'react';
 import TabPane from './TabPane';
 import TabsTitle from './TabsTitle';
 import TabsContent from './TabsContent';
+import config from './config';
 import './tabs.scss';
 
 class Tabs extends React.Component<TabsProps, TabsState> {
+    static config: Config = config;
+
     static TabPane = TabPane;
 
     constructor(props: TabsProps) {

@@ -4,7 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var push = require('./push');
-var io = require('socket.io')(5556, {
+var io = require('socket.io')(5555, {
   path: '/push',
   serveClient: false,
   pingInterval: 10000,

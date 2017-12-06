@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import Font from 'font';
 import { Row, Col, Button, Icon } from 'antd';
-import { addComponent, saveData, viewer } from '../../pages/editor/App';
+import { addComponent, saveData, viewer, handlePush } from '../../pages/editor/App';
 import back from '../../images/icon-svg/back.svg';
 
 class TopMenu extends PureComponent {
@@ -65,6 +65,7 @@ class TopMenu extends PureComponent {
                 <Button
                     className="ec-editor-btn"
                     size="small"
+                    onClick={handlePush}
                 >
                     <Icon type="appstore-o" />
                     <span>发布</span>

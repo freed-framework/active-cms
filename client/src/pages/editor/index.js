@@ -35,6 +35,7 @@ class Editor extends PureComponent {
 
                     this.setState({
                         data: data.content,
+                        pageData: data
                     })
                 })
         }
@@ -82,127 +83,7 @@ class Editor extends PureComponent {
                                 "componentProps": {
                                     "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
                                 }
-                            },
-                            // {
-                            //     "guid": "ec-module-31d15a74-f736-4bbc-bd6d-013be5a253df",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg",
-                            //         "url": "http://wwww.baidu.com"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce2cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c2ec15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-3dcec15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29d45cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dc515cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce15cdf17",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce152cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29dce215cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-ab8c-29d3ce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-435b-a2b8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61d2e5d61-ddbb-435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61d1e5d61-ddbb-435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-mod2ule-61de5d61-ddbb-435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de25d61-ddbb-435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // },
-                            // {
-                            //     "guid": "ec-module-61de5d61-ddbb-2435b-ab8c-29dce15cdf7",
-                            //     "name": "mobile/img",
-                            //     "componentProps": {
-                            //         "src": "http://xcscapp.yatang.com.cn/images/beijing/beijing_05.jpg"
-                            //     }
-                            // }
+                            }
                         ],
                         "componentProps": {
                             "cols": 2,
@@ -236,11 +117,12 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, pageData } = this.state;
 
         return (
             <App
                 data={data}
+                pageData={pageData}
             />
         )
     }

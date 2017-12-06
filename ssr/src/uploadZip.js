@@ -15,7 +15,7 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
      * activityName {sting} 活动名称
      */
     const {
-        id, uploadUserId, content, title,
+        id, uploadUserId, content, title, zipId,
         ...field
     } = body;
 
@@ -29,6 +29,9 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
           }
       }
     };
+
+    zipId && (formData.id = zipId)
+    
 
     request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, res) => {
         res = JSON.parse(res) || {};

@@ -12,7 +12,7 @@ import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../util/util';
 import module from '../../common/module';
-import { addPage, editPage } from '../../services';
+import { addPage, editPage, push } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -36,6 +36,7 @@ const emitter = mitt();
 class App extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
+        pageData: PropTypes.objectOf(PropTypes.any)
     }
 
     static defaultProps = {
@@ -75,6 +76,7 @@ class App extends PureComponent {
         emitter.on('sort', this.mittSort);
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
+        emitter.on('push', this.mittPush)
     }
 
     componentDidMount() {
@@ -105,6 +107,7 @@ class App extends PureComponent {
         emitter.off('edit', this.mittEdit);
         emitter.off('active', this.mittActive);
         emitter.off('viewer', this.mittViewer);
+        emitter.off('push', this.mittPush);
 
         // this.timer.unsubscribe();
 
@@ -134,7 +137,7 @@ class App extends PureComponent {
         this.mittActive({
             guid,
             target,
-            rect: getRect(target),
+            // rect: getRect(target),
         });
     }
 
@@ -318,7 +321,12 @@ class App extends PureComponent {
      * @param target
      */
     mittActive = ({ guid, target }) => {
-        const rect = guid && target ? getRect(target) : null;
+        const { location = '', match = {} } = this.props;
+        const { params = {} } = match;
+
+        // 移动端的画布有特殊设置
+        const parent = params.type === 'mobile' ? this.canvasInner : null;
+        const rect = guid && target ? getRect(target, parent) : null;
 
         this.setState({
             activeId: guid,
@@ -402,6 +410,25 @@ class App extends PureComponent {
         console.log(JSON.stringify(this.state.data))
     }
 
+    mittPush = () => {
+        const { pageData = {} } = this.props;
+
+        confirm({
+            title: '确认推送页面？',
+            content: '',
+            onOk: () => {
+                push({
+                    id: pageData._id,
+                    uploadUserId: 123123123,
+                    zipId: pageData.pushId
+                })
+                .then(() => {})
+                .catch(() => {})
+            },
+            onCancel() {},
+        });
+    }
+
     mittViewer = () => {
         this.props.history.push(`/view/${this.props.match.params.id}`)
     }
@@ -443,9 +470,6 @@ class App extends PureComponent {
 
         return (
             <div className={`ec-editor-${match.params.type}`}>
-                <Control
-                    rect={rect}
-                />
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
@@ -495,7 +519,11 @@ class App extends PureComponent {
                 >
                     <div
                         className="ec-editor-canvas-inner"
+                        ref={ref => { this.canvasInner = ref }}
                     >
+                        <Control
+                            rect={rect}
+                        />
                         <Editor
                             data={data}
                         />
@@ -611,6 +639,13 @@ export const sortComponent = (data) => {
  */
 export const saveData = () => {
     emitter.emit('save');
+}
+
+/**
+ * 发布数据
+ */
+export const handlePush = () => {
+    emitter.emit('push');
 }
 
 /**

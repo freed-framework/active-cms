@@ -54,7 +54,8 @@ var UploadZip = function UploadZip(_ref) {
             uploadUserId = body.uploadUserId,
             content = body.content,
             title = body.title,
-            field = (0, _objectWithoutProperties3.default)(body, ['id', 'uploadUserId', 'content', 'title']);
+            zipId = body.zipId,
+            field = (0, _objectWithoutProperties3.default)(body, ['id', 'uploadUserId', 'content', 'title', 'zipId']);
 
 
         var formData = (0, _extends3.default)({
@@ -67,6 +68,8 @@ var UploadZip = function UploadZip(_ref) {
                 }
             }
         });
+
+        zipId && (formData.id = zipId);
 
         _request2.default.post({ url: _env2.default.domain + '/api/publish/zip', formData: formData }, function (err, httpResponse, res) {
             res = JSON.parse(res) || {};
