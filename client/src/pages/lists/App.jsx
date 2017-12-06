@@ -79,16 +79,16 @@ class List extends PureComponent {
 
     getPageList = (param, page) => {
         const type = page || this.props.match.params.type;
-        let fetch = listsPageByTitle;
+        let fetch = listsPage;
 
         if (type === 'share') {
             fetch = shareList;
-        } else if (type === 'my') {
-            fetch = listsPage;
+        } else if (type === 'publish') {
+            fetch = listsPageByTitle;
         }
 
         this.setState({
-            current: type || 'publish'
+            current: type || 'my'
         })
 
         fetch(param).then((res) => {

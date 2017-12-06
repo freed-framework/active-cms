@@ -415,7 +415,8 @@ class App extends PureComponent {
                 push({
                     id: pageData._id,
                     uploadUserId: 123123123,
-                    zipId: pageData.pushId
+                    zipId: pageData.pushId,
+                    activityName: pageData.title
                 })
                 .then(() => {})
                 .catch(() => {})

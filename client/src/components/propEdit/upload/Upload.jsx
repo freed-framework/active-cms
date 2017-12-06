@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as FileUpload from 'react-fileupload';
+import ENV from '../../../../../conf/env';
 
 class Upload extends Component {
     static propTypes = {
@@ -10,7 +11,7 @@ class Upload extends Component {
     render() {
         /*set properties*/
         const options = {
-            baseUrl: 'http://172.30.40.16:3000/api/image',
+            baseUrl: `${ENV.domain}/api/image`,
             multiple: true,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',

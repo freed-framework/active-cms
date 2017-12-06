@@ -23,7 +23,7 @@ export default class TopMenu extends PureComponent {
         super(props);
 
         this.state = {
-            current: 'publish'
+            current: 'my'
         }
     }
 
@@ -38,12 +38,12 @@ export default class TopMenu extends PureComponent {
 
         switch (type) {
             case 'publish':
-            case '':
                 this.setState({
                     current: 'pulish'
                 })
                 break;
             case 'my':
+            case '':
                 this.setState({
                     current: 'my'
                 })
@@ -79,7 +79,7 @@ export default class TopMenu extends PureComponent {
 
         return (
             <div
-                className="ec-editor-banner ec-editor-banner-list"
+                className="ec-editor-banner ec-banner-list"
             >
                 <Row>
                     <Col span={4} className="ec-editor-banner-left">
@@ -99,8 +99,8 @@ export default class TopMenu extends PureComponent {
                             value={current}
                             onChange={this.handleChange}
                         >
-                            <Option key="pulish">所有发布页面</Option>
                             <Option key="my">我的页面</Option>
+                            <Option key="pulish">所有公开页面</Option>
                             <Option key="share">分享给我的页面</Option>
                         </Select>
                         <Button
