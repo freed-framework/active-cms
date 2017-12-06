@@ -123,6 +123,7 @@ class BasicEdit extends PureComponent {
                                 data-guid={guid}
                                 data-attr="height"
                                 onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
                                 value={this.state.height}
                             />
                         </div>
@@ -137,6 +138,7 @@ class BasicEdit extends PureComponent {
                                 data-guid={guid}
                                 data-attr="margin"
                                 onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
                                 value={this.state.margin}
                             />
                         </div>
@@ -149,6 +151,7 @@ class BasicEdit extends PureComponent {
                                 data-guid={guid}
                                 data-attr="padding"
                                 onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
                                 value={this.state.padding}
                             />
                         </div>

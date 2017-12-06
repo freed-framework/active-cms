@@ -59,8 +59,7 @@ class Editor extends PureComponent {
                         "componentProps": {
                             "style": {
                                 "layout": {
-                                    "padding": "10",
-                                    // "height": "800",
+                                    "padding": "10"
                                 }
                             }
                         }
@@ -90,7 +89,10 @@ class Editor extends PureComponent {
                             "style": {
                                 "layout": {
                                     "padding": "10",
-                                    "backgroundColor": "rgba(106, 94, 170, 1)"
+                                    "backgroundColor": "rgba(106, 94, 170, 1)",
+                                    "borderWidth": 1,
+                                    "borderStyle": "solid",
+                                    "borderColor": "#e7e4e4"
                                 }
                             },
                             "extendsProps": {
