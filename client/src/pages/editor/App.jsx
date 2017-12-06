@@ -47,13 +47,31 @@ class App extends PureComponent {
         super(props);
 
         this.state = {
+            /**
+             * 组件的所在区域
+             */
             rect: null,
-            hoverId: null,
 
+            /**
+             * 激活的 组件 id
+             */
             activeId: null,
+
+            /**
+             * 编辑面板 展示状态
+             */
             panelVisible: false,
+
+            /**
+             * 已添加组件 展示状态
+             */
             layerCakeVisible: false,
+
+            /**
+             * 左下角菜单 展示状态
+             */
             menuVisible: false,
+
             /**
              * 后端返回的原始数据
              * 该数据包含层级关系，components.App module config 等数据 不包含在此
@@ -63,8 +81,11 @@ class App extends PureComponent {
             /**
              * 复制数据
              */
-            copyData: null
+            copyData: null,
         };
+
+        this.autoActiveId = null;
+
         emitter.on('delete', this.mittDelete);
         emitter.on('copy', this.mittCopy);
         emitter.on('paste', this.mittPaste);
@@ -184,6 +205,7 @@ class App extends PureComponent {
             activeId: null,
             rect: null,
             activeRect: null,
+            panelVisible: false,
         })
     }
 
@@ -253,6 +275,9 @@ class App extends PureComponent {
         const data = guid ?
             createChildren(this.state.data, guid, mod) :
             arr.concat(mod);
+
+        // 当添加一个组件的时候，自动激活编辑面板
+        this.autoActiveId = guid || mod.guid;
 
         this.setState({
             data,
@@ -522,9 +547,12 @@ class App extends PureComponent {
                         className="ec-editor-canvas-inner"
                         ref={ref => { this.canvasInner = ref }}
                     >
+                        {/* 操作提示节点 */}
                         <Control
                             rect={rect}
                         />
+
+                        {/* 实际的可编辑组件列表 */}
                         <Editor
                             data={data}
                         />

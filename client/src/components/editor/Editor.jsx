@@ -9,7 +9,6 @@ import Immutable from 'immutable';
 import { Upload, Modal, Icon, Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
-import Wrap from './Wrap';
 import Panel from '../panel';
 import Render from '../../common/render/Render';
 

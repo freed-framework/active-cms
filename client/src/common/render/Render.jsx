@@ -8,6 +8,7 @@ import React from 'react';
 import Lazyer from '../lazyer/Lazyer';
 import AppComponent from '../AppComponent';
 import loader from '../loader/loader';
+import './render.scss';
 
 class PlaceHolder extends React.Component {
     render() {
@@ -25,6 +26,7 @@ class PlaceHolder extends React.Component {
  * @param props.data
  * @param props.pageType
  * @param props.extendsProps
+ * @param props.isEdit
  */
 const loop = (props) => props.data.map(item => (
     <Lazyer
@@ -39,7 +41,7 @@ const loop = (props) => props.data.map(item => (
                 pageType: props.pageType,
                 isEdit: props.isEdit,
             }}>
-                {(childProps) => {
+                {childProps => {
                     if (childProps.data.length === 0) {
                         return <PlaceHolder name={mod.module.config.displayName} />;
                     }
