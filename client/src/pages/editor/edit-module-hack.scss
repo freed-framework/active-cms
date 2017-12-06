@@ -14,10 +14,14 @@
     }
 }
 
-.ec-editor-mobile {
+.ec-editor-scroller {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     height: 100%;
+}
+
+.ec-editor-mobile {
+    @extend .ec-editor-scroller;
 
     .ec-editor-canvas {
         height: 100%;

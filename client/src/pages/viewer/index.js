@@ -5,10 +5,12 @@
  */
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+import classNames from 'classnames';
 import { getPage } from '../../services';
 import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
 import '../../css/reset-mobile.css';
+import '../editor/edit-module-hack.scss';
 
 class Viewer extends PureComponent {
     constructor(props) {
@@ -53,11 +55,17 @@ class Viewer extends PureComponent {
     }
 
     render() {
+        const cls = classNames('ec-editor-viewer', {
+            'ec-editor-scroller': this.state.pageType === 'mobile'
+        })
+
         return (
-            <Render
-                data={this.state.data}
-                pageType={this.state.pageType}
-            />
+            <div className={cls}>
+                <Render
+                    data={this.state.data}
+                    pageType={this.state.pageType}
+                />
+            </div>
         )
     }
 }
