@@ -22,7 +22,7 @@ export default class Utils {
                 }
             })
         } else {
-            const { content, _id, title, pageType } = data;
+            const { content, _id, title, pageType, pushId } = data;
             return {
                 _id,
                 title,
