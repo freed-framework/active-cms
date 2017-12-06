@@ -6,12 +6,14 @@
  */
 /// <reference path="./layer.d.ts" />
 import * as React from 'react';
+import config from './config';
 import './layer.scss';
 
 class Layer extends React.PureComponent<Props, any> {
+    static config: Config = config;
+
     render() {
-        const { attrs = {}, id } = this.props;
-        const { style = {} } = attrs;
+        const { style = {}, id } = this.props;
 
         return (
             <div
