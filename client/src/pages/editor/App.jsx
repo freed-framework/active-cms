@@ -137,7 +137,7 @@ class App extends PureComponent {
         this.mittActive({
             guid,
             target,
-            rect: getRect(target),
+            // rect: getRect(target),
         });
     }
 
@@ -321,7 +321,12 @@ class App extends PureComponent {
      * @param target
      */
     mittActive = ({ guid, target }) => {
-        const rect = guid && target ? getRect(target) : null;
+        const { location = '', match = {} } = this.props;
+        const { params = {} } = match;
+
+        // 移动端的画布有特殊设置
+        const parent = params.type === 'mobile' ? this.canvasInner : null;
+        const rect = guid && target ? getRect(target, parent) : null;
 
         this.setState({
             activeId: guid,
@@ -465,9 +470,6 @@ class App extends PureComponent {
 
         return (
             <div className={`ec-editor-${match.params.type}`}>
-                <Control
-                    rect={rect}
-                />
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
@@ -517,7 +519,11 @@ class App extends PureComponent {
                 >
                     <div
                         className="ec-editor-canvas-inner"
+                        ref={ref => { this.canvasInner = ref }}
                     >
+                        <Control
+                            rect={rect}
+                        />
                         <Editor
                             data={data}
                         />
