@@ -42,6 +42,7 @@ class Img extends React.Component<ImgProps, any> {
                 style={styleProps}
             >
                 { child }
+                { src === '' && this.props.children }
             </div>
         )
     }

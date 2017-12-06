@@ -9,6 +9,16 @@ import Lazyer from '../lazyer/Lazyer';
 import AppComponent from '../AppComponent';
 import loader from '../loader/loader';
 
+class PlaceHolder extends React.Component {
+    render() {
+        return (
+            <div className="editor-placeholder">
+                {this.props.name}
+            </div>
+        )
+    }
+}
+
 /**
  * 循环输出组件
  * @param props
@@ -29,7 +39,13 @@ const loop = (props) => props.data.map(item => (
                 pageType: props.pageType,
                 isEdit: props.isEdit,
             }}>
-                {(childProps) => loop(childProps)}
+                {(childProps) => {
+                    if (childProps.data.length === 0) {
+                        return <PlaceHolder name={mod.module.config.displayName} />;
+                    }
+
+                    return loop(childProps);
+                }}
             </AppComponent>
         )}
     </Lazyer>

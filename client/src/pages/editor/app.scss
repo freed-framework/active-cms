@@ -49,6 +49,12 @@ body {
     &-inner {
         overflow: hidden;
         margin: 0 auto;
+
+        // Place holder
+        .tmc-img,
+        .tmc-list,
+        .tmc-layer {
+        }
     }
 }
 
@@ -214,11 +220,6 @@ body {
     }
     .ant-select-dropdown{
         background: #2D2D32;
-    }
-    .tmc-img,
-    .tmc-list,
-    .tmc-layer{
-        border: 1px solid #697177;
     }
 }
 
