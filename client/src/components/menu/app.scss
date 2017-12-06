@@ -40,12 +40,14 @@ $padding: 20px;
         padding-left: 20px;
         border-bottom: 1px solid #383737;
     }
+
     .ant-btn-sm:last-child {
         border-bottom: 0;
     }
+
+    &-hide {
+        transform: perspective(600) rotateY(90deg);
+        opacity: .2;
+    }
 }
 
-.hide {
-    transform: perspective(600) rotateY(90deg);
-    opacity: .2;
-}
