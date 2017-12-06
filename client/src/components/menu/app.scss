@@ -43,11 +43,9 @@ $padding: 20px;
     .ant-btn-sm:last-child {
         border-bottom: 0;
     }
+}
 
 .hide {
     transform: perspective(600) rotateY(90deg);
     opacity: .2;
-}
-
-.ec-banner-list {
 }
