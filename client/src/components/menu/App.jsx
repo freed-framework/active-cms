@@ -39,7 +39,7 @@ class TopMenu extends PureComponent {
     render() {
         const { visible } = this.state;
         const clsMenu = classNames('ec-editor-menu', {
-            'hide': !visible,
+            'ec-editor-menu-hide': !visible,
         });
         return (
             <div
