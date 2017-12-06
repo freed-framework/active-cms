@@ -9,8 +9,8 @@
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    transform: translateX(0);
-
+    transform: translateX(-160px);
+    transition: all 0.2s ease 0s;
     &-active {
         transform: translateX(0);
     }
