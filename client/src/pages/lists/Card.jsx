@@ -79,18 +79,6 @@ export default class componentName extends PureComponent {
         });
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const { pushId } = nextProps.data
-        if (
-            this.state.formNow === nextState.formNow
-            && this.state.progress === nextState.progress
-            && this.props.data.pushId === pushId
-        ) {
-            return false;
-        }
-        return true;
-    }
-
     componentWillUnmount() {
         // 取消事件监听
         this.timer.unsubscribe();
@@ -334,9 +322,7 @@ export default class componentName extends PureComponent {
                                 })
                             }}
                         />
-                        {
-                            data.pushId
-                        }
+                        <span>{data.pushId || '未发布'}</span>
                         <span className={'page-list-card-title-right'}>
                             {
                                 formNow
@@ -379,7 +365,7 @@ export default class componentName extends PureComponent {
                                     <span className="page-list-card-text">删除</span>
                                 </li>
                             }
-                            {
+                            {/* {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -388,8 +374,8 @@ export default class componentName extends PureComponent {
                                     <Font type="move" />
                                     <span className="page-list-card-text">分享</span>
                                 </li>
-                            }
-                            {
+                            } */}
+                            {/* {
                                 current !== 'publish' && isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -398,7 +384,7 @@ export default class componentName extends PureComponent {
                                     <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
                                     <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
                                 </li>
-                            }
+                            } */}
                             {
                                 current !== 'publish' && isOwer &&
                                 <li
@@ -412,8 +398,8 @@ export default class componentName extends PureComponent {
                                     }
                                     <span className="page-list-card-text">{
                                         isPushing
-                                        ? '推送'
-                                        : '推送中...'
+                                        ? '发布'
+                                        : '发布中...'
                                     }</span>
                                 </li>
                             }

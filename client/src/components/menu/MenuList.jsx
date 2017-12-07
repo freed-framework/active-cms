@@ -100,19 +100,17 @@ export default class TopMenu extends PureComponent {
                             onChange={this.handleChange}
                         >
                             <Option key="my">我的页面</Option>
-                            <Option key="pulish">所有公开页面</Option>
-                            <Option key="share">分享给我的页面</Option>
+                            {/* <Option key="pulish">所有公开页面</Option>
+                            <Option key="share">分享给我的页面</Option> */}
                         </Select>
                         <Button
                             className="ec-editor-btn"
-                            size="small"
                             onClick={this.handleAdd}
                         >
                             新建
                         </Button>
                         <Button
                             className="ec-editor-btn ec-editor-btn-red"
-                            size="small"
                         >
                             退出
                         </Button>
