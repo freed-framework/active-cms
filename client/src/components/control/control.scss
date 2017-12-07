@@ -5,7 +5,6 @@
     background: #9BA5AE;
     pointer-events: none;
     opacity: .5;
-    // z-index: 9999999;
 
     &-line {
         position: absolute;
@@ -37,7 +36,7 @@
     }
 
     .edit-tools {
-        z-index: 999999999;
+        z-index: 9999;
         width: 60px;
         height: 24px;
         background: #697177;

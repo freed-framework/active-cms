@@ -111,6 +111,7 @@ class Background extends PureComponent {
                             }
                             style={{ width: 80 }}
                             onChange={this.onSelectChange}
+                            dropdownClassName="dropdown-class"
                         >
                             <Option key="backgroundColor" value="backgroundColor">背景色</Option>
                             <Option key="backgroundImage" value="backgroundImage">背景图片</Option>

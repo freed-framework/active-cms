@@ -220,7 +220,7 @@ class List extends PureComponent {
             'hide': !editVisible,
             'show': editVisible,
         })
-        if (this.state.editId === item.guid) {
+        if (editVisible && this.state.editId === item.guid) {
             return (
                 <span className="ec-editor-layer-cake-content-name">
                     <input
@@ -302,7 +302,7 @@ class List extends PureComponent {
             });
 
             const aaa = (
-                <div>
+                <div className={childCls}>
                     <div
                         className="ec-editor-layer-cake-content"
                         data-guid={item.guid}
@@ -331,9 +331,7 @@ class List extends PureComponent {
                     className={cls}
                     header={aaa}
                 >
-                    <Collapse
-                        className={childCls}
-                    >
+                    <Collapse>
                         {item.children && this.loopRender(item.children, true)}
                     </Collapse>
                 </Panel>

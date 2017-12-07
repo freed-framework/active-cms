@@ -48,25 +48,25 @@
     }
 
     &-index {
-        width: 20px;
-        background: none;
+        position: absolute;
+        top: 8px;
+        right: 28px;
         text-align: center;
         height: 14px;
         width: 14px;
+        margin-left: 4px;
         font-size: 12px;
         border: 1px solid;
-        margin-left: 4px;
-        position: absolute;
-        top: 8px;
-        right: 22px;
-        &-hide{
+        background: none;
+
+        &-hide {
             display: none;
         }
     }
 
     &-name {
-        max-width: 50px;
         display: inline-block;
+        max-width: 50px;
         background: #2D2D32;
         color: #8E8E94;
         border: 1px solid #8E8E94;
@@ -74,21 +74,23 @@
 
     &-content {
         &-name {
-            @include textEllipsis(60px);
+            @include textEllipsis(54px);
         }
     }
 
     &-items {
-        // margin-bottom: 5px;
         cursor: pointer;
 
         &-active {
-            background: #fff;
+            .ec-editor-layer-cake-content {
+                background: #2D3035;
+            }
         }
 
         .ec-editor-layer-cake-content {
             height: 28px;
             line-height: 28px;
+
             .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
             .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
                 line-height: 28px;
@@ -127,7 +129,7 @@
         // padding-right: 24px;
         color: #DEDEE0;
 
-        img{
+        img {
             width: 11px;
             height: 13px;
             margin-right: 7px;
@@ -137,11 +139,10 @@
         &:hover {
             background: #2D3035;
         }
-        &-active{
-            color: red;
-        }
     }
 }
+
+/* 重置按钮样式*/
 .ant-collapse,
 .ant-collapse-content {
     background-color: #24272E;
@@ -169,22 +170,22 @@
 }
 
 .ant-collapse > .ant-collapse-item > .ant-collapse-header,
-.ant-collapse-content{
+.ant-collapse-content {
     padding: 0;
 }
 
 .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
-.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
-    color: #DEDEE0;
-    line-height: 28px;
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
     left: 24px;
+    line-height: 28px;
+    color: #DEDEE0;
 }
 
 .anticon-edit {
-    margin-right: 4px;
-    margin-left: 4px;
     position: absolute;
     top: 10px;
+    margin-right: 4px;
+    margin-left: 4px;
 }
 
 
