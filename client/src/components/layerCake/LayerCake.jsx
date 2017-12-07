@@ -6,10 +6,11 @@
  */
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
-import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { Icon } from 'antd';
 import classNames from 'classnames';
 import { activeComponent } from '../../pages/editor/App';
+import { scrollDom } from '../../common/util/util';
 import List from './List';
 
 import './layerCake.scss';
@@ -47,6 +48,8 @@ class LayerCake extends PureComponent {
     }
 
     handleActive = (guid) => {
+        const { outerEl } = this.props;
+        const { params } = this.props.match;
         // 实际上被编辑的元素
         const editTarget = document.getElementById(guid);
 
@@ -54,7 +57,7 @@ class LayerCake extends PureComponent {
             current: guid
         }, () => {
             try {
-                document.querySelector(`#${guid}`).scrollIntoView(true);
+                scrollDom(outerEl, editTarget, params.type === 'mobile' ? 2 : 1);
             } catch(e) {}
 
             activeComponent(guid, editTarget);
@@ -100,4 +103,4 @@ class LayerCake extends PureComponent {
     }
 }
 
-export default LayerCake;
+export default withRouter(LayerCake);

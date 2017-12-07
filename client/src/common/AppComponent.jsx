@@ -12,7 +12,7 @@
  * @constructor
  */
 import React from 'react';
-import { num2rem, transPx } from './util';
+import { num2rem, transPx } from './util/util';
 
 /**
  * 创建单个 Component
@@ -25,6 +25,10 @@ import { num2rem, transPx } from './util';
  * @constructor
  */
 const AppComponent = (props) => {
+    if (!props.module) {
+        return null;
+    }
+
     const item = props.item;
     const App = props.module.App;
     const componentProps = Object.assign({}, item.componentProps);
@@ -60,7 +64,7 @@ const AppComponent = (props) => {
         };
     }
 
-    // <TODO> 待改进，无 child 的时候需要自动添加一个 placeholder
+    // <TODO> children 待优化
     return (
         <App
             id={item.guid}
@@ -72,11 +76,10 @@ const AppComponent = (props) => {
             {/* 通过数据转换生成的组件的子组件 */}
             {transData.childNodes ? transData.childNodes : null}
 
-            {/* 由 this.props.children 继续交给外部调用的位置进行渲染 */}
-            {props.children({
+            {props.children && props.children({
                 data: item.children || [],
                 ...(allProps.extendsProps && { extendsProps: allProps.extendsProps }),
-                // 给 components 组件判断是否是编辑模式
+                // // 给 components 组件判断是否是编辑模式
                 ...(props.isEdit && { isEdit: props.isEdit }),
                 pageType: props.pageType,
             })}

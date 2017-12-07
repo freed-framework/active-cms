@@ -61,4 +61,29 @@ $padding: 20px;
     }
 }
 
+.ec-banner-list {
+    line-height: 50px;
+
+    .ec-editor-banner-left span {
+        font-size: 18px;
+        font-weight: bold;
+        padding-left: 10px;
+        color: white;
+    }
+
+    input[type="text"] {
+        border: 1px solid #d9d9d9;
+    }
+
+    .ec-editor-banner-right {
+        float: right;
+        text-align: right;
+    }
+
+    button {
+        margin-left: 10px;
+    }
+
+    background-color: #2D3035;
+}
 

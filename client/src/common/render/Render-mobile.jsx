@@ -20,7 +20,7 @@ const loop = (props) => props.data.map(item => (
                 ...(props.extendsProps && { extendsProps: props.extendsProps }),
                 pageType: props.pageType,
             }}>
-                {(childProps) => loop(childProps)}
+                {childProps => loop(childProps)}
             </AppComponent>
         )}
     </Lazyer>

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
-import { getRect, createChildren } from '../util/util';
+import { getRect, createChildren } from '../../common/util/util';
 import module from '../../common/module';
 import { addPage, editPage, push } from '../../services';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
@@ -21,6 +21,7 @@ import { user } from '../../actions/user';
 import { userReducer } from '../../reducers';
 import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
+import loader from '../../common/loader/loader';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -83,8 +84,6 @@ class App extends PureComponent {
              */
             copyData: null,
         };
-
-        this.autoActiveId = null;
 
         emitter.on('delete', this.mittDelete);
         emitter.on('copy', this.mittCopy);
@@ -276,11 +275,10 @@ class App extends PureComponent {
             createChildren(this.state.data, guid, mod) :
             arr.concat(mod);
 
-        // 当添加一个组件的时候，自动激活编辑面板
-        this.autoActiveId = guid || mod.guid;
-
         this.setState({
             data,
+            // 当添加一个组件的时候，自动激活编辑面板
+            autoActiveId: guid || mod.guid,
         });
     }
 
@@ -325,13 +323,11 @@ class App extends PureComponent {
      * @param value
      */
     mittModify = ({ guid, key, value }) => {
-        // 黑科技，如果不添加 timer，当默认数据出现多次接近同时调用的时候，state.data 并未更新
-        // setTimeout(() => {
-            const data = module.modify(guid, this.state.data, key, value);
-            this.setState({
-                data,
-            });
-        // });
+        const data = module.modify(guid, this.state.data, key, value);
+
+        this.setState({
+            data,
+        });
     }
 
     mittSort = (data) => {
@@ -514,9 +510,12 @@ class App extends PureComponent {
                     >
                         <Icon type="right" />
                     </div>
+
+                    {/* 已经添加的组件列表 */}
                     <LayerCake
                         activeId={this.state.activeId}
                         active={this.state.layerCakeVisible}
+                        outerEl={this.canvasInner}
                         data={data}
                     />
                 </div>
@@ -525,7 +524,6 @@ class App extends PureComponent {
                 <Panel
                     activeId={this.state.activeId}
                     data={data}
-                    offsetTop={50}
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
@@ -555,6 +553,8 @@ class App extends PureComponent {
                         {/* 实际的可编辑组件列表 */}
                         <Editor
                             data={data}
+                            outerEl={this.canvasInner}
+                            autoActiveId={this.state.autoActiveId}
                         />
                     </div>
                 </div>

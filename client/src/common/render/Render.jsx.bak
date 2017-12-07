@@ -1,0 +1,63 @@
+/**
+ * @file Render.jsx
+ * @author denglingbo
+ *
+ * Des
+ */
+import React from 'react';
+import Lazyer from '../lazyer/Lazyer';
+import AppComponent from '../AppComponent';
+import loader from '../loader/loader';
+import './render.scss';
+
+class PlaceHolder extends React.Component {
+    render() {
+        return (
+            <div className="editor-placeholder">
+                {this.props.name}
+            </div>
+        )
+    }
+}
+
+/**
+ * 循环输出组件
+ * @param props
+ * @param props.data
+ * @param props.pageType
+ * @param props.extendsProps
+ * @param props.isEdit
+ */
+const loop = (props) => props.data.map(item => (
+    <Lazyer
+        key={item.guid}
+        item={item}
+        loader={loader}
+    >
+        {mod => (
+            <AppComponent {...{
+                ...mod,
+                ...(props.extendsProps && { extendsProps: props.extendsProps }),
+                pageType: props.pageType,
+                isEdit: props.isEdit,
+            }}>
+                {childProps => {
+                    if (childProps.data.length === 0) {
+                        return <PlaceHolder name={mod.module.config.displayName} />;
+                    }
+                    return loop(childProps);
+                }}
+            </AppComponent>
+        )}
+    </Lazyer>
+));
+
+const App = (props) => (
+    <div>{loop(props)}</div>
+);
+
+App.defaultProps = {
+    data: [],
+}
+
+export default App;

@@ -1,64 +1,50 @@
 /**
- * @file render.jsx
+ * @file Render.jsx
  * @author denglingbo
  *
  * Des
  */
-import React from 'react';
-import Lazyer from '../lazyer/Lazyer';
-import AppComponent from '../AppComponent';
+import React, { PureComponent } from 'react';
 import loader from '../loader/loader';
-import './render.scss';
+import RenderItem from './RenderItem';
 
-class PlaceHolder extends React.Component {
+class App extends PureComponent {
+    /**
+     * 循环输出组件
+     * @param data
+     * @param extendsProps, 继承于父组件的 属性
+     */
+    loop(data = [], extendsProps = null) {
+        const { autoActiveId, pageType, isEdit, outerEl } = this.props;
+
+        return data.map(item => {
+            return (
+                <RenderItem
+                    key={item.guid}
+                    item={item}
+                    loader={loader}
+                    extendsProps={extendsProps}
+                    autoActiveId={autoActiveId}
+                    pageType={pageType}
+                    outerEl={outerEl}
+                    isEdit={isEdit}
+                >
+                    {childProps => this.loop(item.children, childProps.extendsProps)}
+                </RenderItem>
+            );
+        });
+    }
+
     render() {
         return (
-            <div className="editor-placeholder">
-                {this.props.name}
-            </div>
-        )
+            <div>{this.loop(this.props.data)}</div>
+        );
     }
 }
-
-/**
- * 循环输出组件
- * @param props
- * @param props.data
- * @param props.pageType
- * @param props.extendsProps
- * @param props.isEdit
- */
-const loop = (props) => props.data.map(item => (
-    <Lazyer
-        key={item.guid}
-        item={item}
-        loader={loader}
-    >
-        {mod => (
-            <AppComponent {...{
-                ...mod,
-                ...(props.extendsProps && { extendsProps: props.extendsProps }),
-                pageType: props.pageType,
-                isEdit: props.isEdit,
-            }}>
-                {childProps => {
-                    if (childProps.data.length === 0) {
-                        return <PlaceHolder name={mod.module.config.displayName} />;
-                    }
-
-                    return loop(childProps);
-                }}
-            </AppComponent>
-        )}
-    </Lazyer>
-));
-
-const App = (props) => (
-    <div>{loop(props)}</div>
-);
 
 App.defaultProps = {
     data: [],
 }
 
 export default App;
+
