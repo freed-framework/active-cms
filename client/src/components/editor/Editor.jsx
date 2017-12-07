@@ -11,7 +11,6 @@ import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import Panel from '../panel';
 import Render from '../../common/render/Render';
-
 import './editor.scss';
 
 const getChildNodes = (data) => {
@@ -78,13 +77,13 @@ class Editor extends PureComponent {
         const { params } = this.props.match;
 
         return (
-            <div>
-                <Render
-                    data={this.props.data}
-                    pageType={params.type}
-                    isEdit={true}
-                />
-            </div>
+            <Render
+                data={this.props.data}
+                pageType={params.type}
+                outerEl={this.props.outerEl}
+                isEdit={true}
+                autoActiveId={this.props.autoActiveId}
+            />
         );
     }
 }
