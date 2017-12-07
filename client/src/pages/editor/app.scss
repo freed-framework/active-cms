@@ -20,17 +20,10 @@
     background-color: rgba(0,0,0,0.3);
 }
 
-@keyframes action_scaleOut{
-    0%{transform: scale(0.2);opacity: 0;}
-    100%{ transform: scale(1);opacity: 1;}
-}
-
-
 body {
     margin: 0;
     padding: 0;
     height: 100%;
-    // background: #2B2B2E !important;
 }
 
 /**
@@ -49,12 +42,6 @@ body {
     &-inner {
         overflow: hidden;
         margin: 0 auto;
-
-        // Place holder
-        .tmc-img,
-        .tmc-list,
-        .tmc-layer {
-        }
     }
 }
 
@@ -67,175 +54,190 @@ body {
 }
 
 .ec-editor-pc {
-
     .ec-editor-canvas-inner {
         width: 1200px;
         min-height: 400px;
     }
 }
 
-.ec-editor-mobile {
-    background: #2B2B2E;
 
-    .ec-editor-left-panel{
-        display: flex;
-        height: 100%;
-    }
+.ec-editor-left-panel {
+    display: flex;
+    height: 100%;
+}
 
-    .div-title{
-        margin-bottom: 6px;
-    }
+.div-title {
+    margin-bottom: 6px;
+}
 
-    .ec-editor-basic-props-background {
-        input[type="text"]{
-            width: 164px;
-        }
-    }
-
-    .ant-select-selection,
-    .ant-input,
-    .ant-input-number-input,
-    .ec-edit-border-color,
-    .ant-input-number,
-    .ant-btn-group-sm > .ant-btn{
-        border-radius: 0;
-    }
-
-    .ec-panel-item .ec-editor-basic-props-img p{
-        label{
-            display: block;
-        }
-        input[type="text"]{
-            width: 240px;
-        }
-    }
-    .ec-editor-basic-props-attr input[type="text"]{
-        width: 240px;
-    }
-    .ec-editor-basic-props-attr p{
-        margin-bottom: 14px;
-        label{
-            display: inline-block;
-            width: 80px;
-        }
-        input[type="text"]{
-            display: inline-block;
-            width: 176px;
-        }
-    }
-
-    .ant-row {
-        margin-bottom: 16px;
-        margin-top: 16px;
-    }
-    .ant-btn:hover,
-    .ant-btn:focus,
-    .ant-btn:active,
-    .ant-btn.active {
-        background: none;
-        color: #CC504A;
-    }
-
-    .ec-editor-layout-fixed{
-        opacity: 1;
-    }
-    .menu-button{
-        position: fixed;
-        left: 10px;
-        bottom: 20px;
-        z-index: 999999;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        text-align: center;
-        .anticon-appstore-o{
-            line-height: 60px;
-            font-size: 26px;
-            color: #fff;
-        }
-        img{
-            width: 50px;
-            height: 50px;
-        }
-    }
-    .show-right{
-        position: fixed;
-        left: 56px;
-        top: 50%;
-        margin-top: -24px;
-        z-index: 999;
-        width: 48px;
-        height: 48px;
-        line-height: 48px;
-        border-radius: 50%;
-        text-align: center;
-        background: #212125;
-        .anticon-right:before{
-            font-size: 24px;
-            color: #8E8E94;
-            line-height: 48px;
-            padding-left: 8px;
-        }
-    }
-    .close-right{
-        transform: rotate(180deg);
-        line-height: 48px;
-        padding-right: 20px;
-    }
+.ec-editor-basic-props-background {
     input[type="text"] {
-        border: 1px solid #2D2D32;
-        padding: 3px 5px;
-        background: #2D2D32;
-        color: #8E8E94;
-        width: 120px;
-    }
-    .ec-editor-basic-props label {
-        margin-bottom: 4px;
-    }
-
-    .ant-btn-group {
-        margin: 6px 0;
-    }
-    .ant-select-selection--single,
-    .ec-edit-border-color,
-    .ant-input-number,
-    .ant-input-number-input,
-    .ant-btn-small{
-        background: #2D2D32;
-        border: 1px solid #2D2D32;
-        color: #8E8E94;
-    }
-
-    .ant-btn-group-sm > .ant-btn {
-        line-height: 22px;
-    }
-
-    .ant-input-number-handler-wrap {
-        border-left: 1px solid #212125;
-        background: #2D2D32;
-
-    }
-    .ant-input-number-handler-down {
-        border-top: 1px solid #212125;
-    }
-    .ant-select-dropdown{
-        background: #2D2D32;
+        width: 164px;
     }
 }
 
-    .ant-select-dropdown-menu-item-active{
-        background: none;
-        color: #8E8E94;
-        &:hover{
-            color: #8E8E94;
-        }
+.ant-select-selection,
+.ant-input,
+.ant-input-number-input,
+.ec-edit-border-color,
+.ant-input-number,
+.ant-btn-group-sm > .ant-btn {
+    border-radius: 0;
+}
+
+.ec-panel-item .ec-editor-basic-props-img p {
+    label {
+        display: block;
     }
-    .ant-select-dropdown-menu-item,
-    .ant-select-dropdown-menu-item-selected{
-        background: #2D3035;
+
+    input[type="text"] {
+        width: 240px;
+    }
+}
+
+.ec-editor-basic-props-attr input[type="text"] {
+    width: 240px;
+}
+
+.ec-editor-basic-props-attr p {
+    margin-bottom: 14px;
+
+    label {
+        display: inline-block;
+        width: 80px;
+    }
+
+    input[type="text"] {
+        display: inline-block;
+        width: 176px;
+    }
+}
+
+.ant-row {
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+.ant-btn:hover,
+.ant-btn:focus,
+.ant-btn:active,
+.ant-btn.active {
+    background: none;
+    color: #CC504A;
+}
+
+.ec-editor-layout-fixed {
+    opacity: 1;
+}
+
+.menu-button {
+    position: fixed;
+    left: 10px;
+    bottom: 20px;
+    z-index: 999999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+
+    .anticon-appstore-o {
+        line-height: 60px;
+        font-size: 26px;
+        color: #fff;
+    }
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.show-right {
+    position: fixed;
+    left: 56px;
+    top: 50%;
+    margin-top: -24px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 50%;
+    text-align: center;
+    background: #212125;
+
+    .anticon-right:before {
+        font-size: 24px;
         color: #8E8E94;
-        &:hover{
-            background: #2D2D32;
+        line-height: 48px;
+        padding-left: 8px;
+    }
+}
+
+.close-right {
+    transform: rotate(180deg);
+    line-height: 48px;
+    padding-right: 20px;
+}
+
+input[type="text"] {
+    border: 1px solid #2D2D32;
+    padding: 3px 5px;
+    background: #2D2D32;
+    color: #8E8E94;
+    width: 120px;
+}
+
+.ec-editor-basic-props label {
+    margin-bottom: 4px;
+}
+
+.ant-btn-group {
+    margin: 6px 0;
+}
+
+.ant-select-selection--single,
+.ec-edit-border-color,
+.ant-input-number,
+.ant-input-number-input,
+.ant-btn-small {
+    background: #2D2D32;
+    border: 1px solid #2D2D32;
+    color: #8E8E94;
+}
+
+.ant-btn-group-sm > .ant-btn {
+    line-height: 22px;
+}
+
+.ant-input-number-handler-wrap {
+    border-left: 1px solid #212125;
+    background: #2D2D32;
+
+}
+
+.ant-input-number-handler-down {
+    border-top: 1px solid #212125;
+}
+
+.ant-select-dropdown {
+    background: #2D2D32;
+}
+
+.ant-select-dropdown-menu-item-active {
+    background: none;
+    color: #8E8E94;
+
+    &:hover{
+        color: #8E8E94;
+    }
+}
+.ant-select-dropdown-menu-item,
+.ant-select-dropdown-menu-item-selected {
+    background: #2D3035;
+    color: #8E8E94;
+
+    &:hover{
+        background: #2D2D32;
     }
 }
 

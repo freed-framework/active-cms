@@ -2,6 +2,7 @@
 
 .ec-editor-layer-cake {
     @include bezierAnimate('out-back');
+
     z-index: 88;
     position: fixed;
     left: 80px;
@@ -9,7 +10,7 @@
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    transform: translateX(-160px);
+    transform: translateX(0);
 
     &-active {
         transform: translateX(0);
@@ -29,7 +30,7 @@
             padding-right: 5px;
         }
 
-        &-edit{
+        &-edit {
             position: absolute;
             right: 12px;
             font-size: 12px;
@@ -69,8 +70,6 @@
         background: #2D2D32;
         color: #8E8E94;
         border: 1px solid #8E8E94;
-
-
     }
 
     &-content {
@@ -83,6 +82,10 @@
         // margin-bottom: 5px;
         cursor: pointer;
 
+        &-active {
+            background: #fff;
+        }
+
         .ec-editor-layer-cake-content {
             height: 28px;
             line-height: 28px;
@@ -94,18 +97,21 @@
         //span {
         //    pointer-events: none;
         //}
+
         &-sub {
             margin-bottom: 0;
             margin-left: 0;
             // padding-left: 18px;
-            .ec-editor-layer-cake-content{
+
+            .ec-editor-layer-cake-content {
                 height: 28px;
                 line-height: 28px;
                 color: #8E8E94;
 
             }
-            &-no-child{
-                & > .ant-collapse-header .arrow{
+
+            &-no-child {
+                & > .ant-collapse-header .arrow {
                     display: none !important;
                 }
             }
@@ -120,49 +126,61 @@
         padding-left: 40px;
         // padding-right: 24px;
         color: #DEDEE0;
+
         img{
             width: 11px;
             height: 13px;
             margin-right: 7px;
             margin-bottom: -2px;
         }
+
         &:hover {
             background: #2D3035;
+        }
+        &-active{
+            color: red;
         }
     }
 }
 .ant-collapse,
-.ant-collapse-content{
+.ant-collapse-content {
     background-color: #24272E;
     border-radius: 0;
     border: 0;
 }
+
 .ant-collapse > .ant-collapse-item:last-child,
 .ant-collapse > .ant-collapse-item {
     border-radius: 0;
     border-bottom: 0;
 }
-.hide{
+
+.hide {
     display: none;
 }
-.show{
+
+.show {
     display: inline;
 }
+
 .ant-collapse-content > .ant-collapse-content-box {
     padding-top: 0;
     padding-bottom: 0;
 }
+
 .ant-collapse > .ant-collapse-item > .ant-collapse-header,
 .ant-collapse-content{
     padding: 0;
 }
+
 .ant-collapse > .ant-collapse-item > .ant-collapse-header[aria-expanded="true"] .arrow,
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow{
     color: #DEDEE0;
     line-height: 28px;
     left: 24px;
 }
-.anticon-edit{
+
+.anticon-edit {
     margin-right: 4px;
     margin-left: 4px;
     position: absolute;
