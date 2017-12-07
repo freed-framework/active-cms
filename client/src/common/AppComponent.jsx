@@ -80,8 +80,8 @@ const AppComponent = (props) => {
                 data: item.children || [],
                 ...(allProps.extendsProps && { extendsProps: allProps.extendsProps }),
                 // // 给 components 组件判断是否是编辑模式
-                // ...(props.isEdit && { isEdit: props.isEdit }),
-                // pageType: props.pageType,
+                ...(props.isEdit && { isEdit: props.isEdit }),
+                pageType: props.pageType,
             })}
         </App>
     );
