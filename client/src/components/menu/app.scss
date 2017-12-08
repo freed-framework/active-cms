@@ -4,7 +4,6 @@ $padding: 20px;
 
 .ec-editor-menu {
     @include bezierAnimate('in-back', 0.4s);
-
     position: fixed;
     line-height: 50px;
     z-index: 9999;

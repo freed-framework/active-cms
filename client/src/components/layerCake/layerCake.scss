@@ -2,7 +2,6 @@
 
 .ec-editor-layer-cake {
     @include bezierAnimate('out-back');
-
     z-index: 88;
     position: fixed;
     left: 80px;
@@ -10,7 +9,7 @@
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    transform: translateX(0);
+    transform: translateX(-160px);
 
     &-active {
         transform: translateX(0);
