@@ -1,4 +1,5 @@
 @import "../../../style/reset.css";
+@import "../../css/common.scss";
 @import "./edit-module-hack.scss";
 
 ::-webkit-scrollbar-track
@@ -101,7 +102,12 @@ body {
     }
 }
 
+/**
+ * <TODO> 丽姐，请不要用这么懵逼的 class="show-right close-right"
+ * 应该是 class="xxxx ${hide or show}" 来控制，这样的话动画等配置可以写在 xxxx 中
+ */
 .show-right {
+    @include bezierAnimate();
     position: fixed;
     left: 56px;
     top: 50%;
@@ -116,6 +122,7 @@ body {
     box-shadow: 2px 0 1px 0 #000000;
 
     .anticon-right:before {
+        @include bezierAnimate();
         font-size: 24px;
         color: #8E8E94;
         line-height: 48px;
@@ -124,7 +131,11 @@ body {
 }
 
 .close-right {
+    @include bezierAnimate();
+    transform: scale(0.8);
+
     .anticon-right:before {
+        @include bezierAnimate();
         transform: rotate(180deg);
         margin-left: 18px;
     }

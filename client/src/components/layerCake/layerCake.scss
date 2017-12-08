@@ -10,7 +10,7 @@
     height: 100%;
     background: #24272E 100%;
     color: #DEDEE0;
-    transform: translateX(0);
+    transform: translateX(-160px);
 
     &-active {
         transform: translateX(0);
@@ -23,7 +23,7 @@
         line-height: 44px;
         font-size: 14px;
         color: #DEDEE0;
-        margin-bottom: 0;
+        margin-bottom: 5px;
         padding-left: 10px;
 
         .anticon-check-circle-o {
@@ -49,15 +49,17 @@
 
     &-index {
         position: absolute;
-        top: 8px;
-        right: 28px;
+        top: 2px;
+        right: 20px;
         text-align: center;
-        height: 14px;
-        width: 14px;
+        height: 24px;
+        width: 20px;
         margin-left: 4px;
         font-size: 12px;
-        border: 1px solid;
-        background: none;
+        padding: 3px 5px;
+        border: 1px solid #2D2D32;
+        background: #2D2D32;
+        color: #8E8E94;
 
         &-hide {
             display: none;
@@ -65,11 +67,13 @@
     }
 
     &-name {
+        padding: 0 3px;
+        height: 24px;
         display: inline-block;
         max-width: 50px;
+        border: 1px solid #2D2D32;
         background: #2D2D32;
         color: #8E8E94;
-        border: 1px solid #8E8E94;
     }
 
     &-content {
@@ -183,9 +187,16 @@
 
 .anticon-edit {
     position: absolute;
-    top: 10px;
+    top: 4px;
     margin-right: 4px;
     margin-left: 4px;
+    cursor: pointer;
+    padding: 5px 3px;
+}
+
+.ant-collapse > .ant-collapse-item-disabled > .ant-collapse-header,
+.ant-collapse .ant-collapse-item-disabled > .ant-collapse-header > .arrow {
+    background: none !important;
 }
 
 

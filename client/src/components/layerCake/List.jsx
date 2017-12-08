@@ -94,7 +94,7 @@ class List extends PureComponent {
         if (content) {
             // const name = content.target.getAttribute('data-name');
             this.startId = content.target.getAttribute('data-guid');
-            this.props.onActive(this.startId);
+            // this.props.onActive(this.startId);
 
             // this.createDragElement(e, name);
         } else {
@@ -141,8 +141,13 @@ class List extends PureComponent {
     }
 
     handleActive = (e) => {
+        // e.stopPropagation();
+
         const id = e.currentTarget.getAttribute('data-guid');
-        this.props.onActive(id);
+
+        if (id) {
+            this.props.onActive(id);
+        }
     }
 
     /**
@@ -238,7 +243,13 @@ class List extends PureComponent {
         if (item.displayName) {
             return (
                 <span>
-                    <span className="ec-editor-layer-cake-content-name">{item.displayName}</span>
+                    <span
+                        data-guid={item.guid}
+                        className="ec-editor-layer-cake-content-name"
+                        onClick={this.handleActive}
+                    >
+                        {item.displayName}
+                    </span>
                     <span
                         data-guid={item.guid}
                         data-name={item.displayName}
@@ -258,7 +269,13 @@ class List extends PureComponent {
                 {mod => {
                     return (
                         <span>
-                            <span className="ec-editor-layer-cake-content-name">{mod.module.config.displayName}</span>
+                            <span
+                                data-guid={item.guid}
+                                className="ec-editor-layer-cake-content-name"
+                                onClick={this.handleActive}
+                            >
+                                {mod.module.config.displayName}
+                            </span>
                             <span
                                 data-guid={item.guid}
                                 data-name={mod.module.config.displayName}
@@ -273,8 +290,6 @@ class List extends PureComponent {
             </Lazyer>
         )
     }
-
-
 
     /**
      * 循环 DOM 节点
@@ -310,7 +325,6 @@ class List extends PureComponent {
                     >
                         <span
                             data-guid={item.guid}
-                            onClick={this.handleActive}
                         >
                             {/* <img src={require('../../images/icon-svg/doc.svg')} />*/}
                             {this.getDisplayName(item)}
@@ -330,6 +344,7 @@ class List extends PureComponent {
                     key={item.guid}
                     className={cls}
                     header={aaa}
+                    disabled={this.props.editVisible}
                 >
                     <Collapse>
                         {item.children && this.loopRender(item.children, true)}
