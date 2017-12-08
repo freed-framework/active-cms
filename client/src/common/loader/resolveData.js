@@ -4,7 +4,7 @@
  *
  */
 
-export default (App, item) => {
+export default (App, item, topWrappedModule) => {
     const Component = App.default;
 
     return {
@@ -12,6 +12,8 @@ export default (App, item) => {
         guid: item.guid,
         // 返回组件
         App: Component,
+        // 包裹该组件最顶层的组件名
+        ...(topWrappedModule && { topWrappedModule }),
         // displayName
         ...(item.displayName && { displayName: item.displayName }),
         // 返回模块配置
