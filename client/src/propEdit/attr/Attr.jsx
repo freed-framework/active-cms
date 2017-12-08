@@ -5,7 +5,7 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { editComponent } from '../../../pages/editor/App';
+import { editComponent } from '../../pages/editor/App';
 
 class Attr extends PureComponent {
     constructor(props) {

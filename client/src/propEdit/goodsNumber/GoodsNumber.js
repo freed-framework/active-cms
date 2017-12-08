@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, InputNumber } from 'antd';
 import { is } from 'immutable';
-import { editComponentByType } from '../../../pages/editor/App';
-import utils from '../../../../components/util/util';
+import { editComponentByType } from '../../pages/editor/App';
+import utils from '../../../components/util/util';
 
 function parseItem(oldArr, len, item) {
     const result = oldArr;

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Select, Modal } from 'antd';
 import * as FileUpload from 'react-fileupload';
 import { is } from 'immutable';
-import defaultStyleHoc from '../../../common/hoc/defaultStyleHoc';
-import utils from '../../../../components/util/util';
-import module from '../../../common/module';
-import { editComponentByGuid } from '../../../pages/editor/App';
-import ENV from '../../../../../conf/env';
+import defaultStyleHoc from '../../common/hoc/defaultStyleHoc';
+import utils from '../../../components/util/util';
+import module from '../../common/module';
+import { editComponentByGuid } from '../../pages/editor/App';
+import ENV from '../../../../conf/env';
 
 const Option = Select.Option;
 

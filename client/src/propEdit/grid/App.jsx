@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
 import { Row, Col, InputNumber } from 'antd';
-import utils from '../../../../components/util/util';
-import { editComponentByType } from '../../../pages/editor/App';
+import utils from '../../../components/util/util';
+import { editComponentByType } from '../../pages/editor/App';
 
 /**
  * 格式化元素局

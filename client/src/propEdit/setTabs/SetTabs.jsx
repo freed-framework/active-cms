@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
-import { editComponentByGuid } from '../../../pages/editor/App';
+import { editComponentByGuid } from '../../pages/editor/App';
 import './setTabs.scss';
 
 /**

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as FileUpload from 'react-fileupload';
-import ENV from '../../../../../conf/env';
+import ENV from '../../../../conf/env';
 
 class Upload extends Component {
     static propTypes = {

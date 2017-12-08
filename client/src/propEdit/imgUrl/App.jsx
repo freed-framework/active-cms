@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Input, Select, Icon } from 'antd';
 import * as FileUpload from 'react-fileupload';
-import { editComponentByGuid } from '../../../pages/editor/App';
-import ENV from '../../../../../conf/env';
+import { editComponentByGuid } from '../../pages/editor/App';
+import ENV from '../../../../conf/env';
 
 const Option = Select.Option;
 

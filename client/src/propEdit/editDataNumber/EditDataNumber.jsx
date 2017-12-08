@@ -8,8 +8,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { InputNumber } from 'antd';
 import { is } from 'immutable';
-import { editComponentByGuid } from '../../../pages/editor/App';
-import utils from '../../../../components/util/util';
+import { editComponentByGuid } from '../../pages/editor/App';
+import utils from '../../../components/util/util';
 
 const getDefaultItem = () => ({
     id: utils.guid(),
