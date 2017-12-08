@@ -18,7 +18,7 @@ export default class EditAttr extends PureComponent {
             topWrappedModule = null,
         } = this.props;
 
-        return editable.map(item => {
+        return editable.map((item, index) => {
             // 对应的编辑组件
             const EditComponent = EditItem[item.component];
 
@@ -35,7 +35,7 @@ export default class EditAttr extends PureComponent {
 
             return (
                 <EditComponent
-                    key={guid}
+                    key={index}
                     guid={guid}
                     {...props}
                 />
