@@ -27,7 +27,7 @@
 }
 
 .ec-editor-pub-comps .ec-editor-layout-fixed {
-    .ec-editor-layout-fixed-main {
-        padding: 0;
+    &-main {
+        padding: 0 !important;
     }
 }

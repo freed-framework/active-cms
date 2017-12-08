@@ -71,24 +71,25 @@ class LayerCake extends PureComponent {
             editVisible: !editVisible,
         })
     }
+
     render() {
         const { data, active, activeId, editVisible } = this.state;
 
         const cls = classNames('ec-editor-layer-cake', {
             'ec-editor-layer-cake-active': active,
+            'ec-editor-layer-cake-edit': editVisible,
         });
 
         return (
             <div className={cls}>
                 <div className="ec-editor-layer-cake-title">
-                    <Icon type="check-circle-o" />
-                    <span>已添加组件</span>
+                    <Icon type="layout" />
+                    <span className="ec-editor-layer-cake-title-name">已添加组件</span>
                     <span
                         className="ec-editor-layer-cake-title-edit"
                         onClick={this.handleEdit}
                     >
-                        {editVisible ? '完成' : '编辑'}
-                        {/* <Icon type="edit" />*/}
+                        {editVisible ? <Icon type="check" /> : <Icon type="setting" />}
                     </span>
                 </div>
                 <List
