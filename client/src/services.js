@@ -14,14 +14,6 @@ const http = new Http();
 
 http.axios.defaults.timeout = 140000;
 
-http.request(
-    req => {
-        req.headers.token = Cookies.get('token');
-
-        return req
-    }
-)
-
 /**
  * http response 拦截器
  */

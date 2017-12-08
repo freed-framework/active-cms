@@ -7,6 +7,7 @@ import defaultStyleHoc from '../../../common/hoc/defaultStyleHoc';
 import utils from '../../../../components/util/util';
 import module from '../../../common/module';
 import { editComponentByGuid } from '../../../pages/editor/App';
+import ENV from '../../../../../conf/env';
 
 const Option = Select.Option;
 
@@ -135,10 +136,9 @@ class MobileList extends PureComponent {
 
         /*set properties*/
         const options = {
-            baseUrl: 'http://172.30.40.16:3000/api/image',
+            baseUrl: `${ENV.domain}/api/image`,
             multiple: true,
             accept: 'image/*',
-            timeout: 1,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',

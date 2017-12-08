@@ -123,7 +123,7 @@ export default class componentName extends PureComponent {
      */
     handleView = () => {
         const { data = {} } = this.props;
-        this.props.history.push(`/${data.pageType}/view/${data._id}`);
+        window.open(`/view/${data._id}`);
     }
 
     /**
@@ -355,7 +355,7 @@ export default class componentName extends PureComponent {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
-                            {
+                            {/* {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -364,7 +364,7 @@ export default class componentName extends PureComponent {
                                     <Font type="trash-can" />
                                     <span className="page-list-card-text">删除</span>
                                 </li>
-                            }
+                            } */}
                             {/* {
                                 isOwer &&
                                 <li

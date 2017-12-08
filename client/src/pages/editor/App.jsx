@@ -85,6 +85,9 @@ class App extends PureComponent {
             copyData: null,
         };
 
+        this.$oldData = fromJS(props.data);
+        this.clearTimer = null;
+
         emitter.on('delete', this.mittDelete);
         emitter.on('copy', this.mittCopy);
         emitter.on('paste', this.mittPaste);
@@ -96,24 +99,26 @@ class App extends PureComponent {
         emitter.on('sort', this.mittSort);
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
-        emitter.on('push', this.mittPush)
+        emitter.on('push', this.mittPush);
+        emitter.on('clearActive', this.mittClearActive)
     }
 
     componentDidMount() {
-        let $oldData = fromJS(this.state.data);
-        this.props.user(12312312).then(data => {
+        const { pageData = {} } = this.props;
+        // let $oldData = fromJS(this.state.data);
+        // this.props.user(12312312).then(data => {
 
-        })
-        // 定时保存每分钟保存一次
-        // this.timer = Observable.interval(60000).subscribe(() => {
-        //     const $newData = fromJS(this.state.data);
-        //
-        //     // 数据修改了才保存
-        //     if (!is($oldData, $newData)) {
-        //         this.mittSave('定时保存成功！');
-        //         $oldData = $newData;
-        //     }
         // })
+        // // 定时保存每分钟保存一次
+        // // this.timer = Observable.interval(60000).subscribe(() => {
+        // //     const $newData = fromJS(this.state.data);
+        // //
+        // //     // 数据修改了才保存
+        // //     if (!is($oldData, $newData)) {
+        // //         this.mittSave('定时保存成功！');
+        // //         $oldData = $newData;
+        // //     }
+        // // })
 
         this.canvas.addEventListener('click', this.handleActive);
         // this.canvas.addEventListener('mouseover', this.handleHover);
@@ -128,6 +133,9 @@ class App extends PureComponent {
         emitter.off('active', this.mittActive);
         emitter.off('viewer', this.mittViewer);
         emitter.off('push', this.mittPush);
+        emitter.off('clearActive', this.mittClearActive)
+
+        clearTimeout(this.clearTimer)
 
         // this.timer.unsubscribe();
 
@@ -140,6 +148,8 @@ class App extends PureComponent {
         if (!is(nextProps.data, this.props.data)) {
             this.setState({
                 data: nextProps.data,
+            }, () => {
+                this.$oldData = fromJS(nextProps.data);
             })
         }
     }
@@ -197,7 +207,7 @@ class App extends PureComponent {
     mittDelete = (guid) => {
         const data = module.remove(guid, this.state.data);
 
-        message.error('删除成功');
+        message.success('删除成功');
 
         this.setState({
             data,
@@ -279,7 +289,29 @@ class App extends PureComponent {
             data,
             // 当添加一个组件的时候，自动激活编辑面板
             autoActiveId: guid || mod.guid,
+        }, () => {
+            /**
+             * TODO:
+             * 问题描述： 新加组件，组件进入视图，
+             *           当前组件为激活组建，后面修改其他，也会选中这个组件
+             * 暂时解决方法：1秒钟后将activeid置空
+             */
+
+            this.clearTimer = setTimeout(() => {
+                this.setState({
+                    autoActiveId: null
+                })
+            }, 1000)
         });
+    }
+
+    /**
+     * 清除active
+     */
+    mittClearActive = () => {
+        this.setState({
+            autoActiveId: null
+        })
     }
 
     /**
@@ -353,7 +385,7 @@ class App extends PureComponent {
             activeId: guid,
             activeRect: rect,
             rect,
-
+            // autoActiveId: null,
             // 设置panel 编辑面板的显示状态
             panelVisible: !!guid,
             menuVisible: false,
@@ -411,6 +443,7 @@ class App extends PureComponent {
                     pageType: params.type,
                     content: this.state.data
                 }).then((res) => {
+                    this.$oldData = fromJS(this.state.data);
                     message.success(text || '保存成功')
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
@@ -424,6 +457,7 @@ class App extends PureComponent {
                     content: this.state.data
                 }
             }).then(() => {
+                this.$oldData = fromJS(this.state.data);
                 message.success(text || '保存成功')
             })
         }
@@ -433,21 +467,32 @@ class App extends PureComponent {
 
     mittPush = () => {
         const { pageData = {} } = this.props;
+        const { $oldData } = this;
+        const $now = fromJS(this.state.data);
+        if (is($oldData, $now)) {
+            confirm({
+                title: '确认推送页面？',
+                content: '',
+                onOk: () => {
+                    push({
+                        id: pageData._id,
+                        uploadUserId: 123123123,
+                        zipId: pageData.pushId,
+                        activityName: pageData.title
+                    })
+                    .then(() => {
+                        message.success('推送成功');
+                    })
+                    .catch(() => {})
+                },
+                onCancel() {},
+            });
 
-        confirm({
-            title: '确认推送页面？',
+            return false;
+        }
+        Modal.warning({
+            title: '请先保存当前修改',
             content: '',
-            onOk: () => {
-                push({
-                    id: pageData._id,
-                    uploadUserId: 123123123,
-                    zipId: pageData.pushId,
-                    activityName: pageData.title
-                })
-                .then(() => {})
-                .catch(() => {})
-            },
-            onCancel() {},
         });
     }
 
@@ -682,6 +727,13 @@ export const handlePush = () => {
  */
 export const viewer = () => {
     emitter.emit('viewer')
+}
+
+/**
+ * 清除激活
+ */
+export const clearActive = () => {
+    emitter.emit('clearActive')
 }
 
 export default withRouter(App);

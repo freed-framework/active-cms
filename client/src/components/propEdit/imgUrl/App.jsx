@@ -17,7 +17,23 @@ class ImgUrl extends PureComponent {
         }
     }
 
-    handleChange = (event) => {
+    // handleChange = (event) => {
+    //     const attr = event.currentTarget.getAttribute('data-attr');
+    //     const value = event.currentTarget.value;
+
+    //     this.setState({
+    //         [attr]: value,
+    //     });
+
+    //     editComponentByGuid(
+    //         this.props.guid,
+    //         ['componentProps', attr],
+    //         value
+    //     );
+    // }
+
+    handleKeyUp = (event) => {
+        if (event.keyCode !== 13) return false;
         const attr = event.currentTarget.getAttribute('data-attr');
         const value = event.currentTarget.value;
 
@@ -54,35 +70,9 @@ class ImgUrl extends PureComponent {
                     ['componentProps', 'src'],
                     url
                 );
-
-            },
+            }
         }
-        /*Use FileUpload with options*/
-        /*Set two dom with ref*/
-        // const options = {
-        //     baseUrl: 'http://172.30.40.16:3000/api/publish/zip',
-        //     chooseAndUpload: true,
-        //     dataType: 'multipart/form-data',
-        //     fileFieldName: 'file',
-        //     paramAddToField: {
-        //         "uploadUserId": 123123
-        //     },
-        //     uploadSuccess: (props) => {
-        //         const { data } = props;
-        //         const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
 
-        //         this.setState({
-        //             src: url,
-        //         });
-
-        //         editComponentByGuid(
-        //             guid,
-        //             ['componentProps', 'src'],
-        //             url
-        //         );
-
-        //     },
-        // }
         return (
             <div>
                 <div className="ec-editor-basic-props ec-editor-basic-props-attr ec-editor-basic-props-img">
@@ -92,11 +82,11 @@ class ImgUrl extends PureComponent {
                             type="text"
                             data-guid={guid}
                             data-attr="src"
-                            onChange={this.handleChange}
+                            onKeyUp={this.handleKeyUp}
                             value={this.state.src}
                         />
                         <FileUpload options={options}>
-                            <button ref='chooseAndUpload'>上传图片</button>
+                            <button ref="chooseAndUpload">上传图片</button>
                         </FileUpload>
                     </p>
                     <p>
@@ -105,7 +95,7 @@ class ImgUrl extends PureComponent {
                             type="text"
                             data-guid={guid}
                             data-attr="url"
-                            onChange={this.handleChange}
+                            onKeyUp={this.handleKeyUp}
                             value={this.state.url}
                         />
                     </p>

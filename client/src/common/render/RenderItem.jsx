@@ -8,6 +8,7 @@ import React, { PureComponent } from 'react';
 import LazyerHoc from '../lazyer/LazyerHoc';
 import AppComponent from '../AppComponent';
 import { scrollDom } from '../util/util';
+
 import './render.scss';
 
 class PlaceHolder extends PureComponent {
