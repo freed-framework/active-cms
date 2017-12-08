@@ -10,31 +10,72 @@ input[type="text"] {
 .ec-editor-basic {
     &-props {
         margin-bottom: 4px;
+
         label {
             display: block;
             margin-right: 2px;
+            margin-bottom: 4px;
         }
+
         button{
             margin-top: 8px;
         }
+
         &-width, &-height, &-margin, &-padding {
             input {
                 width: 80px;
             }
         }
-        &-border{
-            .ant-select-selection--single{
+
+        &-border {
+            .ant-select-selection--single {
                 margin: 0 1px;
             }
         }
+
         &-background {
             width: 244px;
-            .inline-block{
+
+            .inline-block {
                 width: 100%;
             }
-            input[type="text"]{
+
+            input[type="text"] {
                 width: 164px;
             }
+        }
+
+        &-attr {
+            input[type="text"] {
+                width: 240px;
+            }
+
+            p {
+                margin-bottom: 14px;
+
+                label {
+                    display: inline-block;
+                    width: 80px;
+                }
+
+                input[type="text"] {
+                    display: inline-block;
+                    width: 176px;
+                }
+            }
+        }
+    }
+
+}
+
+.dropdown-class {
+    .ant-select-dropdown-menu-item,
+    .ant-select-dropdown-menu-item-selected {
+        background: #2D3035;
+        color: #8E8E94;
+
+        &:hover {
+            background: #2D2D32;
         }
     }
 }

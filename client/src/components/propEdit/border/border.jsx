@@ -97,6 +97,7 @@ export default class BorderEdit extends PureComponent {
                     style={{width: '60px'}}
                     onChange={this.handleChange}
                     value={sty}
+                    dropdownClassName="dropdown-class"
                 >
                     <Option
                         key="solid"

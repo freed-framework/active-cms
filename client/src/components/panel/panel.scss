@@ -23,28 +23,67 @@ $layoutWidth: 300px;
             right: 0;
             background: #212125 100%;
             font-size: 12px;
+
             .ec-panel-title-button {
                 left: 0;
                 background: #2D2D32;
             }
         }
-        button{
+
+        button {
             background: #2D2D32;
             color: #8E8E94;
             border: 1px solid #2d2d32;
             padding: 0 4px;
         }
+
+        input[type="text"] {
+            border: 1px solid #2D2D32;
+            padding: 3px 5px;
+            background: #2D2D32;
+            color: #8E8E94;
+            width: 120px;
+        }
+
+        .ant-select-selection--single,
+        .ec-edit-border-color,
+        .ant-input-number,
+        .ant-input-number-input,
+        .ant-btn-small {
+            background: #2D2D32;
+            border: 1px solid #2D2D32;
+            color: #8E8E94;
+        }
+
+        .ant-select-dropdown-menu-item {
+            background: #2D2D32;
+            color: #8E8E94;
+        }
+
+        .ant-select-dropdown-menu-item,
+        .ant-select-dropdown-menu-item-selected {
+            background: #2D3035;
+            color: #8E8E94;
+
+            &:hover {
+                background: #2D2D32;
+            }
+        }
+
     }
 
     $buttonWidth: 15px;
+
     &-title {
         @extend .ec-editor-layout-fixed-title;
+
         background: #2D2D32;
         color: #DEDEE0;
         font-size: 14px;
         height: 44px;
         line-height: 44px;
         margin-bottom: 0;
+
         &-button {
             position: absolute;
             left: -$buttonWidth;
@@ -73,26 +112,88 @@ $layoutWidth: 300px;
     /* 每一个目标的编辑容器 */
     &-item {
         display: none;
-        &-name{
+
+        &-name {
             @include textEllipsis(90px);
+            width: auto;
+            max-width: 90px;
             margin-bottom: -5px;
-            border: 1px solid;
             text-align: center;
         }
+
         &-active {
             display: block;
             padding-top: 10px;
-            &>div{
-            margin-bottom: 14px;
+
+            &>div {
+                margin-bottom: 14px;
+            }
         }
 
-        // label{
-        //     display: block;
-        // }
-        // input[type="text"]{
-        //     width: 240px;
-        // }
-    }
+        input[type="text"] {
+            width: 120px;
+            padding: 3px 5px;
+            border: 1px solid #2D2D32;
+            background: #2D2D32;
+            color: #8E8E94;
+        }
+
+        .ec-editor-basic-props-background {
+            input[type="text"] {
+                width: 164px;
+            }
+        }
+
+        .ec-editor-basic-props-img p {
+            label {
+                display: block;
+            }
+
+            input[type="text"] {
+                width: 240px;
+            }
+        }
+
+        .ant-select-selection--single,
+        .ec-edit-border-color,
+        .ant-input-number,
+        .ant-input-number-input,
+        .ant-btn-small {
+            background: #2D2D32;
+            border: 1px solid #2D2D32;
+            color: #8E8E94;
+        }
+
+        .ant-select-dropdown-menu-item,
+        .ant-select-dropdown-menu-item-selected {
+            background: #2D3035;
+            color: #8E8E94;
+
+            &:hover{
+                background: #2D2D32;
+            }
+        }
+
+        .ant-select-dropdown {
+            background: #2D2D32;
+        }
+
+        .ant-select-selection,
+        .ant-input,
+        .ant-input-number-input,
+        .ec-edit-border-color,
+        .ant-input-number {
+            border-radius: 0;
+        }
+
+        .ant-btn-group {
+            margin: 6px 0;
+        }
+
+        .ant-btn-group-sm > .ant-btn {
+            border-radius: 0;
+            line-height: 22px;
+        }
     }
 }
 
@@ -106,3 +207,4 @@ $layoutWidth: 300px;
     width: 0;
     height: 100%;
 }
+

@@ -5,7 +5,6 @@
     background: #9BA5AE;
     pointer-events: none;
     opacity: .5;
-    // z-index: 9999999;
 
     &-line {
         position: absolute;
@@ -35,15 +34,17 @@
     &-left {
         left: 0;
     }
-    .edit-tools{
-        z-index: 999999999;
+
+    .edit-tools {
+        z-index: 9999;
         width: 60px;
         height: 24px;
         background: #697177;
         position: absolute;
         right: 0;
+
         .anticon-delete,
-        .anticon-copy{
+        .anticon-copy {
             width: 50%;
             line-height: 24px;
             font-size: 14px;
