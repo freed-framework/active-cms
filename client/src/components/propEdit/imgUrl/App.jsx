@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
+import { Input, Select, Icon } from 'antd';
 import * as FileUpload from 'react-fileupload';
 import { editComponentByGuid } from '../../../pages/editor/App';
 import ENV from '../../../../../conf/env';
+
+const Option = Select.Option;
 
 class ImgUrl extends PureComponent {
     constructor(props) {
@@ -14,6 +17,9 @@ class ImgUrl extends PureComponent {
 
             // 跳转地址
             url: componentProps.url,
+
+            // 跳转地址的前缀
+            before: '',
         }
     }
 
@@ -32,8 +38,72 @@ class ImgUrl extends PureComponent {
         );
     }
 
+    handleChangeBefore = (val) => {
+        this.setState({
+            before: val,
+        })
+    }
+
+    handleChangeUrl = (event) => {
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
+        const before = this.state.before;
+        const url = before + value;
+
+        editComponentByGuid(
+            this.props.guid,
+            ['componentProps', attr],
+            url
+        );
+    }
+
+    /**
+     * 获取 mapping 中的默认值
+     * @return {*}
+     */
+    getMappingDefault() {
+        const { topWrappedModule, editModelMapping } = this.props;
+        const mapping = editModelMapping[topWrappedModule];
+
+        if (!mapping) {
+            return null;
+        }
+
+        const def = mapping.filter(item => item.isDefault);
+
+        return def.length === 1 ? def[0] : null;
+    }
+
+    /**
+     * 获取输入款的前缀
+     * @param def mapping 中的默认配置
+     * @return {*}
+     */
+    getUrlBefore(def = {}) {
+        const { topWrappedModule, editModelMapping } = this.props;
+        const mapping = editModelMapping[topWrappedModule];
+
+        if (!mapping) {
+            return null;
+        }
+
+        return (
+            <Select
+                onChange={this.handleChangeBefore}
+                defaultValue={def.name}
+                style={{ width: 90 }}
+            >
+                {mapping.map(item => (
+                    <Option key={item.name} value={item.value}>{item.name}</Option>
+                ))}
+            </Select>
+        )
+    }
+
     render() {
-        const { guid } = this.props;
+        const { guid, componentProps = {} } = this.props;
+        const mappingDefault = this.getMappingDefault();
+        const placeholder = mappingDefault && mappingDefault.defaultValue || '请输入链接地址';
 
         /*set properties*/
         const options = {
@@ -100,13 +170,16 @@ class ImgUrl extends PureComponent {
                         </FileUpload>
                     </p>
                     <p>
-                        <label htmlFor="">跳转</label>
-                        <input
-                            type="text"
+                        <label htmlFor="">跳转链接</label>
+                        <Input
                             data-guid={guid}
                             data-attr="url"
-                            onChange={this.handleChange}
-                            value={this.state.url}
+                            placeholder={placeholder}
+                            defaultValue={componentProps.url || ''}
+                            addonBefore={
+                                this.getUrlBefore(mappingDefault)
+                            }
+                            onPressEnter={this.handleChangeUrl}
                         />
                     </p>
                 </div>

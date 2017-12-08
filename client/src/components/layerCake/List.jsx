@@ -146,7 +146,7 @@ class List extends PureComponent {
             const itemsCls = classNames('ec-editor-layer-cake-items', {
                 'ec-editor-layer-cake-items-sub': isSub,
                 'ec-editor-layer-cake-items-sub-no-child': !item.children,
-            })
+            });
 
             return (
                 <Panel

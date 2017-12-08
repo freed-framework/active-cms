@@ -22,7 +22,7 @@ const Item = (props) => {
         >
             {/* 目标栏 */}
             <div>
-                <div><span className="ec-panel-item-name">{item.displayName || config.displayName}</span> - {Bar.delete(guid)}</div>
+                <div><span className="ec-panel-item-name">{item.displayName || config.displayName}</span>  {Bar.delete(guid)}</div>
             </div>
 
             {/* 可添加子组件栏 */}

@@ -11,11 +11,10 @@ import loader from './loader/loader';
 class Module {
     /**
      * 获取组件
-     * @param type 获取某个类型的库的 key
      * @return {*}
      */
-    static get(item) {
-        return loader(item);
+    static get(item, topWrappedModule) {
+        return loader(item, topWrappedModule);
     }
 
     /**

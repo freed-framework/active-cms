@@ -15,6 +15,7 @@ export default class EditAttr extends PureComponent {
             editable = [],
             componentProps = {},
             config = {},
+            topWrappedModule = null,
         } = this.props;
 
         return editable.map((item, index) => {
@@ -24,6 +25,7 @@ export default class EditAttr extends PureComponent {
             // 将 {component}/index.ts 的 config 中的可编辑项与需要传递到编辑组件的属性进行合并
             const props = {
                 ...item,
+                ...(topWrappedModule && { topWrappedModule }),
                 defaultValues: {
                     ...config.defaultValues
                 },

@@ -63,15 +63,16 @@ class List extends PureComponent {
      * @param arr
      * @return {Array}
      */
-    data2Tile(data, arr = []) {
+    data2Tile(data) {
         const { params } = this.props.match;
+        let arr = [];
 
-        const looper = (data) => {
+        const looper = (data, topWrappedModule) => {
             data.forEach(item => {
-                arr = arr.concat(module.get(item, params.type));
+                arr = arr.concat(module.get(item, topWrappedModule));
 
                 if (item.children) {
-                    looper(item.children, arr);
+                    looper(item.children, item.name);
                 }
             });
         }
