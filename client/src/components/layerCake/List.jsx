@@ -100,14 +100,6 @@ class List extends PureComponent {
         }
     }
 
-    handleActive = (e) => {
-        const id = e.currentTarget.getAttribute('data-guid');
-
-        if (id) {
-            this.props.onActive(id);
-        }
-    }
-
     /**
      * 进行排序
      * @param e
@@ -161,6 +153,7 @@ class List extends PureComponent {
                             editVisible={editVisible}
                             index={index}
                             onSort={this.handleSort}
+                            onActive={this.props.onActive}
                         />
                     }
                 >
