@@ -105,7 +105,7 @@ body {
  * <TODO> 丽姐，请不要用这么懵逼的 class="show-right close-right"
  * 应该是 class="xxxx ${hide or show}" 来控制，这样的话动画等配置可以写在 xxxx 中
  */
-.show-right {
+.layercake-show {
     @include bezierAnimate();
     position: fixed;
     left: 56px;
@@ -129,7 +129,7 @@ body {
     }
 }
 
-.close-right {
+.layercake-hide {
     @include bezierAnimate();
     transform: scale(0.8);
 

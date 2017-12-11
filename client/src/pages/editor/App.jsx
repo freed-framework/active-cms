@@ -486,8 +486,8 @@ class App extends PureComponent {
     render() {
         const { rect, data, layerCakeVisible, menuVisible } = this.state;
         const { history, match } = this.props;
-        const cls = classNames('show-right', {
-            'close-right': layerCakeVisible,
+        const cls = classNames('layercake-show', {
+            'layercake-hide': layerCakeVisible,
         });
 
         return (
@@ -504,7 +504,6 @@ class App extends PureComponent {
                 >
                     <PubComps />
                     <div
-                        // className="show-right"
                         className={cls}
                         onClick={this.handleShow}
                     >
