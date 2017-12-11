@@ -6,7 +6,7 @@
  */
 import resolveData from './resolveData';
 
-const loader = (item) => {
+const loader = (item, topWrappedModule) => {
     // 如果已经有组件被创建，则直接 resolve
     if (item.App) {
         return Promise.resolve(item);
@@ -14,7 +14,7 @@ const loader = (item) => {
 
     return new Promise((resolve) => {
         import(`../../../components/${item.name}/index`)
-            .then(App => resolve(resolveData(App, item)))
+            .then(App => resolve(resolveData(App, item, topWrappedModule)))
             .catch(ex => {
                 console.log(ex);
             })

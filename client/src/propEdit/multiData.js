@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Select, Input, Row, Col, Icon } from 'antd';
-import { editComponentByType } from '../../pages/editor/App';
+import { editComponentByType } from '../pages/editor/App';
 
 const Option = Select.Option;
 

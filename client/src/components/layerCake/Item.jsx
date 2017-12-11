@@ -87,6 +87,15 @@ class Item extends PureComponent {
         });
     }
 
+    handleActive = (e) => {
+        const id = e.currentTarget.getAttribute('data-guid');
+        e.stopPropagation();
+
+        if (id) {
+            this.props.onActive(id);
+        }
+    }
+
     /**
      * 确认排序，通知父组件修改
      * @param event
@@ -96,7 +105,6 @@ class Item extends PureComponent {
         const fromIndex = event.target.getAttribute('data-index');
 
         if (event.keyCode === 13) {
-            console.log(this.state.sort)
             this.props.onSort(id, fromIndex, this.state.sort);
         }
     }

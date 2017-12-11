@@ -132,7 +132,7 @@ $layoutWidth: 300px;
 
         input[type="text"] {
             width: 120px;
-            padding: 3px 5px;
+            padding: 4px 5px;
             border: 1px solid #2D2D32;
             background: #2D2D32;
             color: #8E8E94;
@@ -193,6 +193,16 @@ $layoutWidth: 300px;
         .ant-btn-group-sm > .ant-btn {
             border-radius: 0;
             line-height: 22px;
+        }
+
+        .ant-input-group-wrapper {
+            .ant-select {
+                background: #333;
+            }
+
+            .ant-input {
+                width: 149px !important;
+            }
         }
     }
 }

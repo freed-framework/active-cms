@@ -9,7 +9,7 @@ import { deleteComponent, addComponent, copyComponent, pasteComponent } from '..
 import { Button, Radio } from 'antd';
 import Lazyer from '../../common/lazyer';
 // import PropsEdit from '../propEdit/PropsEdit';
-import EditAttr from '../propEdit';
+import EditAttr from '../../propEdit';
 
 class Bar {
     static handleSizeChange(value) {
