@@ -22,6 +22,7 @@ import { userReducer } from '../../reducers';
 import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
+import Guide from '../../components/guide';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -83,6 +84,11 @@ class App extends PureComponent {
              * 复制数据
              */
             copyData: null,
+            
+            /**
+             * 是否引导过
+             */
+            isGuide: false,
         };
 
         this.$oldData = fromJS(props.data);
@@ -101,6 +107,14 @@ class App extends PureComponent {
         emitter.on('viewer', this.mittViewer);
         emitter.on('push', this.mittPush);
         emitter.on('clearActive', this.mittClearActive)
+    }
+
+    componentWillMount() {
+        const editGuide = localStorage.getItem('edit-guide');
+
+        this.setState({
+            isGuide: !!editGuide
+        })
     }
 
     componentDidMount() {
@@ -529,14 +543,18 @@ class App extends PureComponent {
     }
 
     render() {
-        const { rect, data, layerCakeVisible, menuVisible } = this.state;
+        const { rect, data, layerCakeVisible, menuVisible, isGuide } = this.state;
         const { history, match } = this.props;
         const cls = classNames('show-right', {
             'close-right': layerCakeVisible,
         });
 
+        const wrapCls = classNames(`ec-editor-${match.params.type}`, {
+            'ec-editor-guide': !isGuide
+        })
+
         return (
-            <div className={`ec-editor-${match.params.type}`}>
+            <div className={wrapCls}>
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
@@ -603,6 +621,7 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
+                {/* <Guide isGuide={isGuide} /> */}
             </div>
         );
     }
