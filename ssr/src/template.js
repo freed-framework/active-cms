@@ -7,8 +7,7 @@ const cpy = require('cpy');
 import ENV from './env';
 
 const nodeENV = process.env.NODE_ENV;
-const isMobile = true;
-
+console.log(nodeENV)
 const publicPath = /(\/ssrPath\/)/ig;
 
 const Template = (id, socket, body) => {
