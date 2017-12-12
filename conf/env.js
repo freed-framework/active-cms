@@ -13,7 +13,7 @@ var ENV = {
     /**
      * 项目域名
      */
-    domain: "http://www.iting.top"
+    domain: "http://wuget.yatang.com.cn"
     // domain: "http://localhost:3000"
 }
 
