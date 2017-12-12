@@ -41,6 +41,31 @@ const dataTableParse = (obj: any, defObj: any) => {
     return Object.assign({}, newObj, defObj);
 }
 
+/**
+ * 获取 classNames
+ * @param args
+ * @return {string}
+ */
+const getClassNames = (...args: any[]) => {
+    const arr: Array<string> = [];
+
+    args.forEach((arg: string) => {
+        if (arg) {
+            arr.push(arg);
+        }
+    });
+
+    if (arr.length === 0) {
+        return '';
+    }
+
+    if (arr.length > 1) {
+        arr.join('');
+    }
+
+    return arr.join(' ');
+}
+
 const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => class extends React.Component<DefaultProps, any> {
     /**
      * 自动给每个组件添加 config 配置
@@ -53,8 +78,7 @@ const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => cl
         const conf = args.config;
 
         this.state = {
-            // props.className, config.className, '',
-            className: conf.className || '',
+            className: getClassNames(props.className, conf.className),
             dataTable: dataTableParse(conf.dataTable, {
                 'data-module': this.props.module,
             }),

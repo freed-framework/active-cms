@@ -13,7 +13,13 @@ class List extends React.PureComponent<ListProps, any> {
     }
 
     render() {
-        const { id, cols, style, dataTable = null, className } = this.props;
+        const {
+            id,
+            cols,
+            style,
+            dataTable,
+            className
+        } = this.props;
 
         return (
             <div
