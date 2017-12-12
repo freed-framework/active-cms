@@ -6,8 +6,7 @@ var child_process = require('child_process');
 const cpy = require('cpy');
 import ENV from './env';
 
-const nodeENV = process.env.NODE_ENV;
-console.log(nodeENV)
+const nodeENV = process.env.NODE_ENV || 'development';
 const publicPath = /(\/ssrPath\/)/ig;
 
 const Template = (id, socket, body) => {
