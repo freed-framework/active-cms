@@ -148,7 +148,6 @@ class Item extends PureComponent {
             item,
             module,
             index,
-            onSort,
             activeId,
             editVisible
         } = this.props;

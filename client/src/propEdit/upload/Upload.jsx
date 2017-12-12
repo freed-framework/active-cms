@@ -1,0 +1,39 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import * as FileUpload from 'react-fileupload';
+import ENV from '../../../../conf/env';
+
+class Upload extends Component {
+    static propTypes = {
+
+    }
+
+    render() {
+        /*set properties*/
+        const options = {
+            baseUrl: `${ENV.domain}/api/image`,
+            multiple: true,
+            chooseAndUpload: true,
+            dataType: 'multipart/form-data',
+            param: {
+                fid: 0
+            },
+            uploadSuccess: (props) => {
+                console.log(props)
+            },
+            uploadFail: (resp) => {
+                console.log(resp)
+            }
+        }
+
+        return (
+            <div>
+                <FileUpload options={options}>
+                    <button ref='chooseAndUpload'>chooseAndUpload</button>
+                </FileUpload>
+            </div>
+        )
+    }
+}
+
+export default Upload;

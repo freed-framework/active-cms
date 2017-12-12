@@ -18,7 +18,7 @@ class Layer extends React.PureComponent<Props, any> {
         return (
             <div
                 id={id}
-                className="tmc-layer"
+                className="tmc-module tmc-layer"
                 data-module={this.props.module}
                 style={{
                     ...(style && {...style.layout, 'backgroundPosition': 'center center'})
