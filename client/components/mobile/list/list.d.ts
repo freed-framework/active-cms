@@ -1,10 +1,6 @@
+/// <reference path="../../props.d.ts" />
 
-interface ListProps {
-    id: string;
-    module?: string;
+interface ListProps extends DefaultProps {
     cols?: number;
-    style?: any;
     src?: any;
-    extendsProps?: any;
-    children?: React.ReactNode;
 }

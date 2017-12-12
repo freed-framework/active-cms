@@ -9,13 +9,20 @@ import loader from '../loader/loader';
 import RenderItem from './RenderItem';
 
 class App extends PureComponent {
+    static defaultProps = {
+        autoActiveId: null,
+        pageType: null,
+        isEdit: false,
+        outerEl: null,
+    }
+
     /**
      * 循环输出组件
      * @param data
      * @param extendsProps, 继承于父组件的 属性
      */
     loop(data = [], extendsProps = null) {
-        const { autoActiveId, pageType, isEdit, outerEl } = this.props;
+        // const { autoActiveId, pageType, isEdit, outerEl } = this.props;
 
         return data.map(item => {
             return (
@@ -24,10 +31,7 @@ class App extends PureComponent {
                     item={item}
                     loader={loader}
                     extendsProps={extendsProps}
-                    autoActiveId={autoActiveId}
-                    pageType={pageType}
-                    outerEl={outerEl}
-                    isEdit={isEdit}
+                    {...this.props}
                 >
                     {childProps => this.loop(item.children, childProps.extendsProps)}
                 </RenderItem>

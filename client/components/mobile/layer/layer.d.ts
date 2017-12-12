@@ -1,10 +1,7 @@
+/// <reference path="../../props.d.ts" />
 
-interface Props {
-    id: string;
-    module?: string;
-    style?: any;
+interface LayerProps extends DefaultProps {
     target?: any;
     position?: any;
     horizontal?: any;
-    children?: React.ReactNode;
 }

@@ -25,6 +25,7 @@ class PubComps extends PureComponent {
 
     componentDidMount() {
         const { match } = this.props;
+
         import(`../../../components/${match.params.type}/index`)
             .then(mod => {
                 const keys = [];

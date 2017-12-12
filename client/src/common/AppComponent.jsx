@@ -12,7 +12,7 @@
  * @constructor
  */
 import React from 'react';
-import { num2rem, transPx } from './util/util';
+import { transPx } from './util/util';
 
 /**
  * 创建单个 Component
@@ -31,6 +31,7 @@ const AppComponent = (props) => {
 
     const item = props.item;
     const App = props.module.App;
+    const config = props.module && props.module.config ? props.module.config : null;
     const componentProps = Object.assign({}, item.componentProps);
     const extendsProps = Object.assign({}, props.extendsProps);
 
@@ -46,9 +47,10 @@ const AppComponent = (props) => {
 
     // 获取属性
     let allProps = {
-        ...(item.style && { style: item.style }),
-        ...(item.atts && { attrs: item.attrs }),
+        // ...(item.atts && { attrs: item.attrs }),
         ...(item.guid && { guid: item.guid }),
+        ...(item.style && { style: item.style }),
+        ...(config && { config, }),
         // 给 components 组件判断是否是编辑模式
         ...(props.isEdit && { isEdit: props.isEdit }),
         ...(componentProps && { ...componentProps }),

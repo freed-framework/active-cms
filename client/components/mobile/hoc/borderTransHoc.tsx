@@ -22,8 +22,8 @@ const findBorders = (styles: any) => {
     return borders;
 }
 
-const borderTransHoc = (WarppedComponent: any) => class extends React.PureComponent<Props, any> {
-    constructor(props: Props) {
+const borderTransHoc = (WarppedComponent: any) => class extends React.PureComponent<DefaultProps, any> {
+    constructor(props: DefaultProps) {
         super(props);
 
         const { style = {} } = this.props;
