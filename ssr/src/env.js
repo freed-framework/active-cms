@@ -13,11 +13,15 @@ const ENV = {
     /**
      * 项目域名
      */
-    domain: "http://www.iting.top",
+    domain: "http://wuget.yatang.com.cn",
     /**
      * zip包地址
      */
-    publicPath: "http://sit.db.com/html/",
+    publicPath: {
+        development: "http://sit.db.com/html/",
+        production: "http://xcrapp.yatang.com.cn/html/",
+        test: "http://sit.db.com/html/"
+    }
 }
 
 export default ENV;

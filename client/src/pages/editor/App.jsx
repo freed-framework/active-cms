@@ -22,6 +22,7 @@ import { userReducer } from '../../reducers';
 import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
+import Guide from '../../components/guide';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -83,6 +84,11 @@ class App extends PureComponent {
              * 复制数据
              */
             copyData: null,
+            
+            /**
+             * 是否引导过
+             */
+            isGuide: false,
         };
 
         this.$oldData = fromJS(props.data);
@@ -101,6 +107,14 @@ class App extends PureComponent {
         emitter.on('viewer', this.mittViewer);
         emitter.on('push', this.mittPush);
         emitter.on('clearActive', this.mittClearActive)
+    }
+
+    componentWillMount() {
+        const editGuide = localStorage.getItem('edit-guide');
+
+        this.setState({
+            isGuide: !!editGuide
+        })
     }
 
     componentDidMount() {
@@ -290,13 +304,13 @@ class App extends PureComponent {
             // 当添加一个组件的时候，自动激活编辑面板
             autoActiveId: guid || mod.guid,
         }, () => {
+
             /**
              * TODO:
              * 问题描述： 新加组件，组件进入视图，
              *           当前组件为激活组建，后面修改其他，也会选中这个组件
              * 暂时解决方法：1秒钟后将activeid置空
              */
-
             this.clearTimer = setTimeout(() => {
                 this.setState({
                     autoActiveId: null
@@ -324,28 +338,53 @@ class App extends PureComponent {
      * @param type 修改后值
      */
     mittEdit = ({ guid, attr, target, value, type }) => {
-        // console.log(module.modify(guid, this.state.data, ['attrs', 'style', target, attr], value ));
-        const data = module.edit(guid, this.state.data, target, attr, value, type);
+        console.warn('mittEdit: ', guid)
+        // const data = module.edit(guid, this.state.data, target, attr, value, type);
+        //
+        // this.setState({
+        //     data,
+        // }, () => {
+        //     // 通知 Control 组件修改自身的宽度
+        //     const expr = /width|height|margin/.exec(attr);
+        //     if (expr) {
+        //         const controlAttr = expr[0];
+        //         const controlRect = {
+        //             ...(this.state.activeRect)
+        //         };
+        //
+        //         controlRect[controlAttr] = parseFloat(value);
+        //
+        //         this.setState({
+        //             rect: controlRect,
+        //             activeRect: controlRect,
+        //         });
+        //     }
+        // });
+    }
 
-        this.setState({
-            data,
-        }, () => {
-            // 通知 Control 组件修改自身的宽度
-            const expr = /width|height|margin/.exec(attr);
-            if (expr) {
-                const controlAttr = expr[0];
-                const controlRect = {
-                    ...(this.state.activeRect)
-                };
+    /**
+     * <TODO> 待删除
+     * 修改 rect 展示区域
+     * @param attr
+     * @param val
+     */
+    changeRect(attr, val) {
+        // 通知 Control 组件修改自身的宽度
+        const expr = /width|height|margin/.exec(attr);
 
-                controlRect[controlAttr] = parseFloat(value);
+        if (expr) {
+            const controlAttr = expr[0];
+            const controlRect = {
+                ...(this.state.activeRect),
+            };
 
-                this.setState({
-                    rect: controlRect,
-                    activeRect: controlRect,
-                });
-            }
-        });
+            controlRect[controlAttr] = parseFloat(val);
+
+            this.setState({
+                rect: controlRect,
+                activeRect: controlRect,
+            });
+        }
     }
 
     /**
@@ -359,6 +398,15 @@ class App extends PureComponent {
 
         this.setState({
             data,
+        }, () => {
+            setTimeout(() => {
+                // <TODO> 黑科技
+                // 后续优化，这里先暂时用这样的方式来改变 rect 的位置，componentDidUpdate 再触发 click 会导致死循环
+                const el = document.getElementById(this.state.activeId);
+                if (el) {
+                    el.click();
+                }
+            }, 100);
         });
     }
 
@@ -374,7 +422,7 @@ class App extends PureComponent {
      * @param target
      */
     mittActive = ({ guid, target }) => {
-        const { location = '', match = {} } = this.props;
+        const { match = {} } = this.props;
         const { params = {} } = match;
 
         // 移动端的画布有特殊设置
@@ -385,7 +433,8 @@ class App extends PureComponent {
             activeId: guid,
             activeRect: rect,
             rect,
-            // autoActiveId: null,
+            // 有激活的组件，并且已添加组件栏未展开
+            layerCakeVisible: !!guid,
             // 设置panel 编辑面板的显示状态
             panelVisible: !!guid,
             menuVisible: false,
@@ -529,14 +578,18 @@ class App extends PureComponent {
     }
 
     render() {
-        const { rect, data, layerCakeVisible, menuVisible } = this.state;
+        const { rect, data, layerCakeVisible, menuVisible, isGuide } = this.state;
         const { history, match } = this.props;
         const cls = classNames('layercake-show', {
             'layercake-hide': layerCakeVisible,
         });
 
+        const wrapCls = classNames(`ec-editor-${match.params.type}`, {
+            'ec-editor-guide': !isGuide
+        })
+
         return (
-            <div className={`ec-editor-${match.params.type}`}>
+            <div className={wrapCls}>
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
@@ -548,6 +601,8 @@ class App extends PureComponent {
                     className="ec-editor-left-panel ec-editor-layout-fixed"
                 >
                     <PubComps />
+
+                    {/* <TODO> 赵丽丽，，你咋个好意思把这个 div 放在 LayerCake 的外面呢，空了修改掉 */}
                     <div
                         className={cls}
                         onClick={this.handleShow}
@@ -602,6 +657,7 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
+                {/* <Guide isGuide={isGuide} /> */}
             </div>
         );
     }

@@ -8,18 +8,7 @@ import React, { PureComponent } from 'react';
 import LazyerHoc from '../lazyer/LazyerHoc';
 import AppComponent from '../AppComponent';
 import { scrollDom } from '../util/util';
-
-import './render.scss';
-
-class PlaceHolder extends PureComponent {
-    render() {
-        return (
-            <div className="editor-placeholder">
-                {this.props.name}
-            </div>
-        )
-    }
-}
+import PlaceHolder from '../../components/placeholder';
 
 @LazyerHoc
 class RenderItem extends PureComponent {
@@ -34,7 +23,7 @@ class RenderItem extends PureComponent {
                 el.click();
 
                 // 滚动容器
-                scrollDom(this.props.outerEl, el, this.props.pageType === 'mobile' ? 2 : 1)
+                scrollDom(this.props.outerEl, el, this.props.pageType === 'mobile' ? 2 : 1);
             })
         }
     }
@@ -45,7 +34,12 @@ class RenderItem extends PureComponent {
         if (!item.children || item.children.length === 0) {
             return (
                 <AppComponent {...this.props}>
-                    {() => <PlaceHolder name={module.config.displayName} />}
+                    {() => (
+                        <PlaceHolder
+                            iconType={module.config.iconType}
+                            name={module.config.displayName}
+                        />
+                    )}
                 </AppComponent>
             )
         }

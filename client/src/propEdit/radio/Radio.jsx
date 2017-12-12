@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Radio } from 'antd';
-import { editComponent, editComponentByType } from '../../pages/editor/App';
+import { editComponentByType } from '../../pages/editor/App';
 
 const RadioGroup = Radio.Group;
 

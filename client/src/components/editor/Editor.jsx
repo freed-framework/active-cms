@@ -11,11 +11,8 @@ import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import Panel from '../panel';
 import Render from '../../common/render/Render';
+import PlaceHolder from '../placeholder';
 import './editor.scss';
-
-const getChildNodes = (data) => {
-
-}
 
 class Editor extends PureComponent {
     constructor(props) {
@@ -74,15 +71,25 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { params } = this.props.match;
+        const { match, data, outerEl, autoActiveId } = this.props;
+        const { params } = match;
+
+        if (data.length === 0) {
+            return (
+                <PlaceHolder
+                    name="请添加内容"
+                    iconType="def"
+                />
+            );
+        }
 
         return (
             <Render
-                data={this.props.data}
+                data={data}
                 pageType={params.type}
-                outerEl={this.props.outerEl}
+                outerEl={outerEl}
                 isEdit={true}
-                autoActiveId={this.props.autoActiveId}
+                autoActiveId={autoActiveId}
             />
         );
     }

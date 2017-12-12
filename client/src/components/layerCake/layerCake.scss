@@ -53,7 +53,7 @@
         padding: 0 0 20px 0;
     }
 
-    // 输入框
+    // displayName 输入框
     &-input-name {
         padding: 0 3px;
         height: 24px;
@@ -72,10 +72,13 @@
             @include textEllipsis(120px);
         }
 
+        /**
+         * 编辑模式
+         */
         &-bar {
             position: absolute;
-            width: 42px;
-            right: 10px;
+            width: 47px;
+            right: 8px;
             overflow: hidden;
 
             .ec-editor-layer-cake-item-edit {
@@ -86,10 +89,13 @@
                 .anticon-edit {}
             }
 
+            /**
+             * 排序
+             */
             .ec-editor-layer-cake-index {
                 text-align: center;
                 height: 24px;
-                width: 20px;
+                width: 25px;
                 font-size: 12px;
                 padding: 3px 5px;
                 border: 1px solid #2D2D32;

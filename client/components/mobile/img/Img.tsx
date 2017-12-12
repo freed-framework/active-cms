@@ -2,13 +2,15 @@
 import * as React from 'react';
 import config from './config';
 // <TODO> 暂时使用当前组件项目下
+import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import LazyLoad from '../lazy-load/index.js';
 import redirect from 'freed-multi/lib/native/redirect.js';
 import './img.scss';
 
-class Img extends React.Component<ImgProps, any> {
-    static config: Config = config;
-
+@componentPropsHoc({
+    config,
+})
+class Img extends React.PureComponent<ImgProps, any> {
     constructor(props: ImgProps) {
         super(props);
     }
@@ -18,7 +20,7 @@ class Img extends React.Component<ImgProps, any> {
     }
 
     render() {
-        const { id, style = {}, src = '', extendsProps = {}, isEdit } = this.props;
+        const { id, style = {}, src = '', extendsProps = {}, isEdit, dataTable = null, className } = this.props;
 
         const styleProps = {
             ...(style && { ...style.layout }),
@@ -36,8 +38,8 @@ class Img extends React.Component<ImgProps, any> {
         return (
             <div
                 id={id}
-                className="tmc-img"
-                data-module={this.props.module}
+                className={`${className} tmc-module tmc-img`}
+                {...(dataTable && { ...dataTable })}
                 onClick={this.handleClick}
                 style={styleProps}
             >

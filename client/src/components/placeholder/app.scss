@@ -1,0 +1,45 @@
+@import "../../css/border-1px";
+/**
+ * placeholder
+ */
+.editor-placeholder {
+    @include border-1px(all);
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    pointer-events: none;
+    font-size: 32px;
+    color: #fff;
+    background-color: #666;
+    opacity: 1;
+
+    .placeholder-icon, .placeholder-text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .placeholder-icon {
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+
+        &.placeholder-def {
+            background-image: url('./images/placeholder_def.svg');
+        }
+
+        &.placeholder-img {
+            background-image: url('./images/placeholder_img.svg');
+        }
+
+        &.placeholder-pictures {
+            background-image: url('images/placeholder_pictures.svg');
+        }
+
+        &.placeholder-layers {
+            background-image: url('images/placeholder_layers.svg');
+        }
+    }
+}

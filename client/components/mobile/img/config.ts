@@ -3,6 +3,7 @@
 const config: Config = {
     name: 'mobile/img',
     displayName: '图片',
+    iconType: 'img',
     editable: [{
         label: '图片地址',
         component: 'ImgUrl',

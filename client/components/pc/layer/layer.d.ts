@@ -1,5 +1,5 @@
 
-interface Props {
+interface LayerProps {
     id: string;
 
     children?: React.ReactNode;

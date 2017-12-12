@@ -2,6 +2,7 @@
  * @file config.d.ts
  * @author denglingbo
  *
+ * 来自于 component/config.ts
  */
 
 interface Config {
@@ -9,6 +10,21 @@ interface Config {
      * 组件名，该字段也用于文件查找
      */
     name: string;
+
+    /**
+     * 组件的 默认配置
+     */
+    config?: any;
+
+    /**
+     * 默认 className
+     */
+    className?: string;
+
+    /**
+     * data-xxx 的 下 mapping 对象
+     */
+    dataTable?: any;
 
     /**
      * 在编辑模式下组件是否为通用组件

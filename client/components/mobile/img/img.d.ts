@@ -1,11 +1,6 @@
+/// <reference path="../../props.d.ts" />
 
-interface ImgProps {
-    id: string;
-    module?: string;
-    style?: any;
+interface ImgProps extends DefaultProps {
     src?: any;
     url?: any;
-    isEdit?: any;
-    extendsProps?: any;
-    children?: React.ReactNode;
 }

@@ -9,7 +9,7 @@ import * as React from 'react';
 import config from './config';
 import './layer.scss';
 
-class Layer extends React.PureComponent<Props, any> {
+class Layer extends React.PureComponent<LayerProps, any> {
     static config: Config = config;
 
     render() {
