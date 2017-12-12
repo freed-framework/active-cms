@@ -596,6 +596,21 @@ class App extends PureComponent {
                     visible={menuVisible}
                 />
 
+                <div
+                    className="guide-steps-handler"
+                    data-guide='{"step": 1, "tip": "123"}'
+                    onClick={() => {alert(123123)}}
+                >
+                    123123123123
+                </div>
+
+                <span
+                    className="guide-steps-handler"
+                    data-guide='{"step": 2, "tip": "123"}'
+                >
+                    12
+                </span>
+
                 {/* 左侧工具面板 */}
                 <div
                     className="ec-editor-left-panel ec-editor-layout-fixed"
@@ -657,7 +672,7 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
-                {/* <Guide isGuide={isGuide} /> */}
+                <Guide isGuide={isGuide} />
             </div>
         );
     }

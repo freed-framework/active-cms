@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import classnames from 'classnames';
 import { Popconfirm, Popover } from 'antd';
 import ReactDOM from 'react-dom';
@@ -59,10 +59,56 @@ function drawRect(ctx, options, color, offset = 10) {
     draw(ctx, r, 0, scrollWidth - r, scrollHeight, color);
 }
 
+/**
+ * 对目标数组进行排序
+ *
+ * @param {Array} arr 目标数组 
+ */
+function sort(arr = []) {
+    return arr.sort((a, b) => {
+        return a - b
+    })
+}
+
+/**
+ * 获取页面上需要新手引导的点
+ */
+function getSteps() {
+    const steps = document.querySelectorAll('.guide-steps-handler');
+    const result = {
+        steps: []
+    };
+    for (let i = 0; i < steps.length; i++) {
+        let options = {};
+        const guide = steps[i];
+        const data = guide.getAttribute('data-guide');
+
+        if (!data) { continue; }
+        
+        try {
+            options = JSON.parse(data)
+        } catch (e) {
+            console.error(e);
+        }
+
+        result.steps.push({
+            ...options,
+            guide
+        })
+    }
+
+    result.steps = sort(result.steps);
+
+    return result;
+}
+
+
+
 
 class Guide extends Component {
     static propTypes = {
-        prefixCls: 'com-guide'
+        prefixCls: PropTypes.string,
+        isGuide: PropTypes.bool,
     }
 
     constructor(props) {
@@ -75,45 +121,49 @@ class Guide extends Component {
         this.state = {
             con: {},
             guideCon: {},
-            showModal: false
+            showModal: true
         }
     }
 
     componentDidMount() {
-        this.guides = document.querySelectorAll('.anchor-for-guide');
-        if (this.guides.length > 0) {
+        // this.guides = document.querySelectorAll('.guide-steps-handler');
+        const { isGuide } = this.props;
+        if (!isGuide) {
             this.setState({
                 showModal: true
             }, () => {
-               
-                this.steps = {}
+                this.guides = getSteps();
+                // this.steps = {}
                 const dom = document.querySelector('#mask-canvas');
                 const { scrollWidth, scrollHeight } = document.body;
                 dom.height = scrollHeight;
                 dom.width = scrollWidth;
                 const cnt = dom.getContext('2d');
-                for (let i = 0; i < this.guides.length; i++) {
-                    const guide = this.guides[i];
-                    const data = guide.getAttribute('data-guide');
-                    let options = {}
 
-                    if (!data) { continue; }
+                this.guides.cnt = cnt;
+                this.guides.dom = dom;
+//                 for (let i = 0; i < this.guides.length; i++) {
+//                     const guide = this.guides[i];
+//                     const data = guide.getAttribute('data-guide');
+//                     let options = {}
+
+//                     if (!data) { continue; }
         
-                    try {
-                        options = JSON.parse(data)
-                    } catch (e) {
-                        console.error(e);
-                    }
-
-                    this.steps[options.index] = {
-                        ...options,
-                        guide,
-                        cnt
-                    }
+//                     try {
+//                         options = JSON.parse(data)
+//                     } catch (e) {
+//                         console.error(e);
+//                     }
+// console.log(getSteps())
+//                     this.steps[options.step] = {
+//                         ...options,
+//                         guide,
+//                         cnt
+//                     }
                 }
         
-                this.step = 0;
-                this.keys = Object.keys(this.steps);
+                // this.step = 0;
+                // this.keys = Object.keys(this.steps);
   
                 this.startGuide()
             })
@@ -121,7 +171,7 @@ class Guide extends Component {
     }
 
     startGuide = () => {
-        const {guide, cnt, ...opt} = this.steps[this.keys[this.step]];
+        const {guide, cnt, ...opt} = this.guides;
         const rect = getRect(guide);
         this.setState({
             con: rect,
@@ -132,7 +182,7 @@ class Guide extends Component {
         this.step += 1;
     }
 
-    nextStep = (e) => {
+    nextStep = () => {
         const isLast = this.keys.length === this.step;
         if (isLast) {
             this.setState({
@@ -144,21 +194,21 @@ class Guide extends Component {
     }
 
     render() {
-        const { prefixCls } = this.props;
+        const { prefixCls, isGuide = true } = this.props;
         const { con, guideCon, showModal } = this.state;
         return (
             <div>
                 
                 {
-                    showModal && <canvas id="mask-canvas" className="com-guide" />
+                    showModal && !isGuide && <canvas id="mask-canvas" className="com-guide" />
                 }
                 {
-                    showModal && <Popconfirm
+                    showModal && !isGuide && <Popconfirm
                         visible
                         placement="topLeft"
                         title={guideCon.tip}
                         onConfirm={this.nextStep}
-                        okText={ this.keys.length === this.step ? "ok" : "下一步"}
+                        okText={ this.keys.length === this.step ? '确定' : '下一步'}
                     >
                         <div
                             className="com-guide-rect"
@@ -168,7 +218,7 @@ class Guide extends Component {
                                 width: con.right - con.left,
                                 height: con.bottom - con.top
                             }}
-                        ></div>
+                        />
                     </Popconfirm>
                 }
             </div>

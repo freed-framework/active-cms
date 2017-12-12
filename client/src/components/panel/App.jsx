@@ -83,8 +83,7 @@ class Panel extends PureComponent {
                         <Icon type="close" />
                     </div>
                     <span
-                        className="ec-panel-title-text anchor-for-guide"
-                        data-guide={'{"index": 1,"tip": "select"}'}
+                        className="ec-panel-title-text"
                     >编辑面板</span>
                 </div>
 
