@@ -7,19 +7,26 @@
 /// <reference path="./layer.d.ts" />
 import * as React from 'react';
 import config from './config';
+import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import './layer.scss';
 
-class Layer extends React.PureComponent<Props, any> {
-    static config: Config = config;
-
+@componentPropsHoc({
+    config,
+})
+class Layer extends React.PureComponent<LayerProps, any> {
     render() {
-        const { id, style = {} } = this.props;
+        const {
+            id,
+            style = {},
+            dataTable = null,
+            className,
+        } = this.props;
 
         return (
             <div
                 id={id}
-                className="tmc-module tmc-layer"
-                data-module={this.props.module}
+                className={`${className} tmc-module tmc-layer`}
+                {...(dataTable && { ...dataTable })}
                 style={{
                     ...(style && {...style.layout, 'backgroundPosition': 'center center'})
                 }}
@@ -28,6 +35,10 @@ class Layer extends React.PureComponent<Props, any> {
             </div>
         )
     }
+}
+
+export {
+    config,
 }
 
 export default Layer;
