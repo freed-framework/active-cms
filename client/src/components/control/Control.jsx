@@ -40,8 +40,6 @@ class Control extends PureComponent {
         }
     }
 
-    lineHover = () => {}
-
     /**
      * 绘制各个边线
      * @param arr
@@ -61,7 +59,7 @@ class Control extends PureComponent {
         })
     }
 
-    render(guid) {
+    render() {
         const { rect } = this.state;
 
         const styles = {
@@ -72,6 +70,7 @@ class Control extends PureComponent {
         return (
             <div
                 className={'ec-edit-control'}
+                onClick={this.hi}
                 style={{
                     ...styles
                 }}

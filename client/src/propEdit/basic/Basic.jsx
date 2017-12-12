@@ -7,7 +7,7 @@
 import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
-import { editComponent, editComponentByType, editComponentByGuid } from '../../pages/editor/App';
+import { editComponentByType, editComponentByGuid } from '../../pages/editor/App';
 import defaultStyleHoc from '../../common/hoc/defaultStyleHoc';
 import BorderEdit from '../border';
 import Background from '../background';

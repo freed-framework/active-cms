@@ -36,7 +36,7 @@ class Img extends React.Component<ImgProps, any> {
         return (
             <div
                 id={id}
-                className="tmc-img"
+                className="tmc-module tmc-img"
                 data-module={this.props.module}
                 onClick={this.handleClick}
                 style={styleProps}
