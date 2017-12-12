@@ -9,6 +9,8 @@ import ENV from './env';
 const nodeENV = process.env.NODE_ENV || 'development';
 const publicPath = /(\/ssrPath\/)/ig;
 
+const filePath = ENV.publicPath[nodeENV];
+
 const Template = (id, socket, body) => {
     return new Promise((resolve, reject) => {
         const { pageType } = body;
@@ -41,7 +43,7 @@ const Template = (id, socket, body) => {
 
             // 修改html中地址
             const htmlString = fs.readFileSync(baseUrl + '/index.html', "utf-8");
-            const newHtmlString = htmlString.replace(publicPath, `${ENV.publicPath['development']}${timeStmp}/`);
+            const newHtmlString = htmlString.replace(publicPath, `${filePath}${timeStmp}/`);
             fs.writeFileSync(baseUrl + '/index.html', newHtmlString);
 
             socket.emit(`push:progress:${id}`, {
@@ -68,7 +70,7 @@ const Template = (id, socket, body) => {
                     return `{data: ${JSON.stringify(body.content)},pageType: "${pageType}"}`;
                 }
                 if ($2) {
-                    return `${ENV.publicPath}${timeStmp}/`;
+                    return `${filePath}${timeStmp}/`;
                 }
             });
 
