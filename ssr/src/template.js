@@ -6,10 +6,10 @@ var child_process = require('child_process');
 const cpy = require('cpy');
 import ENV from './env';
 
-const nodeENV = process.env.NODE_ENV;
-const isMobile = true;
-
+const nodeENV = process.env.NODE_ENV || 'development';
 const publicPath = /(\/ssrPath\/)/ig;
+
+const filePath = ENV.publicPath[nodeENV];
 
 const Template = (id, socket, body) => {
     return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ const Template = (id, socket, body) => {
 
             // 修改html中地址
             const htmlString = fs.readFileSync(baseUrl + '/index.html', "utf-8");
-            const newHtmlString = htmlString.replace(publicPath, `${ENV.publicPath}${timeStmp}/`);
+            const newHtmlString = htmlString.replace(publicPath, `${filePath}${timeStmp}/`);
             fs.writeFileSync(baseUrl + '/index.html', newHtmlString);
 
             socket.emit(`push:progress:${id}`, {
@@ -70,7 +70,7 @@ const Template = (id, socket, body) => {
                     return `{data: ${JSON.stringify(body.content)},pageType: "${pageType}"}`;
                 }
                 if ($2) {
-                    return `${ENV.publicPath}${timeStmp}/`;
+                    return `${filePath}${timeStmp}/`;
                 }
             });
 
