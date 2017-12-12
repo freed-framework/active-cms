@@ -41,7 +41,7 @@ const Template = (id, socket, body) => {
 
             // 修改html中地址
             const htmlString = fs.readFileSync(baseUrl + '/index.html', "utf-8");
-            const newHtmlString = htmlString.replace(publicPath, `${ENV.publicPath[nodeENV]}${timeStmp}/`);
+            const newHtmlString = htmlString.replace(publicPath, `${ENV.publicPath['development']}${timeStmp}/`);
             fs.writeFileSync(baseUrl + '/index.html', newHtmlString);
 
             socket.emit(`push:progress:${id}`, {
