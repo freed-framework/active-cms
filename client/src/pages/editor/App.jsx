@@ -161,6 +161,12 @@ class App extends PureComponent {
                 this.$oldData = fromJS(nextProps.data);
             })
         }
+
+        if (!is(fromJS(nextProps.pageData), fromJS(this.props.pageData))) {
+            this.setState({
+                title: nextProps.pageData.title
+            })
+        }
     }
 
     /**
