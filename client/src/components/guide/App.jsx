@@ -8,9 +8,11 @@
 import React, { Component } from 'react';
 import PropTypes, { bool } from 'prop-types';
 import classnames from 'classnames';
+import mitt from 'mitt';
 import { Popconfirm, Popover } from 'antd';
 import ReactDOM from 'react-dom';
 import { getRect } from '../../utils';
+const emitter = mitt();
 
 /**
  * canvas 填充颜色
@@ -66,7 +68,7 @@ function drawRect(ctx, options, color, offset = 10) {
  */
 function sort(arr = []) {
     return arr.sort((a, b) => {
-        return a - b
+        return a.step - b.step;
     })
 }
 
@@ -76,8 +78,9 @@ function sort(arr = []) {
 function getSteps() {
     const steps = document.querySelectorAll('.guide-steps-handler');
     const result = {
-        steps: []
+        steps: {}
     };
+
     for (let i = 0; i < steps.length; i++) {
         let options = {};
         const guide = steps[i];
@@ -91,106 +94,128 @@ function getSteps() {
             console.error(e);
         }
 
-        result.steps.push({
+        result.steps[options.step] = {
             ...options,
             guide
-        })
+        }
     }
-
-    result.steps = sort(result.steps);
 
     return result;
 }
-
-
-
 
 class Guide extends Component {
     static propTypes = {
         prefixCls: PropTypes.string,
         isGuide: PropTypes.bool,
+        guide: PropTypes.string,
     }
 
     constructor(props) {
         super(props);
-        this.guides = [];
-        this.keys = [];
-        this.step = 0;
-        this.steps = {};
+        this.guides = {
+            steps: {}
+        };
+        this.step = 1;
+
+        this.timer = [];
+
+        const guide = localStorage.getItem(props.guide)
 
         this.state = {
             con: {},
             guideCon: {},
-            showModal: true
+            hasGuid: !!guide,
+            showModal: false
         }
+
+        emitter.on('guide-continue', this.continue);
     }
 
     componentDidMount() {
-        // this.guides = document.querySelectorAll('.guide-steps-handler');
-        const { isGuide } = this.props;
-        if (!isGuide) {
+        const { hasGuid } = this.state;
+        if (!hasGuid) {
             this.setState({
                 showModal: true
             }, () => {
-                this.guides = getSteps();
-                // this.steps = {}
-                const dom = document.querySelector('#mask-canvas');
-                const { scrollWidth, scrollHeight } = document.body;
-                dom.height = scrollHeight;
-                dom.width = scrollWidth;
-                const cnt = dom.getContext('2d');
+                this.timer = setTimeout(() => {
+                    this.guides = getSteps();
+                    const dom = document.querySelector('#mask-canvas');
+                    const { scrollWidth, scrollHeight } = document.body;
+                    dom.height = scrollHeight;
+                    dom.width = scrollWidth;
+                    const cnt = dom.getContext('2d');
 
-                this.guides.cnt = cnt;
-                this.guides.dom = dom;
-//                 for (let i = 0; i < this.guides.length; i++) {
-//                     const guide = this.guides[i];
-//                     const data = guide.getAttribute('data-guide');
-//                     let options = {}
+                    this.guides.cnt = cnt;
+                    this.guides.dom = dom;
 
-//                     if (!data) { continue; }
-        
-//                     try {
-//                         options = JSON.parse(data)
-//                     } catch (e) {
-//                         console.error(e);
-//                     }
-// console.log(getSteps())
-//                     this.steps[options.step] = {
-//                         ...options,
-//                         guide,
-//                         cnt
-//                     }
-                }
-        
-                // this.step = 0;
-                // this.keys = Object.keys(this.steps);
-  
-                this.startGuide()
+                    this.start()
+                }, 500)
             })
         }
     }
 
-    startGuide = () => {
-        const {guide, cnt, ...opt} = this.guides;
+    componentWillMount() {
+        clearTimeout(this.timer);
+    }
+
+    start = () => {
+        const {cnt, steps} = this.guides;
+        const { guide, ...opt } = steps[this.step];
         const rect = getRect(guide);
         this.setState({
             con: rect,
             guideCon: opt
         }, () => {
-            drawRect(cnt, rect, 'rgba(0, 0, 0, .2)');
+            drawRect(cnt, rect, 'rgba(0, 0, 0, .8)');
         })
-        this.step += 1;
+        this.step = opt.step;
     }
 
     nextStep = () => {
-        const isLast = this.keys.length === this.step;
-        if (isLast) {
+        clearTimeout(this.timer);
+        const { steps } = this.guides;
+        const { guide, ...opt } = steps[this.step];
+        const { nextStep, delay = 0, trigger = 'click', stop, next } = opt;
+        guide[trigger]();
+        if (opt.done) {
             this.setState({
                 showModal: false
+            }, () => {
+                // localStorage.setItem(this.props.guide, new Date * 1)
             })
-        } else {
-            this.startGuide();
+            return false;
         }
+        this.step = nextStep;
+        if (stop) {
+            return;
+        }
+        if (next) {
+            const { targetElement, ...options } = next;
+            const el = document.querySelector(targetElement);
+            this.guides.steps[options.step] = {
+                guide: el,
+                ...options
+            }
+            this.step = options.step;
+            this.start()
+            return;
+        }
+        
+        if (!steps[nextStep] || delay) {
+            this.timer = setTimeout(() => {
+                this.guides.steps = getSteps().steps;
+                this.step = nextStep;
+                this.start();
+            }, delay)
+        } else {
+            this.step = nextStep;
+            this.start();
+        }
+    }
+
+    continue = () => {
+        clearTimeout(this.timer);
+        this.start();
     }
 
     render() {
@@ -200,15 +225,15 @@ class Guide extends Component {
             <div>
                 
                 {
-                    showModal && !isGuide && <canvas id="mask-canvas" className="com-guide" />
+                    showModal && <canvas id="mask-canvas" className="com-guide" />
                 }
                 {
-                    showModal && !isGuide && <Popconfirm
+                    showModal && <Popconfirm
                         visible
                         placement="topLeft"
                         title={guideCon.tip}
                         onConfirm={this.nextStep}
-                        okText={ this.keys.length === this.step ? '确定' : '下一步'}
+                        okText={'下一步'}
                     >
                         <div
                             className="com-guide-rect"
@@ -224,6 +249,10 @@ class Guide extends Component {
             </div>
         )
     }
+}
+
+export function Continue() {
+    emitter.emit('guide-continue');
 }
 
 export default Guide;

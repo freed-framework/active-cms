@@ -23,6 +23,7 @@ import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
+import { Continue } from '../../components/guide/App';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -84,11 +85,13 @@ class App extends PureComponent {
              * 复制数据
              */
             copyData: null,
-            
+
             /**
-             * 是否引导过
+             * 默认新建页面标题
              */
-            isGuide: false,
+            title: '我的新页面' || props.pageData.title,
+
+            isEdit: !!props.pageData
         };
 
         this.$oldData = fromJS(props.data);
@@ -106,15 +109,7 @@ class App extends PureComponent {
         emitter.on('active', this.mittActive);
         emitter.on('viewer', this.mittViewer);
         emitter.on('push', this.mittPush);
-        emitter.on('clearActive', this.mittClearActive)
-    }
-
-    componentWillMount() {
-        const editGuide = localStorage.getItem('edit-guide');
-
-        this.setState({
-            isGuide: !!editGuide
-        })
+        emitter.on('clearActive', this.mittClearActive);
     }
 
     componentDidMount() {
@@ -448,7 +443,10 @@ class App extends PureComponent {
     showConfirm = (callback) => {
         confirm({
             title: '请输入页面标题?',
-            content: <Input onChange={this.handleChange} />,
+            content: <Input
+                value={this.state.title}
+                onChange={this.handleChange}
+                />,
             onOk: callback,
             onCancel() {},
         });
@@ -477,39 +475,38 @@ class App extends PureComponent {
             return;
         }
 
-        // 新增
-        if (!id) {
-            this.showConfirm(() => {
-                const { title } = this.state;
+        this.showConfirm(() => {
+            const { title } = this.state;
 
-                if (!title) {
-                    message.error('请输入标题');
-                    return;
-                }
+            if (!title) {
+                message.error('请输入标题');
+                return;
+            }
 
+            if (id === 'new') {
                 addPage({
                     title,
                     pageType: params.type,
                     content: this.state.data
                 }).then((res) => {
                     this.$oldData = fromJS(this.state.data);
+                    Continue();
                     message.success(text || '保存成功')
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
-            })
-        }
-        // 编辑
-        else {
-            editPage({
-                id,
-                page: {
-                    content: this.state.data
-                }
-            }).then(() => {
-                this.$oldData = fromJS(this.state.data);
-                message.success(text || '保存成功')
-            })
-        }
+            }
+            else {
+                editPage({
+                    id,
+                    page: {
+                        content: this.state.data
+                    }
+                }).then(() => {
+                    this.$oldData = fromJS(this.state.data);
+                    message.success(text || '保存成功')
+                })
+            }
+        })
 
         console.log(JSON.stringify(this.state.data))
     }
@@ -578,15 +575,13 @@ class App extends PureComponent {
     }
 
     render() {
-        const { rect, data, layerCakeVisible, menuVisible, isGuide } = this.state;
+        const { rect, data, layerCakeVisible, menuVisible, isEdit } = this.state;
         const { history, match } = this.props;
         const cls = classNames('show-right', {
             'close-right': layerCakeVisible,
         });
 
-        const wrapCls = classNames(`ec-editor-${match.params.type}`, {
-            'ec-editor-guide': !isGuide
-        })
+        const wrapCls = classNames(`ec-editor-${match.params.type}`)
 
         return (
             <div className={wrapCls}>
@@ -595,21 +590,6 @@ class App extends PureComponent {
                     history={history}
                     visible={menuVisible}
                 />
-
-                <div
-                    className="guide-steps-handler"
-                    data-guide='{"step": 1, "tip": "123"}'
-                    onClick={() => {alert(123123)}}
-                >
-                    123123123123
-                </div>
-
-                <span
-                    className="guide-steps-handler"
-                    data-guide='{"step": 2, "tip": "123"}'
-                >
-                    12
-                </span>
 
                 {/* 左侧工具面板 */}
                 <div
@@ -644,7 +624,8 @@ class App extends PureComponent {
 
                 {/* 菜单导航栏 */}
                 <div
-                    className="menu-button"
+                    className="menu-button guide-steps-handler"
+                    data-guide={'{"step": 3, "tip": "select", "nextStep": 4, "delay": 600}'}
                     onClick={this.handleShowMenu}
                 >
                     <img src={icon} />
@@ -672,7 +653,10 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
-                <Guide isGuide={isGuide} />
+                {
+                    !isEdit && <Guide guide="guide-new-page" />
+                }
+                
             </div>
         );
     }
