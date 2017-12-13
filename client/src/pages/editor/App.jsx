@@ -302,20 +302,19 @@ class App extends PureComponent {
         this.setState({
             data,
             // 当添加一个组件的时候，自动激活编辑面板
-            autoActiveId: guid || mod.guid,
+            autoActiveId: mod.guid,
         }, () => {
-
             /**
              * TODO:
              * 问题描述： 新加组件，组件进入视图，
              *           当前组件为激活组建，后面修改其他，也会选中这个组件
-             * 暂时解决方法：1秒钟后将activeid置空
+             * 暂时解决方法：(x)ms 秒钟后将activeid置空
              */
             this.clearTimer = setTimeout(() => {
                 this.setState({
                     autoActiveId: null
                 })
-            }, 1000)
+            }, 800);
         });
     }
 

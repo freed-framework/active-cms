@@ -20,7 +20,15 @@ class Img extends React.PureComponent<ImgProps, any> {
     }
 
     render() {
-        const { id, style = {}, src = '', extendsProps = {}, isEdit, dataTable = null, className } = this.props;
+        const {
+            id,
+            style = {},
+            src = '',
+            extendsProps = {},
+            isEdit,
+            dataTable,
+            className
+        } = this.props;
 
         const styleProps = {
             ...(style && { ...style.layout }),

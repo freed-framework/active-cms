@@ -83,7 +83,7 @@ export default class TopMenu extends PureComponent {
             >
                 <Row>
                     <Col span={4} className="ec-editor-banner-left">
-                        <span>Static</span>
+                        <span className="ec-editor-logo" />
                     </Col>
                     <Col span={8} className="ec-editor-banner-center">
                     </Col>

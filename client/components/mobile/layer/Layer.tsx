@@ -18,7 +18,7 @@ class Layer extends React.PureComponent<LayerProps, any> {
         const {
             id,
             style = {},
-            dataTable = null,
+            dataTable,
             className,
         } = this.props;
 
