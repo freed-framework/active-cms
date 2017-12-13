@@ -653,10 +653,7 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
-                {
-                    !isEdit && <Guide guide="guide-new-page" />
-                }
-                
+                <Guide guide="guide-new-page" />
             </div>
         );
     }
