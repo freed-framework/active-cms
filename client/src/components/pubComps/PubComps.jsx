@@ -49,7 +49,9 @@ class PubComps extends PureComponent {
 
         return (
             <div className="ec-editor-pub-comps ec-editor-layout-fixed">
-                {/* <div className="ec-editor-layout-fixed-title">通用组件</div> */}
+                <div className="ec-editor-layout-fixed-title">
+                    <span className="ec-editor-logo" />
+                </div>
                 <Row className="ec-editor-layout-fixed-main">
                     {keys.map((k, index) => {
                         const conf = lib[k].config;

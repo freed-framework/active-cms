@@ -6,6 +6,21 @@
     background: #212125;
     color: #DEDEE0;
 
+    .ec-editor-layout-fixed-title {
+        height: 50px;
+        padding: 15px 0;
+        background: #161616;
+        margin: 0;
+
+        .ec-editor-logo {
+            display: inline-block;
+            width: 70px;
+            height: 20px;
+            background: url("../../images/wuget-logo-white.png") no-repeat 0 0;
+            background-size: 100%;
+        }
+    }
+
     .icon-font,
     .icon-layers {
         display: block;

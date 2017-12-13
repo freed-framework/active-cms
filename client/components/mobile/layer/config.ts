@@ -7,7 +7,8 @@ const config: Config = {
     dataTable: {
         'data-guide': {
             step: 1,
-            tip: 'select'
+            tip: 'select',
+            elementSelector: '#antd-xxx',
         },
     },
     displayName: '楼层',
