@@ -193,7 +193,7 @@ class MobileList extends PureComponent {
                         <FileUpload options={options}>
                             <button
                                 className="guide-steps-handler"
-                                data-guide={'{"step": 2, "tip": "点击上传图片", "nextStep": 3, "stop": true}'}
+                                data-guide={'{"step": 2, "tip": "此按钮为批量上传按钮", "nextStep": 3, "stop": true}'}
                                 ref='chooseAndUpload'
                             >
                                 批量上传图片

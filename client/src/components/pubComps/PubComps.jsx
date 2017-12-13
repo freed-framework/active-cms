@@ -56,7 +56,7 @@ class PubComps extends PureComponent {
                 <Row className="ec-editor-layout-fixed-main">
                     {keys.map((k, index) => {
                         const conf = lib[k].config;
-console.log(conf)
+
                         if (conf && conf.isCommon) {
                             return (
                                 <Col

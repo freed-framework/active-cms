@@ -7,14 +7,33 @@
     z-index: 100000;
     &-rect {
         position: absolute;
-        border: 1px solid #fff;
+        // border: 1px solid #fff;
         width: 20px;
         height: 20px;
         z-index: 100001
     }
 }
 
-.ant-popover {
+.mask-canvas {
+    &-hide {
+        display: none;
+    }
+    &-show {
+        display: block;
+    }
+}
+
+.pop-guide {
     z-index: 999999;
+    .ant-btn {
+        display: none;
+    }
+    .ant-popover-buttons {
+        overflow: hidden;
+    }
+    .ant-btn-primary {
+        display: block;
+        float: right;
+    }
 }
 
