@@ -7,7 +7,7 @@ const config: Config = {
     dataTable: {
         'data-guide': {
             "step": 1,
-            "tip": "点击添加图片列表组件",
+            "tip": "此按钮为添加功能块按钮",
             "trigger": "click",
             "delay": 800,
             "nextStep": 2

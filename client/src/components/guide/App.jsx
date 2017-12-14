@@ -125,7 +125,9 @@ class Guide extends Component {
             con: {},
             guideCon: {},
             hasGuid: !!guide,
-            showModal: false
+            showModal: false,
+            popShow: false,
+            tipText: '下一步'
         }
 
         emitter.on('guide-continue', this.continue);
@@ -149,7 +151,10 @@ class Guide extends Component {
                     this.guides.dom = dom;
 
                     this.start()
-                }, 500)
+                    this.setState({
+                        popShow: true
+                    })
+                }, 600)
             })
         }
     }
@@ -162,6 +167,11 @@ class Guide extends Component {
         const {cnt, steps} = this.guides;
         const { guide, ...opt } = steps[this.step];
         const rect = getRect(guide);
+        if (opt.done) {
+            this.setState({
+                tipText: '完成'
+            })
+        }
         this.setState({
             con: rect,
             guideCon: opt
@@ -171,6 +181,9 @@ class Guide extends Component {
         this.step = opt.step;
     }
 
+    /**
+     * 点击下一步执行逻辑
+     */
     nextStep = () => {
         clearTimeout(this.timer);
         const { steps } = this.guides;
@@ -179,9 +192,10 @@ class Guide extends Component {
         guide[trigger]();
         if (opt.done) {
             this.setState({
-                showModal: false
+                showModal: false,
+                popShow: false
             }, () => {
-                // localStorage.setItem(this.props.guide, new Date * 1)
+                localStorage.setItem(this.props.guide, new Date * 1)
             })
             return false;
         }
@@ -201,7 +215,7 @@ class Guide extends Component {
             return;
         }
         
-        if (!steps[nextStep] || delay) {
+        if (delay) {
             this.timer = setTimeout(() => {
                 this.guides.steps = getSteps().steps;
                 this.step = nextStep;
@@ -220,7 +234,7 @@ class Guide extends Component {
 
     render() {
         const { prefixCls, isGuide = true } = this.props;
-        const { con, guideCon, showModal } = this.state;
+        const { con, guideCon, showModal, popShow } = this.state;
         return (
             <div>
                 
@@ -228,12 +242,13 @@ class Guide extends Component {
                     showModal && <canvas id="mask-canvas" className="com-guide" />
                 }
                 {
-                    showModal && <Popconfirm
+                    popShow && <Popconfirm
                         visible
-                        placement="topLeft"
+                        overlayClassName="pop-guide"
+                        placement="bottomLeft"
                         title={guideCon.tip}
                         onConfirm={this.nextStep}
-                        okText={'下一步'}
+                        okText={this.state.tipText}
                     >
                         <div
                             className="com-guide-rect"

@@ -57,7 +57,7 @@ class TopMenu extends PureComponent {
                 </Button>
                 <Button
                     className="ec-editor-btn guide-steps-handler"
-                    data-guide={'{"step": 4, "tip": "点击保存", "delay": 1000, "next": {"step": 5, "tip": "点击提交数据", "done": true, "targetElement": ".ant-modal-content"}}'}
+                    data-guide={'{"step": 4, "tip": "此按钮为保存按钮", "delay": 600, "nextStep": 5}'}
                     size="small"
                     onClick={saveData}
                 >

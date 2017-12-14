@@ -161,6 +161,12 @@ class App extends PureComponent {
                 this.$oldData = fromJS(nextProps.data);
             })
         }
+
+        if (!is(fromJS(nextProps.pageData), fromJS(this.props.pageData))) {
+            this.setState({
+                title: nextProps.pageData.title
+            })
+        }
     }
 
     /**
@@ -443,7 +449,9 @@ class App extends PureComponent {
         confirm({
             title: '请输入页面标题?',
             content: <Input
-                value={this.state.title}
+                className="guide-steps-handler"
+                defaultValue={this.state.title}
+                data-guide='{"step": 5, "tip": "修改标题，保存页面", "done": true}'
                 onChange={this.handleChange}
                 />,
             onOk: callback,
@@ -482,14 +490,13 @@ class App extends PureComponent {
                 return;
             }
 
-            if (id === 'new') {
+            if (!id || id === 'new') {
                 addPage({
                     title,
                     pageType: params.type,
                     content: this.state.data
                 }).then((res) => {
                     this.$oldData = fromJS(this.state.data);
-                    Continue();
                     message.success(text || '保存成功')
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
@@ -624,7 +631,7 @@ class App extends PureComponent {
                 {/* 菜单导航栏 */}
                 <div
                     className="menu-button guide-steps-handler"
-                    data-guide={'{"step": 3, "tip": "select", "nextStep": 4, "delay": 600}'}
+                    data-guide={'{"step": 3, "tip": "此处点击后会打开操作按钮", "nextStep": 4, "delay": 600}'}
                     onClick={this.handleShowMenu}
                 >
                     <img src={icon} />
@@ -652,10 +659,7 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
-                {
-                    !isEdit && <Guide guide="guide-new-page" />
-                }
-                
+                <Guide guide="guide-new-page" />
             </div>
         );
     }
