@@ -4,6 +4,7 @@ import {
 import { ForkController } from './fork.controller';
 import { ForkService } from './fork.service';
 import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
+import { JwtMiddleware } from '../auth/auth.middleware';
 
 @Module({
     controllers: [
@@ -16,7 +17,7 @@ import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 export class ForkModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
-            .apply(AuthMiddleware)
+            .apply(JwtMiddleware)
             .forRoutes(ForkController)
     }
 }

@@ -8,37 +8,36 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, BackTop } from 'antd';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import ENV from '../../../../conf/env';
-
+import { getUser } from '../../actions/user';
 
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
 import { TopMenu } from '../../components';
 import './app.scss';
 
-window.user = {
-    "_id": "59dae48589b19208c0947821",
-    "userName": "22qwe7",
-    "password": "12qwaszx",
-    "userDspName": "huazaierli2",
-    "phone": 18381333613,
-    "email": "755836844@qq.com",
-    "activity": true,
-    "birthday": "2017-10-09T02:52:53.330Z",
-    "sex": 1
-}
-
 // `${ENV.domain}`
 const socket = io(`${ENV.domain}`, {
     path: '/push'
 });
 
+@connect(
+    state => ({
+        user: state.toJS().user.data,
+    }),
+    dispatch => bindActionCreators({
+        getUser
+    }, dispatch)
+)
 class List extends PureComponent {
     static propTypes = {
         match: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
+        getUser: PropTypes.func,
     }
 
     constructor(props) {
@@ -56,7 +55,6 @@ class List extends PureComponent {
 
     componentDidMount() {
         const { history } = this.props;
-
         this.unPage = history.listen(loc => {
             loc.pathname.replace(/\/lists\/(.*)/g, ($0, $1) => {
                 this.getPageList({...this.params}, $1);

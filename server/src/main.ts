@@ -11,7 +11,6 @@ import * as cors from 'cors';
 import * as session from 'express-session';
 import * as flash from 'express-flash';
 import * as config from './config/environment';
-import * as passport from 'passport';
 import { ApplicationModule } from './app.module';
 import { HttpExceptionFilter } from './common/filter/http-exception.filter';
 // import { RolesGuard } from './common/guard/roles.guard';
@@ -26,8 +25,6 @@ mongoose.connection.on('error', function (err) {
 
 async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);
-    
-    require('./api/user/passport.conf')(passport)
 
     app.setGlobalPrefix('api');
     app.use(bodyParser.json());
@@ -42,8 +39,6 @@ async function bootstrap() {
         saveUninitialized: true
     }));
 
-    app.use(passport.initialize())
-    app.use(passport.session());
     app.use(flash())
 
     app.useGlobalFilters(new HttpExceptionFilter());

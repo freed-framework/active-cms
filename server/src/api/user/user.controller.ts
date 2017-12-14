@@ -8,6 +8,7 @@ import * as uuid from 'node-uuid';
 import * as passport from 'passport';
 import { UsersService } from './user.service';
 import * as Config from '../../config/local.env';
+import { success } from '../../common/common.utils';
 import CommonService from '../../common/common.service';
 import { Exception } from '../../common/exception/error.exception';
 
@@ -19,7 +20,7 @@ export class UsersController {
 
     @Get()
     async getAllUsers(@Request() req, @Response() res) {
-        const { user } = req.session;
+        const { user } = req;
         const users = await this.service.getAllUsers();
 
         const filter = users.filter((item) => {
@@ -31,6 +32,11 @@ export class UsersController {
         res.status(HttpStatus.OK).json(CommonService.commonResponse(filter));
     }
 
+    @Get('/user')
+    async getCurrent(@Request() req, @Response() res) {
+        res.status(HttpStatus.OK).json(success(req.user));
+    }
+
     @Get('/find')
     async getUser(@Request() req, @Response() res) {
         const { id } = req.query;
@@ -40,7 +46,7 @@ export class UsersController {
 
     @Post('/login')
     async login(@Request() req, @Response() res, @Body() body, @Next() next) {
-        const { user = {} } = req.session;
+        const { user = {} } = req;
         const { password, userName } = body;
 
         passport.authenticate('local', (err, user, info) => {

@@ -11,6 +11,16 @@ import Login from './components/login';
 import { apiHost, ssrHost } from './config';
 
 const http = new Http();
+// 拦截器 所有请求头添上Authorization
+http.request(
+    req => {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+            req.headers.Authorization = `bearer ${token}`;
+        }
+        return req;
+    }
+)
 
 http.axios.defaults.timeout = 140000;
 
@@ -110,7 +120,7 @@ export const fetchAllUsers = () => http.get(`${apiHost}/users`);
 /**
  * 分享页面
  * params 参数包含
- * - users {Array<pageId, userId>} 
+ * - users {Array<pageId, userId>}
  */
 export const sharePage = (params) => http.post(`${apiHost}/page/share`, params);
 
@@ -129,12 +139,17 @@ export const shareList = (params) => http.get(`${apiHost}/share/lists`, params);
  * - userName {string} 用户名
  * - password {string | number} 密码
  */
-export const login = (params) => http.post(`${apiHost}/users/login`, params);
+export const login = (params) => http.post(`${apiHost}/auth/login`, params);
 
 /**
  * 退出登录
  */
 export const logout = () => http.get(`${apiHost}/users/logout`);
+
+/**
+ * 获取当前用户信息
+ */
+export const user = () => http.get(`${apiHost}/users/user`);
 
 /**
  * 上传zip

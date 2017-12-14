@@ -2,7 +2,7 @@
  * @file attrEdit.jsx
  * @author denglingbo
  *
- * Des
+ * Des, shijh
  */
 import React, { PureComponent } from 'react';
 import { editComponent } from '../../pages/editor/App';
@@ -17,9 +17,31 @@ class Attr extends PureComponent {
         }
     }
 
+    /**
+     * 修改input值
+     */
     handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
         const {target} = this.props;
+
+        this.setState({
+            [target]: event.currentTarget.value,
+        });
+
+        // editComponent(event, 'attr');
+    }
+
+
+    /**
+     * 回车保存数据
+     *
+     * @param {elementEvent} event
+     */
+    handleKeyUp = (event) => {
+        if (event.keyCode !== 13) return false;
+
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const { target } = this.props;
 
         this.setState({
             [target]: event.currentTarget.value,
@@ -41,6 +63,7 @@ class Attr extends PureComponent {
                         data-guid={guid}
                         data-target={target}
                         onChange={this.handleChange}
+                        onKeyUp={this.handleKeyUp}
                         value={this.state[target]}
                     />
                 </div>

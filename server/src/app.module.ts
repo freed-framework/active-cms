@@ -12,6 +12,7 @@ import { ForkModule } from './api/fork/fork.module';
 import { FolderModule } from './api/folder/folder.module';
 import { UrlModule } from './api/url/url.module';
 import { ImageModule } from './api/image/image.module';
+import AuthModule from './api/auth/auth.module';
 
 @Module({
     modules: [
@@ -21,7 +22,8 @@ import { ImageModule } from './api/image/image.module';
         ForkModule,
         FolderModule,
         UrlModule,
-        ImageModule
+        ImageModule,
+        AuthModule
     ]
 })
 export class ApplicationModule implements NestModule {
