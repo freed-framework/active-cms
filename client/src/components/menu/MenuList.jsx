@@ -28,7 +28,7 @@ export default class TopMenu extends PureComponent {
     }
 
     componentDidMount() {
-        this.setCurrent()
+        this.setCurrent();
     }
 
     setCurrent = () => {

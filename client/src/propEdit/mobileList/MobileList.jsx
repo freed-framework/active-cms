@@ -9,6 +9,8 @@ import module from '../../common/module';
 import { editComponentByGuid } from '../../pages/editor/App';
 import ENV from '../../../../conf/env';
 
+import { Continue } from '../../components/guide/App';
+
 const Option = Select.Option;
 
 /**
@@ -101,8 +103,8 @@ class MobileList extends PureComponent {
 
     uploadSuccess = (res) => {
         const data = createImgData(res.data);
-
         this.changeData(this.state.arr.concat(data));
+        Continue();
     }
 
     uploadFail = () => {
@@ -189,7 +191,13 @@ class MobileList extends PureComponent {
                             <span>({this.state.arr.length})</span>
                         </button>
                         <FileUpload options={options}>
-                            <button ref='chooseAndUpload'>批量上传图片</button>
+                            <button
+                                className="guide-steps-handler"
+                                data-guide={'{"step": 2, "tip": "此按钮为批量上传按钮", "nextStep": 3, "stop": true}'}
+                                ref='chooseAndUpload'
+                            >
+                                批量上传图片
+                            </button>
                         </FileUpload>
                     </p>
                     <p>

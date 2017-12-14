@@ -3,6 +3,16 @@
 const config: Config = {
     name: 'mobile/list',
     isCommon: true,
+    className: 'guide-steps-handler',
+    dataTable: {
+        'data-guide': {
+            "step": 1,
+            "tip": "此按钮为添加功能块按钮",
+            "trigger": "click",
+            "delay": 800,
+            "nextStep": 2
+        },
+    },
     displayName: '图片列表',
     iconType: 'pictures',
     menus: [],

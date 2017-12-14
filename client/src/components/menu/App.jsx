@@ -48,6 +48,7 @@ class TopMenu extends PureComponent {
                 <div className="triangle-left" />
                 <Button
                     className="ec-editor-btn"
+                    
                     size="small"
                     onClick={viewer}
                 >
@@ -55,7 +56,8 @@ class TopMenu extends PureComponent {
                     <span>预览</span>
                 </Button>
                 <Button
-                    className="ec-editor-btn"
+                    className="ec-editor-btn guide-steps-handler"
+                    data-guide={'{"step": 4, "tip": "此按钮为保存按钮", "delay": 600, "nextStep": 5}'}
                     size="small"
                     onClick={saveData}
                 >
@@ -63,7 +65,8 @@ class TopMenu extends PureComponent {
                     <span>保存</span>
                 </Button>
                 <Button
-                    className="ec-editor-btn"
+                    className="ec-editor-btn guide-steps-handler"
+                    data-guide={'{"step": 7, "tip": "点击发布"}'}
                     size="small"
                     onClick={handlePush}
                 >

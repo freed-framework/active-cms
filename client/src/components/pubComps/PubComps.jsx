@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Font from 'font';
 import { withRouter } from 'react-router-dom';
 import { Row, Col, Button, Icon } from 'antd';
+import classNames from 'classnames';
 import { addComponent } from '../../pages/editor/App';
 import './pubComps.scss';
 import piclist2 from '../../images/icon-svg/piclist2.svg';
@@ -49,7 +50,9 @@ class PubComps extends PureComponent {
 
         return (
             <div className="ec-editor-pub-comps ec-editor-layout-fixed">
-                {/* <div className="ec-editor-layout-fixed-title">通用组件</div> */}
+                <div className="ec-editor-layout-fixed-title">
+                    <span className="ec-editor-logo" />
+                </div>
                 <Row className="ec-editor-layout-fixed-main">
                     {keys.map((k, index) => {
                         const conf = lib[k].config;
@@ -63,7 +66,8 @@ class PubComps extends PureComponent {
                                     <div
                                         data-name={conf.name}
                                         onClick={addComponent}
-                                        className="ec-editor-pub-comps-items"
+                                        data-guide={`${conf.dataTable ? JSON.stringify(conf.dataTable['data-guide']) : ''}`}
+                                        className={classNames("ec-editor-pub-comps-items", conf.className)}
                                     >
 
                                         {conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}

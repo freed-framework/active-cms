@@ -6,11 +6,13 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import classnames from 'classnames';
+import mitt from 'mitt';
 import { Popconfirm, Popover } from 'antd';
 import ReactDOM from 'react-dom';
 import { getRect } from '../../utils';
+const emitter = mitt();
 
 /**
  * canvas 填充颜色
@@ -59,93 +61,180 @@ function drawRect(ctx, options, color, offset = 10) {
     draw(ctx, r, 0, scrollWidth - r, scrollHeight, color);
 }
 
+/**
+ * 对目标数组进行排序
+ *
+ * @param {Array} arr 目标数组 
+ */
+function sort(arr = []) {
+    return arr.sort((a, b) => {
+        return a.step - b.step;
+    })
+}
+
+/**
+ * 获取页面上需要新手引导的点
+ */
+function getSteps() {
+    const steps = document.querySelectorAll('.guide-steps-handler');
+    const result = {
+        steps: {}
+    };
+
+    for (let i = 0; i < steps.length; i++) {
+        let options = {};
+        const guide = steps[i];
+        const data = guide.getAttribute('data-guide');
+
+        if (!data) { continue; }
+        
+        try {
+            options = JSON.parse(data)
+        } catch (e) {
+            console.error(e);
+        }
+
+        result.steps[options.step] = {
+            ...options,
+            guide
+        }
+    }
+
+    return result;
+}
 
 class Guide extends Component {
     static propTypes = {
-        prefixCls: 'com-guide'
+        prefixCls: PropTypes.string,
+        isGuide: PropTypes.bool,
+        guide: PropTypes.string,
     }
 
     constructor(props) {
         super(props);
-        this.guides = [];
-        this.keys = [];
-        this.step = 0;
-        this.steps = {};
+        this.guides = {
+            steps: {}
+        };
+        this.step = 1;
+
+        this.timer = [];
+
+        const guide = localStorage.getItem(props.guide)
 
         this.state = {
             con: {},
             guideCon: {},
-            showModal: false
+            hasGuid: !!guide,
+            showModal: false,
+            popShow: false,
+            tipText: '下一步'
         }
+
+        emitter.on('guide-continue', this.continue);
     }
 
     componentDidMount() {
-        this.guides = document.querySelectorAll('.anchor-for-guide');
-        if (this.guides.length > 0) {
+        const { hasGuid } = this.state;
+        if (!hasGuid) {
             this.setState({
                 showModal: true
             }, () => {
-               
-                this.steps = {}
-                const dom = document.querySelector('#mask-canvas');
-                const { scrollWidth, scrollHeight } = document.body;
-                dom.height = scrollHeight;
-                dom.width = scrollWidth;
-                const cnt = dom.getContext('2d');
-                for (let i = 0; i < this.guides.length; i++) {
-                    const guide = this.guides[i];
-                    const data = guide.getAttribute('data-guide');
-                    let options = {}
+                this.timer = setTimeout(() => {
+                    this.guides = getSteps();
+                    const dom = document.querySelector('#mask-canvas');
+                    const { scrollWidth, scrollHeight } = document.body;
+                    dom.height = scrollHeight;
+                    dom.width = scrollWidth;
+                    const cnt = dom.getContext('2d');
 
-                    if (!data) { continue; }
-        
-                    try {
-                        options = JSON.parse(data)
-                    } catch (e) {
-                        console.error(e);
-                    }
+                    this.guides.cnt = cnt;
+                    this.guides.dom = dom;
 
-                    this.steps[options.index] = {
-                        ...options,
-                        guide,
-                        cnt
-                    }
-                }
-        
-                this.step = 0;
-                this.keys = Object.keys(this.steps);
-  
-                this.startGuide()
+                    this.start()
+                    this.setState({
+                        popShow: true
+                    })
+                }, 600)
             })
         }
     }
 
-    startGuide = () => {
-        const {guide, cnt, ...opt} = this.steps[this.keys[this.step]];
+    componentWillMount() {
+        clearTimeout(this.timer);
+    }
+
+    start = () => {
+        const {cnt, steps} = this.guides;
+        const { guide, ...opt } = steps[this.step];
         const rect = getRect(guide);
+        if (opt.done) {
+            this.setState({
+                tipText: '完成'
+            })
+        }
         this.setState({
             con: rect,
             guideCon: opt
         }, () => {
-            drawRect(cnt, rect, 'rgba(0, 0, 0, .2)');
+            drawRect(cnt, rect, 'rgba(0, 0, 0, .8)');
         })
-        this.step += 1;
+        this.step = opt.step;
     }
 
-    nextStep = (e) => {
-        const isLast = this.keys.length === this.step;
-        if (isLast) {
+    /**
+     * 点击下一步执行逻辑
+     */
+    nextStep = () => {
+        clearTimeout(this.timer);
+        const { steps } = this.guides;
+        const { guide, ...opt } = steps[this.step];
+        const { nextStep, delay = 0, trigger = 'click', stop, next } = opt;
+        guide[trigger]();
+        if (opt.done) {
             this.setState({
-                showModal: false
+                showModal: false,
+                popShow: false
+            }, () => {
+                localStorage.setItem(this.props.guide, new Date * 1)
             })
+            return false;
+        }
+        this.step = nextStep;
+        if (stop) {
+            return;
+        }
+        if (next) {
+            const { targetElement, ...options } = next;
+            const el = document.querySelector(targetElement);
+            this.guides.steps[options.step] = {
+                guide: el,
+                ...options
+            }
+            this.step = options.step;
+            this.start()
+            return;
+        }
+        
+        if (delay) {
+            this.timer = setTimeout(() => {
+                this.guides.steps = getSteps().steps;
+                this.step = nextStep;
+                this.start();
+            }, delay)
         } else {
-            this.startGuide();
+            this.step = nextStep;
+            this.start();
         }
     }
 
+    continue = () => {
+        clearTimeout(this.timer);
+        this.start();
+    }
+
     render() {
-        const { prefixCls } = this.props;
-        const { con, guideCon, showModal } = this.state;
+        const { prefixCls, isGuide = true } = this.props;
+        const { con, guideCon, showModal, popShow } = this.state;
         return (
             <div>
                 
@@ -153,12 +242,13 @@ class Guide extends Component {
                     showModal && <canvas id="mask-canvas" className="com-guide" />
                 }
                 {
-                    showModal && <Popconfirm
+                    popShow && <Popconfirm
                         visible
-                        placement="topLeft"
+                        overlayClassName="pop-guide"
+                        placement="bottomLeft"
                         title={guideCon.tip}
                         onConfirm={this.nextStep}
-                        okText={ this.keys.length === this.step ? "ok" : "下一步"}
+                        okText={this.state.tipText}
                     >
                         <div
                             className="com-guide-rect"
@@ -168,12 +258,16 @@ class Guide extends Component {
                                 width: con.right - con.left,
                                 height: con.bottom - con.top
                             }}
-                        ></div>
+                        />
                     </Popconfirm>
                 }
             </div>
         )
     }
+}
+
+export function Continue() {
+    emitter.emit('guide-continue');
 }
 
 export default Guide;

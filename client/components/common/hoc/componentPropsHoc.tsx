@@ -88,7 +88,6 @@ const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => cl
     public render(): JSX.Element {
         return (
             <WrappedComponent
-                {...this.state}
                 {...this.props}
             />
         );
