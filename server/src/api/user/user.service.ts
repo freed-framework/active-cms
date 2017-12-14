@@ -9,6 +9,33 @@ const folderService = new FolderService()
 @Component()
 export class UsersService {
     /**
+     * 通过id获取指定用户
+     */
+    async one(id) {
+        const result = await UsersModel.findById(id, {password: 0, salt: 0, folder: 0}, (err, doc) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+            return doc;
+        })
+
+        return result;
+    }
+
+    /**
+     * 通过用户名或者邮箱获取用户
+     *
+     * @param name 用户名或者邮箱
+     */
+    async findByName(name) {
+        const result = await await UsersModel.findOne({}).or([{ email: name }, { userName: name }]).exec();
+
+
+
+        return result;
+    }
+
+    /**
      * 查询全部用户
      */
     async getAllUsers() {
@@ -23,7 +50,7 @@ export class UsersService {
 
     /**
      * 查询指定id
-     * @param {string} id 用户id 
+     * @param {string} id 用户id
      */
     async getUser(param) {
         const result = await UsersModel.findOne(param, {password: 0}, (err, doc) => {
@@ -59,7 +86,7 @@ export class UsersService {
 
     /**
      * 新增用户
-     * @param {Object} user 新增用户信息 
+     * @param {Object} user 新增用户信息
      */
     async addUser(user) {
         const model: any = new UsersModel(user);

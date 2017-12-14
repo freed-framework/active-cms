@@ -61,8 +61,6 @@ export default class GoodsNumber extends PureComponent {
 
         const rows = getList(value, this.childs);
 
-        console.log(rows)
-
         editComponentByType({guid, attr, target, value: rows}, 'children');
     }
 

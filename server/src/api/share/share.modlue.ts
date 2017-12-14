@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { ShareController } from './share.controller';
 import { ShareService } from './share.service';
-import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
+import { JwtMiddleware } from '../auth/auth.middleware';
 
 @Module({
     controllers: [
@@ -16,7 +16,7 @@ import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 export class ShareModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
-            .apply(AuthMiddleware)
+            .apply(JwtMiddleware)
             .forRoutes(ShareController)
     }
 }

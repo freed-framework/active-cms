@@ -42,6 +42,9 @@ class BasicEdit extends PureComponent {
         }
     }
 
+    /**
+     * 背景颜色修改
+     */
     onBackgroundChange = ({option, value}) => {
         const { guid, target } = this.props;
 
@@ -58,7 +61,11 @@ class BasicEdit extends PureComponent {
         );
     }
 
+    /**
+     * 回车修改元数据
+     */
     handleKeyUp = (event) => {
+        if (event.keyCode !== 13) return;
         // 要修改某个元素的对应关系, layout, main, ...
         const { target, guid } = this.props;
         const attr = event.currentTarget.getAttribute('data-attr');
@@ -68,15 +75,16 @@ class BasicEdit extends PureComponent {
             ['componentProps', 'style', target, attr] :
             ['componentProps', 'style', attr];
 
-        if (event.keyCode === 13) {
-            editComponentByGuid(
-                guid,
-                keys,
-                value,
-            );
-        }
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
     }
 
+    /**
+     * 回车修改input数据
+     */
     handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
         const value = event.currentTarget.value;

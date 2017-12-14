@@ -1,36 +1,60 @@
+/**
+ * @file App.jsx
+ * @author shijh
+ *
+ * 编辑组件引入
+ */
 
-import Attr from './attr';
-import Background from './background';
-import Basic from './basic';
-import Border from './border';
-import ColorPicker from './colorPicker';
-import Position from './position';
-import Radio from './radio';
-import MultiData from './multiData';
-import Grid from './grid';
-import SetTabs from './setTabs';
-import GoodsNumber from './goodsNumber';
-import Upload from './upload';
-import ImgUrl from './imgUrl';
-import MobileList from './mobileList';
-import ClickArea from './clickArea';
-import EditDataNumber from './editDataNumber';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import * as EditItem from './export';
+import './propsEdit.scss';
 
-export {
-    Attr,
-    Background,
-    Basic,
-    Border,
-    ColorPicker,
-    Position,
-    Radio,
-    MultiData,
-    Grid,
-    SetTabs,
-    GoodsNumber,
-    Upload,
-    ImgUrl,
-    MobileList,
-    ClickArea,
-    EditDataNumber,
+export default class EditAttr extends PureComponent {
+    static propTypes = {
+        editable: PropTypes.arrayOf(PropTypes.any),
+        guid: PropTypes.string,
+    }
+
+    loopRender = () => {
+        const {
+            guid,
+            editable = [],
+            componentProps = {},
+            config = {},
+            topWrappedModule = null,
+        } = this.props;
+
+        return editable.map((item, index) => {
+            // 对应的编辑组件
+            const EditComponent = EditItem[item.component];
+
+            // 将 {component}/index.ts 的 config 中的可编辑项与需要传递到编辑组件的属性进行合并
+            const props = {
+                ...item,
+                ...(topWrappedModule && { topWrappedModule }),
+                defaultValues: {
+                    ...config.defaultValues
+                },
+                children: this.props.children,
+                componentProps,
+            };
+
+            return (
+                <EditComponent
+                    key={index}
+                    guid={guid}
+                    {...props}
+                />
+            );
+        })
+    }
+
+    render() {
+        return (
+            <div>
+               {this.loopRender()}
+            </div>
+        )
+    }
 }
