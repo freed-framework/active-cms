@@ -14,7 +14,7 @@ let submit = {
     password: null
 }
 
-export default () => {
+export default (code) => {
     if (isShow) return null;
     isShow = true;
 
@@ -40,7 +40,10 @@ export default () => {
         onOk() {
             isShow = false;
             login(submit).then(res => {
-                localStorage.setItem('access_token', res.data.access_token)
+                localStorage.setItem('access_token', res.data.access_token);
+                if (code !== 406) {
+                    location.reload();
+                }
             })
         },
     })

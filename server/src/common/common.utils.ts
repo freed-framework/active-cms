@@ -65,3 +65,17 @@ export const authorization = (data = {}, message = '用户未授权') => {
         data
     }
 }
+
+/**
+ * 登录失效
+ */
+ export const expired = (data = {}, message = '登录过期') => {
+    if (data === null) {
+        data = {}
+    }
+    return {
+        code: 406,
+        message,
+        data
+    }
+}

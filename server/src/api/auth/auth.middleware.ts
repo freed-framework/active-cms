@@ -1,7 +1,7 @@
 import * as passport from "passport";
 import { Middleware, NestMiddleware, ExpressMiddleware, HttpException, HttpStatus } from '@nestjs/common';
 import { NextFunction } from 'express';
-import { fail, notFound } from '../../common/common.utils';
+import { fail, notFound, expired } from '../../common/common.utils';
 
 @Middleware()
 export class JwtMiddleware implements NestMiddleware {
@@ -20,7 +20,7 @@ export class JwtMiddleware implements NestMiddleware {
                             message = "认证失败"
                             break
                         case 'jwt expired':
-                            message = "登录过期"
+                            res.status(HttpStatus.OK).json(expired({}, "登录过期"))
                             break
                     }
                     res.status(HttpStatus.OK).json(notFound({}, message))
