@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Font from 'font';
 import { Row, Col, Button, Icon, Input, Select } from 'antd';
 import { addComponent, saveData, viewer } from '../../pages/editor/App';
+import Particle from '../../components/particle';
 
 const Search = Input.Search;
 const Option = Select.Option;
@@ -83,7 +84,13 @@ export default class TopMenu extends PureComponent {
             >
                 <Row>
                     <Col span={4} className="ec-editor-banner-left">
-                        <span className="ec-editor-logo" />
+                        {/*<span className="ec-editor-logo" />*/}
+                        {/*<img src={require('../../images/wuget-logo-white.png')} height={50} />*/}
+                        <Particle
+                            imgUrl={require('../../images/wuget-logo-white.png')}
+                            width={140}
+                            height={50}
+                        />
                     </Col>
                     <Col span={8} className="ec-editor-banner-center">
                     </Col>
