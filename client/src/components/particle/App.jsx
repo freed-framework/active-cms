@@ -15,6 +15,8 @@
  blue = imgData.data[2];
  alpha = imgData.data[3];
 
+ TODO 容我慢慢优化吧
+
  */
 import React, { PureComponent } from 'react';
 import { setHiDPICanvas } from './dpi';
@@ -256,8 +258,6 @@ class Particle extends PureComponent {
         });
 
         this.animate(dots, () => {
-            console.log('done')
-
             this.setState({
                 animateEnd: true,
             });
