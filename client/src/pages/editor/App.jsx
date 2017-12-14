@@ -17,8 +17,7 @@ import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '..
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { user } from '../../actions/user';
-import { userReducer } from '../../reducers';
+import { getUser } from '../../actions/user';
 import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
@@ -30,10 +29,10 @@ const emitter = mitt();
 
 @connect(
     () => ({
-        userReducer
+        user: state.toJS().user.data,
     }),
     dispatch => bindActionCreators({
-        user
+        getUser
     }, dispatch)
 )
 class App extends PureComponent {
