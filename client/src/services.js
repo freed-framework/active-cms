@@ -29,8 +29,8 @@ http.axios.defaults.timeout = 140000;
  */
 http.response(
     res => {
-        if (res.data.code === 401) {
-            Login();
+        if (res.data.code === 401 || res.data.code === 401) {
+            Login(res.data.code);
             return Promise.reject(res);
         }
         return Promise.resolve(res);
@@ -39,7 +39,7 @@ http.response(
         if (err.response) {
             const status = err.response.status;
             if (status === 401) {
-                Login();
+                Login(status);
             }
         }
         return Promise.reject(err);
