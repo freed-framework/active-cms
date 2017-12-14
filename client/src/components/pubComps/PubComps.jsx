@@ -43,8 +43,7 @@ class PubComps extends PureComponent {
                 })
             });
 
-        const el = this.logo;
-        this.rect = el.getBoundingClientRect();
+        this.rect = this.logo.getBoundingClientRect();
 
     }
 
