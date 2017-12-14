@@ -28,7 +28,7 @@ const confirm = Modal.confirm;
 const emitter = mitt();
 
 @connect(
-    () => ({
+    (state) => ({
         user: state.toJS().user.data,
     }),
     dispatch => bindActionCreators({
