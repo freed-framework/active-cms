@@ -3,7 +3,7 @@
 const config: Config = {
     name: 'mobile/layer',
     isCommon: true,
-    displayName: '楼层',
+    displayName: '布局',
     iconType: 'layers',
     menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
     editable: [
