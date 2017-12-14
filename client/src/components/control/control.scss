@@ -1,7 +1,7 @@
 @import "../../css/common";
 
 .ec-edit-control {
-    @include bezierAnimate(out-quint, 0.4s);
+    @include bezierAnimate(out-quint, 0.2s);
     position: absolute;
     visibility: hidden;
     z-index: 887;
