@@ -40,14 +40,13 @@ export class ShareController {
 
     @Get('/lists')
     async lists(@Request() req, @Response() res) {
-        const { query, session } = req;
-        const { user } = session;
-
+        const { query, session, user } = req;
         const { content = '' } = query;
+
         let result = await this.service.query(query, { user: user._id });
         res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
     }
-    
+
     @Post('/add')
     async add(@Response() res, @Body() body) {
         const { userId, pageId } = body;

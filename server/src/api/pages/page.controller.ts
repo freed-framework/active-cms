@@ -28,7 +28,7 @@ export class PageController {
         const page: any = await this.service.getPage(id);
         const { user } = req;
 
-        if (!page || user._id != page.owerUser) {
+        if (!page || `${user._id}` != `${page.owerUser}`) {
             throw new Exception('删除页面失败', 500);
         }
         else {

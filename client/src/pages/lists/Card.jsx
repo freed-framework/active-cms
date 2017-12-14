@@ -368,7 +368,7 @@ export default class componentName extends PureComponent {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
-                            {/* {
+                            {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -377,8 +377,8 @@ export default class componentName extends PureComponent {
                                     <Font type="trash-can" />
                                     <span className="page-list-card-text">删除</span>
                                 </li>
-                            } */}
-                            {/* {
+                            }
+                            {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -387,7 +387,7 @@ export default class componentName extends PureComponent {
                                     <Font type="move" />
                                     <span className="page-list-card-text">分享</span>
                                 </li>
-                            } */}
+                            }
                             {/* {
                                 current !== 'publish' && isOwer &&
                                 <li
@@ -395,7 +395,7 @@ export default class componentName extends PureComponent {
                                     onClick={this.handleUpload}
                                 >
                                     <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
-                                    <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
+                                    <span className="page-list-card-text">{data.publish ? '撤回' : '公开'}</span>
                                 </li>
                             } */}
                             {
