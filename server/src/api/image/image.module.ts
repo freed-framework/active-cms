@@ -4,9 +4,9 @@ import {
 
 import { ImageController } from './image.controller';
 import { ImageService } from './image.service';
-import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 import { UploadMiddleware } from '../../common/middlewares/upload.middleware';
 import { FileMiddleware } from '../../common/middlewares/file.middleware';
+import { JwtMiddleware } from '../auth/auth.middleware';
 
 @Module({
     controllers: [
@@ -19,7 +19,7 @@ import { FileMiddleware } from '../../common/middlewares/file.middleware';
 export class ImageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
-            .apply(AuthMiddleware)
+            .apply(JwtMiddleware)
             .forRoutes(ImageController)
             .apply(FileMiddleware)
             .forRoutes({

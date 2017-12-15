@@ -18,7 +18,7 @@ const nodeENV = process.env.NODE_ENV;
 export class FileMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
-            console.log(13122222222222222222222222222222222222222222222)
+            console.log(req)
             // 代理到公司上传图片服务器
             proxy.web(req, res, { target: `${ENV.api[nodeENV]}/commonUploadFile/uploadImageFiles?_=1`  }, (e) => {
                 console.log(e);

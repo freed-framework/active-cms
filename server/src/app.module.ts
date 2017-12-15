@@ -35,8 +35,5 @@ export class ApplicationModule implements NestModule {
             // 上传zip活动页拦截器
             .apply(PublishMiddleware)
             .forRoutes({path: '/publish/zip', method: RequestMethod.ALL})
-            // 推送页面
-            // .apply(PushMiddleware)
-            // .forRoutes({path: '/ssr/push', method: RequestMethod.ALL})
     }
 }

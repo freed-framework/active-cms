@@ -5,17 +5,6 @@ export class DevelopmentMiddleware implements NestMiddleware {
     resolve(): ExpressMiddleware {
         return (req, res, next): void => {
             if (process.env.NODE_ENV === 'development') {
-                req.session.user = {
-                    "_id" : "59dae48589b19208c0947821",
-                    "userName" : "22qwe7",
-                    "password" : "12qwaszx",
-                    "userDspName" : "huazaierli2",
-                    "phone" : 18381333613,
-                    "email" : "755836844@qq.com",
-                    "activity" : true,
-                    "birthday" : "2017-10-09T02:52:53.330Z",
-                    "sex" : 1
-                }
                 res.header("Access-Control-Allow-Origin", "*");
                 res.header("Access-Control-Allow-Headers", "X-Requested-With");
                 res.header("Access-Control-Allow-Credentials", "true");
