@@ -2,6 +2,7 @@ import { Module, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import { UsersController } from './user.controller';
 import { UsersService } from './user.service';
 import { FolderModule } from '../folder/folder.module'
+import { JwtMiddleware } from '../auth/auth.middleware';
 
 @Module({
     controllers: [
@@ -12,21 +13,13 @@ import { FolderModule } from '../folder/folder.module'
     ],
     modules: [
         FolderModule
-    ]
+    ],
+    exports:[ UsersService ]
 })
 export class UsersModule {
-    configure(consumer: MiddlewaresConsumer) {
-        // consumer
-        //     .apply(AuthMiddleware)
-        //     .forRoutes(UsersController)
-        //     .apply(LoginMiddleware)
-        //     .forRoutes({
-        //         path: 'users/login',
-        //         method: RequestMethod.ALL
-        //     })
-            // .forRoutes({
-            //     path: 'api/*',
-            //     method: RequestMethod.ALL
-            // })
+    configure(consumer: MiddlewaresConsumer): void {
+        consumer
+            .apply(JwtMiddleware)
+            .forRoutes(UsersController)
     }
 }

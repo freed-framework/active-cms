@@ -21,6 +21,8 @@ class PubComps extends PureComponent {
         this.state = {
             lib: null,
             keys: [],
+            y: 0,
+            leave: true,
         }
     }
 
@@ -39,19 +41,49 @@ class PubComps extends PureComponent {
                     lib: mod,
                     keys,
                 })
-            })
+            });
 
+        this.rect = this.logo.getBoundingClientRect();
+
+    }
+
+    handleMove = (event) => {
+        const y = event.pageY;
+
+        this.setState({
+            y: y - (this.rect.height + this.rect.top),
+            leave: false,
+        });
+    }
+
+    handleLeave = () => {
+        this.setState({
+            y: 0,
+            leave: true,
+        });
     }
 
     render() {
         const { match } = this.props;
-        const { lib, keys } = this.state;
+        const { lib, keys, y, leave } = this.state;
         const type = match.params.type;
 
         return (
             <div className="ec-editor-pub-comps ec-editor-layout-fixed">
-                <div className="ec-editor-layout-fixed-title">
-                    <span className="ec-editor-logo" />
+                <div
+                    className="ec-editor-layout-fixed-title"
+                    onMouseMove={this.handleMove}
+                    onMouseLeave={this.handleLeave}
+                >
+                    <span
+                        ref={ref => { this.logo = ref }}
+                        className={classNames('ec-editor-logo', {
+                            'ec-editor-logo-leave': leave,
+                        })}
+                        style={{
+                            transform: `translateY(${y}px)`,
+                        }}
+                    />
                 </div>
                 <Row className="ec-editor-layout-fixed-main">
                     {keys.map((k, index) => {

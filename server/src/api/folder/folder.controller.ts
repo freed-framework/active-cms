@@ -25,7 +25,7 @@ export class FolderController {
     @Post()
     async add(@Request() req, @Response() res, @Body() body: CreateFolderDto) {
         const { page, parent, ...props } = body;
-        const { user } = req.session;
+        const { user } = req;
         console.log(user)
 
         const parentFolder: any = await this.folderService.findById(parent);

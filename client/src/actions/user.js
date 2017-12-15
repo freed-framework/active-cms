@@ -6,13 +6,16 @@
  */
 
 import ActionType from './ActionType';
+import { user } from '../../src/services';
 
-export const user = (data) => dispatch => (
+export const getUser = () => dispatch => (
     new Promise((resolve) => {
-        dispatch({
-            type: ActionType.GET_USER,
-            data
+        user().then((res) => {
+            dispatch({
+                type: ActionType.GET_USER,
+                payload: res.data
+            })
+            resolve(res)
         })
-        resolve(data)
     })
 )

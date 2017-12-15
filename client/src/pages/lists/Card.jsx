@@ -7,12 +7,15 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Font from 'font';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import moment from 'moment';
 import { Modal, Input, Select, message, Progress, Spin } from 'antd';
 import { Observable } from 'rxjs';
 
 import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage, push } from '../../services';
+import { getUser } from '../../actions/user';
 
 const confirm = Modal.confirm;
 
@@ -22,6 +25,15 @@ function formNowFun(time) {
     return moment(time).locale('zh-cn').fromNow()
 }
 
+
+@connect(
+    state => ({
+        user: state.toJS().user.data,
+    }),
+    dispatch => bindActionCreators({
+        getUser
+    }, dispatch)
+)
 export default class componentName extends PureComponent {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -29,7 +41,8 @@ export default class componentName extends PureComponent {
         onFetchList: PropTypes.func,
         current: PropTypes.string,
         reg: PropTypes.objectOf(PropTypes.any),
-        socket: PropTypes.objectOf(PropTypes.any)
+        socket: PropTypes.objectOf(PropTypes.any),
+        user: PropTypes.objectOf(PropTypes.any)
     }
 
     constructor(props) {
@@ -240,7 +253,7 @@ export default class componentName extends PureComponent {
                 onChange={this.handleUserChange}
                 style={{ width: '100%' }}
             >
-                { 
+                {
                     users.map((item) => {
                         return (
                             <Option key={item.userDspName} item={item}>{item.userDspName}</Option>
@@ -249,7 +262,7 @@ export default class componentName extends PureComponent {
                 }
             </Select>
         )
-    }    
+    }
 
     handlePush = () => {
         const { data = {}, socket } = this.props;
@@ -273,7 +286,7 @@ export default class componentName extends PureComponent {
     }
 
     render() {
-        const { data = {}, current, reg } = this.props;
+        const { data = {}, current, reg, user } = this.props;
         const { formNow, progress } = this.state;
         const isOwer = user._id === data.owerUser._id;
         const isPushing = progress === 0 || progress === 100;
@@ -296,7 +309,7 @@ export default class componentName extends PureComponent {
                         className={'page-list-card-img'}
                         src="http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg"
                     />
-                    
+
                     <div
                         className={
                             classnames('page-list-card-pendant', {
@@ -309,7 +322,7 @@ export default class componentName extends PureComponent {
                     </div>
                 </div>
                 <div className={'page-list-card-button'}>
-                    <p 
+                    <p
                         className={'page-list-card-title'}
                     >
                         <span
@@ -355,7 +368,7 @@ export default class componentName extends PureComponent {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
-                            {/* {
+                            {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -364,8 +377,8 @@ export default class componentName extends PureComponent {
                                     <Font type="trash-can" />
                                     <span className="page-list-card-text">删除</span>
                                 </li>
-                            } */}
-                            {/* {
+                            }
+                            {
                                 isOwer &&
                                 <li
                                     className="page-list-card-icon page-list-card-icon-hover"
@@ -374,7 +387,7 @@ export default class componentName extends PureComponent {
                                     <Font type="move" />
                                     <span className="page-list-card-text">分享</span>
                                 </li>
-                            } */}
+                            }
                             {/* {
                                 current !== 'publish' && isOwer &&
                                 <li
@@ -382,7 +395,7 @@ export default class componentName extends PureComponent {
                                     onClick={this.handleUpload}
                                 >
                                     <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
-                                    <span className="page-list-card-text">{data.publish ? '撤回' : '发布'}</span>
+                                    <span className="page-list-card-text">{data.publish ? '撤回' : '公开'}</span>
                                 </li>
                             } */}
                             {

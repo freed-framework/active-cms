@@ -18,3 +18,4 @@ ReactDOM.render(
     </FrameApp>,
     document.getElementById('root')
 );
+

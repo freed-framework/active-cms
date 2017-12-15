@@ -5,10 +5,20 @@
  */
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { getPage } from '../../services';
 import App from './App';
 import { calc, resizeEvt } from '../../common/mobileMock';
+import { getUser } from '../../actions/user';
 
+@connect(
+    state => ({
+    }),
+    dispatch => bindActionCreators({
+        getUser
+    }, dispatch)
+)
 class Editor extends PureComponent {
     constructor(props) {
         super(props);
@@ -21,7 +31,6 @@ class Editor extends PureComponent {
     componentDidMount() {
         const { match = {} } = this.props;
         const { params = {} } = match;
-
         if (params.type === 'mobile') {
             calc(750);
             window.addEventListener(resizeEvt, calc, false);

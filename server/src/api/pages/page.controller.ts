@@ -26,9 +26,9 @@ export class PageController {
     @Get('/remove/:id')
     async removePage(@Request() req, @Response() res, @Param('id') id) {
         const page: any = await this.service.getPage(id);
-        const { user } = req.session;
+        const { user } = req;
 
-        if (!page || user._id != page.owerUser) {
+        if (!page || `${user._id}` != `${page.owerUser}`) {
             throw new Exception('删除页面失败', 500);
         }
         else {
@@ -48,8 +48,7 @@ export class PageController {
 
     @Get('/lists')
     async queryLists(@Request() req, @Response() res) {
-        const { query } = req;
-        const { user } = req.session;
+        const { query, user } = req;
         const { content = '' } = query;
         let result = await this.service.pagingQuery(query, {owerUser: user._id, title: {$regex: content, $options: 'i'}})
         res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
@@ -57,8 +56,7 @@ export class PageController {
 
     @Get('/shareLists')
     async shareLists(@Request() req, @Response() res) {
-        const { query } = req;
-        const { user } = req.session;
+        const { query, user } = req;
         let result = await this.service.pagingQuery(query, {owerUser: user._id})
         res.status(HttpStatus.OK).json(CommonService.commonResponse(result));
     }
@@ -76,12 +74,12 @@ export class PageController {
     @Post('/publish')
     async publish(@Request() req, @Response() res, @Body() body: IspublishDto) {
         const { id, type = true } = body;
-        const { user } = req.session;
+        const { user } = req;
         const page: any = await this.service.getPage(id, {content: 0});
 
         if (user._id != page.owerUser) {
             throw new Exception('操作错误', 500);
-        } 
+        }
         else {
             const result = await this.service.update(id, {publish: type});
             res.status(HttpStatus.OK).json(CommonService.commonResponse({}));
@@ -91,7 +89,7 @@ export class PageController {
     @Post('/update/fork')
     async updateFork(@Request() req, @Response() res, @Body() body) {
         const { id, title } = body;
-        const { user } = req.session;
+        const { user } = req;
         const result = await this.service.updateFork(user._id, id, title);
         res.status(HttpStatus.OK).json(result);
     }
@@ -107,7 +105,7 @@ export class PageController {
     @Post()
     @UsePipes(new encodeCreatePipe())
     async addPage(@Request() req, @Response() res, @Body() body: CreatePageDto) {
-        const { user } = req.session;
+        const { user } = req;
         const result = await this.service.addPage({
             body,
             createUser: user._id,

@@ -10,9 +10,9 @@
  */
 import ENV from '../../conf/env';
 
-export const apiHost = `${ENV.domain}/api`;
+// export const apiHost = `${ENV.domain}/api`;
 // export const ssrHost = `${ENV.domain}/ssr`;
-// export const apiHost = 'http://172.30.40.16:3000/api';
+export const apiHost = 'http://172.30.46.6:3000/api';
 // export const ssrHost = 'http://localhost:12345/ssr';
 
 /**
