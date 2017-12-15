@@ -603,14 +603,6 @@ class App extends PureComponent {
                 >
                     <PubComps />
 
-                    {/* <TODO> 赵丽丽，，你咋个好意思把这个 div 放在 LayerCake 的外面呢，空了修改掉 */}
-                    <div
-                        className={cls}
-                        onClick={this.handleShow}
-                    >
-                        <Icon type="right" />
-                    </div>
-
                     {/* 已经添加的组件列表 */}
                     <LayerCake
                         activeId={this.state.activeId}

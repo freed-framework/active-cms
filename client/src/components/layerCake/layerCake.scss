@@ -11,8 +11,54 @@
     color: #DEDEE0;
     transform: translateX(-160px);
 
+    .icon{
+        @include bezierAnimate();
+        position: fixed;
+        left: 134px;
+        top: 50%;
+        margin-top: -24px;
+        z-index: 200;
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        border-radius: 50%;
+        text-align: center;
+        background: #212125;
+        box-shadow: 2px 0 1px 0 #000000;
+
+        .anticon-right:before {
+            @include bezierAnimate();
+            font-size: 24px;
+            color: #8E8E94;
+            line-height: 48px;
+            padding-left: 12px;
+        }
+    }
+
     &-active {
         transform: translateX(0);
+        .icon{
+            @include bezierAnimate();
+            transform: scale(0.8);
+            left: -24px;
+
+            .anticon-right:before {
+                @include bezierAnimate();
+                transform: rotate(180deg);
+                margin-left: 18px;
+            }
+        }
+    }
+
+    .layercake-hide {
+        @include bezierAnimate();
+        transform: scale(0.8);
+
+        .anticon-right:before {
+            @include bezierAnimate();
+            transform: rotate(180deg);
+            margin-left: 18px;
+        }
     }
 
     &-title {

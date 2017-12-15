@@ -72,6 +72,13 @@ class LayerCake extends PureComponent {
         })
     }
 
+    handleShow = () => {
+        const active = this.state.active;
+        this.setState({
+            active: !active,
+        })
+    }
+
     render() {
         const { data, active, activeId, editVisible } = this.state;
 
@@ -82,6 +89,12 @@ class LayerCake extends PureComponent {
 
         return (
             <div className={cls}>
+                <div
+                    className="icon"
+                    onClick={this.handleShow}
+                >
+                    <Icon type="right" />
+                </div>
                 <div className="ec-editor-layer-cake-title">
                     <Icon type="layout" />
                     <span className="ec-editor-layer-cake-title-name">已添加组件</span>
