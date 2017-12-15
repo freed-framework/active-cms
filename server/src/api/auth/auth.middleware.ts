@@ -20,7 +20,6 @@ export class JwtMiddleware implements NestMiddleware {
                             message = notFound({}, "认证失败")
                             break
                         case 'jwt expired':
-                            // res.status(HttpStatus.OK).json(expired({}, "登录过期"))
                             message = expired({}, "登录过期");
                             break
                     }

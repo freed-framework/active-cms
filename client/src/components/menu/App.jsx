@@ -1,12 +1,32 @@
+/*
+ * @file: App.jsx
+ * @Author: shijh
+ * @CreateDate: 2017-12-15 10:57:34
+ * @Last Modified by: shijh
+ * @Last Modified time: 2017-12-15 10:58:46
+ *
+ * 新建编辑页menu
+ */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { is } from 'immutable';
 import Font from 'font';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Row, Col, Button, Icon } from 'antd';
 import { addComponent, saveData, viewer, handlePush } from '../../pages/editor/App';
 import back from '../../images/icon-svg/back.svg';
+import { getUser } from '../../actions/user';
 
+@connect(
+    state => ({
+        user: state.toJS().user.data,
+    }),
+    dispatch => bindActionCreators({
+        getUser
+    }, dispatch)
+)
 class TopMenu extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
@@ -25,15 +45,27 @@ class TopMenu extends PureComponent {
             });
         }
     }
+
+    /**
+     * 返回我的页面
+     */
     handleGoBack = () => {
         const { length, goBack, replace } = this.props.history;
 
         // 新打开页面length为2
-        if (length <= 2) {
-            replace('/lists/publish');
-        } else {
-            goBack();
-        }
+        // if (length <= 2) {
+        replace('/lists/my');
+        // } else {
+        //     goBack();
+        // }
+    }
+
+    /**
+     * 退出登录
+     */
+    handleLogout = () => {
+        localStorage.removeItem('access_token');
+        this.props.getUser()
     }
 
     render() {
@@ -48,7 +80,7 @@ class TopMenu extends PureComponent {
                 <div className="triangle-left" />
                 <Button
                     className="ec-editor-btn"
-                    
+
                     size="small"
                     onClick={viewer}
                 >
@@ -86,6 +118,7 @@ class TopMenu extends PureComponent {
                 <Button
                     className="ec-editor-btn ec-editor-btn-red"
                     size="small"
+                    onClick={this.handleLogout}
                 >
                     <Icon type="poweroff" />
                     <span>退出</span>
