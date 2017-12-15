@@ -29,7 +29,7 @@ http.axios.defaults.timeout = 140000;
  */
 http.response(
     res => {
-        if (res.data.code === 401 || res.data.code === 401) {
+        if (res.data.code === 401 || res.data.code === 406) {
             Login(res.data.code);
             return Promise.reject(res);
         }

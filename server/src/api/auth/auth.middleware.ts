@@ -17,13 +17,14 @@ export class JwtMiddleware implements NestMiddleware {
                         case 'No auth token':
                         case 'invalid signature':
                         case 'jwt malformed':
-                            message = "认证失败"
+                            message = notFound({}, "认证失败")
                             break
                         case 'jwt expired':
-                            res.status(HttpStatus.OK).json(expired({}, "登录过期"))
+                            // res.status(HttpStatus.OK).json(expired({}, "登录过期"))
+                            message = expired({}, "登录过期");
                             break
                     }
-                    res.status(HttpStatus.OK).json(notFound({}, message))
+                    res.status(HttpStatus.OK).json(message);
                 } else {
                     req.user = user
                     next()
