@@ -25,6 +25,7 @@ client/lib/
 client/ssr/publish/
 
 server/images/
+server/logs/*
 
 ssr/node_modules
 ssr/render
