@@ -11,7 +11,7 @@
     color: #DEDEE0;
     transform: translateX(-160px);
 
-    .icon{
+    .icon-btn {
         @include bezierAnimate();
         position: fixed;
         left: 134px;
@@ -37,7 +37,8 @@
 
     &-active {
         transform: translateX(0);
-        .icon{
+
+        .icon-btn {
             @include bezierAnimate();
             transform: scale(0.8);
             left: -24px;
@@ -47,17 +48,6 @@
                 transform: rotate(180deg);
                 margin-left: 18px;
             }
-        }
-    }
-
-    .layercake-hide {
-        @include bezierAnimate();
-        transform: scale(0.8);
-
-        .anticon-right:before {
-            @include bezierAnimate();
-            transform: rotate(180deg);
-            margin-left: 18px;
         }
     }
 

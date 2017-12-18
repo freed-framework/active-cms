@@ -90,7 +90,7 @@ class LayerCake extends PureComponent {
         return (
             <div className={cls}>
                 <div
-                    className="icon"
+                    className="icon-btn"
                     onClick={this.handleShow}
                 >
                     <Icon type="right" />
