@@ -120,16 +120,13 @@ class Particle extends PureComponent {
 
     componentDidMount() {
         this.loadImage();
-
-        this.context = this.canvas.getContext('2d');
-
         // setHiDPICanvas(this.canvas, this.props.width, this.props.height);
     }
 
     getImgData() {
         const { width, height } = this.props;
         const dots = [];
-        const imgData = this.context.getImageData(0, 0, width, height);
+        const imgData = this.canvas.getContext('2d').getImageData(0, 0, width, height);
 
         const radius = 1;
         // 隔 N - 1 个像素点取值
@@ -142,11 +139,9 @@ class Particle extends PureComponent {
                 // 是从上到下，从左到右的，每个像素需要占用4位数据
                 // 分别是 r, g, b, alpha 透明通道
                 const i = (y * imgData.width + x) * 4;
-                // const i =
 
                 // 将透明度大于 x 的像素点位置存入数组 dots
-                // if (imgData.data[i + 3] >= 128) {
-                // if (imgData.data[i] !== 0) {
+                if (imgData.data[i + 3] >= 128) {
                     const dot = new Dot({
                         centerX: x - radius * .5,
                         centerY: y - radius * .5,
@@ -158,11 +153,12 @@ class Particle extends PureComponent {
                             r: imgData.data[i],
                             g: imgData.data[i + 1],
                             b: imgData.data[i + 2],
+                            a: imgData.data[i + 3],
                         }
                     });
 
                     dots.push(dot);
-                // }
+                }
             }
         }
 
@@ -184,7 +180,7 @@ class Particle extends PureComponent {
             const xs = img.width / width;
             const s = Math.max(xs, ys);
 
-            this.context.drawImage(img, 0, 0, width, height);
+            this.canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 
             this.dots = this.getImgData();
         }
@@ -192,7 +188,8 @@ class Particle extends PureComponent {
 
     animate(dots, finishCallback) {
         const canvas = this.canvas;
-        const context = this.context;
+        const context = canvas.getContext('2d');
+
         const { width, height } = this.props;
 
         function run() {

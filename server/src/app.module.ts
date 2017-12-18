@@ -30,7 +30,7 @@ export class ApplicationModule implements NestModule {
     configure(consumer: MiddlewaresConsumer): void {
         // consumer.apply(PassportMiddleware).forRoutes({path: '/*', method: RequestMethod.ALL})
         consumer
-            .apply(DevelopmentMiddleware)
+            .apply([DevelopmentMiddleware, LoggerMiddleware])
             .forRoutes({path: '/*', method: RequestMethod.ALL})
             // 上传zip活动页拦截器
             .apply(PublishMiddleware)

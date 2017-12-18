@@ -8,6 +8,7 @@ import CommonService from '../../common/common.service';
 import { ForkService, ShareService } from '../';
 import ENV from '../../config/env';
 import Utils from '../../common/utils';
+import logger from '../../common/logger.utils';
 
 const forkService = new ForkService();
 const shareService = new ShareService();
@@ -239,9 +240,9 @@ export class PageService {
      * 推送页面
      * @param body {Object} http body
      */
-    async push(body) {
+    async push(body, userId) {
         const {
-            id, uploadUserId,
+            id,
             ...field
         } = body;
 
@@ -257,16 +258,19 @@ export class PageService {
                     "content-type": "application/json",
                 },
                 body: {
-                    id, uploadUserId, ...field,
+                    ...field,
+                    id,
+                    uploadUserId: userId,
                     content: newPage.content,
                     title: newPage.title,
                     pageType: newPage.pageType
                 }
             }, (err, response, res) => {
                 if (err) {
+                    logger.error("%s 推送页面失败， 时间： %s", userId, new Date())
+
                     throw new HttpException('系统错误', 500);
                 }
-                console.log(res)
                 const { data } = res;
                 const re: any = this.pushId(id, data);
 
@@ -283,6 +287,8 @@ export class PageService {
         return new Promise((resolve, reject) => {
             request(`${ENV.api[nodeENV]}/commonUploadFile/deleteZipById?id=${id}`, (err, response, body) => {
                 if (err) {
+                    logger.error("删除页面失败， 页面id： %s， 时间： %s", id, new Date())
+
                     reject(err);
                 }
 

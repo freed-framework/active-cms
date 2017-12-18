@@ -1,15 +1,21 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then  
-    name='pro'  
+if [ $# -eq 0 ]; then
+    name='pro'
 else
     name=$1
 fi
+
+echo "stop pm2..."
+pm2 stop all
+pm2 delete all
 
 echo "delete dist"
 rm -rf /var/web/active-cms/server/dist
 rm -rf /var/web/active-cms/ssr/lib
 rm -rf /var/web/active-cms/client/dist
+rm -rf /var/web/active-cms/client/pkg-mobile
+rm -rf /var/web/active-cms/client/pkg-pc
 
 echo "start..."
 cd /var/web/active-cms
@@ -27,10 +33,6 @@ echo "build"
 npm run build
 npm run build-mobile
 npm run build-pc
-
-echo "stop pm2..."
-pm2 stop all
-pm2 delete all 
 
 echo "enter server"
 cd /var/web/active-cms/server
@@ -58,7 +60,5 @@ npm run build
 
 echo "start ssr pm2 ..."
 npm run pm2-${name}
-
-pm2 restart all
 
 echo "启动成功"

@@ -2,6 +2,7 @@ import * as passport from "passport";
 import { Middleware, NestMiddleware, ExpressMiddleware, HttpException, HttpStatus } from '@nestjs/common';
 import { NextFunction } from 'express';
 import { fail, notFound, expired } from '../../common/common.utils';
+import logger from '../../common/logger.utils';
 
 @Middleware()
 export class JwtMiddleware implements NestMiddleware {
@@ -45,6 +46,9 @@ export class LogInMiddleware implements NestMiddleware {
                     res.status(HttpStatus.OK).json(fail({}, err))
                 } else {
                     req.user = user;
+
+                    logger.info("%s 登录成功， 用户id： %s， 时间： %s", user.userDspName, user._id, new Date())
+
                     next();
                 }
             })(req, res, next)
