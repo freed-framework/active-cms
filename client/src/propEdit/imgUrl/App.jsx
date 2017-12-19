@@ -3,6 +3,7 @@ import { Input, Select, Icon } from 'antd';
 import * as FileUpload from 'react-fileupload';
 import { editComponentByGuid } from '../../pages/editor/App';
 import ENV from '../../../../conf/env';
+import { getToken } from '../../utils';
 
 const Option = Select.Option;
 
@@ -112,6 +113,9 @@ class ImgUrl extends PureComponent {
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
+            requestHeaders: {
+                Authorization: getToken()
+            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;

@@ -1,7 +1,8 @@
 import {
     Controller, Get, Post, Next,
     Response, Param, Body, Request,
-    HttpStatus, UseFilters, UsePipes
+    HttpStatus, UseFilters, UsePipes,
+    UseGuards
 } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as uuid from 'node-uuid';
@@ -11,12 +12,13 @@ import * as Config from '../../config/local.env';
 import { success } from '../../common/common.utils';
 import CommonService from '../../common/common.service';
 import { Exception } from '../../common/exception/error.exception';
+import { RolesGuard } from '../../common/guard/common.guard';
+import { Roles } from '../../common/decorator/common.decorator';
 
 @Controller('users')
+@UseGuards(RolesGuard)
 export class UsersController {
-    constructor(
-        private service: UsersService
-    ) { }
+    constructor(private service: UsersService) { }
 
     @Get()
     async getAllUsers(@Request() req, @Response() res) {
@@ -78,12 +80,13 @@ export class UsersController {
     }
 
     @Post()
+    @Roles("administrator", "admin")
     async addUser(@Request() req, @Response() res, @Body() body) {
         const { userName, password, ...params } = body;
-        const user = await this.service.getUser({ userName });
+        const user = await this.service.getUser({ userName, email: params.email });
 
         if (user) {
-            throw new Exception('用户名已经存在', 500);
+            throw new Exception('用户名或邮箱已经存在', 500);
         }
 
         const msg = await this.service.addUser(body)

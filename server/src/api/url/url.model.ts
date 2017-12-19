@@ -30,6 +30,8 @@ const UrlSchema = new Schema({
         // 上传时间
         time: { type: Date, default: Date.now }
     }]
+}, {
+    versionKey: false
 })
 
 export default mongoose.model('Urls', UrlSchema);

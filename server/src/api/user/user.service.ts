@@ -53,12 +53,17 @@ export class UsersService {
      * @param {string} id 用户id
      */
     async getUser(param) {
-        const result = await UsersModel.findOne(param, {password: 0}, (err, doc) => {
-            if (err) {
-                throw new HttpException('系统错误', 500);
-            }
-            return doc;
-        })
+        const { userName, email } = param;
+        const result = await UsersModel
+            .findOne({})
+            .or([{ userName }, { email }])
+            .exec((err, doc) => {
+                if (err) {
+                    throw new HttpException('系统错误', 500);
+                }
+                return doc;
+            });
+
         return result;
     }
 

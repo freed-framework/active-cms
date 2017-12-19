@@ -8,6 +8,7 @@ import utils from '../../../components/util/util';
 import module from '../../common/module';
 import { editComponentByGuid } from '../../pages/editor/App';
 import ENV from '../../../../conf/env';
+import { getToken } from '../../utils';
 
 import { Continue } from '../../components/guide/App';
 
@@ -143,6 +144,9 @@ class MobileList extends PureComponent {
             accept: 'image/*',
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
+            requestHeaders: {
+                Authorization: getToken()
+            },
             fileFieldName: 'file',
             uploadSuccess: this.uploadSuccess,
             uploadError: this.uploadFail,

@@ -30,6 +30,8 @@ const FolderScgema = new Schema({
 
     // 子文件夹
     childrens: [{ type: Schema.Types.ObjectId, ref: 'Folders' }]
+}, {
+    versionKey: false
 })
 
 export default mongoose.model('Folders', FolderScgema);

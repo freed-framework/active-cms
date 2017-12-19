@@ -43,7 +43,9 @@ const PageSchema = new Schema({
     // 发布id
     pushId: { type: Number, default: 0 },
     // 页面类型pc/mobile
-    pageType: { type: String, required: true }
+    pageType: { type: String, required: true },
+    // 缩略图片地址
+    thumbnail: { type: String, default: '' }
 }, {
     versionKey: false
 });

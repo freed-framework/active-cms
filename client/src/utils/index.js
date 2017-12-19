@@ -1,7 +1,7 @@
 /**
  * @file index.js
  * @author shijh
- * 
+ *
  * 工具方法
  */
 
@@ -21,4 +21,13 @@ export const getRect = (element) => {
         right: rect.right - clientLeft
     }
 
+}
+
+/**
+ * 获取token
+ */
+export const getToken = () => {
+    const token = localStorage.getItem('access_token');
+
+    return `bearer ${token}`;
 }
