@@ -14,7 +14,6 @@ import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 import ENV from '../../../../conf/env';
 import { getUser } from '../../actions/user';
-
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
 import { TopMenu } from '../../components';

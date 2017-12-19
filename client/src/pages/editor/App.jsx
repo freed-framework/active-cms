@@ -8,6 +8,7 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import html2canvas from 'html2canvas';
 import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../../common/util/util';
@@ -18,11 +19,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { getUser } from '../../actions/user';
-import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
+import './app.scss';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -475,6 +476,12 @@ class App extends PureComponent {
         const { location = '', match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
+
+
+        html2canvas(this.canvasInner).then(canvas => {
+            const url = canvas.toDataURL();
+            console.log(url)
+        });
 
         if (!this.state.data.length) {
             message.error('页面不能为空');
