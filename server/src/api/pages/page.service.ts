@@ -182,7 +182,7 @@ export class PageService {
                     }
                 });
 
-                doc.thumbnail = `${ENV.domain}/images/${fileName}`;
+                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
                 doc.save();
             }
 
@@ -215,7 +215,7 @@ export class PageService {
                     }
                 });
 
-                doc.thumbnail = `${ENV.domain}/images/${fileName}`;
+                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
                 doc.save();
             }
 
@@ -264,7 +264,7 @@ export class PageService {
                 }
             });
 
-            doc.thumbnail = `${ENV.domain}/images/${fileName}`;
+            doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
             doc.save();
 
             return doc;
