@@ -479,7 +479,6 @@ class App extends PureComponent {
         const { params = {} } = match;
         const { id } = params;
 
-
         html2canvas(this.canvasInner).then(canvas => {
             const url = canvas.toDataURL();
             this.setState({
@@ -504,7 +503,8 @@ class App extends PureComponent {
                 addPage({
                     title,
                     pageType: params.type,
-                    content: this.state.data
+                    content: this.state.data,
+                    thumbnail: this.state.screenImgUrl
                 }).then((res) => {
                     this.$oldData = fromJS(this.state.data);
                     message.success(text || '保存成功')
@@ -515,7 +515,8 @@ class App extends PureComponent {
                 editPage({
                     id,
                     page: {
-                        content: this.state.data
+                        content: this.state.data,
+                        thumbnail: this.state.screenImgUrl
                     }
                 }).then(() => {
                     this.$oldData = fromJS(this.state.data);
