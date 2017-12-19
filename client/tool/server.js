@@ -12,7 +12,7 @@ var WebpackDevServer = require('webpack-dev-server');
 /**
  * 引入构建配置
  */
-var webpackConfig = require('../webpack.config');
+var webpackConfig = require('../webpack.config.dev');
 
 var devConfig = {
     publicPath: '/',

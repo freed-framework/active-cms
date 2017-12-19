@@ -8,7 +8,6 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import html2canvas from 'html2canvas';
 import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../../common/util/util';
@@ -477,12 +476,6 @@ class App extends PureComponent {
         const { params = {} } = match;
         const { id } = params;
 
-
-        html2canvas(this.canvasInner).then(canvas => {
-            const url = canvas.toDataURL();
-            console.log(url);
-        });
-
         if (!this.state.data.length) {
             message.error('页面不能为空');
             return;
@@ -657,6 +650,8 @@ class App extends PureComponent {
                         />
                     </div>
                 </div>
+
+                {/* guide */}
                 <Guide guide="guide-new-page" />
             </div>
         );
