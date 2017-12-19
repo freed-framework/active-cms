@@ -92,8 +92,6 @@ class App extends PureComponent {
             title: '我的新页面' || props.pageData.title,
 
             isEdit: !!props.pageData,
-
-            screenImgUrl: null,
         };
 
         this.$oldData = fromJS(props.data);
@@ -482,9 +480,7 @@ class App extends PureComponent {
 
         html2canvas(this.canvasInner).then(canvas => {
             const url = canvas.toDataURL();
-            this.setState({
-                screenImgUrl: url,
-            });
+            console.log(url);
         });
 
         if (!this.state.data.length) {
