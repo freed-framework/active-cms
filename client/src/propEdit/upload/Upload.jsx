@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as FileUpload from 'react-fileupload';
 import ENV from '../../../../conf/env';
+import { getToken } from '../../utils';
 
 class Upload extends Component {
     static propTypes = {
@@ -15,6 +16,9 @@ class Upload extends Component {
             multiple: true,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
+            requestHeaders: {
+                Authorization: getToken()
+            },
             param: {
                 fid: 0
             },
