@@ -59,8 +59,3 @@ input[type="text"] {
 .right {
     float: right;
 }
-
-// TODO: 不能改框架的默认样式啊
-/* .ant-popover-inner-content {
-    padding: 0;
-} */

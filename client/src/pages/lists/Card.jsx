@@ -54,7 +54,8 @@ export default class componentName extends PureComponent {
 
         this.state = {
             formNow: formNowFun(oldTime),
-            progress: 0
+            progress: 0,
+            isPushing: false
         }
     }
 
@@ -70,10 +71,11 @@ export default class componentName extends PureComponent {
         })
 
         socket.on(`push:progress:${_id}`, (res) => {
+            const { progress, code } = res;
             this.setState({
-                progress: res.progress
+                progress,
+                isPushing: !(code === 500 || progress === 100)
             }, () => {
-                const { progress, code } = res;
                 if (code === 500) {
                     message.success('推送失败');
                 }
@@ -84,8 +86,10 @@ export default class componentName extends PureComponent {
         })
 
         socket.on('disconnect', () => {
+            if (!this.state.isPushing) return;
             this.setState({
-                progress: 0
+                progress: 0,
+                isPushing: false
             }, () => {
                 message.success('推送失败');
             })
@@ -265,14 +269,16 @@ export default class componentName extends PureComponent {
     }
 
     handlePush = () => {
-        const { data = {}, socket } = this.props;
+        const { data = {}, socket, user } = this.props;
         confirm({
             title: '确认推送页面？',
             content: '',
             onOk: () => {
+                this.setState({
+                    isPushing: true
+                })
                 push({
                     id: data._id,
-                    uploadUserId: 123123123,
                     zipId: data.pushId,
                     activityName: data.title
                 }).then(() => {
@@ -287,9 +293,8 @@ export default class componentName extends PureComponent {
 
     render() {
         const { data = {}, current, reg, user } = this.props;
-        const { formNow, progress } = this.state;
+        const { formNow, progress, isPushing } = this.state;
         const isOwer = user._id === data.owerUser._id;
-        const isPushing = progress === 0 || progress === 100;
 
         return (
             <div
@@ -405,12 +410,12 @@ export default class componentName extends PureComponent {
                                     onClick={this.handlePush}
                                 >
                                     {
-                                        !isPushing
+                                        isPushing
                                         ? <Spin size="small" />
                                         : <Font type={'clipboard-upload'} />
                                     }
                                     <span className="page-list-card-text">{
-                                        isPushing
+                                        !isPushing
                                         ? '发布'
                                         : '发布中...'
                                     }</span>

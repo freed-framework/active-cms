@@ -589,8 +589,8 @@ class App extends PureComponent {
     render() {
         const { rect, data, layerCakeVisible, menuVisible, isEdit } = this.state;
         const { history, match } = this.props;
-        const cls = classNames('show-right', {
-            'close-right': layerCakeVisible,
+        const cls = classNames('layercake-show', {
+            'layercake-hide': layerCakeVisible,
         });
 
         const wrapCls = classNames(`ec-editor-${match.params.type}`)
@@ -608,14 +608,6 @@ class App extends PureComponent {
                     className="ec-editor-left-panel ec-editor-layout-fixed"
                 >
                     <PubComps />
-
-                    {/* <TODO> 赵丽丽，，你咋个好意思把这个 div 放在 LayerCake 的外面呢，空了修改掉 */}
-                    <div
-                        className={cls}
-                        onClick={this.handleShow}
-                    >
-                        <Icon type="right" />
-                    </div>
 
                     {/* 已经添加的组件列表 */}
                     <LayerCake
