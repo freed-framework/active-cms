@@ -8,6 +8,7 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import html2canvas from 'html2canvas';
 import { message, Modal, Input, Icon } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../../common/util/util';
@@ -18,11 +19,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { getUser } from '../../actions/user';
-import './app.scss';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
+import './app.scss';
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -90,7 +91,9 @@ class App extends PureComponent {
              */
             title: '我的新页面' || props.pageData.title,
 
-            isEdit: !!props.pageData
+            isEdit: !!props.pageData,
+
+            screenImgUrl: null,
         };
 
         this.$oldData = fromJS(props.data);
@@ -476,6 +479,14 @@ class App extends PureComponent {
         const { params = {} } = match;
         const { id } = params;
 
+
+        html2canvas(this.canvasInner).then(canvas => {
+            const url = canvas.toDataURL();
+            this.setState({
+                screenImgUrl: url,
+            });
+        });
+
         if (!this.state.data.length) {
             message.error('页面不能为空');
             return;
@@ -582,8 +593,8 @@ class App extends PureComponent {
     render() {
         const { rect, data, layerCakeVisible, menuVisible, isEdit } = this.state;
         const { history, match } = this.props;
-        const cls = classNames('show-right', {
-            'close-right': layerCakeVisible,
+        const cls = classNames('layercake-show', {
+            'layercake-hide': layerCakeVisible,
         });
 
         const wrapCls = classNames(`ec-editor-${match.params.type}`)
@@ -601,14 +612,6 @@ class App extends PureComponent {
                     className="ec-editor-left-panel ec-editor-layout-fixed"
                 >
                     <PubComps />
-
-                    {/* <TODO> 赵丽丽，，你咋个好意思把这个 div 放在 LayerCake 的外面呢，空了修改掉 */}
-                    <div
-                        className={cls}
-                        onClick={this.handleShow}
-                    >
-                        <Icon type="right" />
-                    </div>
 
                     {/* 已经添加的组件列表 */}
                     <LayerCake

@@ -113,8 +113,6 @@ export default class TopMenu extends PureComponent {
             >
                 <Row>
                     <Col span={4} className="ec-editor-banner-left">
-                        {/*<span className="ec-editor-logo" />*/}
-                        {/*<img src={require('../../images/wuget-logo-white.png')} height={50} />*/}
                         <Particle
                             imgUrl={require('../../images/wuget-logo-white.png')}
                             width={140}
