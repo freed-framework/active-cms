@@ -2,6 +2,8 @@ import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import * as _ from 'lodash';
 import * as request from 'request';
+import * as fs from 'fs';
+import * as path from 'path';
 import { resolve } from 'url';
 import PageModel from './page.model';
 import CommonService from '../../common/common.service';
@@ -14,6 +16,23 @@ const forkService = new ForkService();
 const shareService = new ShareService();
 
 const nodeENV = process.env.NODE_ENV;
+
+/**
+ * base64 to buffer
+ */
+function decodeBase64Image(dataString) {
+    let matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response: any = {};
+
+    if (matches.length !== 3) {
+        return new Error('Invalid input string');
+    }
+
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+
+    return response;
+}
 
 @Component()
 export class PageService {
@@ -145,11 +164,28 @@ export class PageService {
      * @param page {Object} 页面数据
      */
     async updatePage(id, page) {
-        const { content } = page;
-        const result = await PageModel.findByIdAndUpdate(id, { $set: { content: content }}, (err, doc) => {
+        const { content, thumbnail } = page;
+
+        const result = await PageModel.findByIdAndUpdate(id, { $set: { content: content }}, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
+
+            if (thumbnail) {
+                const imageBuffer: any = decodeBase64Image(thumbnail);
+                const fileName = `${id}.png`;
+                const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
+
+                fs.writeFile(filePath, imageBuffer.data, function(err) {
+                    if (err) {
+                        logger.error("编辑上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
+                    }
+                });
+
+                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
+                doc.save();
+            }
+
             return doc;
         })
         return CommonService.commonResponse(result);
@@ -161,10 +197,28 @@ export class PageService {
      * @param param {Object} 需要修改的值
      */
     async update(id, param) {
-        const result = await PageModel.findByIdAndUpdate(id, param, (err, doc) => {
+        const { thumbnail, ...props } = param;
+
+        const result = await PageModel.findByIdAndUpdate(id, props, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
+
+            if (thumbnail) {
+                const imageBuffer: any = decodeBase64Image(thumbnail);
+                const fileName = `${id}.png`;
+                const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
+
+                fs.writeFile(filePath, imageBuffer.data, function(err) {
+                    if (err) {
+                        logger.error("编辑上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
+                    }
+                });
+
+                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
+                doc.save();
+            }
+
             return doc;
         })
         return result;
@@ -189,18 +243,33 @@ export class PageService {
      */
     async addPage(page) {
         const { body, ...param } = page;
-        const { content, ...props } = body;
+        const { content, thumbnail, ...props } = body;
         const parse = content;
         const result: any = await PageModel.create({
             ...param,
             ...props,
             content: parse
-        }, (err, doc) => {
+        }, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
+
+            const imageBuffer: any = decodeBase64Image(thumbnail);
+            const fileName = `${doc._id}.png`;
+            const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
+
+            fs.writeFile(filePath, imageBuffer.data, function(err) {
+                if (err) {
+                    logger.error("新建上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
+                }
+            });
+
+            doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
+            doc.save();
+
             return doc;
         })
+
         return  CommonService.commonResponse({id: result._id});
     }
 

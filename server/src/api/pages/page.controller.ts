@@ -108,6 +108,7 @@ export class PageController {
     async updatePage(@Request() req,@Response() res, @Body() body) {
         const { user, logger } = req;
         const { id, page } = body;
+
         const result: any = await this.service.updatePage(id, page);
 
         logger.info("%s 更新页面成功, 页面id： %s, 时间： %s", user.userDspName, id, new Date())
@@ -125,7 +126,7 @@ export class PageController {
             owerUser: user._id
         });
 
-        logger.info("%s 新建页面成功, 页面id： %s, 时间： %s", user.userDspName, result._id, new Date())
+        logger.info("%s 新建页面成功, 页面id： %s, 时间： %s", user.userDspName, result.data.id, new Date())
 
         res.status(HttpStatus.OK).json(result);
     }

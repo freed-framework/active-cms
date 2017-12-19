@@ -15,6 +15,7 @@ var ENV = {
      */
     domain: "http://wuget.yatang.com.cn"
     // domain: "http://localhost:3000"
+
 }
 
 export default ENV;
