@@ -51,8 +51,9 @@ class Img extends React.PureComponent<ImgProps, any> {
                 onClick={this.handleClick}
                 style={styleProps}
             >
-                { child }
-                { src === '' && this.props.children }
+                {src === '' ?
+                    this.props.children : child
+                }
             </div>
         )
     }

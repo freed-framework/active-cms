@@ -1,63 +1,34 @@
 /**
- * @file index.js
+ * @file page.js
  * @author denglingbo
  *
  */
-import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getPage } from '../../services';
-import App from './App';
-import { calc, resizeEvt } from '../../common/mobileMock';
-import { getUser } from '../../actions/user';
-import { getPageData, getMockPageData } from '../../actions/page';
+import ActionType from './ActionType';
+import { getPage } from '../services';
 
-@connect(
-    state => ({}),
-    dispatch => bindActionCreators({
-        getUser,
-        getPageData,
-        getMockPageData,
-    }, dispatch)
-)
-class Editor extends PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: [],
-        }
-    }
-
-    componentDidMount() {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-        if (params.type === 'mobile') {
-            calc(750);
-            window.addEventListener(resizeEvt, calc, false);
-        }
-
-        if (params.id) {
-            this.props.getPageData(params.id);
-
-            getPage(params.id)
-                .then((res) => {
-                    const { data } = res;
-                    document.title = data.title;
-
-                    this.setState({
-                        data: data.content,
-                        pageData: data
-                    })
+export const getPageData = (id) => dispatch => (
+    new Promise((resolve, reject) => {
+        getPage(id)
+            .then((res) => {
+                dispatch({
+                    type: ActionType.GET_PAGE_DATA,
+                    payload: res.data
                 })
-        }
+            })
+            .catch(err => {
+                reject(err);
+            })
+    })
+)
 
-        if (this.props.isMock) {
-            this.props.getMockPageData(params.id);
-
-            this.setState({
-                data: [
+export const getMockPageData = (id) => dispatch => (
+    new Promise(() => {
+        dispatch({
+            type: ActionType.GET_PAGE_DATA,
+            payload: {
+                title: '123',
+                thumbnail: '',
+                content: [
                     {
                         "guid": "ec-module-addbed91-6089-4d04-8224-4fc09138f71d",
                         "name": "mobile/layer",
@@ -119,30 +90,13 @@ class Editor extends PureComponent {
                             }
                         }
                     }
-                ],
-            })
-        }
-    }
+                ]
+            }
+        })
+    })
+)
 
-    componentWillUnmount() {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-
-        if (params.type === 'mobile') {
-            window.removeEventListener(resizeEvt, calc, false);
-        }
-    }
-
-    render() {
-        const { data, pageData } = this.state;
-
-        return (
-            <App
-                data={data}
-                pageData={pageData}
-            />
-        )
-    }
-}
-
-export default withRouter(Editor);
+export const setPageTitle = (title) => dispatch => dispatch({
+    type: ActionType.SET_PAGE_TITLE,
+    payload: title,
+});

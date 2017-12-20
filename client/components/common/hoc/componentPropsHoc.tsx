@@ -89,6 +89,7 @@ const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => cl
         return (
             <WrappedComponent
                 {...this.props}
+                {...this.state}
             />
         );
     }

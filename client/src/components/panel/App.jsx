@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import { Icon } from 'antd';
 import mitt from 'mitt';
-import { FollowHoc } from '../follow';
+import PageSettings from './PageSettings';
 import List from './List';
 import './panel.scss';
 
@@ -84,10 +84,16 @@ class Panel extends PureComponent {
                     </div>
                     <span
                         className="ec-panel-title-text"
-                    >编辑面板</span>
+                    >
+                        编辑面板
+                    </span>
                 </div>
 
                 <div className="ec-panel-main">
+                    {/* Public Settings */}
+                    <PageSettings />
+
+                    {/* 可编辑列表 */}
                     <List
                         data={data}
                         activeId={activeId}
