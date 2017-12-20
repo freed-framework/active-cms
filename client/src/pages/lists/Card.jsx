@@ -195,7 +195,7 @@ export default class componentName extends PureComponent {
         const pageId = data._id;
         const shareData = this.users.map(item => {
             for (let i = 0; i < users.length; i++) {
-                if (item === users[i].userDspName) {
+                if (item === users[i].userName) {
                     return {
                         pageId,
                         userId: users[i]._id
@@ -260,7 +260,7 @@ export default class componentName extends PureComponent {
                 {
                     users.map((item) => {
                         return (
-                            <Option key={item.userDspName} item={item}>{item.userDspName}</Option>
+                            <Option key={item.userName} item={item}>{item.userName}</Option>
                         )
                     })
                 }

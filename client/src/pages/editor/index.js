@@ -16,7 +16,7 @@ import { getUser } from '../../actions/user';
     state => ({
     }),
     dispatch => bindActionCreators({
-        getUser
+        getUser,
     }, dispatch)
 )
 class Editor extends PureComponent {
