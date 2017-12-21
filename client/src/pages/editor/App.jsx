@@ -25,6 +25,7 @@ import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
 import { getToken } from '../../utils';
 import ENV from '../../../../conf/env';
+const url = require('../../images/list-placeholder.png')
 import './app.scss';
 
 const FormItem = Form.Item;
@@ -756,7 +757,7 @@ class App extends PureComponent {
                                 >
                                     <img
                                         style={{width: '287px'}}
-                                        src={this.state.thumbnail || 'http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg'} />
+                                        src={this.state.thumbnail || url} />
                                 </div>
                             </FormItem>
                         </Form>
