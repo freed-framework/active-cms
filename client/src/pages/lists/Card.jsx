@@ -312,7 +312,7 @@ export default class componentName extends PureComponent {
                 >
                     <img
                         className={'page-list-card-img'}
-                        src={data.thumbnail || 'http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg'}
+                        src={data.thumbnail || require('../../images/list-placeholder.png')}
                     />
 
                     <div
