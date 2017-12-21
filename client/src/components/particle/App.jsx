@@ -156,15 +156,18 @@ class Particle extends PureComponent {
                     && Math.abs(dot.ey - dot.y) <= 0.1
                     && Math.abs(dot.ez - dot.z) <= 0.1
                 ) {
+                    pause = true;
+
+                    // 在进行一次修正
                     if (thisTime - lastTime > 300) {
                         dot.fix();
                         pause = true;
                     }
+                    // dot.fix();
 
                     if (finishCallback) {
                         finishCallback();
                     }
-                    return;
                 } else {
                     dot.x = dot.x + (dot.ex - dot.x) * 0.1;
                     dot.y = dot.y + (dot.ey - dot.y) * 0.1;
