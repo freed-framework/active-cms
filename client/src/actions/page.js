@@ -96,7 +96,19 @@ export const getMockPageData = (id) => dispatch => (
     })
 )
 
+/**
+ * 修改title
+ * @param {*} title
+ */
 export const setPageTitle = (title) => dispatch => dispatch({
     type: ActionType.SET_PAGE_TITLE,
     payload: title,
+});
+
+/**
+ * 修改缩略图
+ */
+export const setPageThumbnail = (thumbnail) => dispatch => dispatch({
+    type: ActionType.SET_PAGE_THUMBNAIL,
+    payload: thumbnail,
 });

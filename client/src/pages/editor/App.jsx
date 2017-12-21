@@ -30,6 +30,8 @@ const emitter = mitt();
 @connect(
     (state) => ({
         user: state.toJS().user.data,
+        title: state.toJS().page.title,
+        thumbnail: state.toJS().page.thumbnail
     }),
     dispatch => bindActionCreators({
         getUser
@@ -38,7 +40,8 @@ const emitter = mitt();
 class App extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
-        pageData: PropTypes.objectOf(PropTypes.any)
+        pageData: PropTypes.objectOf(PropTypes.any),
+        title: PropTypes.string,
     }
 
     static defaultProps = {
@@ -272,7 +275,7 @@ class App extends PureComponent {
      * @param startId
      * @param endId
      */
-    mittMove = ({startId, endId}) => {
+    mittMove = ({ startId, endId }) => {
         const { data } = this.state;
         const result = module.move(data, startId, endId);
 
@@ -452,9 +455,9 @@ class App extends PureComponent {
                 defaultValue={this.state.title}
                 data-guide='{"step": 5, "tip": "修改标题，保存页面", "done": true}'
                 onChange={this.handleChange}
-                />,
+            />,
             onOk: callback,
-            onCancel() {},
+            onCancel() { },
         });
     }
 
@@ -481,40 +484,40 @@ class App extends PureComponent {
             return;
         }
 
-        this.showConfirm(() => {
-            const { title } = this.state;
+        if (!id || id === 'new') {
+            this.showConfirm(() => {
+                const { title } = this.state;
 
-            if (!title) {
-                message.error('请输入标题');
-                return;
-            }
+                if (!title) {
+                    message.error('请输入标题');
+                    return;
+                }
 
-            if (!id || id === 'new') {
                 addPage({
                     title,
                     pageType: params.type,
                     content: this.state.data,
-                    thumbnail: this.state.screenImgUrl
+                    thumbnail: this.props.thumbnail
                 }).then((res) => {
                     this.$oldData = fromJS(this.state.data);
                     message.success(text || '保存成功')
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
-            }
-            else {
-                editPage({
-                    id,
-                    page: {
-                        content: this.state.data,
-                        thumbnail: this.state.screenImgUrl
-                    }
-                }).then(() => {
-                    this.$oldData = fromJS(this.state.data);
-                    message.success(text || '保存成功')
-                })
-            }
-        })
-
+            })
+        }
+        else {
+            editPage({
+                id,
+                page: {
+                    content: this.state.data,
+                    title: this.props.title,
+                    thumbnail: this.props.thumbnail
+                }
+            }).then(() => {
+                this.$oldData = fromJS(this.state.data);
+                message.success(text || '保存成功')
+            })
+        }
         console.log(JSON.stringify(this.state.data))
     }
 
@@ -533,12 +536,12 @@ class App extends PureComponent {
                         zipId: pageData.pushId,
                         activityName: pageData.title
                     })
-                    .then(() => {
-                        message.success('推送成功');
-                    })
-                    .catch(() => {})
+                        .then(() => {
+                            message.success('推送成功');
+                        })
+                        .catch(() => { })
                 },
-                onCancel() {},
+                onCancel() { },
             });
 
             return false;

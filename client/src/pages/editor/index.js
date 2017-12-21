@@ -14,7 +14,9 @@ import { getUser } from '../../actions/user';
 import { getPageData, getMockPageData } from '../../actions/page';
 
 @connect(
-    state => ({}),
+    state => ({
+        pageData: state.toJS().page.pageData
+    }),
     dispatch => bindActionCreators({
         getUser,
         getPageData,
@@ -40,17 +42,6 @@ class Editor extends PureComponent {
 
         if (params.id) {
             this.props.getPageData(params.id);
-
-            getPage(params.id)
-                .then((res) => {
-                    const { data } = res;
-                    document.title = data.title;
-
-                    this.setState({
-                        data: data.content,
-                        pageData: data
-                    })
-                })
         }
 
         if (this.props.isMock) {
@@ -134,11 +125,11 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { data, pageData } = this.state;
+        const { pageData } = this.props;
 
         return (
             <App
-                data={data}
+                data={pageData.content}
                 pageData={pageData}
             />
         )

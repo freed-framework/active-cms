@@ -6,15 +6,20 @@
  */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { setPageTitle } from '../../actions/page';
+import * as FileUpload from 'react-fileupload';
+import { message } from 'antd';
+import { setPageTitle, setPageThumbnail } from '../../actions/page';
 import { bindActionCreators } from 'redux';
+import { getToken } from '../../utils';
+import ENV from '../../../../conf/env';
 
 @connect(
     state => ({
-        page: state.toJS().page,
+        title: state.toJS().page.title,
     }),
     dispatch => bindActionCreators({
         setPageTitle,
+        setPageThumbnail
     }, dispatch)
 )
 class PageSettings extends PureComponent {
@@ -25,20 +30,45 @@ class PageSettings extends PureComponent {
     }
 
     render() {
-        const { page } = this.props;
+        const { title } = this.props;
+
+        const options = {
+            baseUrl: `${ENV.domain}/api/image`,
+            chooseAndUpload: true,
+            dataType: 'multipart/form-data',
+            fileFieldName: 'file',
+            requestHeaders: {
+                Authorization: getToken()
+            },
+            uploadSuccess: (props) => {
+                const { data } = props;
+                const img = data[0];
+
+                message.success('上传成功，请保存！');
+                this.props.setPageThumbnail(`${img.imageDomain}/${img.suffixUrl}`);
+            }
+        }
 
         return (
             <div>
-                <div>页面配置</div>
-                <div>
+                <div className="ec-edit-setting">页面配置</div>
+                <div className="ec-edit-setting-title">
                     标题
                     <input
                         type="text"
-                        value={page.title}
+                        value={title}
                         onChange={this.handleChangePageName}
                     />
                 </div>
-                <div>截图 <input type="button" /></div>
+                <div>
+                    <div className="ec-edit-setting-thumbnail ec-edit-setting-thumbnail-left">封面图片：</div>
+                    <FileUpload
+                        className="ec-edit-setting-thumbnail ec-edit-setting-thumbnail-right"
+                        options={options}
+                    >
+                        <button ref="chooseAndUpload">上传图片</button>
+                    </FileUpload>
+                </div>
             </div>
         )
     }

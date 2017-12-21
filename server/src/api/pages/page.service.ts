@@ -164,26 +164,11 @@ export class PageService {
      * @param page {Object} 页面数据
      */
     async updatePage(id, page) {
-        const { content, thumbnail } = page;
+        const { ...props } = page;
 
-        const result = await PageModel.findByIdAndUpdate(id, { $set: { content: content }}, (err, doc: any) => {
+        const result = await PageModel.findByIdAndUpdate(id, props, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
-            }
-
-            if (thumbnail) {
-                const imageBuffer: any = decodeBase64Image(thumbnail);
-                const fileName = `${id}.png`;
-                const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
-
-                fs.writeFile(filePath, imageBuffer.data, function(err) {
-                    if (err) {
-                        logger.error("编辑上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
-                    }
-                });
-
-                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
-                doc.save();
             }
 
             return doc;
@@ -197,26 +182,11 @@ export class PageService {
      * @param param {Object} 需要修改的值
      */
     async update(id, param) {
-        const { thumbnail, ...props } = param;
+        const { ...props } = param;
 
         const result = await PageModel.findByIdAndUpdate(id, props, (err, doc: any) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
-            }
-
-            if (thumbnail) {
-                const imageBuffer: any = decodeBase64Image(thumbnail);
-                const fileName = `${id}.png`;
-                const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
-
-                fs.writeFile(filePath, imageBuffer.data, function(err) {
-                    if (err) {
-                        logger.error("编辑上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
-                    }
-                });
-
-                doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
-                doc.save();
             }
 
             return doc;
@@ -243,7 +213,7 @@ export class PageService {
      */
     async addPage(page) {
         const { body, ...param } = page;
-        const { content, thumbnail, ...props } = body;
+        const { content, ...props } = body;
         const parse = content;
         const result: any = await PageModel.create({
             ...param,
@@ -253,19 +223,6 @@ export class PageService {
             if (err) {
                 throw new HttpException('系统错误', 500);
             }
-
-            const imageBuffer: any = decodeBase64Image(thumbnail);
-            const fileName = `${doc._id}.png`;
-            const filePath = path.resolve(__dirname, `../../../images/${fileName}`);
-
-            fs.writeFile(filePath, imageBuffer.data, function(err) {
-                if (err) {
-                    logger.error("新建上传封面图片失败， 页面id： %s， 时间： %s", doc._id, new Date())
-                }
-            });
-
-            doc.thumbnail = `${ENV.domain}/thumbnail/${fileName}`;
-            doc.save();
 
             return doc;
         })
