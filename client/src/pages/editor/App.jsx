@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { message, Modal, Input, Icon } from 'antd';
+import { message, Modal, Input, Icon, Form, Button } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren } from '../../common/util/util';
 import module from '../../common/module';
@@ -17,12 +17,17 @@ import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '..
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import * as FileUpload from 'react-fileupload';
 import { getUser } from '../../actions/user';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
+import { getToken } from '../../utils';
+import ENV from '../../../../conf/env';
 import './app.scss';
+
+const FormItem = Form.Item;
 
 const confirm = Modal.confirm;
 const emitter = mitt();
@@ -92,8 +97,14 @@ class App extends PureComponent {
              * 默认新建页面标题
              */
             title: '我的新页面' || props.pageData.title,
-
+            /**
+             * 是否是编辑
+             */
             isEdit: !!props.pageData,
+            /**
+             * 保存弹出框
+             */
+            saveVisible: false
         };
 
         this.$oldData = fromJS(props.data);
@@ -166,7 +177,8 @@ class App extends PureComponent {
 
         if (!is(fromJS(nextProps.pageData), fromJS(this.props.pageData))) {
             this.setState({
-                title: nextProps.pageData.title
+                title: nextProps.pageData.title,
+                thumbnail: nextProps.pageData.thumbnail
             })
         }
     }
@@ -444,24 +456,6 @@ class App extends PureComponent {
     }
 
     /**
-     * 弹出确定提交浮层
-     * @param callback
-     */
-    showConfirm = (callback) => {
-        confirm({
-            title: '请输入页面标题?',
-            content: <Input
-                className="guide-steps-handler"
-                defaultValue={this.state.title}
-                data-guide='{"step": 5, "tip": "修改标题，保存页面", "done": true}'
-                onChange={this.handleChange}
-            />,
-            onOk: callback,
-            onCancel() { },
-        });
-    }
-
-    /**
      * 在弹框中设置页面标题
      * @param e
      */
@@ -472,9 +466,27 @@ class App extends PureComponent {
     }
 
     /**
-     * 保存数据
+     * 弹出保存弹出框
      */
     mittSave = (text) => {
+        this.setState({
+            saveVisible: true
+        })
+    }
+
+    /**
+     * 关闭弹出框
+     */
+    handleSaveCancel = () => {
+        this.setState({
+            saveVisible: false
+        })
+    }
+
+    /**
+     * 保存数据
+     */
+    handleSaveOk = () => {
         const { location = '', match = {} } = this.props;
         const { params = {} } = match;
         const { id } = params;
@@ -484,25 +496,25 @@ class App extends PureComponent {
             return;
         }
 
+
+        const { title } = this.state;
+
+        if (!title) {
+            message.error('请输入标题');
+            return;
+        }
+
         if (!id || id === 'new') {
-            this.showConfirm(() => {
-                const { title } = this.state;
-
-                if (!title) {
-                    message.error('请输入标题');
-                    return;
-                }
-
-                addPage({
-                    title,
-                    pageType: params.type,
-                    content: this.state.data,
-                    thumbnail: this.props.thumbnail
-                }).then((res) => {
-                    this.$oldData = fromJS(this.state.data);
-                    message.success(text || '保存成功')
-                    this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
-                })
+            addPage({
+                title,
+                pageType: params.type,
+                content: this.state.data,
+                thumbnail: this.state.thumbnail
+            }).then((res) => {
+                this.$oldData = fromJS(this.state.data);
+                message.success('保存成功')
+                this.handleSaveCancel();
+                this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
             })
         }
         else {
@@ -510,14 +522,16 @@ class App extends PureComponent {
                 id,
                 page: {
                     content: this.state.data,
-                    title: this.props.title,
-                    thumbnail: this.props.thumbnail
+                    title: title,
+                    thumbnail: this.state.thumbnail
                 }
             }).then(() => {
                 this.$oldData = fromJS(this.state.data);
-                message.success(text || '保存成功')
+                message.success('保存成功')
+                this.handleSaveCancel();
             })
         }
+
         console.log(JSON.stringify(this.state.data))
     }
 
@@ -587,9 +601,40 @@ class App extends PureComponent {
     render() {
         const { rect, data, layerCakeVisible, menuVisible, isEdit } = this.state;
         const { history, match } = this.props;
+        const { getFieldDecorator } = this.props.form;
         const cls = classNames('layercake-show', {
             'layercake-hide': layerCakeVisible,
         });
+        const options = {
+            baseUrl: `${ENV.domain}/api/image`,
+            chooseAndUpload: true,
+            dataType: 'multipart/form-data',
+            fileFieldName: 'file',
+            requestHeaders: {
+                Authorization: getToken()
+            },
+            uploadSuccess: (props) => {
+                const { data } = props;
+                const img = data[0];
+
+                this.setState({
+                    thumbnail: `${img.imageDomain}/${img.suffixUrl}`
+                }, () => {
+                    message.success('上传成功，请保存！');
+                })
+            }
+        }
+
+        const formItemLayout = {
+            labelCol: {
+              xs: { span: 24 },
+              sm: { span: 6 },
+            },
+            wrapperCol: {
+              xs: { span: 24 },
+              sm: { span: 14 },
+            },
+        };
 
         const wrapCls = classNames(`ec-editor-${match.params.type}`)
 
@@ -658,6 +703,65 @@ class App extends PureComponent {
 
                 {/* guide */}
                 <Guide guide="guide-new-page" />
+
+                {/* save modal */}
+
+                <Modal
+                    title="保存设置"
+                    visible={this.state.saveVisible}
+                    onOk={this.handleSaveOk}
+                    onCancel={this.handleSaveCancel}
+                >
+                    <div>
+                        <Form>
+                            <FormItem
+                                {...formItemLayout}
+                                label="页面标题"
+                            >
+                                {getFieldDecorator('title', {
+                                    rules: [{
+                                        required: true, message: '请输入页面标题！',
+                                    }],
+                                    initialValue: this.state.title
+                                })(
+                                    <Input
+                                        className="guide-steps-handler"
+                                        data-guide='{"step": 5, "tip": "修改标题，保存页面", "done": true}'
+                                        onChange={this.handleChange}
+                                    />
+                                    )}
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="封面图片"
+                            >
+                                {getFieldDecorator('title', {
+                                    rules: [{}],
+                                })(
+                                    <FileUpload
+                                        className="ec-edit-setting-thumbnail ec-edit-setting-thumbnail-right"
+                                        options={options}
+                                    >
+                                        <Button ref="chooseAndUpload">上传图片</Button>
+                                    </FileUpload>
+                                    )}
+                            </FormItem>
+                            <FormItem>
+                                <div
+                                    style={{
+                                        height: '196px',
+                                        overflow: 'hidden',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    <img
+                                        style={{width: '287px'}}
+                                        src={this.state.thumbnail || 'http://pic.qiantucdn.com/58pic/17/07/56/86C58PICqiF.jpg'} />
+                                </div>
+                            </FormItem>
+                        </Form>
+                    </div>
+                </Modal>
             </div>
         );
     }
@@ -791,4 +895,4 @@ export const clearActive = () => {
     emitter.emit('clearActive')
 }
 
-export default withRouter(App);
+export default Form.create()(withRouter(App));

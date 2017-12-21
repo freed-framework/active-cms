@@ -131,6 +131,7 @@ class Editor extends PureComponent {
             <App
                 data={pageData.content}
                 pageData={pageData}
+                thumbnail={pageData.thumbnail}
             />
         )
     }

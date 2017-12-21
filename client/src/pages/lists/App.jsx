@@ -7,7 +7,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination, BackTop } from 'antd';
+import { Pagination, BackTop, Input, Select, Radio } from 'antd';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,12 +17,21 @@ import { getUser } from '../../actions/user';
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
 import { TopMenu } from '../../components';
+const Search = Input.Search;
+const Option = Select.Option;
+
 import './app.scss';
 
 // `${ENV.domain}`
 const socket = io(`${ENV.domain}`, {
     path: '/push'
 });
+
+const routes = {
+    pulish: '/lists/publish',
+    my: '/lists/my',
+    share: '/lists/share'
+}
 
 @connect(
     state => ({
@@ -43,7 +52,8 @@ class List extends PureComponent {
         super(props);
 
         this.state = {
-            data: []
+            data: [],
+            current: 'my'
         }
 
         this.params = {
@@ -61,6 +71,7 @@ class List extends PureComponent {
         })
 
         this.getPageList({...this.params});
+        this.setCurrent();
     }
 
     componentWillUnmount() {
@@ -73,6 +84,33 @@ class List extends PureComponent {
             pageSize
         }
         this.getPageList({...this.params})
+    }
+
+    setCurrent = () => {
+        const { match } = this.props;
+        const { params } = match;
+        const { type = '' } = params;
+
+        switch (type) {
+            case 'publish':
+                this.setState({
+                    current: 'pulish'
+                })
+                break;
+            case 'my':
+            case '':
+                this.setState({
+                    current: 'my'
+                })
+                break;
+            case 'share':
+                this.setState({
+                    current: 'share'
+                })
+                break;
+            default:
+                break;
+        }
     }
 
     getPageList = (param, page) => {
@@ -110,6 +148,15 @@ class List extends PureComponent {
         this.getPageList(this.params)
     }
 
+    handleChange = (e) => {
+        const { value } = e.target;
+        this.setState({
+            current: value
+        }, () => {
+            this.props.history.push(routes[value])
+        })
+    }
+
     render() {
         const { data = {}, current } = this.state;
         const { lists = [], pageSize, page, total } = data;
@@ -119,6 +166,19 @@ class List extends PureComponent {
         return (
             <div>
                 <TopMenu.List history={history} match={match} onSearch={this.handleSearch} />
+                <div className="page-list-handleRegion">
+                    <Search
+                        className="page-list-handleRegion-left"
+                        style={current === 'share' ? { width: 200, 'display': 'none' } : { width: 200 }}
+                        placeholder="搜索标题"
+                        onSearch={this.handleSearch}
+                    />
+                    <Radio.Group className="page-list-handleRegion-right" value={current} onChange={this.handleChange}>
+                        <Radio.Button value="my">我的页面</Radio.Button>
+                        {/* <Radio.Button value="pulish">所有公开页面</Radio.Button> */}
+                        <Radio.Button value="share">分享给我的页面</Radio.Button>
+                    </Radio.Group>
+                </div>
                 <div
                     className={'page-list-wrap'}
                 >
