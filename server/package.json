@@ -6,6 +6,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon -w *.*.ts --exec ts-node ./src/main.ts",
+    "server": "cross-env NODE_ENV=production nodemon -w *.*.ts --exec ts-node ./src/main.ts",
     "dev": "cross-env NODE_ENV=test nodemon -w *.*.ts --exec ts-node ./src/main.ts",
     "test": "mocha src/__test__/**/*.test.ts src/api/**/*.test.ts",
     "test_cover": "istanbul cover node_modules/mocha/bin/_mocha src/api/**/*.test.ts",
