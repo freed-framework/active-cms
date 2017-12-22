@@ -71,7 +71,7 @@ var UploadZip = function UploadZip(_ref) {
 
         zipId && (formData.id = zipId);
 
-        _request2.default.post({ url: _env2.default.domain + '/api/publish/zip', formData: formData }, function (err, httpResponse, res) {
+        _request2.default.post({ url: _env2.default.api + '/commonUploadFile/uploadZip', formData: formData }, function (err, httpResponse, res) {
             res = JSON.parse(res) || {};
 
             if (err) {

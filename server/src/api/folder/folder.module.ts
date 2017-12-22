@@ -4,7 +4,6 @@ import {
 
 import { FolderController } from './folder.controller';
 import { FolderService } from './folder.service';
-import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Module({
     controllers: [
@@ -16,8 +15,8 @@ import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 })
 export class FolderModule {
     configure(consumer: MiddlewaresConsumer) {
-        consumer
-            .apply(AuthMiddleware)
-            .forRoutes(FolderController)
+        // consumer
+        //     .apply(AuthMiddleware)
+        //     .forRoutes(FolderController)
     }
 }

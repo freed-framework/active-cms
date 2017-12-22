@@ -15,7 +15,6 @@ import logger from '../../common/logger.utils';
 const forkService = new ForkService();
 const shareService = new ShareService();
 
-const nodeENV = process.env.NODE_ENV;
 
 /**
  * base64 to buffer
@@ -276,8 +275,9 @@ export class PageService {
         let newPage: any = Utils.parseContent(page);
 
         return new Promise((resolve, reject) => {
+            // `${ENV.domain}/ssr/push`
             request({
-                url: `${ENV.domain}/ssr/push`,
+                url: `http://localhost:12345/ssr/push`,
                 method: "POST",
                 json: true,
                 headers: {
@@ -311,7 +311,8 @@ export class PageService {
      */
     async pushDelete(id) {
         return new Promise((resolve, reject) => {
-            request(`${ENV.api[nodeENV]}/commonUploadFile/deleteZipById?id=${id}`, (err, response, body) => {
+            console.log(ENV.api)
+            request(`${ENV.api}/commonUploadFile/deleteZipById?id=${id}`, (err, response, body) => {
                 if (err) {
                     logger.error("删除页面失败， 页面id： %s， 时间： %s", id, new Date())
 
