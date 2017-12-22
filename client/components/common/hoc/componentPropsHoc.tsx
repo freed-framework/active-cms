@@ -47,21 +47,13 @@ const dataTableParse = (obj: any, defObj: any) => {
  * @return {string}
  */
 const getClassNames = (...args: any[]) => {
-    const arr: Array<string> = [];
+    const arr: Array<string> = ['tmc-module'];
 
     args.forEach((arg: string) => {
         if (arg) {
             arr.push(arg);
         }
     });
-
-    if (arr.length === 0) {
-        return '';
-    }
-
-    if (arr.length > 1) {
-        arr.join('');
-    }
 
     return arr.join(' ');
 }

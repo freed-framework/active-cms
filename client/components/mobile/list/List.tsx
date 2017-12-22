@@ -24,7 +24,7 @@ class List extends React.PureComponent<ListProps, any> {
         return (
             <div
                 id={id}
-                className={`${className} tmc-module tmc-list tmc-list-cols-${cols}`}
+                className={`${className} tmc-list-cols-${cols}`}
                 {...(dataTable && { ...dataTable })}
                 style={{
                     ...(style && {...style.layout})

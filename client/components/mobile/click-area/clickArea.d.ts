@@ -1,6 +1,5 @@
 /// <reference path="../../props.d.ts" />
 
-interface ImgProps extends DefaultProps {
-    src?: any;
+interface ClickAreaProps extends DefaultProps {
     url?: string;
 }

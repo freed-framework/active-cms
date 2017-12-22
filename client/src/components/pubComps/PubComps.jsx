@@ -97,9 +97,9 @@ class PubComps extends PureComponent {
                                 >
                                     <div
                                         data-name={conf.name}
-                                        onClick={addComponent}
+                                        className="ec-editor-pub-comps-items"
                                         data-guide={`${conf.dataTable ? JSON.stringify(conf.dataTable['data-guide']) : ''}`}
-                                        className={classNames("ec-editor-pub-comps-items", conf.className)}
+                                        onClick={addComponent}
                                     >
 
                                         {conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}
