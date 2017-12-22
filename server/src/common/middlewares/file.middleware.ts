@@ -21,7 +21,7 @@ export class FileMiddleware implements NestMiddleware {
             proxy.web(req, res, { target: `${ENV.api}/commonUploadFile/uploadImageFiles?_=1`  }, (e) => {
                 const { user } = req;
 
-                logger.error("%s 上传图片失败， 时间： %s", user._id, new Date());
+                logger.error("%s 上传图片失败， 时间： %s", user._id, new Date(), e);
 
                 next();
             })
