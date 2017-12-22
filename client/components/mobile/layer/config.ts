@@ -2,6 +2,7 @@
 
 const config: Config = {
     name: 'mobile/layer',
+    className: 'tmc-layer',
     isCommon: true,
     displayName: '布局',
     iconType: 'layers',

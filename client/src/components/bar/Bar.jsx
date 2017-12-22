@@ -6,7 +6,7 @@
  */
 import React  from 'react';
 import { deleteComponent, addComponent, copyComponent, pasteComponent } from '../../pages/editor/App';
-import { Button, Radio } from 'antd';
+import { Button, Radio, Icon } from 'antd';
 import Lazyer from '../../common/lazyer';
 // import PropsEdit from '../propEdit/PropsEdit';
 import EditAttr from '../../propEdit';
@@ -53,7 +53,7 @@ class Bar {
 
         return (
             <div>
-                <div className="div-title">组件属性编辑:</div>
+                <div className="div-title"><Icon type="right-square" /> 组件属性编辑</div>
                 <EditAttr
                     {...props}
                 />
@@ -74,7 +74,7 @@ class Bar {
 
         return (
             <div>
-                <div>可添加子组件:</div>
+                <div><Icon type="right-square" /> 可添加子组件</div>
                 <Button.Group size={'small'}>
                     {menus.map((name, i) => {
                         if (name === '') {

@@ -5,9 +5,8 @@
  * 元素位置编辑
  */
 import React, { PureComponent } from 'react';
-import { InputNumber } from 'antd';
-
-import { editComponentByType } from '../../pages/editor/App';
+import { Select } from 'antd';
+import { editComponentByGuid } from '../../pages/editor/App';
 
 class PositionEdit extends PureComponent {
     constructor(props) {
@@ -21,78 +20,83 @@ class PositionEdit extends PureComponent {
         }
     }
 
-    // handleChange = (event) => {
-    //     console.log(event)
-    //     const attr = event.currentTarget.getAttribute('data-attr');
-
-    //     this.setState({
-    //         [attr]: event.currentTarget.value,
-    //     });
-
-    //     editComponent(event);
-    // }
-
-    handleChange = ({option, value}) => {
+    handleSubmitPosition = (event) => {
+        if (event.keyCode !== 13) return;
+        // 要修改某个元素的对应关系, layout, main, ...
         const { target, guid } = this.props;
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
+        const keys = ['componentProps', 'style', target, attr];
+
         this.setState({
-            [option]: value
-        })
-        editComponentByType({guid, attr: option, target, value});
+            [attr]: value,
+        });
+
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
+    }
+
+    /**
+     * 回车修改input数据
+     */
+    handleChangePosition = (event) => {
+        const attr = event.currentTarget.getAttribute('data-attr');
+        const value = event.currentTarget.value;
+
+        this.setState({
+            [attr]: value,
+        });
     }
 
     render() {
-        const { target, guid } = this.props;
         const { top, right, buttom, left } = this.state;
 
         return (
             <div>
-                <div>{target}</div>
-
+                <div>Tips: 点击区域若为绝对定位，请将外层布局的定位设置为相对定位并设置高度</div>
                 <div className="ec-editor-basic-props ec-editor-basic-props-top">
                     <label htmlFor="">上</label>
-                    <InputNumber
-                        min={1}
+                    <input
                         type="text"
-                        data-guid={guid}
-                        data-target={target}
                         data-attr="top"
-                        onChange={(value) => this.handleChange({option: 'top', value})}
+                        onChange={this.handleChangePosition}
+                        onKeyUp={this.handleSubmitPosition}
                         value={top}
                     />
                 </div>
 
                 <div className="ec-editor-basic-props ec-editor-basic-props-left">
                     <label htmlFor="">左</label>
-                    <InputNumber
-                        min={1}
-                        data-guid={guid}
-                        data-target={target}
+                    <input
+                        type="text"
                         data-attr="left"
-                        onChange={(value) => this.handleChange({option: 'left', value})}
+                        onChange={this.handleChangePosition}
+                        onKeyUp={this.handleSubmitPosition}
                         value={left}
                     />
                 </div>
 
                 <div className="ec-editor-basic-props ec-editor-basic-props-right">
                     <label htmlFor="">右</label>
-                    <InputNumber
-                        min={1}
-                        data-guid={guid}
-                        data-target={target}
+                    <input
+                        type="text"
                         data-attr="right"
-                        onChange={(value) => this.handleChange({option: 'right', value})}
+                        onChange={this.handleChangePosition}
+                        onKeyUp={this.handleSubmitPosition}
                         value={right}
                     />
                 </div>
 
                 <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
                     <label htmlFor="">下</label>
-                    <InputNumber
-                        min={1}
-                        data-guid={guid}
-                        data-target={target}
+                    <input
+                        type="text"
                         data-attr="buttom"
-                        onChange={(value) => this.handleChange({option: 'buttom', value})}
+                        onChange={this.handleChangePosition}
+                        onKeyUp={this.handleSubmitPosition}
                         value={buttom}
                     />
                 </div>

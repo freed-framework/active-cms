@@ -2,5 +2,5 @@
 
 interface ImgProps extends DefaultProps {
     src?: any;
-    url?: any;
+    url?: string;
 }

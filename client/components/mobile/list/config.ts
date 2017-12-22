@@ -3,7 +3,7 @@
 const config: Config = {
     name: 'mobile/list',
     isCommon: true,
-    className: 'guide-steps-handler',
+    className: 'tmc-list guide-steps-handler',
     dataTable: {
         'data-guide': {
             "step": 1,

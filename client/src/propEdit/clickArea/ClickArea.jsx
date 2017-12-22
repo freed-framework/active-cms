@@ -17,8 +17,6 @@ class ClickArea extends PureComponent {
 
         return (
             <div>
-                <div>{target}</div>
-
                 {componentProps.data && componentProps.data.map(item => (
                     <div>
                         <div>
