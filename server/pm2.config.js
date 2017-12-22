@@ -4,10 +4,6 @@ module.exports = {
         name: "server",
         script: "./dist/main.js",
         watch: true,
-        env: {
-            "PORT": 3000,
-            "NODE_ENV": "development"
-        },
         env_dev: {
             "PORT": 3000,
             "NODE_ENV": "development"

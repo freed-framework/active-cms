@@ -11,8 +11,6 @@ import ENV from '../../config/env';
 
 const proxy = httpProxy.createProxyServer({});
 
-const nodeENV = process.env.NODE_ENV;
-
 @Middleware()
 export class PushMiddleware implements NestMiddleware {
     resolve() {

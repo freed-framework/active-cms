@@ -13,17 +13,15 @@ import logger from '../logger.utils';
 
 const proxy = httpProxy.createProxyServer({});
 
-const nodeENV = process.env.NODE_ENV;
-
 @Middleware()
 export class FileMiddleware implements NestMiddleware {
     resolve() {
         return async (req, res, next) => {
             // 代理到公司上传图片服务器
-            proxy.web(req, res, { target: `${ENV.api[nodeENV]}/commonUploadFile/uploadImageFiles?_=1`  }, (e) => {
+            proxy.web(req, res, { target: `${ENV.api}/commonUploadFile/uploadImageFiles?_=1`  }, (e) => {
                 const { user } = req;
 
-                logger.error("%s 上传图片失败， 时间： %s", user._id, new Date());
+                logger.error("%s 上传图片失败， 时间： %s", user._id, new Date(), e);
 
                 next();
             })
