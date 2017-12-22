@@ -35,10 +35,10 @@ var child_process = require('child_process');
 var cpy = require('cpy');
 
 
-var nodeENV = process.env.NODE_ENV;
-var isMobile = true;
-
+var nodeENV = process.env.NODE_ENV || 'development';
 var publicPath = /(\/ssrPath\/)/ig;
+
+var filePath = _env2.default.publicPath[nodeENV];
 
 var Template = function Template(id, socket, body) {
     return new _promise2.default(function (resolve, reject) {
@@ -73,7 +73,7 @@ var Template = function Template(id, socket, body) {
 
             // 修改html中地址
             var htmlString = _fs2.default.readFileSync(baseUrl + '/index.html', "utf-8");
-            var newHtmlString = htmlString.replace(publicPath, '' + _env2.default.publicPath + timeStmp + '/');
+            var newHtmlString = htmlString.replace(publicPath, '' + filePath + timeStmp + '/');
             _fs2.default.writeFileSync(baseUrl + '/index.html', newHtmlString);
 
             socket.emit('push:progress:' + id, {
@@ -100,7 +100,7 @@ var Template = function Template(id, socket, body) {
                     return '{data: ' + (0, _stringify2.default)(body.content) + ',pageType: "' + pageType + '"}';
                 }
                 if ($2) {
-                    return '' + _env2.default.publicPath + timeStmp + '/';
+                    return '' + filePath + timeStmp + '/';
                 }
             });
 
@@ -129,9 +129,9 @@ var _temp = function () {
 
     __REACT_HOT_LOADER__.register(nodeENV, 'nodeENV', 'src/template.js');
 
-    __REACT_HOT_LOADER__.register(isMobile, 'isMobile', 'src/template.js');
-
     __REACT_HOT_LOADER__.register(publicPath, 'publicPath', 'src/template.js');
+
+    __REACT_HOT_LOADER__.register(filePath, 'filePath', 'src/template.js');
 
     __REACT_HOT_LOADER__.register(Template, 'Template', 'src/template.js');
 

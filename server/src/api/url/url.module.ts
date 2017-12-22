@@ -4,7 +4,6 @@ import {
 
 import { UrlController } from './url.controller';
 import { UrlService } from './url.service';
-import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 
 @Module({
     controllers: [
@@ -16,8 +15,8 @@ import { AuthMiddleware } from '../../common/middlewares/auth.middleware';
 })
 export class UrlModule {
     configure(consumer: MiddlewaresConsumer) {
-        consumer
-            .apply(AuthMiddleware)
-            .forRoutes(UrlController)
+        // consumer
+        //     .apply(AuthMiddleware)
+        //     .forRoutes(UrlController)
     }
 }

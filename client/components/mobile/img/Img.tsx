@@ -1,10 +1,9 @@
 /// <reference path="./img.d.ts" />
 import * as React from 'react';
+import redirect from 'freed-multi/lib/native/redirect.js';
 import config from './config';
-// <TODO> 暂时使用当前组件项目下
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import LazyLoad from '../lazy-load/index.js';
-import redirect from 'freed-multi/lib/native/redirect.js';
 import './img.scss';
 
 @componentPropsHoc({
@@ -46,7 +45,7 @@ class Img extends React.PureComponent<ImgProps, any> {
         return (
             <div
                 id={id}
-                className={`${className} tmc-module tmc-img`}
+                className={className}
                 {...(dataTable && { ...dataTable })}
                 onClick={this.handleClick}
                 style={styleProps}

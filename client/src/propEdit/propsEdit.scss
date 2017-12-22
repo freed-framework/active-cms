@@ -3,8 +3,16 @@
     vertical-align: middle;
 }
 
-.ec-editor-basic {
-    &-props {
+.ec-editor {
+    .ant-col-12, ant-col-24 {
+        
+    }
+
+    &-todo-target {
+        margin-bottom: 10px;
+    }
+
+    &-basic-props {
         margin-bottom: 4px;
 
         label {
@@ -13,7 +21,7 @@
             margin-bottom: 4px;
         }
 
-        button{
+        button {
             margin-top: 8px;
         }
 

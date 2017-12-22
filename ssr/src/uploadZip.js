@@ -5,7 +5,7 @@ import ENV from './env';
 
 const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
   return new Promise((resolve, reject) => {
-    
+
    /**
      * id {string} 页面id
      * uploadUserId {string} 上传用户
@@ -31,9 +31,8 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
     };
 
     zipId && (formData.id = zipId)
-    
 
-    request.post({ url: `${ENV.domain}/api/publish/zip`, formData: formData }, (err, httpResponse, res) => {
+    request.post({ url: `${ENV.api}/commonUploadFile/uploadZip`, formData: formData }, (err, httpResponse, res) => {
         res = JSON.parse(res) || {};
 
         if (err) {

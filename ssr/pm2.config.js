@@ -4,10 +4,6 @@ module.exports = {
         name: "ssr",
         script: "./lib/index.js",
         watch: true,
-        env: {
-            "PORT": 1234,
-            "NODE_ENV": "development"
-        },
         env_dev: {
             "PORT": 1234,
             "NODE_ENV": "development"

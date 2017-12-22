@@ -21,8 +21,13 @@ import ImgUrl from './imgUrl';
 import MobileList from './mobileList';
 import ClickArea from './clickArea';
 import EditDataNumber from './editDataNumber';
+import Link from './link';
 
 export {
+    /**
+     * 编辑链接地址
+     */
+    Link,
     /**
      * 编辑属性
      */

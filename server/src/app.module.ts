@@ -29,8 +29,5 @@ export class ApplicationModule implements NestModule {
         consumer
             .apply([DevelopmentMiddleware, LoggerMiddleware])
             .forRoutes({path: '/*', method: RequestMethod.ALL})
-            // 上传zip活动页拦截器
-            .apply(PublishMiddleware)
-            .forRoutes({path: '/publish/zip', method: RequestMethod.ALL})
     }
 }

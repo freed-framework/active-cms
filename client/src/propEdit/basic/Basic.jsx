@@ -5,12 +5,15 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Select, Tooltip, Icon, Tag } from 'antd';
 import PropTypes from 'prop-types';
 import { editComponentByType, editComponentByGuid } from '../../pages/editor/App';
 import defaultStyleHoc from '../../common/hoc/defaultStyleHoc';
 import BorderEdit from '../border';
 import Background from '../background';
+import './basic.scss';
+
+const Option = Select.Option;
 
 @defaultStyleHoc
 class BasicEdit extends PureComponent {
@@ -21,7 +24,6 @@ class BasicEdit extends PureComponent {
 
     static defaultProps = {
         componentProps: {},
-        defaultValue: {},
     }
 
     constructor(props) {
@@ -29,17 +31,17 @@ class BasicEdit extends PureComponent {
         const { componentProps = {}, target } = props;
         const { style = {} } = componentProps;
         const propsStyle = style[target] || {};
+        const obj = {};
 
-        this.state = {
-            width: propsStyle.width,
-            height: propsStyle.height,
-            margin: propsStyle.margin,
-            padding: propsStyle.padding,
-            border: propsStyle.border,
-            background: propsStyle.background,
-            backgroundColor: propsStyle.backgroundColor,
-            backgroundImage: propsStyle.backgroundImage,
-        }
+        Object.keys(propsStyle).forEach(k => {
+            const v = propsStyle[k];
+
+            if (v !== undefined) {
+                obj[k] = v;
+            }
+        });
+
+        this.state = obj;
     }
 
     /**
@@ -47,8 +49,6 @@ class BasicEdit extends PureComponent {
      */
     onBackgroundChange = ({option, value}) => {
         const { guid, target } = this.props;
-
-        // editComponentByType({guid, attr: option, target, value});
 
         const keys = target ?
             ['componentProps', 'style', target, option] :
@@ -94,21 +94,45 @@ class BasicEdit extends PureComponent {
         });
     }
 
+    /**
+     * 修改定位类型
+     * @param value
+     */
+    handleChangePositionType = (value) => {
+        const { target, guid } = this.props;
+        const keys = ['componentProps', 'style', target, 'position'];
+
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
+    }
+
+    handleChangeOverflow = (value) => {
+        const { target, guid } = this.props;
+        const keys = ['componentProps', 'style', target, 'overflow'];
+
+        editComponentByGuid(
+            guid,
+            keys,
+            value,
+        );
+    }
+
     render() {
         const { target, guid, componentProps } = this.props;
-
         // 这里的componentProps 应该从 defaultValue merge
-        const { style = {} } = componentProps;
-        const propsStyle = style[target];
+        // const { style = {} } = componentProps;
+        const propsStyle = this.state;
         const borderProps = {
             style: propsStyle,
             target,
             guid,
-        }
+        };
 
         return (
-            <div>
-                <div>{target}</div>
+            <div className="ec-editor-basic">
                 <Row>
                     <Col span={12}>
                         <div className="ec-editor-basic-props ec-editor-basic-props-width">
@@ -162,6 +186,89 @@ class BasicEdit extends PureComponent {
                                 onKeyUp={this.handleKeyUp}
                                 value={this.state.padding}
                             />
+                        </div>
+                    </Col>
+                    <Col span={24}>
+                        <div>
+                            <label htmlFor="">定位</label>
+                            <Select
+                                defaultValue={propsStyle.position || 'static'}
+                                onChange={this.handleChangePositionType}
+                            >
+                                <Option value="static">默认方式</Option>
+                                <Option value="relative">相对定位</Option>
+                                <Option value="absolute">绝对定位</Option>
+                                <Option value="fixed">浮动定位</Option>
+                            </Select>
+                            <Tooltip
+                                placement="bottom"
+                                title="使用'绝对定位'的时候，请将外层布局的定位设置为'相对定位'或其他并设置'高度'"
+                            >
+                                &nbsp;<Icon type="question-circle" />
+                            </Tooltip>
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-top">
+                            <label htmlFor="">上</label>
+                            <input
+                                type="text"
+                                data-attr="top"
+                                onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
+                                value={this.state.top}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
+                            <label htmlFor="">下</label>
+                            <input
+                                type="text"
+                                data-attr="bottom"
+                                onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
+                                value={this.state.bottom}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-left">
+                            <label htmlFor="">左</label>
+                            <input
+                                type="text"
+                                data-attr="left"
+                                onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
+                                value={this.state.left}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-right">
+                            <label htmlFor="">右</label>
+                            <input
+                                type="text"
+                                data-attr="right"
+                                onChange={this.handleChange}
+                                onKeyUp={this.handleKeyUp}
+                                value={this.state.right}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={24}>
+                        <div>
+                            <label htmlFor="">溢出设置</label>
+                            <Select
+                                defaultValue={propsStyle.overflow || 'visible'}
+                                onChange={this.handleChangeOverflow}
+                            >
+                                <Option value="visible">默认方式</Option>
+                                <Option value="hidden">隐藏</Option>
+                                <Option value="scroll">滚动</Option>
+                                <Option value="auto">自动</Option>
+                                <Option value="inherit">父元素继承</Option>
+                            </Select>
                         </div>
                     </Col>
                 </Row>
