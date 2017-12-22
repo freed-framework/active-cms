@@ -1,3 +1,5 @@
+const nodeENV = process.env.NODE_ENV;
+
 /**
  * client server ssr 三个平台环境变量
  */
@@ -13,7 +15,7 @@ var ENV = {
     /**
      * 项目域名
      */
-    domain: "http://wuget.yatang.com.cn"
+    domain: nodeENV === 'production' ? 'http://wuget.yatang.com.cn' : 'http://www.iting.top'
     // domain: "http://localhost:12345"
 }
 
