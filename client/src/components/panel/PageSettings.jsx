@@ -51,8 +51,8 @@ class PageSettings extends PureComponent {
 
         return (
             <div>
-                <div className="ec-edit-setting">页面配置</div>
-                <div className="ec-edit-setting-title">
+                {/* <div className="ec-edit-setting">页面配置</div> */}
+                {/* <div className="ec-edit-setting-title">
                     标题
                     <input
                         type="text"
@@ -68,7 +68,7 @@ class PageSettings extends PureComponent {
                     >
                         <button ref="chooseAndUpload">上传图片</button>
                     </FileUpload>
-                </div>
+                </div> */}
             </div>
         )
     }
