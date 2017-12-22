@@ -15,7 +15,7 @@ var ENV = {
     /**
      * 项目域名
      */
-    domain:  nodeENV === 'production' ? 'http://wuget.yatang.com.cn' : 'http://www.iting.top',
+    domain:  nodeENV === 'development' ? 'http://www.iting.top' : 'http://wuget.yatang.com.cn',
     // domain: "http://localhost:3000"
 
 }
