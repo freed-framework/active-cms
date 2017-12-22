@@ -5,7 +5,7 @@ const config: Config = {
     isCommon: true,
     displayName: '布局',
     iconType: 'layers',
-    menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
+    menus: ['mobile/layer', 'mobile/img', 'mobile/list', 'mobile/click-area'],
     editable: [
         {
             component: 'Basic',
