@@ -9,7 +9,8 @@
     "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
-    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
+    "build-pro": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
+    "build-dev": "cross-env NODE_ENV=production CONF='test' ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
     "build-mobile": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-mobile.js",
     "build-pc": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-pc.js"
   },
