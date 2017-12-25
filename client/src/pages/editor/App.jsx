@@ -24,7 +24,6 @@ import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
 import { getToken } from '../../utils';
-import ENV from '../../../../conf/env';
 const url = require('../../images/list-placeholder.png')
 import './app.scss';
 
@@ -607,7 +606,7 @@ class App extends PureComponent {
             'layercake-hide': layerCakeVisible,
         });
         const options = {
-            baseUrl: `${ENV.domain}/api/image`,
+            baseUrl: `${config.domain}/api/image`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',

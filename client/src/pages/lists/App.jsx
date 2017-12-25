@@ -12,7 +12,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
-import ENV from '../../../../conf/env';
 import { getUser } from '../../actions/user';
 import Card from './Card';
 import { listsPageByTitle, shareList, listsPage } from '../../services';
@@ -22,8 +21,7 @@ const Option = Select.Option;
 
 import './app.scss';
 
-// `${ENV.domain}`
-const socket = io(`${ENV.domain}`, {
+const socket = io(`${config.domain}`, {
     path: '/push'
 });
 

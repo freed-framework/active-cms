@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "node ./tool/server.js",
+    "start": "cross-env CONF='test' node ./tool/server.js",
     "server": "./node_modules/.bin/webpack-dev-server --content-base ssr/publish/123/ --inline --hot --host 172.30.40.16 --port 8888",
     "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
