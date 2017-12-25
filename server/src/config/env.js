@@ -1,11 +1,11 @@
-const nodeENV = process.env.NODE_ENV || development;
+const nodeENV = process.env.NODE_ENV || 'development';
 
 /**
  * client server ssr 三个平台环境变量
  */
 const apiMap = {
     development: "http://sitxcsc.yatang.com.cn/api/sc",
-    production: "https://xcscm.yatang.com.cn/api/sc",
+    production: "http://xcscm.yatang.com.cn/api/sc",
     test: "http://xcscm.yatang.com.cn/api/sc"
 }
 
