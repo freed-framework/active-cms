@@ -63,7 +63,7 @@ var Template = function Template(id, socket, body) {
             progress: 12,
             message: "开始复制页面"
         });
-
+        console.log(123123123123);
         cpy(['../client/pkg-' + pageType + '/*'], baseUrl).then(function () {
             socket.emit('push:progress:' + id, {
                 code: 200,

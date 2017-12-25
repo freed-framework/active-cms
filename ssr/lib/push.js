@@ -36,6 +36,7 @@ var download = function download(req, res, next) {
             baseUrl = _ref.baseUrl,
             timeStmp = _ref.timeStmp;
 
+        console.log(baseUrl);
         (0, _uploadZip2.default)({ folderZipPath: folderZipPath, baseUrl: baseUrl, timeStmp: timeStmp, body: body }).then(function (result) {
             res.status(200).json(result);
 

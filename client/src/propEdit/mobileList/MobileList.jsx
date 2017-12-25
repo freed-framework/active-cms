@@ -138,7 +138,7 @@ class MobileList extends PureComponent {
 
         /*set properties*/
         const options = {
-            baseUrl: `${config.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             multiple: true,
             accept: 'image/*',
             chooseAndUpload: true,

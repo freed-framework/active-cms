@@ -275,8 +275,9 @@ export class PageService {
         let newPage: any = Utils.parseContent(page);
 
         return new Promise((resolve, reject) => {
+            // `${ENV.domain}/ssr/push`
             request({
-                url: `${ENV.domain}/ssr/push`,
+                url: `http://localhost:12345/ssr/push`,
                 method: "POST",
                 json: true,
                 headers: {

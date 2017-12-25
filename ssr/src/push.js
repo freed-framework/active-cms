@@ -14,6 +14,7 @@ const download = (req, res, next) => {
     })
 
     Template(body.id, socket, body).then(({folderZipPath, baseUrl, timeStmp}) => {
+        console.log(baseUrl)
         UploadZip({folderZipPath, baseUrl, timeStmp, body})
         .then((result) =>{
             res.status(200).json(result);
