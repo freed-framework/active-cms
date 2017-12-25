@@ -32,7 +32,7 @@ class PageSettings extends PureComponent {
         const { title } = this.props;
 
         const options = {
-            baseUrl: `${config.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
