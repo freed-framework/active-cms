@@ -48,7 +48,7 @@ class ImgUrl extends PureComponent {
 
         /*set properties*/
         const options = {
-            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
+            baseUrl: `${config.domain}/api/image`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',

@@ -11,7 +11,7 @@ class Upload extends Component {
     render() {
         /*set properties*/
         const options = {
-            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
+            baseUrl: `${config.domain}/api/image`,
             multiple: true,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
