@@ -5,7 +5,7 @@ const nodeENV = process.env.NODE_ENV || 'development';
  */
 const apiMap = {
     development: "http://sitxcsc.yatang.com.cn/api/sc",
-    production: "http://xcscm.yatang.com.cn/api/sc",
+    production: "https://xcscm.yatang.com.cn/api/sc",
     test: "http://xcscm.yatang.com.cn/api/sc"
 }
 
