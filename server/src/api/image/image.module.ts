@@ -24,8 +24,6 @@ export class ImageModule {
                 path: '/image',
                 method: RequestMethod.POST
             })
-            .apply(JwtMiddleware)
-            .forRoutes(ImageController)
 
     }
 }
