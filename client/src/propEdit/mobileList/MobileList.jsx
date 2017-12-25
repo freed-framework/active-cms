@@ -143,9 +143,6 @@ class MobileList extends PureComponent {
             accept: 'image/*',
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             fileFieldName: 'file',
             uploadSuccess: this.uploadSuccess,
             uploadError: this.uploadFail,

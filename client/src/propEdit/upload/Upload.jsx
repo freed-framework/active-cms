@@ -15,9 +15,6 @@ class Upload extends Component {
             multiple: true,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             param: {
                 fid: 0
             },

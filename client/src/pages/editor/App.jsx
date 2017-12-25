@@ -610,9 +610,6 @@ class App extends PureComponent {
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const img = data[0];

@@ -45,16 +45,13 @@ class ImgUrl extends PureComponent {
 
     render() {
         const { guid, componentProps = {} } = this.props;
-//${config.domain}/api/image`
+
         /*set properties*/
         const options = {
-            baseUrl: `https://xcscm.yatang.com.cn/api/sc/commonUploadFile/uploadImageFiles`,
+            baseUrl: `${config.domain}/api/image`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
