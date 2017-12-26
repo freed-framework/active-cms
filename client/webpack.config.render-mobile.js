@@ -4,6 +4,7 @@
  *
  */
 var glob = require('glob');
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebPlugin = require('html-webpack-plugin');
