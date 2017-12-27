@@ -17,7 +17,6 @@ export class PushMiddleware implements NestMiddleware {
         return async (req, res, next) => {
             // 代理到公司上传图片服务器
             proxy.web(req, res, { target: `http://localhost:12345/ssr/push`  }, (e) => {
-                console.log(e);
                 next();
             })
         }

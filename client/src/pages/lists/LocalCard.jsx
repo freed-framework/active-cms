@@ -34,7 +34,7 @@ function formNowFun(time) {
         getUser
     }, dispatch)
 )
-export default class Card extends PureComponent {
+export default class LocalCard extends PureComponent {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any).isRequired,
         history: PropTypes.objectOf(PropTypes.any),
@@ -301,8 +301,7 @@ export default class Card extends PureComponent {
                 className={classnames(
                     'page-list-card', {
                         'page-list-card-publish': data.publish,
-                        'page-list-card-isFork': data.fork,
-                        'page-list-card-pushed': data.pushId
+                        'page-list-card-isFork': data.fork
                     })
                 }
                 key={data._id}
@@ -314,17 +313,6 @@ export default class Card extends PureComponent {
                         className={'page-list-card-img'}
                         src={data.thumbnail || require('../../images/list-placeholder.png')}
                     />
-
-                    <div
-                        className={
-                            classnames('page-list-card-pendant', {
-                                'page-list-card-pendant-fork': data.fork
-                            })
-                        }
-                    >
-                        <span className={'page-list-card-user'}>{`作者：${user.userDspName}`}</span>
-                        <span className={'page-list-card-type'}>{data.fork ? '非' : '原'}</span>
-                    </div>
                 </div>
                 <div className={'page-list-card-button'}>
                     <p
@@ -351,23 +339,6 @@ export default class Card extends PureComponent {
                         <ul className="page-list-card-button-wrap">
                             <li
                                 className="page-list-card-icon page-list-card-icon-hover"
-                                onClick={this.handleFork}
-                            >
-                                <Font type="streetsign" />
-                                <span className="page-list-card-text">{data.forkNum}</span>
-                            </li>
-                            {
-                                isOwer &&
-                                <li
-                                    className="page-list-card-icon page-list-card-icon-hover"
-                                    onClick={this.handleEdit}
-                                >
-                                    <Font type="clipboard-edit" />
-                                    <span className="page-list-card-text">编辑</span>
-                                </li>
-                            }
-                            <li
-                                className="page-list-card-icon page-list-card-icon-hover"
                                 onClick={this.handleView}
                             >
                                 <Font type="eye" />
@@ -381,44 +352,6 @@ export default class Card extends PureComponent {
                                 >
                                     <Font type="trash-can" />
                                     <span className="page-list-card-text">删除</span>
-                                </li>
-                            }
-                            {
-                                isOwer &&
-                                <li
-                                    className="page-list-card-icon page-list-card-icon-hover"
-                                    onClick={this.handleShare}
-                                >
-                                    <Font type="move" />
-                                    <span className="page-list-card-text">分享</span>
-                                </li>
-                            }
-                            {/* {
-                                current !== 'publish' && isOwer &&
-                                <li
-                                    className="page-list-card-icon page-list-card-icon-hover"
-                                    onClick={this.handleUpload}
-                                >
-                                    <Font type={data.publish ? 'clipboard-download' : 'clipboard-upload'} />
-                                    <span className="page-list-card-text">{data.publish ? '撤回' : '公开'}</span>
-                                </li>
-                            } */}
-                            {
-                                current !== 'publish' && isOwer &&
-                                <li
-                                    className="page-list-card-icon page-list-card-icon-hover"
-                                    onClick={this.handlePush}
-                                >
-                                    {
-                                        isPushing
-                                        ? <Spin size="small" />
-                                        : <Font type={'clipboard-upload'} />
-                                    }
-                                    <span className="page-list-card-text">{
-                                        !isPushing
-                                        ? '发布'
-                                        : '发布中...'
-                                    }</span>
                                 </li>
                             }
                         </ul>

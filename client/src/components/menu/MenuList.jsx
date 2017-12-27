@@ -3,7 +3,7 @@
  * @Author: shijh
  * @CreateDate: 2017-12-15 10:57:06
  * @Last Modified by: shijh
- * @Last Modified time: 2017-12-21 15:59:52
+ * @Last Modified time: 2017-12-27 10:00:25
  *
  * 列表页menu
  */
@@ -33,6 +33,7 @@ export default class TopMenu extends PureComponent {
         history: PropTypes.objectOf(PropTypes.any),
         onSearch: PropTypes.func,
         getUser: PropTypes.func,
+        uploadZip: PropTypes.func
     }
 
     handleAdd = () => {
@@ -45,6 +46,13 @@ export default class TopMenu extends PureComponent {
     handleLogout = () => {
         localStorage.removeItem('access_token');
         this.props.getUser()
+    }
+
+    /**
+     * 上传页面
+     */
+    handleUpload = () => {
+        this.props.uploadZip();
     }
 
     render() {
@@ -68,6 +76,12 @@ export default class TopMenu extends PureComponent {
                             onClick={this.handleAdd}
                         >
                             新建
+                        </Button>
+                        <Button
+                            className="ec-editor-btn"
+                            onClick={this.handleUpload}
+                        >
+                            上传
                         </Button>
                         <Button
                             className="ec-editor-btn ec-editor-btn-red"

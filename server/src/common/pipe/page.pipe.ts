@@ -9,7 +9,7 @@ export class encodeCreatePipe implements PipeTransform<any> {
     async transform(value, metadata: ArgumentMetadata) {
         const { content = [] } = value;
         value.content = LZString.compressToBase64(JSON.stringify(content));
-     
+
         return value;
     }
 }
@@ -29,7 +29,6 @@ export class decodeGetPipe implements PipeTransform<any> {
     async transform(value, metadata: ArgumentMetadata) {
         // const { content = [] } = value.page;
         // value.page.content = LZString.compressToBase64(JSON.stringify(content));
-        console.log(value)
         return value;
     }
 }

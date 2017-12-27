@@ -55,7 +55,6 @@ const UserSchema = new Schema({
 
 UserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
-    console.log(this.salt)
     //1000代表迭代次数 64代表长度
     this.password = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };

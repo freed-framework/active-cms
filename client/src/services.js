@@ -133,6 +133,15 @@ export const sharePage = (params) => http.post(`${config.domain}/api/page/share`
 export const shareList = (params) => http.get(`${config.domain}/api/share/lists`, params);
 
 /**
+ * 查询本地上传的页面
+ * params 参数包含
+ * - pageSize {number} 每页多少条
+ * - page {number} 当前第几页
+ * - content {string} 页面title 模糊查询
+ */
+export const localList = (params) => http.get(`${config.domain}/api/local`, params);
+
+/**
  * 用户登录
  * params 参数包含
  * - userName {string} 用户名
