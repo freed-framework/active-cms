@@ -15,12 +15,14 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import reqwest from 'reqwest';
 import io from 'socket.io-client';
 import { getUser } from '../../actions/user';
 import Card from './Card';
 import LocalCard from './LocalCard';
 import { listsPageByTitle, shareList, listsPage, localList } from '../../services';
 import { TopMenu } from '../../components';
+
 const Search = Input.Search;
 const FormItem = Form.Item;
 const Dragger = Upload.Dragger;
@@ -51,7 +53,8 @@ class List extends PureComponent {
         match: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
         getUser: PropTypes.func,
-        form: PropTypes.objectOf(PropTypes.any)
+        form: PropTypes.objectOf(PropTypes.any),
+        user: PropTypes.objectOf(PropTypes.any)
     }
 
     constructor(props) {
@@ -61,7 +64,8 @@ class List extends PureComponent {
             data: [],
             current: 'my',
             uploadModal: false,
-            file: null
+            file: null,
+            uploading: false
         }
 
         this.params = {
@@ -181,7 +185,37 @@ class List extends PureComponent {
         const { validateFields } = this.props.form;
 
         validateFields((err, values) => {
-            console.log(values)
+            const { upload } = values;
+            const { title, file } = upload;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('activityName', title);
+            formData.append('uploadUserId', this.props.user._id);
+
+            this.setState({
+                uploading: true,
+            });
+
+            reqwest({
+                url: `${config.api}/commonUploadFile/uploadZip`,
+                method: 'post',
+                processData: false,
+                data: formData,
+                success: (data) => {
+                    console.log(data)
+                  this.setState({
+                    fileList: [],
+                    uploading: false,
+                  });
+                  message.success('upload successfully.');
+                },
+                error: () => {
+                  this.setState({
+                    uploading: false,
+                  });
+                  message.error('upload failed.');
+                },
+            });
         })
     }
 
@@ -190,7 +224,7 @@ class List extends PureComponent {
     }
 
     render() {
-        const { data = {}, current, uploadModal } = this.state;
+        const { data = {}, current, uploadModal, uploading } = this.state;
         const { lists = [], pageSize, page, total } = data;
         const { history, match } = this.props;
         const searchReg = new RegExp(`${this.params.content}`, 'gim');
@@ -206,7 +240,21 @@ class List extends PureComponent {
             },
         };
         const props = {
-            accept: '.zip'
+            accept: '.zip',
+            showUploadList: true,
+            dataType: 'multipart/form-data',
+            onRemove: () => {
+                this.setState({
+                    file: []
+                });
+            },
+            beforeUpload: (file) => {
+                this.setState({
+                    file
+                });
+                return false;
+            },
+            fileList: this.state.file ? [this.state.file] : []
         };
 
         return (
@@ -279,7 +327,7 @@ class List extends PureComponent {
                     title="新建"
                     visible
                     onOk={this.handleUploadOk}
-                    // confirmLoading={confirmLoading}
+                    confirmLoading={uploading}
                     onCancel={this.handleUploadCancel}
                 >
                     <Form>
