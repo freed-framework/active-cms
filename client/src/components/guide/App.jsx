@@ -168,7 +168,6 @@ class Guide extends Component {
     start = () => {
         try {
             const {cnt, steps} = this.guides;
-            console.log(steps)
             const { guide, ...opt } = steps[this.step];
             const rect = getRect(guide);
             if (opt.done) {
