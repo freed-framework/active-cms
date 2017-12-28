@@ -6,14 +6,6 @@
     pointer-events: none;
 }
 
-.ec-editor-canvas-inner {
-    .tmc-img {
-        img, .imgWarp {
-            @extend .pointer-events-disabled;
-        }
-    }
-}
-
 .ec-editor-scroller {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;

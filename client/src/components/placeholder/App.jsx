@@ -15,7 +15,7 @@ class PlaceHolder extends PureComponent {
     }
 
     static defaultProps = {
-        iconType: '',
+        iconType: 'def',
         name: 'PlaceHolder',
     }
 

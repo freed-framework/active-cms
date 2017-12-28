@@ -3,7 +3,10 @@
 const config: Config = {
     name: 'mobile/click-area',
     className: 'tmc-click-area',
-    displayName: '热区',
+    displayName: '点击区域',
+    draggable: {
+        position: ['left', 'top', 'width', 'height'],
+    },
     editable: [
         {
             component: ['Link', 'Basic'],
@@ -14,7 +17,7 @@ const config: Config = {
     defaultValues: {
         style: {
             layout: {
-                position: 'absolute',
+                position: 'relative',
                 height: '100%',
                 width: '100%',
             }

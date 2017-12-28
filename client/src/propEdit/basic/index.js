@@ -1,3 +1,7 @@
-import Basic from './Basic';
+import Basic, { updateBasicProps } from './Basic';
+
+export {
+    updateBasicProps,
+}
 
 export default Basic;

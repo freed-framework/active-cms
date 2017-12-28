@@ -110,11 +110,13 @@ export const transPx = (data) => {
     Object.keys(trans).forEach(k => {
         const item = trans[k];
 
-        Object.keys(item).forEach(key => {
-            if (transExpr.test(key)) {
-                item[key] = num2rem(item[key]);
-            }
-        })
+        if (item) {
+            Object.keys(item).forEach(key => {
+                if (transExpr.test(key)) {
+                    item[key] = num2rem(item[key]);
+                }
+            });
+        }
     });
 
     return trans;

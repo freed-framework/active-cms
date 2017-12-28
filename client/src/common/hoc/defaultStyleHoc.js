@@ -5,6 +5,7 @@
  * 用于将 components/{component}/index.ts config 的 defaultValues 和 数据的 componentProps 进行合并
  */
 import React, { PureComponent } from 'react';
+import { is } from 'immutable';
 import { editComponentByGuid } from '../../pages/editor/App';
 
 const defaultStyleHoc = WarppedComponent => class extends PureComponent {
@@ -22,6 +23,7 @@ const defaultStyleHoc = WarppedComponent => class extends PureComponent {
 
         this.state = {
             componentProps: value,
+            activeId: null,
         };
         
         editComponentByGuid(
@@ -29,6 +31,20 @@ const defaultStyleHoc = WarppedComponent => class extends PureComponent {
             ['componentProps'],
             value
         );
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!is(this.props.componentProps, nextProps.componentProps)) {
+            this.setState({
+                componentProps: nextProps.componentProps,
+            });
+        }
+
+        if (!is(this.props.activeId, nextProps.activeId)) {
+            this.setState({
+                activeId: nextProps.activeId,
+            });
+        }
     }
 
     render() {

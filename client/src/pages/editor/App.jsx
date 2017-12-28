@@ -13,6 +13,7 @@ import mitt from 'mitt';
 import { getRect, createChildren } from '../../common/util/util';
 import module from '../../common/module';
 import { addPage, editPage, push } from '../../services';
+import { setRect } from '../../actions/pub';
 import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,24 +24,27 @@ import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
-import { getToken } from '../../utils';
+import { updateBasicProps } from '../../propEdit/basic';
+import { getToken, getStyle } from '../../utils';
 import ENV from '../../../../conf/env';
-const url = require('../../images/list-placeholder.png')
+import Dragger from '../../components/dragger';
+const url = require('../../images/list-placeholder.png');
 import './app.scss';
 
 const FormItem = Form.Item;
-
 const confirm = Modal.confirm;
 const emitter = mitt();
 
 @connect(
-    (state) => ({
+    state => ({
         user: state.toJS().user.data,
         title: state.toJS().page.title,
-        thumbnail: state.toJS().page.thumbnail
+        thumbnail: state.toJS().page.thumbnail,
+        activeInfo: state.toJS().pub.activeInfo,
     }),
     dispatch => bindActionCreators({
-        getUser
+        getUser,
+        setRect,
     }, dispatch)
 )
 class App extends PureComponent {
@@ -143,7 +147,7 @@ class App extends PureComponent {
         // //     }
         // // })
 
-        this.canvas.addEventListener('click', this.handleActive);
+        this.canvas.addEventListener('click', this.handleActive, false);
         // this.canvas.addEventListener('mouseover', this.handleHover);
         // this.canvas.addEventListener('mouseout', this.handleOut);
     }
@@ -194,6 +198,11 @@ class App extends PureComponent {
         const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
 
+        // 点击在提示可编辑的控制层上, 不进行激活操作
+        if (module === 'control') {
+            return;
+        }
+
         this.mittActive({
             guid,
             target,
@@ -213,11 +222,6 @@ class App extends PureComponent {
             this.setState({
                 rect: getRect(target),
             });
-        } else {
-            // 保持激活状态
-            // this.setState({
-            //     rect: this.state.activeRect,
-            // });
         }
     }
 
@@ -245,7 +249,7 @@ class App extends PureComponent {
             rect: null,
             activeRect: null,
             panelVisible: false,
-        })
+        });
     }
 
     /**
@@ -408,8 +412,8 @@ class App extends PureComponent {
      * @param key
      * @param value
      */
-    mittModify = ({ guid, key, value }) => {
-        const data = module.modify(guid, this.state.data, key, value);
+    mittModify = ({ guid, keys, value }) => {
+        const data = module.modify(guid, this.state.data, keys, value);
 
         this.setState({
             data,
@@ -512,8 +516,8 @@ class App extends PureComponent {
                 content: this.state.data,
                 thumbnail: this.state.thumbnail
             }).then((res) => {
-                this.$oldData = fromJS(this.state.data);
                 message.success('保存成功')
+                this.$oldData = fromJS(this.state.data);
                 this.handleSaveCancel();
                 this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
             })
@@ -577,6 +581,9 @@ class App extends PureComponent {
     handleClosePanel = () => {
         this.setState({
             panelVisible: false,
+            activeId: null,
+            rect: null,
+            activeRect: null,
         });
     }
 
@@ -584,7 +591,8 @@ class App extends PureComponent {
      * 显示/关闭 已添加组件
      */
     handleShow = () => {
-        const layerCakeVisible = this.state.layerCakeVisible;
+        const { layerCakeVisible } = this.state;
+
         this.setState({
             layerCakeVisible: !layerCakeVisible,
         });
@@ -593,15 +601,16 @@ class App extends PureComponent {
      * 显示 menu
      */
     handleShowMenu = () => {
-        const menuVisible = this.state.menuVisible;
+        const { menuVisible } = this.state;
+
         this.setState({
             menuVisible: !menuVisible,
         });
     }
 
     render() {
-        const { rect, data, layerCakeVisible, menuVisible, isEdit } = this.state;
-        const { history, match } = this.props;
+        const { rect, data, layerCakeVisible, menuVisible, activeId } = this.state;
+        const { history, match, activeInfo } = this.props;
         const { getFieldDecorator } = this.props.form;
         const cls = classNames('layercake-show', {
             'layercake-hide': layerCakeVisible,
@@ -637,7 +646,16 @@ class App extends PureComponent {
             },
         };
 
-        const wrapCls = classNames(`ec-editor-${match.params.type}`)
+        const wrapCls = classNames(`ec-editor-${match.params.type}`);
+        const dpi = match.params.type === 'mobile' ? 2 : 1;
+
+        // 获取拖拽的配置信息
+        const draggable = activeInfo && activeInfo.config && activeInfo.config.draggable ?
+                        activeInfo.config.draggable :
+                        null;
+
+        const activeTarget = document.getElementById(activeId);
+        const parentArea = activeTarget && activeTarget.parentNode ? activeTarget.parentNode : null;
 
         return (
             <div className={wrapCls}>
@@ -655,7 +673,7 @@ class App extends PureComponent {
 
                     {/* 已经添加的组件列表 */}
                     <LayerCake
-                        activeId={this.state.activeId}
+                        activeId={activeId}
                         active={this.state.layerCakeVisible}
                         outerEl={this.canvasInner}
                         data={data}
@@ -664,7 +682,7 @@ class App extends PureComponent {
 
                 {/* 右侧的控制面板 */}
                 <Panel
-                    activeId={this.state.activeId}
+                    activeId={activeId}
                     data={data}
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
@@ -676,7 +694,7 @@ class App extends PureComponent {
                     data-guide={'{"step": 3, "tip": "此处点击后会打开操作按钮", "nextStep": 4, "delay": 600}'}
                     onClick={this.handleShowMenu}
                 >
-                    <img src={icon} />
+                    <img src={icon} alt="" />
                 </div>
 
                 {/* 模块 */}
@@ -689,9 +707,46 @@ class App extends PureComponent {
                         ref={ref => { this.canvasInner = ref }}
                     >
                         {/* 操作提示节点 */}
-                        <Control
+                        <Dragger
+                            parentArea={parentArea}
+                            // parentArea={null}
+                            disabled={!draggable}
+                            position={draggable && draggable.position}
                             rect={rect}
-                        />
+                            dpi={dpi}
+                            onChange={info => this.props.setRect(info)}
+                            onChangeEnd={(info, msg) => {
+                                let style = {};
+                                if (activeInfo.componentProps && activeInfo.componentProps.style) {
+                                    style = activeInfo.componentProps.style;
+                                }
+
+                                const id = this.state.activeId;
+                                const prevDom = activeTarget.previousElementSibling;
+                                const parentNodeInfo = {};
+
+                                if (parentArea) {
+                                    const style = getStyle(parentArea, null);
+
+                                    parentNodeInfo.position = style.getPropertyValue('position');
+                                    parentNodeInfo.left = parentArea.offsetLeft;
+                                    parentNodeInfo.top = parentArea.offsetTop;
+                                }
+
+                                updateBasicProps(id, info, style, {
+                                    parentNodeInfo,
+                                    scrollTop: this.canvasInner.scrollTop,
+                                    scrollLeft: this.canvasInner.scrollLeft,
+                                    offsetTop: activeTarget.offsetTop,
+                                    offsetLeft: activeTarget.offsetLeft,
+                                    prevDomTop: prevDom ? prevDom.offsetTop + prevDom.offsetHeight : 0,
+                                });
+                            }}
+                        >
+                            <Control
+                                isActive={!!this.state.activeId}
+                            />
+                        </Dragger>
 
                         {/* 实际的可编辑组件列表 */}
                         <Editor
@@ -832,10 +887,10 @@ export const editComponent = (event, type) => {
     })
 }
 
-export const editComponentByGuid = (guid, key, value) => {
+export const editComponentByGuid = (guid, keys, value) => {
     emitter.emit('modify', {
         guid,
-        key,
+        keys,
         value,
     })
 }

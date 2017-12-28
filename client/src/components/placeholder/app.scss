@@ -5,7 +5,9 @@
 .editor-placeholder {
     @include border-1px(all);
     width: 100%;
-    min-height: 160px;
+    //min-height: 160px;
+    height: 100%;
+    padding: 40px 0;
     display: flex;
     align-items: center;
     justify-content: center;

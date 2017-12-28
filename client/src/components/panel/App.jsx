@@ -40,13 +40,13 @@ class Panel extends PureComponent {
             })
         }
 
-        if (!is(this.state.activeId, nextProps.activeId)) {
+        if (!is(this.props.activeId, nextProps.activeId)) {
             this.setState({
                 activeId: nextProps.activeId,
             });
         }
 
-        if (!is(this.state.visible, nextProps.visible)) {
+        if (!is(this.props.visible, nextProps.visible)) {
             this.setState({
                 visible: nextProps.visible,
             });

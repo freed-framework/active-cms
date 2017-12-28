@@ -4,7 +4,6 @@
  *
  * 提示可编辑的组件的控制框
  */
-
 import React, { PureComponent } from 'react';
 import { is } from 'immutable';
 import classNames from 'classnames';
@@ -18,9 +17,11 @@ class Control extends PureComponent {
 
         this.state = {
             // 可操作的组件的基本信息
-            rect: props.rect || null,
+            // rect: props.rect || null,
 
-            // isActive: props.isActive || false,
+            // activeId: null,
+
+            isActive: props.isActive || false,
 
             // 鼠标悬停的可操作组件的 ID
             // 注：此处暂未使用，该 control 使用的 事件穿透
@@ -33,9 +34,9 @@ class Control extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.state.rect, nextProps.rect)) {
+        if (!is(this.props.isActive, nextProps.isActive)) {
             this.setState({
-                rect: nextProps.rect,
+                isActive: nextProps.isActive,
             })
         }
     }
@@ -60,29 +61,21 @@ class Control extends PureComponent {
     }
 
     render() {
-        const { rect } = this.state;
+        const { isActive } = this.state;
 
         const styles = {
-            visibility: rect ? 'visible' : 'hidden',
-            ...(rect && { ...rect })
+            visibility: isActive ? 'visible' : 'hidden',
+            // ...(rect && { ...rect })
         };
 
         return (
             <div
-                className={'ec-edit-control'}
-                onClick={this.hi}
+                className="ec-edit-control"
+                data-module="control"
                 style={{
                     ...styles
                 }}
             >
-                {/* <div className="edit-tools">
-                    <span onClick={() => deleteComponent(guid)}>
-                        <Icon type="delete" />
-                    </span>
-                    <span onClick={() => console.log(111)}>
-                        <Icon type="copy" />
-                    </span>
-                </div>*/}
                 {this.renderLine(['top', 'right', 'bottom', 'left'])}
             </div>
         );

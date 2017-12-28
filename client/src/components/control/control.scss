@@ -1,12 +1,13 @@
 @import "../../css/common";
 
 .ec-edit-control {
-    @include bezierAnimate(out-quint, 0.2s);
-    position: absolute;
-    visibility: hidden;
-    z-index: 887;
+    //@include bezierAnimate(out-quint, 0.2s);
+    //z-index: 887;
     background: #9BA5AE;
-    pointer-events: none;
+    //pointer-events: none;
+    // 高宽由外层的 dragger 容器 控制
+    width: 100%;
+    height: 100%;
     opacity: .5;
 
     &-line {

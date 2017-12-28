@@ -5,6 +5,9 @@ const config: Config = {
     className: 'tmc-layer',
     isCommon: true,
     displayName: '布局',
+    draggable: {
+        position: ['left', 'top', 'width', 'height'],
+    },
     iconType: 'layers',
     menus: ['mobile/layer', 'mobile/img', 'mobile/list', 'mobile/click-area'],
     editable: [
