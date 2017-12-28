@@ -18,7 +18,6 @@ export class PublishMiddleware implements NestMiddleware {
         return async (req, res, next) => {
             // 代理到公司上传图片服务器
             proxy.web(req, res, { target: `${ENV.api}/commonUploadFile/uploadZip?_=1`  }, (e) => {
-                console.log(e);
                 next();
             })
         }

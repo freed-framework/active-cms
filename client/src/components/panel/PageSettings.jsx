@@ -11,7 +11,6 @@ import { message } from 'antd';
 import { setPageTitle, setPageThumbnail } from '../../actions/page';
 import { bindActionCreators } from 'redux';
 import { getToken } from '../../utils';
-import ENV from '../../../../conf/env';
 
 @connect(
     state => ({
@@ -33,13 +32,10 @@ class PageSettings extends PureComponent {
         const { title } = this.props;
 
         const options = {
-            baseUrl: `${ENV.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const img = data[0];

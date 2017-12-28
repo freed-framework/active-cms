@@ -3,22 +3,17 @@
  * @Author: shijh
  * @CreateDate: 2017-12-15 10:57:06
  * @Last Modified by: shijh
- * @Last Modified time: 2017-12-21 15:59:52
+ * @Last Modified time: 2017-12-28 14:01:57
  *
  * 列表页menu
  */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Font from 'font';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Icon, Input, Select } from 'antd';
-import { addComponent, saveData, viewer } from '../../pages/editor/App';
+import { Row, Col, Button } from 'antd';
 import Particle from '../../components/particle';
 import { getUser } from '../../actions/user';
-
-const Search = Input.Search;
-const Option = Select.Option;
 
 @connect(
     state => ({
@@ -31,8 +26,8 @@ const Option = Select.Option;
 export default class TopMenu extends PureComponent {
     static propTypes = {
         history: PropTypes.objectOf(PropTypes.any),
-        onSearch: PropTypes.func,
         getUser: PropTypes.func,
+        uploadZip: PropTypes.func
     }
 
     handleAdd = () => {
@@ -45,6 +40,13 @@ export default class TopMenu extends PureComponent {
     handleLogout = () => {
         localStorage.removeItem('access_token');
         this.props.getUser()
+    }
+
+    /**
+     * 上传页面
+     */
+    handleUpload = () => {
+        this.props.uploadZip();
     }
 
     render() {
@@ -60,8 +62,7 @@ export default class TopMenu extends PureComponent {
                             height={50}
                         />
                     </Col>
-                    <Col span={8} className="ec-editor-banner-center">
-                    </Col>
+                    <Col span={8} className="ec-editor-banner-center" />
                     <Col span={12} className="ec-editor-banner-right">
                         <Button
                             className="ec-editor-btn"
@@ -69,6 +70,12 @@ export default class TopMenu extends PureComponent {
                         >
                             新建
                         </Button>
+                        {/* <Button
+                            className="ec-editor-btn"
+                            onClick={this.handleUpload}
+                        >
+                            上传
+                        </Button> */}
                         <Button
                             className="ec-editor-btn ec-editor-btn-red"
                             onClick={this.handleLogout}

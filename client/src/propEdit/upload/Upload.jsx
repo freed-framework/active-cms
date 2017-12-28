@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as FileUpload from 'react-fileupload';
-import ENV from '../../../../conf/env';
 import { getToken } from '../../utils';
 
 class Upload extends Component {
@@ -12,13 +11,10 @@ class Upload extends Component {
     render() {
         /*set properties*/
         const options = {
-            baseUrl: `${ENV.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             multiple: true,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             param: {
                 fid: 0
             },

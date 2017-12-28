@@ -27,7 +27,7 @@ async function bootstrap() {
     const app = await NestFactory.create(ApplicationModule);
 
     app.setGlobalPrefix('api');
-    app.use(bodyParser.json());
+    app.use(bodyParser.json({limit: '100mb'}));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cors());
     app.use(cookieParser('node-auth'));

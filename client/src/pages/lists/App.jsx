@@ -7,30 +7,37 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination, BackTop, Input, Select, Radio } from 'antd';
+import {
+    Pagination, BackTop, Input,
+    Radio, Modal, Form, Upload,
+    Icon, message
+} from 'antd';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import reqwest from 'reqwest';
 import io from 'socket.io-client';
-import ENV from '../../../../conf/env';
 import { getUser } from '../../actions/user';
 import Card from './Card';
-import { listsPageByTitle, shareList, listsPage } from '../../services';
+import LocalCard from './LocalCard';
+import { listsPageByTitle, shareList, listsPage, localList } from '../../services';
 import { TopMenu } from '../../components';
+
 const Search = Input.Search;
-const Option = Select.Option;
+const FormItem = Form.Item;
+const Dragger = Upload.Dragger;
 
 import './app.scss';
 
-// `${ENV.domain}`
-const socket = io(`${ENV.domain}`, {
+const socket = io(`${config.domain}`, {
     path: '/push'
 });
 
 const routes = {
     pulish: '/lists/publish',
     my: '/lists/my',
-    share: '/lists/share'
+    share: '/lists/share',
+    local: '/lists/local'
 }
 
 @connect(
@@ -46,6 +53,8 @@ class List extends PureComponent {
         match: PropTypes.objectOf(PropTypes.any),
         history: PropTypes.objectOf(PropTypes.any),
         getUser: PropTypes.func,
+        form: PropTypes.objectOf(PropTypes.any),
+        user: PropTypes.objectOf(PropTypes.any)
     }
 
     constructor(props) {
@@ -53,7 +62,10 @@ class List extends PureComponent {
 
         this.state = {
             data: [],
-            current: 'my'
+            current: 'my',
+            uploadModal: false,
+            file: null,
+            uploading: false
         }
 
         this.params = {
@@ -108,6 +120,11 @@ class List extends PureComponent {
                     current: 'share'
                 })
                 break;
+            case 'local':
+                this.setState({
+                    current: 'local'
+                })
+                break;
             default:
                 break;
         }
@@ -121,6 +138,8 @@ class List extends PureComponent {
             fetch = shareList;
         } else if (type === 'publish') {
             fetch = listsPageByTitle;
+        } else if (type === 'local') {
+            fetch = localList;
         }
 
         this.setState({
@@ -157,15 +176,96 @@ class List extends PureComponent {
         })
     }
 
+    handleUpload = () => {
+        this.setState({
+            uploadModal: true
+        })
+    }
+
+    handleUploadOk = () => {
+        const { validateFields } = this.props.form;
+
+        validateFields((err, values) => {
+            const { upload } = values;
+            const { title, file } = upload;
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('activityName', title);
+            formData.append('uploadUserId', this.props.user._id);
+
+            this.setState({
+                uploading: true,
+            });
+
+            reqwest({
+                url: `${config.api}/commonUploadFile/uploadZip`,
+                method: 'post',
+                processData: false,
+                data: formData,
+                success: (data) => {
+                    console.log(data)
+                  this.setState({
+                    fileList: [],
+                    uploading: false,
+                  });
+                  message.success('upload successfully.');
+                },
+                error: () => {
+                  this.setState({
+                    uploading: false,
+                  });
+                  message.error('upload failed.');
+                },
+            });
+        })
+    }
+
+    handleUploadCancel = () => {
+
+    }
+
     render() {
-        const { data = {}, current } = this.state;
+        const { data = {}, current, uploadModal, uploading } = this.state;
         const { lists = [], pageSize, page, total } = data;
         const { history, match } = this.props;
         const searchReg = new RegExp(`${this.params.content}`, 'gim');
+        const { getFieldDecorator } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+              xs: { span: 24 },
+              sm: { span: 6 },
+            },
+            wrapperCol: {
+              xs: { span: 24 },
+              sm: { span: 14 },
+            },
+        };
+        const props = {
+            accept: '.zip',
+            showUploadList: true,
+            dataType: 'multipart/form-data',
+            onRemove: () => {
+                this.setState({
+                    file: []
+                });
+            },
+            beforeUpload: (file) => {
+                this.setState({
+                    file
+                });
+                return false;
+            },
+            fileList: this.state.file ? [this.state.file] : []
+        };
 
         return (
             <div>
-                <TopMenu.List history={history} match={match} onSearch={this.handleSearch} />
+                <TopMenu.List
+                    history={history}
+                    match={match}
+                    onSearch={this.handleSearch}
+                    uploadZip={this.handleUpload}
+                />
                 <div className="page-list-handleRegion">
                     <Search
                         className="page-list-handleRegion-left"
@@ -177,6 +277,7 @@ class List extends PureComponent {
                         <Radio.Button value="my">我的页面</Radio.Button>
                         {/* <Radio.Button value="pulish">所有公开页面</Radio.Button> */}
                         <Radio.Button value="share">分享给我的页面</Radio.Button>
+                        {/* <Radio.Button value="local">上传的页面</Radio.Button> */}
                     </Radio.Group>
                 </div>
                 <div
@@ -186,7 +287,7 @@ class List extends PureComponent {
                         lists.length === 0
                             ? <div className='page-list-empty'>暂无数据...</div>
                             : lists.map((item) => {
-                                return <Card
+                                return (current === 'local' ? <LocalCard
                                     current={current}
                                     key={item._id}
                                     reg={searchReg}
@@ -194,7 +295,15 @@ class List extends PureComponent {
                                     history={history}
                                     onFetchList={this.handleFetchList}
                                     socket={socket}
-                                />
+                                /> : <Card
+                                    current={current}
+                                    key={item._id}
+                                    reg={searchReg}
+                                    data={item.shareTime ? item.page : item}
+                                    history={history}
+                                    onFetchList={this.handleFetchList}
+                                    socket={socket}
+                                />)
                             })
                     }
                 </div>
@@ -215,10 +324,50 @@ class List extends PureComponent {
                         />
                     </div>
                 }
+                {/* <Modal
+                    title="新建"
+                    visible
+                    onOk={this.handleUploadOk}
+                    confirmLoading={uploading}
+                    onCancel={this.handleUploadCancel}
+                >
+                    <Form>
+                        <FormItem
+                            {...formItemLayout}
+                            label="主题"
+                        >
+                            {getFieldDecorator('title', {
+                                rules: [{
+                                    required: true, message: '请输入标题!',
+                                }],
+                            })(
+                                <Input />
+                            )}
+                        </FormItem>
+                        <FormItem
+                            {...formItemLayout}
+                            label="资源包"
+                        >
+                            {getFieldDecorator('upload', {
+                                rules: [{
+                                    required: true, message: '请选择zip!',
+                                }],
+                            })(
+                                <Dragger {...props}>
+                                    <p className="ant-upload-drag-icon">
+                                        <Icon type="inbox" />
+                                    </p>
+                                    <p className="ant-upload-text">点击或者拖拽文件上传</p>
+                                    <p className="ant-upload-hint">支持zip上传</p>
+                                </Dragger>
+                            )}
+                        </FormItem>
+                    </Form>
+                </Modal> */}
                 <BackTop />
             </div>
         )
     }
 }
 
-export default withRouter(List);
+export default Form.create()(withRouter(List));

@@ -33,12 +33,12 @@ const UploadZip = ({folderZipPath, baseUrl, timeStmp, body}) => {
     zipId && (formData.id = zipId)
 
     request.post({ url: `${ENV.api}/commonUploadFile/uploadZip`, formData: formData }, (err, httpResponse, res) => {
-        res = JSON.parse(res) || {};
-
         if (err) {
             reject(err);
             return;
         }
+
+        res = JSON.parse(res) || {};
 
         rimraf(baseUrl, {}, () => { });
         rimraf(folderZipPath, {}, () => { });

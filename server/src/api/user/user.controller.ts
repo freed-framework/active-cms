@@ -26,7 +26,6 @@ export class UsersController {
         const users = await this.service.getAllUsers();
 
         const filter = users.filter((item) => {
-            console.log(`${user._id}`)
             if (`${item._id}` !== `${user._id}`) {
                 return item
             }

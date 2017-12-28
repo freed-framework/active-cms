@@ -4,12 +4,13 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "node ./tool/server.js",
+    "start": "cross-env CONF='test' node ./tool/server.js",
     "server": "./node_modules/.bin/webpack-dev-server --content-base ssr/publish/123/ --inline --hot --host 172.30.40.16 --port 8888",
     "test": "cross-env CONF=test node ./tool/server.js",
     "pre-commit": "node ./tool/hooks/pre-commit.js",
     "lint": "eslint src --ext '.js,.jsx'",
-    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
+    "build-pro": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
+    "build-dev": "cross-env NODE_ENV=production CONF='test' ./node_modules/.bin/webpack --config=./webpack.config.dev.js",
     "build-mobile": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-mobile.js",
     "build-pc": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config=./webpack.config.render-pc.js"
   },
@@ -45,6 +46,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "reqwest": "^2.0.5",
     "rxjs": "^5.5.1",
     "socket.io": "^2.0.4",
     "styled-components": "^2.1.2",

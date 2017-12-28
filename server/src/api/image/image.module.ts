@@ -19,12 +19,11 @@ import { JwtMiddleware } from '../auth/auth.middleware';
 export class ImageModule {
     configure(consumer: MiddlewaresConsumer) {
         consumer
-            .apply(JwtMiddleware)
-            .forRoutes(ImageController)
             .apply(FileMiddleware)
             .forRoutes({
                 path: '/image',
                 method: RequestMethod.POST
             })
+
     }
 }

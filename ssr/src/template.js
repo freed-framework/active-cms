@@ -9,7 +9,7 @@ import ENV from './env';
 const nodeENV = process.env.NODE_ENV || 'development';
 const publicPath = /(\/ssrPath\/)/ig;
 
-const filePath = ENV.publicPath[nodeENV];
+const filePath = ENV.publicPath;
 
 const Template = (id, socket, body) => {
     return new Promise((resolve, reject) => {

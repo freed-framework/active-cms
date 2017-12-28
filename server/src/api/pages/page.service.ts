@@ -311,7 +311,6 @@ export class PageService {
      */
     async pushDelete(id) {
         return new Promise((resolve, reject) => {
-            console.log(ENV.api)
             request(`${ENV.api}/commonUploadFile/deleteZipById?id=${id}`, (err, response, body) => {
                 if (err) {
                     logger.error("删除页面失败， 页面id： %s， 时间： %s", id, new Date())

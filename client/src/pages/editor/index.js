@@ -15,7 +15,7 @@ import { getPageData, getMockPageData } from '../../actions/page';
 
 @connect(
     state => ({
-        pageData: state.toJS().page.pageData
+        page: state.toJS().page,
     }),
     dispatch => bindActionCreators({
         getUser,
@@ -125,13 +125,13 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { pageData } = this.props;
+        const { page } = this.props;
 
         return (
             <App
-                data={pageData.content}
-                pageData={pageData}
-                thumbnail={pageData.thumbnail}
+                data={page.content}
+                pageData={page}
+                thumbnail={page.thumbnail}
             />
         )
     }

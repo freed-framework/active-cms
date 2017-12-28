@@ -3,32 +3,51 @@
  * @author deo
  *
  */
-
+var glob = require('glob');
+var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var ROOT_PATH = path.resolve(__dirname);
+var ENV = process.env.NODE_ENV;
+var CONF = process.env.CONF;
 
-// let babelOptions = {
-//     "presets": [
-//         ["es2015", { "modules": false }],
-//         "react",
-//         "stage-0"
-//     ],
-//     "plugins": [
-//         "react-hot-loader/babel",
-//         "transform-decorators-legacy",
-//         "transform-async-to-generator",
-//         "transform-do-expressions",
-//         "transform-runtime"
-//     ]
-// }
-// 调用 framework
+var __PRO__ = ENV === 'production';
+var configFiles = glob.sync(process.cwd() + '/config/*.js');
+
+var isWebFeSelf = __dirname === process.cwd();
 
 const PRO_ROOT = path.resolve(process.cwd(), '../');
 const ROOT = path.resolve(process.cwd(), '');
+
+/**
+ * 获取公有配置
+ * @returns {*}
+ */
+function getPublicConfig() {
+    var f = null;
+    var type = !CONF ? '' : '.' + CONF;
+    var fileName = 'config' + type + '.js';
+
+    configFiles.forEach(function (item) {
+        var expr = new RegExp(fileName + '$');
+        if (expr.test(item)) {
+            f = item;
+        }
+    });
+
+    if (f === null) {
+        throw new Error('Required {PRODUCT CONFIG PATH}: ' + file);
+    }
+
+    return f;
+}
+
+var publicConfig = getPublicConfig();
+
+var scriptString = fs.readFileSync(publicConfig);
 
 var webpackConfig = {
     devtool: false,
@@ -54,6 +73,7 @@ var webpackConfig = {
         new HtmlWebPlugin({
             filename: 'index.html',
             template: './render/pc/index.html',
+            config: scriptString,
             chunks: ['index'],
             inject: 'body',
         }),

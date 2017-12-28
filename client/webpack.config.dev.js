@@ -3,32 +3,51 @@
  * @author deo
  *
  */
-
+var glob = require('glob');
 var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack');
 var HtmlWebPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var ROOT_PATH = path.resolve(__dirname);
+var ENV = process.env.NODE_ENV;
+var CONF = process.env.CONF;
 
-// let babelOptions = {
-//     "presets": [
-//         ["es2015", { "modules": false }],
-//         "react",
-//         "stage-0"
-//     ],
-//     "plugins": [
-//         "react-hot-loader/babel",
-//         "transform-decorators-legacy",
-//         "transform-async-to-generator",
-//         "transform-do-expressions",
-//         "transform-runtime"
-//     ]
-// }
-// 调用 framework
+var __PRO__ = ENV === 'production';
+var configFiles = glob.sync(process.cwd() + '/config/*.js');
 
-const PRO_ROOT = path.resolve(process.cwd(), '../');
-const ROOT = path.resolve(process.cwd(), '');
+var isWebFeSelf = __dirname === process.cwd();
+
+var PRO_ROOT = path.resolve(process.cwd(), '../');
+var ROOT = path.resolve(process.cwd(), '');
+
+/**
+ * 获取公有配置
+ * @returns {*}
+ */
+function getPublicConfig() {
+    var f = null;
+    var type = !CONF ? '' : '.' + CONF;
+    var fileName = 'config' + type + '.js';
+
+    configFiles.forEach(function (item) {
+        var expr = new RegExp(fileName + '$');
+        if (expr.test(item)) {
+            f = item;
+        }
+    });
+
+    if (f === null) {
+        throw new Error('Required {PRODUCT CONFIG PATH}: ' + file);
+    }
+
+    return f;
+}
+
+var publicConfig = getPublicConfig();
+
+var scriptString = fs.readFileSync(publicConfig);
 
 var webpackConfig = {
     devtool: 'source-map',
@@ -38,7 +57,6 @@ var webpackConfig = {
             'react-dom',
         ],
         index: './src/index',
-        // viewer: './viewer/index',
     },
     output: {
         path: path.resolve(process.cwd(), './dist/'),
@@ -61,21 +79,10 @@ var webpackConfig = {
         new HtmlWebPlugin({
             filename: 'index.html',
             template: './src/index.html',
-            chunks: ['index'],
+            config: scriptString,
+            chunks: ['index', 'vendor'],
             inject: 'body',
         }),
-
-        // new HtmlWebPlugin({
-        //     filename: 'viewer.html',
-        //     template: './viewer/index.html',
-        //     chunks: ['vendor', 'viewer'],
-        //     inject: 'body',
-        // }),
-
-        // new ExtractTextPlugin({
-        //     filename: '[name].css',
-        //     allChunks: true,
-        // }),
     ],
     resolve: {
         // 省略后缀
@@ -184,7 +191,5 @@ var webpackConfig = {
         ]
     },
 };
-
-console.log(webpackConfig);
 
 module.exports = webpackConfig;

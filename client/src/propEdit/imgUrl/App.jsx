@@ -7,7 +7,6 @@
 import React, { PureComponent } from 'react';
 import * as FileUpload from 'react-fileupload';
 import { editComponentByGuid } from '../../pages/editor/App';
-import ENV from '../../../../conf/env';
 import { getToken } from '../../utils';
 import Link from '../link';
 
@@ -49,13 +48,10 @@ class ImgUrl extends PureComponent {
 
         /*set properties*/
         const options = {
-            baseUrl: `${ENV.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;

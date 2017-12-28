@@ -10,16 +10,12 @@ const initState = fromJS({
     title: '',
     thumbnail: '',
     content: [],
-    pageData: {},
 });
 
 export default (state = initState, action) => {
     switch (action.type) {
         case ActionType.GET_PAGE_DATA: {
-            return state
-                .set('pageData', action.payload)
-                .set('title', action.payload.title)
-                .set('thumbnail', action.payload.thumbnail);
+            return fromJS(action.payload);
         }
 
         case ActionType.SET_PAGE_TITLE: {

@@ -26,7 +26,6 @@ import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
 import { updateBasicProps } from '../../propEdit/basic';
 import { getToken, getStyle } from '../../utils';
-import ENV from '../../../../conf/env';
 import Dragger from '../../components/dragger';
 const url = require('../../images/list-placeholder.png');
 import './app.scss';
@@ -616,13 +615,10 @@ class App extends PureComponent {
             'layercake-hide': layerCakeVisible,
         });
         const options = {
-            baseUrl: `${ENV.domain}/api/image`,
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
             chooseAndUpload: true,
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
-            requestHeaders: {
-                Authorization: getToken()
-            },
             uploadSuccess: (props) => {
                 const { data } = props;
                 const img = data[0];
