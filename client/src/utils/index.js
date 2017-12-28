@@ -23,6 +23,18 @@ export const getRect = (element) => {
 
 }
 
+export const getStyle = (ele) => {
+    let style = null;
+
+    if (window.getComputedStyle) {
+        style = window.getComputedStyle(ele, null);
+    } else {
+        style = ele.currentStyle;
+    }
+
+    return style;
+}
+
 /**
  * 获取token
  */

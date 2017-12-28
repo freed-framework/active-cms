@@ -1,0 +1,79 @@
+@import "../../css/common.scss";
+
+.dragger {
+    @include bezierAnimate(out-quint, 0.2s);
+    position: absolute;
+    overflow: hidden;
+
+    &-content {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    &-drag, &-resize {
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+
+    &-drag {
+        position: absolute;
+        z-index: 2;
+        left: 1px;
+        top: 1px;
+        width: 38px;
+        height: 38px;
+        cursor: move;
+        box-shadow: 2px 2px 4px -2px #222;
+        border-radius: 0 0 10px 0;
+        background-color: #999;
+
+        &:after {
+            @include bezierAnimate(out-back, 0.5s);
+            display: block;
+            content: ' ';
+            width: 38px;
+            height: 38px;
+            padding: 10px;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAn0lEQVRIS72UQRLAIAgD9aG+zoe2w4EOtWJCR/QsWSSRWpJPTdYvIUBr7ZKGeu90HX1RxfXFLIQCjOIRCAR44iwEAmwIUj0Q0DaACM1MXAG8ms+IkIgXU6/uBbCG/nnBzPgHgNIS/fHa4DmATUl0zqvasybrnFNjujJz20fzICkAFF+0tqlll7qurfF2dKhzvUu9YISw4lIXAkTXxRHADcdvgBmCVnF5AAAAAElFTkSuQmCC') no-repeat 50% 50%;
+            background-size: 28px;
+        }
+
+        &:hover {
+            &:after {
+                transform: rotate(270deg);
+            }
+        }
+    }
+
+    &-resize {
+        position: absolute;
+        z-index: 3;
+        right: 0;
+        bottom: 0;
+        width: 24px;
+        height: 24px;
+        background: url("./images/resize.png") no-repeat 50% 50% #999;
+        background-size: 12px;
+        cursor: nwse-resize;
+        box-shadow: -2px -2px 4px -2px #222;
+        border-radius: 10px 0 0 0;
+    }
+
+    // 正在进行位移
+    &-DRAG-doing {
+        .dragger-drag {
+            &:after {
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    // 正在改变大小
+    &-RESIZE-doing {
+
+    }
+}

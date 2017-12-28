@@ -14,6 +14,16 @@ import { addComponent } from '../../pages/editor/App';
 import './pubComps.scss';
 import piclist2 from '../../images/icon-svg/piclist2.svg';
 
+const guideList = {
+    'mobile/list': {
+        step: 1,
+        tip: "此按钮为添加功能块按钮",
+        trigger: "click",
+        delay: 800,
+        nextStep: 2,
+    }
+};
+
 class PubComps extends PureComponent {
     constructor() {
         super();
@@ -90,6 +100,12 @@ class PubComps extends PureComponent {
                         const conf = lib[k].config;
 
                         if (conf && conf.isCommon) {
+                            let guide = null;
+
+                            if (guideList[conf.name]) {
+                                guide = JSON.stringify(guideList[conf.name]);
+                            }
+
                             return (
                                 <Col
                                     span={24}
@@ -98,8 +114,10 @@ class PubComps extends PureComponent {
                                     <div
                                         data-name={conf.name}
                                         className="ec-editor-pub-comps-items"
-                                        data-guide={`${conf.dataTable ? JSON.stringify(conf.dataTable['data-guide']) : ''}`}
                                         onClick={addComponent}
+                                        {...{
+                                            ...(guide && { 'data-guide': guide })
+                                        }}
                                     >
 
                                         {conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}

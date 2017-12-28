@@ -5,16 +5,58 @@
  * Des
  */
 import React, { PureComponent } from 'react';
+import { is } from 'immutable';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import mitt from 'mitt';
 import { Row, Col, Select, Tooltip, Icon, Tag } from 'antd';
 import PropTypes from 'prop-types';
 import { editComponentByType, editComponentByGuid } from '../../pages/editor/App';
 import defaultStyleHoc from '../../common/hoc/defaultStyleHoc';
 import BorderEdit from '../border';
 import Background from '../background';
+import Util from './util';
 import './basic.scss';
 
 const Option = Select.Option;
+const emitter = mitt();
 
+const styleProps2State = (style, target) => {
+    const propsStyle = style[target] || {};
+    const obj = {};
+
+    Object.keys(propsStyle).forEach(k => {
+        const v = propsStyle[k];
+
+        if (v !== undefined) {
+            obj[k] = v;
+        }
+    });
+
+    return obj;
+}
+
+/**
+ * 用于外部修改属性
+ * @param guid
+ * @param rect
+ * @param style
+ * @param options { scrollTop: x, scrollLeft: x }
+ */
+export const updateBasicProps = (guid, rect, style, options = {}) => {
+    emitter.emit('update', {
+        guid,
+        rect,
+        style,
+        options,
+    });
+}
+
+@connect(
+    state => ({
+        pub: state.toJS().pub,
+    })
+)
 @defaultStyleHoc
 class BasicEdit extends PureComponent {
     static propTypes = {
@@ -30,18 +72,21 @@ class BasicEdit extends PureComponent {
         super(props);
         const { componentProps = {}, target } = props;
         const { style = {} } = componentProps;
-        const propsStyle = style[target] || {};
-        const obj = {};
 
-        Object.keys(propsStyle).forEach(k => {
-            const v = propsStyle[k];
+        this.state = styleProps2State(style, target);
 
-            if (v !== undefined) {
-                obj[k] = v;
-            }
-        });
+        emitter.on('update', this.mittUpdate);
+    }
 
-        this.state = obj;
+    componentWillReceiveProps(nextProps) {
+        if (!is(this.props.componentProps, nextProps.componentProps)) {
+            const { style = {} } = nextProps.componentProps;
+            const props = styleProps2State(style, this.props.target);
+
+            this.setState({
+                ...props
+            })
+        }
     }
 
     /**
@@ -83,6 +128,43 @@ class BasicEdit extends PureComponent {
     }
 
     /**
+     * API 修改 APP 数据
+     * @param guid, 被修改的 guid
+     * @param rect, 拖拽层操作的数据
+     * @param style, 当前的 componentProps.style 更新数据
+     */
+    mittUpdate = ({ guid, rect, style, options }) => {
+        // 这里因为是外部传递进来的 activeId，所以一定要判断是否相同
+        if ((!rect || !guid) || this.props.guid !== guid) {
+            return;
+        }
+
+        const { target } = this.props;
+        // const props = {
+        //     ...this.state,
+        //     ...rect,
+        // };
+
+        // this.setState({
+        //     ...props
+        // });
+
+        if (style[target]) {
+            const info = Util.fixRectByPosition(
+                rect,
+                style[target],
+                options,
+            );
+
+            editComponentByGuid(
+                this.props.guid,
+                ['componentProps', 'style', target],
+                info,
+            );
+        }
+    }
+
+    /**
      * 回车修改input数据
      */
     handleChange = (event) => {
@@ -121,7 +203,7 @@ class BasicEdit extends PureComponent {
     }
 
     render() {
-        const { target, guid, componentProps } = this.props;
+        const { target, guid, componentProps, pub } = this.props;
         // 这里的componentProps 应该从 defaultValue merge
         // const { style = {} } = componentProps;
         const propsStyle = this.state;
@@ -202,7 +284,7 @@ class BasicEdit extends PureComponent {
                             </Select>
                             <Tooltip
                                 placement="bottom"
-                                title="使用'绝对定位'的时候，请将外层布局的定位设置为'相对定位'或其他并设置'高度'"
+                                title="使用 '绝对定位' 的时候，请将外层布局的定位设置为 '相对定位' 或其他并设置 '高度'。当定位为 '默认方式' 的时候 '上下左右' 的值无法体现在画布中"
                             >
                                 &nbsp;<Icon type="question-circle" />
                             </Tooltip>

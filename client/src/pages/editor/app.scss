@@ -40,6 +40,7 @@ body {
     z-index: 1;
 
     &-inner {
+        position: relative;
         overflow: hidden;
         margin: 0 auto;
     }
@@ -49,6 +50,18 @@ body {
     .ac-tabs {
         &-title {
             display: inline-block;
+        }
+    }
+
+    &-inner {
+        .tmc-img {
+            img, .imgWarp {
+                @extend .pointer-events-disabled;
+            }
+        }
+
+        .tmc-layer {
+            overflow: hidden;
         }
     }
 }

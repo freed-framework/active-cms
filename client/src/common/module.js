@@ -102,9 +102,20 @@ class Module {
     static modify(guid, data, keys, value) {
         const $data = fromJS(data);
 
-        return this.findByGuid(guid, $data, ($finder, deep) => (
-            $data.setIn(deep.concat(keys), value)
-        )).toJS();
+        return this.findByGuid(guid, $data, ($finder, deep) => {
+            if (typeof value === 'object') {
+                const oldData = $data.getIn(deep.concat(keys)) || fromJS({});
+
+                if (oldData) {
+                    // Map
+                    const mergeData = oldData.mergeDeep(value);
+
+                    return $data.setIn(deep.concat(keys), mergeData);
+                }
+            }
+
+            return $data.setIn(deep.concat(keys), value);
+        }).toJS();
     }
 
     /**

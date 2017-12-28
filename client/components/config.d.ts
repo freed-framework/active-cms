@@ -33,6 +33,8 @@ interface Config {
 
     iconType?: any;
 
+    draggable?: any;
+
     /**
      * 用于显示的组件名字
      */
