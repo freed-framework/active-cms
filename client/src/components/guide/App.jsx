@@ -156,7 +156,7 @@ class Guide extends Component {
                     }, () => {
                         this.start()
                     })
-                }, 600)
+                }, 800)
             })
         }
     }
@@ -168,6 +168,7 @@ class Guide extends Component {
     start = () => {
         try {
             const {cnt, steps} = this.guides;
+            console.log(steps)
             const { guide, ...opt } = steps[this.step];
             const rect = getRect(guide);
             if (opt.done) {
@@ -188,7 +189,7 @@ class Guide extends Component {
                 showModal: false,
                 popShow: false
             }, () => {
-                localStorage.setItem(this.props.guide, new Date * 1)
+                localStorage.setItem(this.props.guide, new Date * 1);
             })
         }
 

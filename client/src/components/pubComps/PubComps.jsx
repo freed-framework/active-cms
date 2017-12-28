@@ -15,7 +15,7 @@ import './pubComps.scss';
 import piclist2 from '../../images/icon-svg/piclist2.svg';
 
 const guideList = {
-    'mobile/list': {
+    'mobile/layer': {
         step: 1,
         tip: "此按钮为添加功能块按钮",
         trigger: "click",
@@ -113,7 +113,7 @@ class PubComps extends PureComponent {
                                 >
                                     <div
                                         data-name={conf.name}
-                                        className="ec-editor-pub-comps-items"
+                                        className="ec-editor-pub-comps-items guide-steps-handler"
                                         onClick={addComponent}
                                         {...{
                                             ...(guide && { 'data-guide': guide })
