@@ -21,6 +21,8 @@ npm-debug.log.*
 
 client/lib/
 
+server/zips/*
+
 # 服务端渲染新增中转文件
 client/ssr/publish/
 

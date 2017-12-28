@@ -3,6 +3,7 @@ import { LocalController } from './local.controller';
 import { LocalService } from './local.service';
 import { DevelopmentMiddleware } from '../../common/middlewares/development.middleware';
 import { JwtMiddleware } from '../auth/auth.middleware';
+import { UploadMiddleware } from '../../common/middlewares/upload.middleware';
 
 @Module({
     controllers: [
@@ -19,5 +20,10 @@ export class LocalModule {
             .forRoutes(LocalController)
             .apply(JwtMiddleware)
             .forRoutes(LocalController)
+            .apply(UploadMiddleware)
+            .forRoutes({
+                path: '/*',
+                method: RequestMethod.POST
+            })
         }
 }

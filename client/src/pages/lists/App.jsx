@@ -124,6 +124,7 @@ class List extends PureComponent {
                 this.setState({
                     current: 'local'
                 })
+                break;
             default:
                 break;
         }
@@ -276,7 +277,7 @@ class List extends PureComponent {
                         <Radio.Button value="my">我的页面</Radio.Button>
                         {/* <Radio.Button value="pulish">所有公开页面</Radio.Button> */}
                         <Radio.Button value="share">分享给我的页面</Radio.Button>
-                        <Radio.Button value="local">上传的页面</Radio.Button>
+                        {/* <Radio.Button value="local">上传的页面</Radio.Button> */}
                     </Radio.Group>
                 </div>
                 <div
@@ -323,7 +324,7 @@ class List extends PureComponent {
                         />
                     </div>
                 }
-                <Modal
+                {/* <Modal
                     title="新建"
                     visible
                     onOk={this.handleUploadOk}
@@ -362,7 +363,7 @@ class List extends PureComponent {
                             )}
                         </FormItem>
                     </Form>
-                </Modal>
+                </Modal> */}
                 <BackTop />
             </div>
         )

@@ -9,6 +9,12 @@ const apiMap = {
     test: "http://xcscm.yatang.com.cn/api/sc"
 }
 
+const publishMap = {
+    development: "http://sit.db.com/html/",
+    production: "https://xcrapp.yatang.com.cn/html/",
+    test: "http://sit.db.com/html/"
+}
+
 var ENV = {
     /**
      * 外部地址
@@ -17,8 +23,12 @@ var ENV = {
     /**
      * 项目域名
      */
-    domain: nodeENV === 'production' ? 'http://wuget.yatang.com.cn' : 'http://www.iting.top'
+    domain: nodeENV === 'production' ? 'http://wuget.yatang.com.cn' : 'http://www.iting.top',
     // domain: "http://localhost:12345"
+    /**
+     * zip包地址
+     */
+    publicPath: publishMap[nodeENV]
 }
 
 export default ENV;
