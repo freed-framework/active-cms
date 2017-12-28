@@ -17,7 +17,7 @@ const emitter = mitt();
 /**
  * canvas 填充颜色
  *
- * @param {Object} ctx canvas Element 
+ * @param {Object} ctx canvas Element
  * @param {number} x 起始坐标x
  * @param {number} y 起始坐标y
  * @param {number} width 矩形宽度
@@ -36,8 +36,8 @@ function draw(ctx, x, y, width, height, fillcorlor) {
 /**
  * 填充颜色位置确定
  *
- * @param {Object} ctx canvas Element 
- * @param {Object} options 目标元素位置信息 
+ * @param {Object} ctx canvas Element
+ * @param {Object} options 目标元素位置信息
  * @param {string} corlor 填充颜色
  * @param {number} offset 偏移量
  */
@@ -47,7 +47,7 @@ function drawRect(ctx, options, color, offset = 10) {
     dom.width = scrollWidth;
     dom.height = scrollHeight;
 
-    const off = offset / 2; 
+    const off = offset / 2;
     const { left, right, top, bottom } = options;
     const l = left - off;
     const t = top - off;
@@ -64,7 +64,7 @@ function drawRect(ctx, options, color, offset = 10) {
 /**
  * 对目标数组进行排序
  *
- * @param {Array} arr 目标数组 
+ * @param {Array} arr 目标数组
  */
 function sort(arr = []) {
     return arr.sort((a, b) => {
@@ -87,7 +87,7 @@ function getSteps() {
         const data = guide.getAttribute('data-guide');
 
         if (!data) { continue; }
-        
+
         try {
             options = JSON.parse(data)
         } catch (e) {
@@ -150,9 +150,11 @@ class Guide extends Component {
                     this.guides.cnt = cnt;
                     this.guides.dom = dom;
 
-                    this.start()
+
                     this.setState({
                         popShow: true
+                    }, () => {
+                        this.start()
                     })
                 }, 600)
             })
@@ -164,66 +166,87 @@ class Guide extends Component {
     }
 
     start = () => {
-        const {cnt, steps} = this.guides;
-        const { guide, ...opt } = steps[this.step];
-        const rect = getRect(guide);
-        if (opt.done) {
+        try {
+            const {cnt, steps} = this.guides;
+            const { guide, ...opt } = steps[this.step];
+            const rect = getRect(guide);
+            if (opt.done) {
+                this.setState({
+                    tipText: '完成'
+                })
+            }
             this.setState({
-                tipText: '完成'
+                con: rect,
+                guideCon: opt
+            }, () => {
+                drawRect(cnt, rect, 'rgba(0, 0, 0, .8)');
             })
-        }
-        this.setState({
-            con: rect,
-            guideCon: opt
-        }, () => {
-            drawRect(cnt, rect, 'rgba(0, 0, 0, .8)');
-        })
-        this.step = opt.step;
-    }
-
-    /**
-     * 点击下一步执行逻辑
-     */
-    nextStep = () => {
-        clearTimeout(this.timer);
-        const { steps } = this.guides;
-        const { guide, ...opt } = steps[this.step];
-        const { nextStep, delay = 0, trigger = 'click', stop, next } = opt;
-        guide[trigger]();
-        if (opt.done) {
+            this.step = opt.step;
+        } catch(e) {
+            console.log('新手引导报错');
             this.setState({
                 showModal: false,
                 popShow: false
             }, () => {
                 localStorage.setItem(this.props.guide, new Date * 1)
             })
-            return false;
         }
-        this.step = nextStep;
-        if (stop) {
-            return;
-        }
-        if (next) {
-            const { targetElement, ...options } = next;
-            const el = document.querySelector(targetElement);
-            this.guides.steps[options.step] = {
-                guide: el,
-                ...options
+
+    }
+
+    /**
+     * 点击下一步执行逻辑
+     */
+    nextStep = () => {
+        try {
+            clearTimeout(this.timer);
+            const { steps } = this.guides;
+            const { guide, ...opt } = steps[this.step];
+            const { nextStep, delay = 0, trigger = 'click', stop, next } = opt;
+            guide[trigger]();
+            if (opt.done) {
+                this.setState({
+                    showModal: false,
+                    popShow: false
+                }, () => {
+                    localStorage.setItem(this.props.guide, new Date * 1)
+                })
+                return false;
             }
-            this.step = options.step;
-            this.start()
-            return;
-        }
-        
-        if (delay) {
-            this.timer = setTimeout(() => {
-                this.guides.steps = getSteps().steps;
+            this.step = nextStep;
+            if (stop) {
+                return;
+            }
+            if (next) {
+                const { targetElement, ...options } = next;
+                const el = document.querySelector(targetElement);
+                this.guides.steps[options.step] = {
+                    guide: el,
+                    ...options
+                }
+                this.step = options.step;
+                this.start()
+                return;
+            }
+
+            if (delay) {
+                this.timer = setTimeout(() => {
+                    this.guides.steps = getSteps().steps;
+                    this.step = nextStep;
+                    this.start();
+                }, delay)
+            } else {
                 this.step = nextStep;
                 this.start();
-            }, delay)
-        } else {
-            this.step = nextStep;
-            this.start();
+            }
+        } catch (e) {
+            console.log('新手引导报错');
+            this.setState({
+                showModal: false,
+                popShow: false
+            }, () => {
+                localStorage.setItem(this.props.guide, new Date * 1)
+            })
         }
     }
 
@@ -235,9 +258,10 @@ class Guide extends Component {
     render() {
         const { prefixCls, isGuide = true } = this.props;
         const { con, guideCon, showModal, popShow } = this.state;
+
         return (
             <div>
-                
+
                 {
                     showModal && <canvas id="mask-canvas" className="com-guide" />
                 }
