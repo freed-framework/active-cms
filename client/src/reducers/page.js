@@ -9,7 +9,7 @@ import ActionType from '../actions/ActionType';
 const initState = fromJS({
     title: '',
     thumbnail: '',
-    content: [],
+    content: []
 });
 
 export default (state = initState, action) => {

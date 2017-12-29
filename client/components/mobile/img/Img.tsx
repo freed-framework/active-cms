@@ -1,6 +1,6 @@
 /// <reference path="./img.d.ts" />
 import * as React from 'react';
-import redirect from 'freed-multi/lib/native/redirect.js';
+import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import config from './config';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import LazyLoad from '../lazy-load/index.js';
