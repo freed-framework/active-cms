@@ -60,14 +60,19 @@ export default class EditAttr extends PureComponent {
                    // 此处从 compponents/config.ts 返回的是 string | array
                    const components = typeof item.component === 'string' ? [item.component] : item.component;
 
+                   // 此名称从 editable[x].name || target 上获取
+                   const opName = item.name || item.target;
+
                    return (
                        <div
                         key={`editable-${index}`}
                        >
-                           <div className="ec-editor-todo-target">
-                               <span>操作位置:</span>
-                               <Tag color="#171717">{item.name || item.target}</Tag>
-                           </div>
+                           {opName &&
+                               <div className="ec-editor-todo-target">
+                                   <span>操作位置:</span>
+                                   <Tag color="#171717">{opName}</Tag>
+                               </div>
+                           }
 
                            {components.map((componentKey, i) => {
                                // 对应的编辑组件

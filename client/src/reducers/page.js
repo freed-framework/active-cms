@@ -7,15 +7,31 @@ import { fromJS } from 'immutable';
 import ActionType from '../actions/ActionType';
 
 const initState = fromJS({
+    // 页面标题
     title: '',
+
+    // 封面
     thumbnail: '',
-    content: []
+
+    // 获取的 App 组件的完整数据
+    tile: {},
+
+    // 页面源数据
+    content: [],
 });
 
 export default (state = initState, action) => {
     switch (action.type) {
         case ActionType.GET_PAGE_DATA: {
             return fromJS(action.payload);
+        }
+
+        case ActionType.SET_PAGE_CONTENT: {
+            return state.set('content', action.payload);
+        }
+
+        case ActionType.SET_PAGE_TILE_DATA: {
+            return state.set('tile', action.payload);
         }
 
         case ActionType.SET_PAGE_TITLE: {

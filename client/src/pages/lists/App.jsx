@@ -213,7 +213,7 @@ class List extends PureComponent {
                 headers: {
                     Authorization: `bearer ${localStorage.getItem('access_token')}`
                 },
-                success: (data) => {
+                success: () => {
                     this.setState({
                         fileList: [],
                         file: null,
