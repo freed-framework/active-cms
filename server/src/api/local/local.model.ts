@@ -25,7 +25,9 @@ const LocalSchema = new Schema({
     // 页面类型pc/mobile
     pageType: { type: String, required: true },
     // 缩略图片地址
-    thumbnail: { type: String, default: '' }
+    thumbnail: { type: String, default: '' },
+    // zip包名
+    timeStmp: { type: String}
 }, {
     versionKey: false
 });

@@ -65,7 +65,9 @@ class List extends PureComponent {
             current: 'my',
             uploadModal: false,
             file: null,
-            uploading: false
+            uploading: false,
+            isEidt: false,
+            uploadData: {}
         }
 
         this.params = {
@@ -78,11 +80,11 @@ class List extends PureComponent {
         const { history } = this.props;
         this.unPage = history.listen(loc => {
             loc.pathname.replace(/\/lists\/(.*)/g, ($0, $1) => {
-                this.getPageList({...this.params}, $1);
+                this.getPageList({ ...this.params }, $1);
             })
         })
 
-        this.getPageList({...this.params});
+        this.getPageList({ ...this.params });
         this.setCurrent();
     }
 
@@ -95,7 +97,7 @@ class List extends PureComponent {
             page,
             pageSize
         }
-        this.getPageList({...this.params})
+        this.getPageList({ ...this.params })
     }
 
     setCurrent = () => {
@@ -154,7 +156,7 @@ class List extends PureComponent {
     }
 
     handleFetchList = () => {
-        this.getPageList({...this.params})
+        this.getPageList({ ...this.params })
     }
 
     handleSearch = (value) => {
@@ -176,68 +178,87 @@ class List extends PureComponent {
         })
     }
 
-    handleUpload = () => {
+    handleUpload = ({ isEidt, uploadModal, uploadData = {} }) => {
         this.setState({
-            uploadModal: true
+            isEidt,
+            uploadModal,
+            uploadData
         })
     }
 
     handleUploadOk = () => {
         const { validateFields } = this.props.form;
+        const { uploadData, isEidt } = this.state;
 
         validateFields((err, values) => {
-            const { upload } = values;
-            const { title, file } = upload;
+            if (err) return;
+            const { upload, title } = values;
+            const { file } = upload;
             const formData = new FormData();
             formData.append('file', file);
-            formData.append('activityName', title);
-            formData.append('uploadUserId', this.props.user._id);
+            formData.append('title', title);
+            if (isEidt) {
+                formData.append('pushId', uploadData.pushId);
+            }
 
             this.setState({
                 uploading: true,
             });
 
             reqwest({
-                url: `${config.api}/commonUploadFile/uploadZip`,
+                url: `${config.domain}/api/local/zip`,
                 method: 'post',
                 processData: false,
                 data: formData,
+                headers: {
+                    Authorization: `bearer ${localStorage.getItem('access_token')}`
+                },
                 success: (data) => {
-                    console.log(data)
-                  this.setState({
-                    fileList: [],
-                    uploading: false,
-                  });
-                  message.success('upload successfully.');
+                    this.setState({
+                        fileList: [],
+                        file: null,
+                        uploading: false
+                    });
+                    this.handleUploadCancel();
+                    this.handleFetchList();
+                    message.success('操作成功！');
                 },
                 error: () => {
-                  this.setState({
-                    uploading: false,
-                  });
-                  message.error('upload failed.');
+                    this.setState({
+                        uploading: false,
+                    });
+                    message.error('操作失败！');
                 },
             });
         })
     }
 
     handleUploadCancel = () => {
-
+        this.setState({
+            uploadModal: false,
+            uploadData: {},
+            isEidt: false
+        })
     }
 
     render() {
-        const { data = {}, current, uploadModal, uploading } = this.state;
+        const {
+            data = {}, current, uploadModal,
+            uploading, isEidt, uploadData
+        } = this.state;
+
         const { lists = [], pageSize, page, total } = data;
         const { history, match } = this.props;
         const searchReg = new RegExp(`${this.params.content}`, 'gim');
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {
-              xs: { span: 24 },
-              sm: { span: 6 },
+                xs: { span: 24 },
+                sm: { span: 6 },
             },
             wrapperCol: {
-              xs: { span: 24 },
-              sm: { span: 14 },
+                xs: { span: 24 },
+                sm: { span: 14 },
             },
         };
         const props = {
@@ -246,7 +267,7 @@ class List extends PureComponent {
             dataType: 'multipart/form-data',
             onRemove: () => {
                 this.setState({
-                    file: []
+                    file: null
                 });
             },
             beforeUpload: (file) => {
@@ -274,10 +295,10 @@ class List extends PureComponent {
                         onSearch={this.handleSearch}
                     />
                     <Radio.Group className="page-list-handleRegion-right" value={current} onChange={this.handleChange}>
-                        <Radio.Button value="my">我的页面</Radio.Button>
+                        <Radio.Button value="my">制作的页面</Radio.Button>
                         {/* <Radio.Button value="pulish">所有公开页面</Radio.Button> */}
                         <Radio.Button value="share">分享给我的页面</Radio.Button>
-                        {/* <Radio.Button value="local">上传的页面</Radio.Button> */}
+                        <Radio.Button value="local">上传的页面</Radio.Button>
                     </Radio.Group>
                 </div>
                 <div
@@ -295,6 +316,7 @@ class List extends PureComponent {
                                     history={history}
                                     onFetchList={this.handleFetchList}
                                     socket={socket}
+                                    uploadZip={this.handleUpload}
                                 /> : <Card
                                     current={current}
                                     key={item._id}
@@ -309,61 +331,65 @@ class List extends PureComponent {
                 </div>
                 {
                     lists.length === 0 && page === '1'
-                    ? null
-                    : <div
-                        className={'page-list-pagin'}
-                    >
-                        <Pagination
-                            showSizeChanger
-                            showQuickJumper
-                            onChange={this.onShowSizeChange}
-                            onShowSizeChange={this.onShowSizeChange}
-                            pageSize={parseInt(pageSize, 10)}
-                            current={parseInt(page, 10)}
-                            total={total}
-                        />
-                    </div>
+                        ? null
+                        : <div
+                            className={'page-list-pagin'}
+                        >
+                            <Pagination
+                                showSizeChanger
+                                showQuickJumper
+                                onChange={this.onShowSizeChange}
+                                onShowSizeChange={this.onShowSizeChange}
+                                pageSize={parseInt(pageSize, 10)}
+                                current={parseInt(page, 10)}
+                                total={total || 0}
+                            />
+                        </div>
                 }
-                {/* <Modal
-                    title="新建"
-                    visible
-                    onOk={this.handleUploadOk}
-                    confirmLoading={uploading}
-                    onCancel={this.handleUploadCancel}
-                >
-                    <Form>
-                        <FormItem
-                            {...formItemLayout}
-                            label="主题"
-                        >
-                            {getFieldDecorator('title', {
-                                rules: [{
-                                    required: true, message: '请输入标题!',
-                                }],
-                            })(
-                                <Input />
-                            )}
-                        </FormItem>
-                        <FormItem
-                            {...formItemLayout}
-                            label="资源包"
-                        >
-                            {getFieldDecorator('upload', {
-                                rules: [{
-                                    required: true, message: '请选择zip!',
-                                }],
-                            })(
-                                <Dragger {...props}>
-                                    <p className="ant-upload-drag-icon">
-                                        <Icon type="inbox" />
-                                    </p>
-                                    <p className="ant-upload-text">点击或者拖拽文件上传</p>
-                                    <p className="ant-upload-hint">支持zip上传</p>
-                                </Dragger>
-                            )}
-                        </FormItem>
-                    </Form>
-                </Modal> */}
+                {
+                    this.state.uploadModal &&
+                    <Modal
+                        title={isEidt ? '编辑' : '新增'}
+                        visible
+                        onOk={this.handleUploadOk}
+                        confirmLoading={uploading}
+                        onCancel={this.handleUploadCancel}
+                    >
+                        <Form>
+                            <FormItem
+                                {...formItemLayout}
+                                label="主题"
+                            >
+                                {getFieldDecorator('title', {
+                                    rules: [{
+                                        required: true, message: '请输入标题!',
+                                    }],
+                                    initialValue: uploadData.title
+                                })(
+                                    <Input />
+                                )}
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label="资源包"
+                            >
+                                {getFieldDecorator('upload', {
+                                    rules: [{
+                                        required: true, message: '请选择zip!',
+                                    }],
+                                })(
+                                    <Dragger {...props}>
+                                        <p className="ant-upload-drag-icon">
+                                            <Icon type="inbox" />
+                                        </p>
+                                        <p className="ant-upload-text">点击或者拖拽文件上传</p>
+                                        <p className="ant-upload-hint">支持zip上传</p>
+                                    </Dragger>
+                                )}
+                            </FormItem>
+                        </Form>
+                    </Modal>
+                }
                 <BackTop />
             </div>
         )

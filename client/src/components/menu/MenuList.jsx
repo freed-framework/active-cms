@@ -3,7 +3,7 @@
  * @Author: shijh
  * @CreateDate: 2017-12-15 10:57:06
  * @Last Modified by: shijh
- * @Last Modified time: 2017-12-28 14:01:57
+ * @Last Modified time: 2018-01-02 11:53:35
  *
  * 列表页menu
  */
@@ -46,7 +46,10 @@ export default class TopMenu extends PureComponent {
      * 上传页面
      */
     handleUpload = () => {
-        this.props.uploadZip();
+        this.props.uploadZip({
+            isEdit: false,
+            uploadModal: true
+        });
     }
 
     render() {
@@ -70,12 +73,12 @@ export default class TopMenu extends PureComponent {
                         >
                             新建
                         </Button>
-                        {/* <Button
+                        <Button
                             className="ec-editor-btn"
                             onClick={this.handleUpload}
                         >
                             上传
-                        </Button> */}
+                        </Button>
                         <Button
                             className="ec-editor-btn ec-editor-btn-red"
                             onClick={this.handleLogout}

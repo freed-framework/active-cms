@@ -179,3 +179,10 @@ export const zip = () => http.get(`${config.domain}/api/upload/zip`);
  * uploadUserId String 是 上传用户ID
  */
 export const push = (params) => http.post(`${config.domain}/api/page/push`, params);
+
+/**
+ * 删除本地上传页面
+ * params 参数包含
+ * - id {string} 本地上传页面id
+ */
+export const deleteLocal = (id) => http.get(`${config.domain}/api/local/remove/${id}`);
