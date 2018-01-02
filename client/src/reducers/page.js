@@ -18,6 +18,8 @@ const initState = fromJS({
 
     // 页面源数据
     content: [],
+
+    activeId: null,
 });
 
 export default (state = initState, action) => {
@@ -26,12 +28,24 @@ export default (state = initState, action) => {
             return fromJS(action.payload);
         }
 
+        case ActionType.GET_PAGE_ACTIVE: {
+            return state.get('activeId');
+        }
+
+        case ActionType.CLEAR_PAGE_ACTIVE: {
+            return state.set('activeId', null);
+        }
+
+        case ActionType.SET_PAGE_ACTIVE: {
+            return state.set('activeId', action.payload);
+        }
+
         case ActionType.SET_PAGE_CONTENT: {
             return state.set('content', action.payload);
         }
 
         case ActionType.SET_PAGE_TILE_DATA: {
-            return state.set('tile', action.payload);
+            return state.set('tile', fromJS(action.payload));
         }
 
         case ActionType.SET_PAGE_TITLE: {

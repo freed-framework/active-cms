@@ -8,7 +8,6 @@ import React, { PureComponent } from 'react';
 import { is,  } from 'immutable';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setActiveInfo, clearActiveInfo } from '../../actions/pub';
 import { setPageTileData } from '../../actions/page';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -19,12 +18,7 @@ import Item from './Item';
     state => ({
         pub: state.toJS().pub,
         page: state.toJS().page,
-    }),
-    dispatch => bindActionCreators({
-        setActiveInfo,
-        clearActiveInfo,
-        setPageTileData,
-    }, dispatch)
+    })
 )
 class List extends PureComponent {
     constructor(props) {
