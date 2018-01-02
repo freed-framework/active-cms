@@ -13,11 +13,10 @@ const initState = fromJS({
     // 封面
     thumbnail: '',
 
-    // 页面元数据
-    content: [],
-
     // 获取的 app 组件的完整数据
     tile: {},
+
+    content: [],
 });
 
 export default (state = initState, action) => {

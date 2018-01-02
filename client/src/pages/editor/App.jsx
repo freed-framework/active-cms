@@ -465,7 +465,6 @@ class App extends PureComponent {
      * @param type 修改后值
      */
     mittEdit = ({ guid, attr, target, value, type }) => {
-        console.warn('mittEdit: ', guid)
         // const data = module.edit(guid, this.state.data, target, attr, value, type);
         //
         // this.setState({
@@ -571,8 +570,6 @@ class App extends PureComponent {
                 this.handleSaveCancel();
             })
         }
-
-        console.log(JSON.stringify(this.state.data))
     }
 
     mittPush = () => {

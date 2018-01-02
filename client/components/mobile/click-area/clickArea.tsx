@@ -1,7 +1,7 @@
 /// <reference path="./clickArea.d.ts" />
 import * as React from 'react';
 import config from './config';
-import redirect from 'freed-multi/lib/native/redirect.js';
+import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 
 @componentPropsHoc({
