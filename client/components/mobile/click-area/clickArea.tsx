@@ -17,12 +17,13 @@ class ClickArea extends React.PureComponent<ClickAreaProps, any> {
     }
 
     render() {
-        const { id, style, className } = this.props;
+        const { id, style, className, dataTable } = this.props;
 
         return (
             <div
                 id={id}
                 className={className}
+                {...(dataTable && { ...dataTable })}
                 style={{
                     ...(style && { ...style.layout })
                 }}

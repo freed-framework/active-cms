@@ -14,12 +14,14 @@ import { getRect, createChildren } from '../../common/util/util';
 import module from '../../common/module';
 import { addPage, editPage, push } from '../../services';
 import { setRect } from '../../actions/pub';
-import { Editor, Panel, TopMenu, Control, LayerCake, Follow, PubComps } from '../../components';
+import { Editor, Panel, TopMenu, LayerCake, Follow, PubComps, Editable } from '../../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import { getUser } from '../../actions/user';
+import { setActiveInfo } from '../../actions/pub';
+import { setPageTileData, setPageTitle, setPageContent } from '../../actions/page';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
@@ -37,13 +39,14 @@ const emitter = mitt();
 @connect(
     state => ({
         user: state.toJS().user.data,
-        title: state.toJS().page.title,
-        thumbnail: state.toJS().page.thumbnail,
-        activeInfo: state.toJS().pub.activeInfo,
+        page: state.toJS().page,
     }),
     dispatch => bindActionCreators({
         getUser,
         setRect,
+        setPageTileData,
+        setPageTitle,
+        setPageContent,
     }, dispatch)
 )
 class App extends PureComponent {
@@ -70,6 +73,8 @@ class App extends PureComponent {
              * 激活的 组件 id
              */
             activeId: null,
+
+            hoverId: null,
 
             /**
              * 编辑面板 展示状态
@@ -145,9 +150,8 @@ class App extends PureComponent {
         // //         $oldData = $newData;
         // //     }
         // // })
-
         this.canvas.addEventListener('click', this.handleActive, false);
-        // this.canvas.addEventListener('mouseover', this.handleHover);
+        this.canvas.addEventListener('mouseover', this.handleHover);
         // this.canvas.addEventListener('mouseout', this.handleOut);
     }
 
@@ -166,12 +170,12 @@ class App extends PureComponent {
         // this.timer.unsubscribe();
 
         this.canvas.removeEventListener('click', this.handleActive);
-        // this.canvas.removeEventListener('mouseover', this.handleHover);
+        this.canvas.removeEventListener('mouseover', this.handleHover);
         // this.canvas.removeEventListener('mouseout', this.handleOut);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(nextProps.data, this.props.data)) {
+        if (!is(fromJS(nextProps.data), fromJS(this.props.data))) {
             this.setState({
                 data: nextProps.data,
             }, () => {
@@ -183,7 +187,7 @@ class App extends PureComponent {
             this.setState({
                 title: nextProps.pageData.title,
                 thumbnail: nextProps.pageData.thumbnail
-            })
+            });
         }
     }
 
@@ -214,41 +218,27 @@ class App extends PureComponent {
      * @param event
      */
     handleHover = (event) => {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
         const target = event.target;
+        const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
 
-        if (module) {
+        // 移动端的画布有特殊设置
+        const parent = params.type === 'mobile' ? this.canvasInner : null;
+        const rect = guid && target ? getRect(target, parent) : null;
+
+        if (module && guid && rect) {
             this.setState({
-                rect: getRect(target),
+                hoverId: guid,
+                hoverRect: rect,
+            });
+        } else {
+            this.setState({
+                hoverId: null,
+                hoverRect: null,
             });
         }
-    }
-
-    /**
-     * 恢复到激活的编辑位置 or null
-     */
-    handleOut = () => {
-        this.setState({
-            rect: this.state.activeRect,
-        })
-    }
-
-    /**
-     * 删除模块
-     * @param guid
-     */
-    mittDelete = (guid) => {
-        const data = module.remove(guid, this.state.data);
-
-        message.success('删除成功');
-
-        this.setState({
-            data,
-            activeId: null,
-            rect: null,
-            activeRect: null,
-            panelVisible: false,
-        });
     }
 
     /**
@@ -306,20 +296,68 @@ class App extends PureComponent {
     }
 
     /**
+     * 更新附带 组件属性的数据内容
+     * @param data
+     * @param callback
+     */
+    setTileData(data = [], callback) {
+        // 平铺的绑定了 App 的数据
+        const tileData = {};
+        const result = this.data2Tile(data);
+
+        Promise.all(result).then(values => {
+            values.forEach(v => {
+                tileData[v.guid] = {...v};
+            });
+
+            this.props.setPageTileData(tileData);
+        });
+    }
+
+    /**
+     * 设置 state.data & state.tileData
+     * 将数据平铺
+     * @param data
+     * @param arr
+     * @return {Array}
+     */
+    data2Tile(d) {
+        const { params } = this.props.match;
+        let arr = [];
+
+        const looper = (data, topWrappedModule) => {
+            data.forEach(item => {
+                arr = arr.concat(module.get(item, topWrappedModule));
+
+                if (item.children) {
+                    looper(item.children, item.name);
+                }
+            });
+        }
+
+        looper(d);
+
+        return arr;
+    }
+
+    /**
      * 添加模块
      * @param cname
      * @param guid
      */
     mittAdd = ({ cname, guid }) => {
+        const { page } = this.props;
         const mod = module.create(cname);
-        const arr = this.state.data;
+        const arr = page.content;
 
         const data = guid ?
-            createChildren(this.state.data, guid, mod) :
+            createChildren(arr, guid, mod) :
             arr.concat(mod);
 
+        this.props.setPageContent(data);
+        this.setTileData(data);
+
         this.setState({
-            data,
             // 当添加一个组件的时候，自动激活编辑面板
             autoActiveId: mod.guid,
         }, () => {
@@ -334,6 +372,77 @@ class App extends PureComponent {
                     autoActiveId: null
                 })
             }, 800);
+        });
+    }
+
+    /**
+     * 通过 guid 进行数据修改
+     * @param guid
+     * @param key
+     * @param value
+     */
+    mittModify = ({ guid, keys, value }) => {
+        const data = module.modify(guid, this.props.page.content, keys, value);
+
+        this.props.setPageContent(data);
+        this.setTileData(data);
+
+        // this.setState({
+        //     data,
+        // }, () => {
+        //     setTimeout(() => {
+        //         // <TODO> 黑科技
+        //         // 后续优化，这里先暂时用这样的方式来改变 rect 的位置，componentDidUpdate 再触发 click 会导致死循环
+        //         const el = document.getElementById(this.state.activeId);
+        //         if (el) {
+        //             el.click();
+        //         }
+        //     }, 100);
+        // });
+    }
+
+    /**
+     * 删除模块
+     * @param guid
+     */
+    mittDelete = (guid) => {
+        const data = module.remove(guid, this.props.page.content);
+
+        message.success('删除成功');
+
+        this.props.setPageContent(data);
+        this.setTileData(data);
+
+        this.setState({
+            // data,
+            activeId: null,
+            rect: null,
+            activeRect: null,
+            panelVisible: false,
+        });
+    }
+
+    /**
+     * 激活组件
+     * @param guid
+     * @param target
+     */
+    mittActive = ({ guid, target }) => {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+        // 移动端的画布有特殊设置
+        const parent = params.type === 'mobile' ? this.canvasInner : null;
+        const rect = guid && target ? getRect(target, parent) : null;
+
+        this.setState({
+            activeId: guid,
+            activeRect: rect,
+            rect,
+            // 有激活的组件，并且已添加组件栏未展开
+            layerCakeVisible: !!guid,
+            // 设置panel 编辑面板的显示状态
+            panelVisible: !!guid,
+            menuVisible: false,
         });
     }
 
@@ -380,82 +489,9 @@ class App extends PureComponent {
         // });
     }
 
-    /**
-     * <TODO> 待删除
-     * 修改 rect 展示区域
-     * @param attr
-     * @param val
-     */
-    changeRect(attr, val) {
-        // 通知 Control 组件修改自身的宽度
-        const expr = /width|height|margin/.exec(attr);
-
-        if (expr) {
-            const controlAttr = expr[0];
-            const controlRect = {
-                ...(this.state.activeRect),
-            };
-
-            controlRect[controlAttr] = parseFloat(val);
-
-            this.setState({
-                rect: controlRect,
-                activeRect: controlRect,
-            });
-        }
-    }
-
-    /**
-     * 通过 guid 进行数据修改
-     * @param guid
-     * @param key
-     * @param value
-     */
-    mittModify = ({ guid, keys, value }) => {
-        const data = module.modify(guid, this.state.data, keys, value);
-
-        this.setState({
-            data,
-        }, () => {
-            setTimeout(() => {
-                // <TODO> 黑科技
-                // 后续优化，这里先暂时用这样的方式来改变 rect 的位置，componentDidUpdate 再触发 click 会导致死循环
-                const el = document.getElementById(this.state.activeId);
-                if (el) {
-                    el.click();
-                }
-            }, 100);
-        });
-    }
-
     mittSort = (data) => {
         this.setState({
             data,
-        });
-    }
-
-    /**
-     * 激活组件
-     * @param guid
-     * @param target
-     */
-    mittActive = ({ guid, target }) => {
-        const { match = {} } = this.props;
-        const { params = {} } = match;
-
-        // 移动端的画布有特殊设置
-        const parent = params.type === 'mobile' ? this.canvasInner : null;
-        const rect = guid && target ? getRect(target, parent) : null;
-
-        this.setState({
-            activeId: guid,
-            activeRect: rect,
-            rect,
-            // 有激活的组件，并且已添加组件栏未展开
-            layerCakeVisible: !!guid,
-            // 设置panel 编辑面板的显示状态
-            panelVisible: !!guid,
-            menuVisible: false,
         });
     }
 
@@ -484,7 +520,7 @@ class App extends PureComponent {
     handleSaveCancel = () => {
         this.setState({
             saveVisible: false
-        })
+        });
     }
 
     /**
@@ -608,8 +644,22 @@ class App extends PureComponent {
     }
 
     render() {
-        const { rect, data, layerCakeVisible, menuVisible, activeId } = this.state;
-        const { history, match, activeInfo } = this.props;
+        const {
+            rect,
+            hoverRect,
+            layerCakeVisible,
+            menuVisible,
+            activeId,
+            hoverId,
+            autoActiveId,
+        } = this.state;
+        const { history, match, page } = this.props;
+        const data = page.content;
+
+        if (!data) {
+            return null;
+        }
+
         const { getFieldDecorator } = this.props.form;
         const cls = classNames('layercake-show', {
             'layercake-hide': layerCakeVisible,
@@ -620,8 +670,7 @@ class App extends PureComponent {
             dataType: 'multipart/form-data',
             fileFieldName: 'file',
             uploadSuccess: (props) => {
-                const { data } = props;
-                const img = data[0];
+                const img = props.data[0];
 
                 this.setState({
                     thumbnail: `${img.imageDomain}/${img.suffixUrl}`
@@ -645,6 +694,7 @@ class App extends PureComponent {
         const wrapCls = classNames(`ec-editor-${match.params.type}`);
         const dpi = match.params.type === 'mobile' ? 2 : 1;
 
+        const activeInfo = page.tile[this.state.activeId];
         // 获取拖拽的配置信息
         const draggable = activeInfo && activeInfo.config && activeInfo.config.draggable ?
                         activeInfo.config.draggable :
@@ -655,6 +705,7 @@ class App extends PureComponent {
 
         return (
             <div className={wrapCls}>
+                <PubComps />
                 {/* Top Menu */}
                 <TopMenu
                     history={history}
@@ -679,7 +730,6 @@ class App extends PureComponent {
                 {/* 右侧的控制面板 */}
                 <Panel
                     activeId={activeId}
-                    data={data}
                     onClose={this.handleClosePanel}
                     visible={this.state.panelVisible}
                 />
@@ -729,6 +779,7 @@ class App extends PureComponent {
                                     parentNodeInfo.top = parentArea.offsetTop;
                                 }
 
+                                // 修改 Basic 的信息
                                 updateBasicProps(id, info, style, {
                                     parentNodeInfo,
                                     scrollTop: this.canvasInner.scrollTop,
@@ -739,16 +790,20 @@ class App extends PureComponent {
                                 });
                             }}
                         >
-                            <Control
-                                isActive={!!this.state.activeId}
-                            />
+                            {/* control bar */}
+                            <Editable.activePanel />
                         </Dragger>
+
+                        <Editable.tips
+                            isVisible={hoverId && activeId !== hoverId}
+                            rect={hoverRect}
+                        />
 
                         {/* 实际的可编辑组件列表 */}
                         <Editor
                             data={data}
                             outerEl={this.canvasInner}
-                            autoActiveId={this.state.autoActiveId}
+                            autoActiveId={autoActiveId}
                         />
                     </div>
                 </div>

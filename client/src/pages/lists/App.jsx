@@ -203,7 +203,6 @@ class List extends PureComponent {
                 processData: false,
                 data: formData,
                 success: (data) => {
-                    console.log(data)
                   this.setState({
                     fileList: [],
                     uploading: false,

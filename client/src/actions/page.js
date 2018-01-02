@@ -112,3 +112,21 @@ export const setPageThumbnail = (thumbnail) => dispatch => dispatch({
     type: ActionType.SET_PAGE_THUMBNAIL,
     payload: thumbnail,
 });
+
+/**
+ * 设置页面的平铺数据
+ * @param {Array} arr
+ */
+export const setPageContent = (arr) => dispatch => dispatch({
+    type: ActionType.SET_PAGE_CONTENT,
+    payload: arr,
+});
+
+/**
+ * 设置页面的平铺数据
+ * @param {Object} obj
+ */
+export const setPageTileData = (obj) => dispatch => dispatch({
+    type: ActionType.SET_PAGE_TILE_DATA,
+    payload: obj,
+});

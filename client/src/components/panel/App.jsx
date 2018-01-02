@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import { is } from 'immutable';
 import { Icon } from 'antd';
 import mitt from 'mitt';
-import PageSettings from './PageSettings';
 import List from './List';
 import './panel.scss';
 
@@ -34,12 +33,6 @@ class Panel extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.props.data, nextProps.data)) {
-            this.setState({
-                data: nextProps.data,
-            })
-        }
-
         if (!is(this.props.activeId, nextProps.activeId)) {
             this.setState({
                 activeId: nextProps.activeId,
@@ -90,12 +83,8 @@ class Panel extends PureComponent {
                 </div>
 
                 <div className="ec-panel-main">
-                    {/* Public Settings */}
-                    <PageSettings />
-
                     {/* 可编辑列表 */}
                     <List
-                        data={data}
                         activeId={activeId}
                     />
                 </div>
