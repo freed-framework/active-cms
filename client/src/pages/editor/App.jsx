@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { message, Modal, Input, Icon, Form, Button } from 'antd';
 import mitt from 'mitt';
-import { getRect, createChildren } from '../../common/util/util';
+import { getRect, createChildren, getDisplayName } from '../../common/util/util';
 import module from '../../common/module';
 import { addPage, editPage, push } from '../../services';
 import { setRect } from '../../actions/pub';
@@ -794,6 +794,7 @@ class App extends PureComponent {
                         <Editable.tips
                             isVisible={hoverId && activeId !== hoverId}
                             rect={hoverRect}
+                            name={getDisplayName(page.tile[hoverId])}
                         />
 
                         {/* 实际的可编辑组件列表 */}

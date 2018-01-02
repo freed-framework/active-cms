@@ -13,9 +13,10 @@ const initState = fromJS({
     // 封面
     thumbnail: '',
 
-    // 获取的 app 组件的完整数据
+    // 获取的 App 组件的完整数据
     tile: {},
 
+    // 页面源数据
     content: [],
 });
 

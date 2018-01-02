@@ -8,7 +8,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Tips = (props) => {
-    const { rect = {}, isVisible } = props;
+    const { rect = {}, isVisible, name } = props;
     const styles = isVisible ? rect : {};
 
     return (
@@ -19,7 +19,11 @@ const Tips = (props) => {
             style={{
                 ...styles
             }}
-        />
+        >
+            {name &&
+                <div className="editable-tips-name">{name}</div>
+            }
+        </div>
     );
 }
 

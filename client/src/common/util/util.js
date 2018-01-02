@@ -121,3 +121,20 @@ export const transPx = (data) => {
 
     return trans;
 }
+
+/**
+ * 获取组件展示名
+ * @param data
+ * @return {*}
+ */
+export const getDisplayName = (data = {}) => {
+    if (data.displayName) {
+        return data.displayName;
+    }
+
+    if (data.config && data.config.displayName) {
+        return data.config.displayName;
+    }
+
+    return null;
+}
