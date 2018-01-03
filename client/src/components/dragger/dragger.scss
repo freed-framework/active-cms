@@ -4,6 +4,7 @@
     @include bezierAnimate(out-quint, 0.2s);
     position: absolute;
     overflow: hidden;
+    box-shadow: 0px 0px 6px -2px #000;
 
     &-content {
         position: absolute;
@@ -14,13 +15,19 @@
     }
 
     &-drag, &-resize {
+        position: absolute;
+        background-color: #999;
+
         &:hover {
-            opacity: 0.6;
+            background-color: #929292;
+
+            &:after {
+                transform: rotate(360deg);
+            }
         }
     }
 
     &-drag {
-        position: absolute;
         z-index: 2;
         left: 1px;
         top: 1px;
@@ -29,7 +36,6 @@
         cursor: move;
         box-shadow: 2px 2px 4px -2px #222;
         border-radius: 0 0 10px 0;
-        background-color: #999;
 
         &:after {
             @include bezierAnimate(out-back, 0.5s);
@@ -41,31 +47,34 @@
             background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAn0lEQVRIS72UQRLAIAgD9aG+zoe2w4EOtWJCR/QsWSSRWpJPTdYvIUBr7ZKGeu90HX1RxfXFLIQCjOIRCAR44iwEAmwIUj0Q0DaACM1MXAG8ms+IkIgXU6/uBbCG/nnBzPgHgNIS/fHa4DmATUl0zqvasybrnFNjujJz20fzICkAFF+0tqlll7qurfF2dKhzvUu9YISw4lIXAkTXxRHADcdvgBmCVnF5AAAAAElFTkSuQmCC') no-repeat 50% 50%;
             background-size: 28px;
         }
-
-        &:hover {
-            &:after {
-                transform: rotate(270deg);
-            }
-        }
     }
 
     &-resize {
-        position: absolute;
         z-index: 3;
-        right: 0;
-        bottom: 0;
+        right: 1px;
+        bottom: 1px;
         width: 24px;
         height: 24px;
-        background: url("./images/resize.png") no-repeat 50% 50% #999;
-        background-size: 12px;
         cursor: nwse-resize;
         box-shadow: -2px -2px 4px -2px #222;
         border-radius: 10px 0 0 0;
+
+        &:after {
+            @include bezierAnimate(out-back, 0.5s);
+            display: block;
+            content: ' ';
+            width: 24px;
+            height: 24px;
+            background: url("./images/resize.png") no-repeat 50% 50%;
+            background-size: 12px;
+        }
     }
 
     // 正在进行位移
     &-DRAG-doing {
         .dragger-drag {
+            background-color: #929292;
+
             &:after {
                 transform: rotate(45deg);
             }

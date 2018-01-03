@@ -24,6 +24,7 @@ class Dragger extends PureComponent {
             y: true,
         },
         onClick: () => {},
+        onChangeStart: () => {},
         onChange: () => {},
         onChangeEnd: () => {},
     }
@@ -255,6 +256,8 @@ class Dragger extends PureComponent {
             x: event.pageX,
             y: event.pageY,
         };
+
+        this.props.onChangeStart(this.start);
     }
 
     reset() {
@@ -355,7 +358,7 @@ class Dragger extends PureComponent {
         const { rect } = this.state;
         const dragCls = classNames('dragger', {
             [`dragger-${this.type}-doing`]: this.doing && this.type,
-        })
+        });
 
         return (
             <div

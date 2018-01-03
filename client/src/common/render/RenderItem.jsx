@@ -16,16 +16,16 @@ class RenderItem extends PureComponent {
         const id = this.props.item.guid;
         const el = document.getElementById(id);
 
-        if (id === this.props.autoActiveId && el) {
-            // <TODO> 布吉岛为啥直接调用，rect 位置不对
-            setTimeout(() => {
-                // 获取激活焦点
-                el.click();
-
-                // 滚动容器
-                scrollDom(this.props.outerEl, el, this.props.pageType === 'mobile' ? 2 : 1);
-            })
-        }
+        // if (id === this.props.autoActiveId && el) {
+        //     // <TODO> 布吉岛为啥直接调用，rect 位置不对
+        //     setTimeout(() => {
+        //         // 获取激活焦点
+        //         el.click();
+        //
+        //         // 滚动容器
+        //         scrollDom(this.props.outerEl, el, this.props.pageType === 'mobile' ? 2 : 1);
+        //     })
+        // }
     }
 
     render() {

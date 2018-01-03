@@ -66,32 +66,32 @@ class List extends PureComponent {
         super(props);
 
         this.state = {
-            data: [],
-            active: false,
+            // data: [],
+            // active: false,
             activeId: null,
         }
     }
 
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.any),
-        active: PropTypes.bool,
+        // active: PropTypes.bool,
         activeId: PropTypes.string,
         onActive: PropTypes.func,
         editVisible: PropTypes.bool,
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.props.data, nextProps.data)) {
-            this.setState({
-                data: nextProps.data,
-            })
-        }
+        // if (!is(this.props.data, nextProps.data)) {
+        //     this.setState({
+        //         data: nextProps.data,
+        //     })
+        // }
 
-        if (!is(this.props.active, nextProps.active)) {
-            this.setState({
-                active: nextProps.active,
-            })
-        }
+        // if (!is(this.props.active, nextProps.active)) {
+        //     this.setState({
+        //         active: nextProps.active,
+        //     })
+        // }
 
         if (!is(this.props.activeId, nextProps.activeId)) {
             this.setState({
@@ -166,13 +166,16 @@ class List extends PureComponent {
     }
 
     render() {
-        const { data } = this.state;
+        const { data } = this.props;
 
         return (
             <Collapse
                 className="ec-editor-layer-cake-main"
             >
-                {this.loopRender(data)}
+                {data.length === 0 ?
+                    <div className="ec-editor-layer-cake-nodata">暂无数据</div> :
+                    this.loopRender(data)
+                }
             </Collapse>
         )
     }

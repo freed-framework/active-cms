@@ -117,10 +117,16 @@ export const setPageThumbnail = (thumbnail) => dispatch => dispatch({
  * 设置页面的平铺数据
  * @param {Array} arr
  */
-export const setPageContent = (arr) => dispatch => dispatch({
-    type: ActionType.SET_PAGE_CONTENT,
-    payload: arr,
-});
+export const setPageContent = (arr) => dispatch => (
+    new Promise(resolve => {
+        dispatch({
+            type: ActionType.SET_PAGE_CONTENT,
+            payload: arr,
+        });
+
+        resolve();
+    })
+);
 
 /**
  * 设置页面的平铺数据
@@ -129,4 +135,27 @@ export const setPageContent = (arr) => dispatch => dispatch({
 export const setPageTileData = (obj) => dispatch => dispatch({
     type: ActionType.SET_PAGE_TILE_DATA,
     payload: obj,
+});
+
+/**
+ * 获取激活信息
+ */
+export const getActiveInfo = () => dispatch => dispatch({
+    type: ActionType.GET_PAGE_ACTIVE,
+});
+
+/**
+ * 设置激活信息
+ * @param id
+ */
+export const setActiveInfo = (id) => dispatch => dispatch({
+    type: ActionType.SET_PAGE_ACTIVE,
+    payload: id,
+});
+
+/**
+ * 清空激活信息
+ */
+export const clearActiveInfo = () => dispatch => dispatch({
+    type: ActionType.CLEAR_PAGE_ACTIVE,
 });

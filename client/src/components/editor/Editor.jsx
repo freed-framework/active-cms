@@ -71,7 +71,7 @@ class Editor extends PureComponent {
     }
 
     render() {
-        const { match, data, outerEl, autoActiveId } = this.props;
+        const { match, data, outerEl } = this.props;
         const { params } = match;
 
         if (data.length === 0) {
@@ -89,7 +89,6 @@ class Editor extends PureComponent {
                 pageType={params.type}
                 outerEl={outerEl}
                 isEdit={true}
-                autoActiveId={autoActiveId}
             />
         );
     }

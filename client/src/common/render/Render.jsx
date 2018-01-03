@@ -10,7 +10,6 @@ import RenderItem from './RenderItem';
 
 class App extends PureComponent {
     static defaultProps = {
-        autoActiveId: null,
         pageType: null,
         isEdit: false,
         outerEl: null,
@@ -22,8 +21,6 @@ class App extends PureComponent {
      * @param extendsProps, 继承于父组件的 属性
      */
     loop(data = [], extendsProps = null) {
-        // const { autoActiveId, pageType, isEdit, outerEl } = this.props;
-
         return data.map(item => {
             return (
                 <RenderItem
