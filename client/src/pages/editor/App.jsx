@@ -500,15 +500,14 @@ class App extends PureComponent {
      * 保存数据
      */
     handleSaveOk = () => {
-        const { location = '', match = {} } = this.props;
+        const { location = '', match = {}, page } = this.props;
         const { params = {} } = match;
         const { id } = params;
 
-        if (!this.state.data.length) {
+        if (page.content.length === 0) {
             message.error('页面不能为空');
             return;
         }
-
 
         const { title } = this.state;
 
@@ -521,11 +520,11 @@ class App extends PureComponent {
             addPage({
                 title,
                 pageType: params.type,
-                content: this.state.data,
+                content: page.content,
                 thumbnail: this.state.thumbnail
             }).then((res) => {
                 message.success('保存成功')
-                this.$oldData = fromJS(this.state.data);
+                this.$oldData = fromJS(page.content);
                 this.handleSaveCancel();
                 this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
             })
@@ -534,12 +533,12 @@ class App extends PureComponent {
             editPage({
                 id,
                 page: {
-                    content: this.state.data,
+                    content: page.content,
                     title: title,
                     thumbnail: this.state.thumbnail
                 }
             }).then(() => {
-                this.$oldData = fromJS(this.state.data);
+                this.$oldData = fromJS(page.content);
                 message.success('保存成功')
                 this.handleSaveCancel();
             })
@@ -547,9 +546,10 @@ class App extends PureComponent {
     }
 
     mittPush = () => {
-        const { pageData = {} } = this.props;
+        const { pageData = {}, page } = this.props;
         const { $oldData } = this;
-        const $now = fromJS(this.state.data);
+        const $now = fromJS(page.content);
+
         if (is($oldData, $now)) {
             confirm({
                 title: '确认推送页面？',
