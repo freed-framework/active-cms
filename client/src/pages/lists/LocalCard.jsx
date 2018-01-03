@@ -14,7 +14,10 @@ import moment from 'moment';
 import { Modal, Input, Select, message, Progress, Spin } from 'antd';
 import { Observable } from 'rxjs';
 
-import { deletePage, forkPage, fetchAllUsers, sharePage, publishPage, push } from '../../services';
+import {
+    deletePage, forkPage, fetchAllUsers,
+    sharePage, publishPage, push, deleteLocal
+} from '../../services';
 import { getUser } from '../../actions/user';
 
 const confirm = Modal.confirm;
@@ -37,12 +40,12 @@ function formNowFun(time) {
 export default class LocalCard extends PureComponent {
     static propTypes = {
         data: PropTypes.objectOf(PropTypes.any).isRequired,
-        history: PropTypes.objectOf(PropTypes.any),
         onFetchList: PropTypes.func,
         current: PropTypes.string,
         reg: PropTypes.objectOf(PropTypes.any),
         socket: PropTypes.objectOf(PropTypes.any),
-        user: PropTypes.objectOf(PropTypes.any)
+        user: PropTypes.objectOf(PropTypes.any),
+        uploadZip: PropTypes.func,
     }
 
     constructor(props) {
@@ -131,8 +134,11 @@ export default class LocalCard extends PureComponent {
      * 跳转到编辑页面
      */
     handleEdit = () => {
-        const { data = {} } = this.props;
-        this.props.history.push(`/${data.pageType}/edit/${data._id}`);
+        this.props.uploadZip({
+            isEidt: true,
+            uploadModal: true,
+            uploadData: this.props.data
+        });
     }
 
     /**
@@ -140,7 +146,7 @@ export default class LocalCard extends PureComponent {
      */
     handleView = () => {
         const { data = {} } = this.props;
-        window.open(`/view/${data._id}`);
+        window.open(`${config.html}${data.timeStmp}/index.html`);
     }
 
     /**
@@ -152,7 +158,7 @@ export default class LocalCard extends PureComponent {
             title: '提示',
             content: '确认删除？',
             onOk: () => {
-                deletePage(data._id)
+                deleteLocal(data._id)
                     .then(() => {
                         this.props.onFetchList()
                     })
@@ -344,6 +350,16 @@ export default class LocalCard extends PureComponent {
                                 <Font type="eye" />
                                 <span className="page-list-card-text">预览</span>
                             </li>
+                            {
+                                isOwer &&
+                                <li
+                                    className="page-list-card-icon page-list-card-icon-hover"
+                                    onClick={this.handleEdit}
+                                >
+                                    <Font type="clipboard-edit" />
+                                    <span className="page-list-card-text">编辑</span>
+                                </li>
+                            }
                             {
                                 isOwer &&
                                 <li

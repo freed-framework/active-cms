@@ -56,7 +56,7 @@ class Panel extends PureComponent {
     render() {
         const { data, activeId, visible } = this.state;
 
-        const clsLayout = classNames('ec-panel-layout', {
+        const clsLayout = classNames('ec-panel-layout', 'box-shadow', {
             'ec-panel-layout-visible': visible,
         });
 

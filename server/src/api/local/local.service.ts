@@ -49,10 +49,23 @@ export class LocalService {
     }
 
     /**
+     * 删除指定页面
+     */
+    async remove(id) {
+        const result = await LocalModel.findOneAndRemove({_id: id}, (err) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+        })
+
+        return success(result);
+    }
+
+    /**
      * 新建本地活动页
      */
     async post(body, user) {
-        const { title, pushId, pageType, thumbnail } = body;
+        const { title, pushId, pageType, thumbnail, timeStmp } = body;
 
         const result = await LocalModel.create({
             createUser: user._id,
@@ -60,7 +73,31 @@ export class LocalService {
             title,
             pushId,
             pageType,
-            thumbnail
+            thumbnail,
+            timeStmp
+        }, (err, doc) => {
+            if (err) {
+                throw new HttpException('系统错误', 500);
+            }
+
+            return doc;
+        })
+
+        return success(result)
+    }
+
+    /**
+     * 编辑本地活动页
+     */
+    async edit(body, user) {
+        const { title, pushId, pageType, thumbnail, timeStmp } = body;
+
+        const result = await LocalModel.findOneAndUpdate({pushId}, {
+            title,
+            pageType,
+            thumbnail,
+            updateTime: new Date(),
+            timeStmp
         }, (err, doc) => {
             if (err) {
                 throw new HttpException('系统错误', 500);
@@ -72,3 +109,4 @@ export class LocalService {
         return success(result)
     }
 }
+
