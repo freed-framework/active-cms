@@ -366,7 +366,7 @@ class List extends PureComponent {
                                     }],
                                     initialValue: uploadData.title
                                 })(
-                                    <Input />
+                                    <Input placeholder="请输入标题" />
                                 )}
                             </FormItem>
                             <FormItem
