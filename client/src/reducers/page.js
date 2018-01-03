@@ -56,6 +56,15 @@ export default (state = initState, action) => {
             return state.set('thumbnail', action.payload);
         }
 
+        case ActionType.CLEAR_PAGE: {
+            return state
+                .set('title', initState.get('title'))
+                .set('thumbnail', initState.get('thumbnail'))
+                .set('tile', initState.get('tile'))
+                .set('content', initState.get('content'))
+                .set('activeId', initState.get('activeId'))
+        }
+
         default:
             return state;
     }

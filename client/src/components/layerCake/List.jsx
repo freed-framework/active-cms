@@ -168,14 +168,19 @@ class List extends PureComponent {
     render() {
         const { data } = this.props;
 
+        if (data.length === 0) {
+            return (
+                <div className="ec-editor-layer-cake-nodata">
+                    暂无数据
+                </div>
+            )
+        }
+
         return (
             <Collapse
                 className="ec-editor-layer-cake-main"
             >
-                {data.length === 0 ?
-                    <div className="ec-editor-layer-cake-nodata">暂无数据</div> :
-                    this.loopRender(data)
-                }
+                {this.loopRender(data)}
             </Collapse>
         )
     }

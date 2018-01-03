@@ -28,23 +28,17 @@ class LayerCake extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.state.props, nextProps.data)) {
-            this.setState({
-                data: nextProps.data,
-            })
-        }
-
-        if (!is(this.state.active, nextProps.active)) {
-            this.setState({
-                active: nextProps.active,
-            })
-        }
-
-        if (!is(this.state.activeId, nextProps.activeId)) {
-            this.setState({
-                activeId: nextProps.activeId,
-            })
-        }
+        // if (!is(this.state.active, nextProps.active)) {
+        //     this.setState({
+        //         active: nextProps.active,
+        //     })
+        // }
+        //
+        // if (!is(this.state.activeId, nextProps.activeId)) {
+        //     this.setState({
+        //         activeId: nextProps.activeId,
+        //     })
+        // }
     }
 
     handleActive = (guid) => {
@@ -53,16 +47,11 @@ class LayerCake extends PureComponent {
         // 实际上被编辑的元素
         const editTarget = document.getElementById(guid);
 
-        this.setState({
-            current: guid
-        }, () => {
-            try {
-                scrollDom(outerEl, editTarget, params.type === 'mobile' ? 2 : 1);
-            } catch(e) {}
+        try {
+            scrollDom(outerEl, editTarget, params.type === 'mobile' ? 2 : 1);
+        } catch(e) {}
 
-            activeComponent(guid, editTarget);
-        })
-
+        activeComponent(guid, editTarget);
     }
 
     handleEdit = () => {
@@ -72,26 +61,19 @@ class LayerCake extends PureComponent {
         })
     }
 
-    handleShow = () => {
-        const active = this.state.active;
-        this.setState({
-            active: !active,
-        })
-    }
-
     render() {
-        const { data, active, activeId, editVisible } = this.state;
+        const { editVisible } = this.state;
+        const { active, activeId, data } = this.props;
 
         const cls = classNames('ec-editor-layer-cake', 'box-shadow', {
             'ec-editor-layer-cake-active': active,
             'ec-editor-layer-cake-edit': editVisible,
         });
-        // TODO 赵丽@@@！！！这个智障
+
         return (
             <div className={cls}>
                 <div
                     className="icon-btn"
-                    // onClick={this.handleShow}
                     onClick={this.props.onClick}
                 >
                     <Icon type="right" />

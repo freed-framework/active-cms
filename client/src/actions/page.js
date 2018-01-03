@@ -159,3 +159,10 @@ export const setActiveInfo = (id) => dispatch => dispatch({
 export const clearActiveInfo = () => dispatch => dispatch({
     type: ActionType.CLEAR_PAGE_ACTIVE,
 });
+
+/**
+ * 清空页面数据
+ */
+export const clearPage = () => dispatch => dispatch({
+    type: ActionType.CLEAR_PAGE,
+});

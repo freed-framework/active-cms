@@ -4,7 +4,7 @@
  *
  */
 import React from 'react';
-import { fromJS } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import utils from '../../components/util/util';
 import loader from './loader/loader';
 
@@ -102,20 +102,28 @@ class Module {
     static modify(guid, data, keys, value) {
         const $data = fromJS(data);
 
-        return this.findByGuid(guid, $data, ($finder, deep) => {
-            if (typeof value === 'object') {
+        const result = this.findByGuid(guid, $data, ($finder, deep) => {
+            const $val = fromJS(value);
+
+            if (Map.isMap($val)) {
                 const oldData = $data.getIn(deep.concat(keys)) || fromJS({});
 
+                // TODO 此处判断有问题
                 if (oldData) {
                     // Map
                     const mergeData = oldData.mergeDeep(value);
-
-                    return $data.setIn(deep.concat(keys), mergeData);
+                    return $data.setIn(deep.concat(keys), mergeData.toJS());
                 }
             }
 
             return $data.setIn(deep.concat(keys), value);
-        }).toJS();
+        });
+
+        if (result.size === 0) {
+            return data;
+        }
+
+        return result.toJS();
     }
 
     /**

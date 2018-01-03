@@ -27,6 +27,7 @@ import {
     setActiveInfo,
     getActiveInfo,
     clearActiveInfo,
+    clearPage,
 } from '../../actions/page';
 import icon from '../../images/icon-svg/icon.svg';
 import loader from '../../common/loader/loader';
@@ -56,6 +57,7 @@ const emitter = mitt();
         setActiveInfo,
         getActiveInfo,
         clearActiveInfo,
+        clearPage,
     }, dispatch)
 )
 class App extends PureComponent {
@@ -174,7 +176,7 @@ class App extends PureComponent {
         emitter.off('active', this.mittActive);
         emitter.off('viewer', this.mittViewer);
         emitter.off('push', this.mittPush);
-        emitter.off('clearActive', this.mittClearActive)
+        emitter.off('clearActive', this.mittClearActive);
 
         clearTimeout(this.clearTimer)
 
@@ -183,15 +185,13 @@ class App extends PureComponent {
         this.canvas.removeEventListener('click', this.handleActive);
         this.canvas.removeEventListener('mouseover', this.handleHover);
         // this.canvas.removeEventListener('mouseout', this.handleOut);
+
+        this.props.clearPage();
     }
 
     componentWillReceiveProps(nextProps) {
         if (!is(fromJS(nextProps.data), fromJS(this.props.data))) {
-            this.setState({
-                data: nextProps.data,
-            }, () => {
-                this.$oldData = fromJS(nextProps.data);
-            })
+            this.saveData(nextProps.data);
         }
 
         if (!is(fromJS(nextProps.pageData), fromJS(this.props.pageData))) {
@@ -312,6 +312,13 @@ class App extends PureComponent {
      */
     saveData(data = [], callback = () => {}) {
         const { page } = this.props;
+
+        // 待优化
+        if (is(fromJS(data), fromJS(page.content))) {
+            console.log('saveData: not change');
+            return;
+        }
+
         this.props.setPageContent(data)
             .then(() => {
                 callback();
@@ -603,7 +610,10 @@ class App extends PureComponent {
     getActive() {
         const { page } = this.props;
         const { activeId } = page;
-        const activeInfo = page.tile[activeId];
+        
+        if (!page.tile || !activeId) {
+            return null;
+        }
 
         return page.tile[activeId];
     }
@@ -796,7 +806,9 @@ class App extends PureComponent {
                         <Editable.tips
                             isVisible={hoverId && activeId !== hoverId}
                             rect={hoverRect}
-                            name={getDisplayName(page.tile[hoverId])}
+                            {...(page.tile && {
+                                name: getDisplayName(page.tile[hoverId])
+                            })}
                         />
 
                         {/* 实际的可编辑组件列表 */}

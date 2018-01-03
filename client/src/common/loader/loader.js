@@ -12,11 +12,15 @@ const loader = (item, topWrappedModule) => {
         return Promise.resolve(item);
     }
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+        if (!item.name) {
+            return reject();
+        }
+
         import(`../../../components/${item.name}/index`)
             .then(App => resolve(resolveData(App, item, topWrappedModule)))
             .catch(ex => {
-                console.log(ex);
+                console.error(ex);
             })
     });
 }
