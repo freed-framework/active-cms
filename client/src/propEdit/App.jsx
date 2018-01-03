@@ -6,7 +6,7 @@
  */
 import React, { PureComponent } from 'react';
 import { Tag } from 'antd';
-import { is } from 'immutable';
+import { is, fromJS } from 'immutable';
 import PropTypes from 'prop-types';
 import * as EditItem from './export';
 import './propsEdit.scss';
@@ -28,15 +28,21 @@ export default class EditAttr extends PureComponent {
 
     // 判断数据是否变化
     componentWillReceiveProps(nextProps) {
-        if (!is(this.props.componentProps, nextProps.componentProps)) {
-            this.setState({
-                componentProps: nextProps.componentProps
-            })
-        }
+        // if (!is(this.props.componentProps, nextProps.componentProps)) {
+        //     this.setState({
+        //         componentProps: nextProps.componentProps
+        //     })
+        // }
+        //
+        // if (!is(this.props.activeId, nextProps.activeId)) {
+        //     this.setState({
+        //         activeId: nextProps.activeId
+        //     })
+        // }
 
-        if (!is(this.props.activeId, nextProps.activeId)) {
+        if (!is(fromJS(this.props), fromJS(nextProps))) {
             this.setState({
-                activeId: nextProps.activeId
+                ...nextProps,
             })
         }
     }

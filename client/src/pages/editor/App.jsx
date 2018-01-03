@@ -130,7 +130,10 @@ class App extends PureComponent {
 
         this.$oldData = fromJS(props.data);
         this.clearTimer = null;
-        this.prevRect = null;
+        this.prevHistory = {
+            id: null,
+            rect: null,
+        };
 
         emitter.on('delete', this.mittDelete);
         emitter.on('copy', this.mittCopy);
@@ -320,9 +323,7 @@ class App extends PureComponent {
         }
 
         this.props.setPageContent(data)
-            .then(() => {
-                callback();
-            });
+            .then(() => callback());
 
         // 平铺的绑定了 App 的数据
         const tileData = {};
@@ -364,6 +365,24 @@ class App extends PureComponent {
     }
 
     /**
+     * 自动触发遮照层重新激活，根据当前数据，修改相应属性
+     * TODO 该方法待优化
+     * @param id
+     */
+    autoActive(id) {
+        // 后期修改为判断某些属性变化的时候才重新触发激活
+        setTimeout(() => {
+            // 如果没有传入的 激活 id，则直接触发当前激活的
+            const guid = id || this.props.page.activeId;
+
+            this.mittActive({
+                guid,
+                target: document.getElementById(guid),
+            });
+        }, 200);
+    }
+
+    /**
      * 添加模块
      * @param cname
      * @param guid
@@ -372,12 +391,12 @@ class App extends PureComponent {
         const { page } = this.props;
         const mod = module.create(cname);
         const arr = page.content;
-
         const data = guid ?
             createChildren(arr, guid, mod) :
             arr.concat(mod);
+        const id = mod.guid || guid;
 
-        this.saveData(data);
+        this.saveData(data, () => this.autoActive(id));
     }
 
     /**
@@ -389,17 +408,7 @@ class App extends PureComponent {
     mittModify = ({ guid, keys, value }) => {
         const data = module.modify(guid, this.props.page.content, keys, value);
 
-        this.saveData(data, () => {
-            // 后期修改为判断某些属性变化的时候才重新触发激活
-            if (guid) {
-                setTimeout(() => {
-                    this.mittActive({
-                        guid,
-                        target: document.getElementById(guid),
-                    });
-                });
-            }
-        });
+        this.saveData(data, () => this.autoActive());
     }
 
     /**
@@ -663,7 +672,6 @@ class App extends PureComponent {
         const {
             rect,
             hoverRect,
-            prevRect,
             layerCakeVisible,
             menuVisible,
             hoverId,
@@ -784,21 +792,22 @@ class App extends PureComponent {
                             onChangeEnd={info => {
                                 this.updateBasic(info);
 
-                                this.setState({
-                                    prevRect: this.prevRect,
-                                }, () => this.prevRect = null);
+                                this.prevHistory.rect = this.prevRect;
+                                this.prevHistory.id = activeId;
                             }}
                         >
                             {/* Control Bar */}
                             <Editable.activePanel
-                                history={prevRect}
+                                history={this.prevHistory.rect && this.prevHistory.id === activeId}
                                 onGoBack={() => {
                                     this.setState({
-                                        rect: prevRect,
-                                        prevRect: null,
-                                    }, () => this.prevRect = null);
+                                        rect: this.prevHistory.rect,
+                                    }, () => {
+                                        this.prevHistory.id = null;
+                                        this.prevHistory.rect = null;
+                                    });
 
-                                    this.updateBasic(prevRect);
+                                    this.updateBasic(this.prevHistory.rect);
                                 }}
                             />
                         </Dragger>

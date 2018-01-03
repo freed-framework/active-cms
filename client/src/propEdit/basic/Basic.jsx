@@ -148,7 +148,7 @@ class BasicEdit extends PureComponent {
         // this.setState({
         //     ...props
         // });
-console.log('mittUpdate: ', style, target);
+
         if (style[target]) {
             const info = Util.fixRectByPosition(
                 rect,

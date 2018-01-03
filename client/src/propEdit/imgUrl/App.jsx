@@ -5,6 +5,7 @@
  * 图片配置
  */
 import React, { PureComponent } from 'react';
+import { is, fromJS } from 'immutable';
 import * as FileUpload from 'react-fileupload';
 import { editComponentByGuid } from '../../pages/editor/App';
 import { getToken } from '../../utils';
@@ -27,8 +28,16 @@ class ImgUrl extends PureComponent {
         }
     }
 
-    handleKeyUp = (event) => {
-        if (event.keyCode !== 13) return false;
+    // 判断数据是否变化
+    componentWillReceiveProps(nextProps) {
+        if (!is(fromJS(this.props.componentProps), fromJS(nextProps.componentProps))) {
+            this.setState({
+                ...nextProps.componentProps,
+            })
+        }
+    }
+
+    handleChange = (event) => {
         const attr = event.currentTarget.getAttribute('data-attr');
         const value = event.currentTarget.value;
 
@@ -36,10 +45,16 @@ class ImgUrl extends PureComponent {
             [attr]: value,
         });
 
+    }
+
+    handleKeyUp = (event) => {
+        if (event.keyCode !== 13) return false;
+        const attr = event.currentTarget.getAttribute('data-attr');
+
         editComponentByGuid(
             this.props.guid,
             ['componentProps', attr],
-            value
+            this.state.src,
         );
     }
 
@@ -76,6 +91,7 @@ class ImgUrl extends PureComponent {
                         type="text"
                         data-guid={guid}
                         data-attr="src"
+                        onChange={this.handleChange}
                         onKeyUp={this.handleKeyUp}
                         value={this.state.src}
                     />
