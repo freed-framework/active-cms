@@ -473,6 +473,7 @@ class App extends PureComponent {
      * @param e
      */
     handleChange = (e) => {
+        alert(123)
         this.setState({
             title: e.target.value
         })
@@ -500,49 +501,54 @@ class App extends PureComponent {
      * 保存数据
      */
     handleSaveOk = () => {
-        const { location = '', match = {}, page } = this.props;
+        const { location = '', match = {}, page, form } = this.props;
         const { params = {} } = match;
         const { id } = params;
 
-        if (page.content.length === 0) {
-            message.error('页面不能为空');
-            return;
-        }
+        form.validateFields((err, values) => {
+            if (err) return false;
+            const { title } = values;
 
-        const { title } = this.state;
+            if (page.content.length === 0) {
+                message.error('页面不能为空');
+                return;
+            }
 
-        if (!title) {
-            message.error('请输入标题');
-            return;
-        }
+            if (!title) {
+                message.error('请输入标题');
+                return;
+            }
 
-        if (!id || id === 'new') {
-            addPage({
-                title,
-                pageType: params.type,
-                content: page.content,
-                thumbnail: this.state.thumbnail
-            }).then((res) => {
-                message.success('保存成功')
-                this.$oldData = fromJS(page.content);
-                this.handleSaveCancel();
-                this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
-            })
-        }
-        else {
-            editPage({
-                id,
-                page: {
+            if (!id || id === 'new') {
+                addPage({
+                    title,
+                    pageType: params.type,
                     content: page.content,
-                    title: title,
                     thumbnail: this.state.thumbnail
-                }
-            }).then(() => {
-                this.$oldData = fromJS(page.content);
-                message.success('保存成功')
-                this.handleSaveCancel();
-            })
-        }
+                }).then((res) => {
+                    message.success('保存成功')
+                    this.$oldData = fromJS(page.content);
+                    this.handleSaveCancel();
+                    this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
+                })
+            }
+            else {
+                editPage({
+                    id,
+                    page: {
+                        content: page.content,
+                        title: title,
+                        thumbnail: this.state.thumbnail
+                    }
+                }).then(() => {
+                    this.$oldData = fromJS(page.content);
+                    message.success('保存成功')
+                    this.handleSaveCancel();
+                })
+            }
+        })
+
+
     }
 
     mittPush = () => {
@@ -619,7 +625,7 @@ class App extends PureComponent {
     getActive() {
         const { page } = this.props;
         const { activeId } = page;
-        
+
         if (!page.tile || !activeId) {
             return null;
         }
@@ -853,9 +859,8 @@ class App extends PureComponent {
                                     <Input
                                         className="guide-steps-handler"
                                         data-guide='{"step": 5, "tip": "修改标题，保存页面", "done": true}'
-                                        onChange={this.handleChange}
                                     />
-                                    )}
+                                )}
                             </FormItem>
                             <FormItem
                                 {...formItemLayout}
