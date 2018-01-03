@@ -14,19 +14,22 @@ const ActivePanel = (props) => {
             className="editable-active-panel"
         >
             <div className="editable-active-panel-bar">
-                <div
-                    data-module="control"
-                    className="editable-active-panel-buttons editable-active-goback"
-                    onClick={props.onGoBack}
-                >
-                    <Icon data-module="control" type="rollback" />
-                </div>
+                {props.history &&
+                    <div
+                        data-module="control"
+                        className="editable-active-panel-buttons editable-active-goback"
+                        onClick={props.onGoBack}
+                    >
+                        <Icon data-module="control" type="rollback" />
+                    </div>
+                }
             </div>
         </div>
     );
 }
 
 ActivePanel.defaultProps = {
+    history: null,
     onGoBack: () => {}
 }
 

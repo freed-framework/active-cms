@@ -11,6 +11,10 @@
     color: #DEDEE0;
     transform: translateX(-160px);
 
+    &-nodata {
+        padding: 0 15px;
+    }
+
     .icon-btn {
         @include bezierAnimate();
         position: fixed;
@@ -208,6 +212,8 @@
         }
     }
 }
+
+/* TODO 坐等赵丽哪天空了来修改 */
 
 /* 重置按钮样式*/
 .ant-collapse,

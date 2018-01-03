@@ -371,24 +371,6 @@ class App extends PureComponent {
             arr.concat(mod);
 
         this.saveData(data);
-
-        this.setState({
-            // 当添加一个组件的时候，自动激活编辑面板
-            // activeId: mod.guid,
-            autoActiveId: mod.guid,
-        }, () => {
-            /**
-             * TODO:
-             * 问题描述： 新加组件，组件进入视图，
-             *           当前组件为激活组建，后面修改其他，也会选中这个组件
-             * 暂时解决方法：(x)ms 秒钟后将activeid置空
-             */
-            this.clearTimer = setTimeout(() => {
-                this.setState({
-                    autoActiveId: null
-                })
-            }, 800);
-        });
     }
 
     /**
@@ -408,7 +390,7 @@ class App extends PureComponent {
                         guid,
                         target: document.getElementById(guid),
                     });
-                }, 100);
+                });
             }
         });
     }
@@ -448,11 +430,13 @@ class App extends PureComponent {
         this.setState({
             activeRect: rect,
             rect,
-            // 有激活的组件，并且已添加组件栏未展开
-            layerCakeVisible: !!guid,
             // 设置panel 编辑面板的显示状态
             panelVisible: !!guid,
             menuVisible: false,
+            // 有激活的组件，并且已添加组件栏未展开
+            ...(guid && !this.state.layerCakeVisible && {
+                layerCakeVisible: true,
+            }),
         });
 
         if (guid) {
@@ -464,19 +448,8 @@ class App extends PureComponent {
         }
     }
 
-    /**
-     * 清除active
-     */
-    mittClearActive = () => {
-        this.setState({
-            autoActiveId: null
-        })
-    }
-
     mittSort = (data) => {
-        this.setState({
-            data,
-        });
+        this.saveData(data);
     }
 
     /**
@@ -680,22 +653,21 @@ class App extends PureComponent {
         const {
             rect,
             hoverRect,
+            prevRect,
             layerCakeVisible,
             menuVisible,
             hoverId,
-            autoActiveId,
         } = this.state;
         const { history, match, page } = this.props;
-
         // 页面源数据
         const data = page.content;
-        const { activeId } = page;
-        const activeInfo = this.getActive();
 
         if (!data) {
             return null;
         }
 
+        const { activeId } = page;
+        const activeInfo = this.getActive();
         const { getFieldDecorator } = this.props.form;
         const cls = classNames('layercake-show', {
             'layercake-hide': layerCakeVisible,
@@ -759,6 +731,7 @@ class App extends PureComponent {
                         active={this.state.layerCakeVisible}
                         outerEl={this.canvasInner}
                         data={data}
+                        onClick={this.handleShow}
                     />
                 </div>
 
@@ -800,16 +773,22 @@ class App extends PureComponent {
                             onChange={info => this.props.setRect(info)}
                             onChangeEnd={info => {
                                 this.updateBasic(info);
+
+                                this.setState({
+                                    prevRect: this.prevRect,
+                                }, () => this.prevRect = null);
                             }}
                         >
                             {/* Control Bar */}
                             <Editable.activePanel
+                                history={prevRect}
                                 onGoBack={() => {
                                     this.setState({
-                                        rect: this.prevRect,
-                                    });
+                                        rect: prevRect,
+                                        prevRect: null,
+                                    }, () => this.prevRect = null);
 
-                                    this.updateBasic(this.prevRect);
+                                    this.updateBasic(prevRect);
                                 }}
                             />
                         </Dragger>
@@ -824,7 +803,6 @@ class App extends PureComponent {
                         <Editor
                             data={data}
                             outerEl={this.canvasInner}
-                            autoActiveId={autoActiveId}
                         />
                     </div>
                 </div>

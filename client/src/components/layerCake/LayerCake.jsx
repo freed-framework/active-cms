@@ -86,12 +86,13 @@ class LayerCake extends PureComponent {
             'ec-editor-layer-cake-active': active,
             'ec-editor-layer-cake-edit': editVisible,
         });
-
+        // TODO 赵丽@@@！！！这个智障
         return (
             <div className={cls}>
                 <div
                     className="icon-btn"
-                    onClick={this.handleShow}
+                    // onClick={this.handleShow}
+                    onClick={this.props.onClick}
                 >
                     <Icon type="right" />
                 </div>
@@ -107,7 +108,6 @@ class LayerCake extends PureComponent {
                 </div>
                 <List
                     data={data}
-                    active={active}
                     activeId={activeId}
                     onActive={this.handleActive}
                     editVisible={editVisible}
