@@ -47,7 +47,7 @@ class App extends Component {
                 getUserConfirmation={getConfirmation}
                 keyLength={12}
             >
-                <div>
+                <Switch>
                     <Route
                         path="/"
                         exact
@@ -87,7 +87,7 @@ class App extends Component {
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/registerResult" component={RegisterResult} />
-                </div>
+                </Switch>
             </BrowserRouter>
         )
     }
