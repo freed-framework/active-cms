@@ -10,9 +10,23 @@ export const getPageData = (id) => dispatch => (
     new Promise((resolve, reject) => {
         getPage(id)
             .then((res) => {
+                const {
+                    title = '',
+                    thumbnail = '',
+                    tile = {},
+                    content = [],
+                    activeId = null,
+                } = res.data;
+
                 dispatch({
                     type: ActionType.GET_PAGE_DATA,
-                    payload: res.data
+                    payload: {
+                        title,
+                        thumbnail,
+                        tile,
+                        content,
+                        activeId,
+                    }
                 })
             })
             .catch(err => {
