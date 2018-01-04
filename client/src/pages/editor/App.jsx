@@ -563,7 +563,6 @@ class App extends PureComponent {
                 onOk: () => {
                     push({
                         id: pageData._id,
-                        uploadUserId: 123123123,
                         zipId: pageData.pushId,
                         activityName: pageData.title
                     })

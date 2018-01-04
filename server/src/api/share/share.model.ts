@@ -15,7 +15,9 @@ const ShareSchema = new Schema({
     // 用户信息
     user: { type: Schema.Types.ObjectId, ref: 'Users'  },
     // 分享时间
-    shareTime: { type: Date, default: Date.now }
+    shareTime: { type: Date, default: Date.now },
+    // 所属用户
+    owerUser: { type: Schema.Types.ObjectId, ref: 'Users'  },
 }, {
     versionKey: false
 })

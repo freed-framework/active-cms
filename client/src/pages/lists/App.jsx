@@ -322,6 +322,7 @@ class List extends PureComponent {
                                     key={item._id}
                                     reg={searchReg}
                                     data={item.shareTime ? item.page : item}
+                                    owerUser={item.owerUser || item.page.createUser}
                                     history={history}
                                     onFetchList={this.handleFetchList}
                                     socket={socket}

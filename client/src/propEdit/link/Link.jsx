@@ -6,9 +6,33 @@
  */
 import React, { PureComponent } from 'react';
 import { Input, Select } from 'antd';
+import { is, fromJS } from 'immutable';
 import { editComponentByGuid } from '../../pages/editor/App';
 
 const Option = Select.Option;
+
+function parseUrl(url) {
+    const hy = /^((hybrid):\/\/.*id=)(.*)$/ig;
+    const res = hy.exec(url);
+    const hy2 = /^((detail)\/index\.html\?id=)(.*)$/ig;
+    const res2 = hy2.exec(url);
+    const hy3 = /^((activityPage)\/index\.html\?id=)(.*)$/ig;
+    const res3 = hy3.exec(url);
+
+    if (res) {
+        return res;
+    }
+
+    if (res2) {
+        return res2;
+    }
+
+    if (res3) {
+        return res3;
+    }
+
+    return ''
+}
 
 class ImgUrl extends PureComponent {
     constructor(props) {
@@ -16,12 +40,52 @@ class ImgUrl extends PureComponent {
 
         const { componentProps } = props;
 
+        let url = [];
+        if (!componentProps.url) {
+            const getDef = this.getMappingDefault() || {};
+            url = ['', getDef.value, getDef.name, getDef.defaultValue]
+        } else {
+            url = parseUrl(componentProps.url || '');
+        }
+
         this.state = {
             // 跳转地址
             url: componentProps.url,
 
             // 跳转地址的前缀
-            before: '',
+            before: url[1],
+
+            // 默认选中项
+            defSelect: url[2],
+
+            // 表单值
+            value: url[3],
+
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!is(fromJS(this.props.componentProps.url), fromJS(nextProps.componentProps.url))) {
+            let url = [];
+
+            if (!nextProps.componentProps.url) {
+                const getDef = this.getMappingDefault() || {};
+                url = ['', getDef.value, getDef.name, getDef.defaultValue]
+            } else {
+                url = parseUrl(nextProps.componentProps.url || '');
+            }
+
+            this.setState({
+                // 跳转地址的前缀
+                before: url[1],
+
+                // 默认选中项
+                defSelect: url[2],
+
+                // 表单值
+                value: url[3],
+
+            })
         }
     }
 
@@ -44,6 +108,7 @@ class ImgUrl extends PureComponent {
     handleChangeBefore = (val) => {
         this.setState({
             before: val,
+            defSelect: val
         })
     }
 
@@ -51,13 +116,20 @@ class ImgUrl extends PureComponent {
         const attr = event.currentTarget.getAttribute('data-attr');
         const value = event.currentTarget.value;
         const before = this.state.before;
-        const url = before + value;
 
+        const url = before + value;
+console.log(url)
         editComponentByGuid(
             this.props.guid,
             ['componentProps', attr],
             url
         );
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            value: e.target.value
+        })
     }
 
     /**
@@ -71,7 +143,7 @@ class ImgUrl extends PureComponent {
             return null;
         }
 
-        const mapping = editModelMapping[topWrappedModule];
+        const mapping = editModelMapping;
 
         if (!mapping) {
             return null;
@@ -89,12 +161,13 @@ class ImgUrl extends PureComponent {
      */
     getUrlBefore(def = {}) {
         const { topWrappedModule, editModelMapping } = this.props;
+        const { defSelect } = this.state;
 
         if (!editModelMapping) {
             return null;
         }
 
-        const mapping = editModelMapping[topWrappedModule];
+        const mapping = editModelMapping;
 
         if (!mapping) {
             return null;
@@ -103,7 +176,7 @@ class ImgUrl extends PureComponent {
         return (
             <Select
                 onChange={this.handleChangeBefore}
-                defaultValue={def.name}
+                value={defSelect || def.name}
                 style={{ width: 90 }}
             >
                 {mapping.map(item => (
@@ -115,6 +188,8 @@ class ImgUrl extends PureComponent {
 
     render() {
         const { guid, componentProps = {} } = this.props;
+        const { value } = this.state;
+
         const mappingDefault = this.getMappingDefault();
         const placeholder = mappingDefault && mappingDefault.defaultValue || '请输入链接地址';
 
@@ -125,10 +200,11 @@ class ImgUrl extends PureComponent {
                     data-guid={guid}
                     data-attr="url"
                     placeholder={placeholder}
-                    defaultValue={componentProps.url || ''}
+                    value={value}
                     addonBefore={
                         this.getUrlBefore(mappingDefault)
                     }
+                    onChange={this.handleChange}
                     onPressEnter={this.handleChangeUrl}
                 />
             </div>
