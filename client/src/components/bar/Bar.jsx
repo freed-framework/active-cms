@@ -31,12 +31,12 @@ class Bar {
                     <Button type="small" onClick={() => deleteComponent(guid)}>
                         删除
                     </Button>
-                    <Button type="small" onClick={() => copyComponent(guid)}>
+                    {/* <Button type="small" onClick={() => copyComponent(guid)}>
                         复制
                     </Button>
                     <Button type="small" onClick={() => pasteComponent(guid)}>
                         粘贴
-                    </Button>
+                    </Button> */}
                 </Button.Group>
             </span>
         )
