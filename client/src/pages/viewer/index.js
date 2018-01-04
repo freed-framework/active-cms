@@ -11,6 +11,8 @@ import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
 import '../../css/reset-mobile.css';
 import '../editor/edit-module-hack.scss';
+import '../editor/app.scss';
+import './index.scss';
 
 class Viewer extends PureComponent {
     constructor(props) {
@@ -55,16 +57,21 @@ class Viewer extends PureComponent {
     }
 
     render() {
+        const wrapCls = classNames(`ec-editor-${this.state.pageType}`);
         const cls = classNames('ec-editor-viewer', {
             'ec-editor-scroller': this.state.pageType === 'mobile'
         })
 
         return (
-            <div className={cls}>
-                <Render
-                    data={this.state.data}
-                    pageType={this.state.pageType}
-                />
+            <div className={wrapCls}>
+                <div className="ec-editor-canvas">
+                    <div className="ec-editor-canvas-inner">
+                        <Render
+                            data={this.state.data}
+                            pageType={this.state.pageType}
+                        />
+                    </div>
+                </div>
             </div>
         )
     }
