@@ -17,9 +17,9 @@ const config: Config = {
     defaultValues: {
         style: {
             layout: {
-                position: 'relative',
-                height: '100%',
-                width: '100%',
+                position: 'absolute',
+                width: '260',
+                height: '120',
             }
         }
     }

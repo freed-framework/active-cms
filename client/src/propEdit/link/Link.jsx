@@ -5,6 +5,7 @@
  * Des
  */
 import React, { PureComponent } from 'react';
+import { is, fromJS } from 'immutable';
 import { Input, Select } from 'antd';
 import { editComponentByGuid } from '../../pages/editor/App';
 
@@ -18,10 +19,19 @@ class ImgUrl extends PureComponent {
 
         this.state = {
             // 跳转地址
-            url: componentProps.url,
+            url: componentProps.url || '',
 
             // 跳转地址的前缀
             before: '',
+        }
+    }
+
+    // 判断数据是否变化
+    componentWillReceiveProps(nextProps) {
+        if (this.props.componentProps.url !== nextProps.componentProps.url) {
+            this.setState({
+                url: nextProps.componentProps.url,
+            })
         }
     }
 
@@ -125,7 +135,7 @@ class ImgUrl extends PureComponent {
                     data-guid={guid}
                     data-attr="url"
                     placeholder={placeholder}
-                    defaultValue={componentProps.url || ''}
+                    value={this.state.url}
                     addonBefore={
                         this.getUrlBefore(mappingDefault)
                     }

@@ -69,16 +69,16 @@ class ImgUrl extends PureComponent {
             fileFieldName: 'file',
             uploadSuccess: (props) => {
                 const { data } = props;
-                const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
+                const imgUrl = `${data[0].imageDomain}/${data[0].suffixUrl}`;
 
                 this.setState({
-                    src: url,
+                    src: imgUrl,
                 });
 
                 editComponentByGuid(
                     guid,
                     ['componentProps', 'src'],
-                    url
+                    imgUrl
                 );
             }
         }

@@ -80,7 +80,7 @@ class BasicEdit extends PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (!is(this.props.componentProps, nextProps.componentProps)) {
-            const { style = {} } = nextProps.componentProps;
+            const { style = {}, ...others } = nextProps.componentProps;
             const props = styleProps2State(style, this.props.target);
 
             this.setState({
