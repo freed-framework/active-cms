@@ -154,7 +154,7 @@ export default class Card extends PureComponent {
             onOk: () => {
                 deletePage(data._id)
                     .then(() => {
-                        message.error('删除页面成功')
+                        message.success('删除页面成功')
                         this.props.onFetchList()
                     })
                     .catch(() => {

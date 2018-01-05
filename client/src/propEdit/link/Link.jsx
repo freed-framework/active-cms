@@ -43,7 +43,7 @@ class ImgUrl extends PureComponent {
         let url = [];
         if (!componentProps.url) {
             const getDef = this.getMappingDefault() || {};
-            url = ['', getDef.value, getDef.name, getDef.defaultValue]
+            url = ['', getDef.value, getDef.name, '']
         } else {
             url = parseUrl(componentProps.url || '');
         }
@@ -70,7 +70,7 @@ class ImgUrl extends PureComponent {
 
             if (!nextProps.componentProps.url) {
                 const getDef = this.getMappingDefault() || {};
-                url = ['', getDef.value, getDef.name, getDef.defaultValue]
+                url = ['', getDef.value, getDef.name, '']
             } else {
                 url = parseUrl(nextProps.componentProps.url || '');
             }

@@ -7,8 +7,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Popover, Input, Row, Col, Select } from 'antd';
+import * as FileUpload from 'react-fileupload';
 
 import ColorPicker from '../colorPicker';
+import { editComponentByGuid } from '../../pages/editor/App';
 
 import * as Styled from './background.style';
 
@@ -50,29 +52,57 @@ class Background extends PureComponent {
     }
 
     handleChange = (value) => {
-        const { option } = this.state;
-        const { onChange } = this.props;
+        const { guid, backgroundColor, onChange } = this.props;
+        editComponentByGuid(
+            guid,
+            ['componentProps', 'style', 'layout', 'backgroundColor'],
+            value
+        );
         this.setState({
-            [option]: value
-        }, () => {
-            onChange && onChange({option, value})
-        })
+            backgroundColor: value,
+        });
     }
 
     handleClear = () => {
         const { option } = this.state;
-        const { onChange } = this.props;
+        const { guid, backgroundColor, onChange } = this.props;
+        editComponentByGuid(
+            guid,
+            ['componentProps', 'style', 'layout', 'backgroundColor'],
+            ''
+        );
         this.setState({
-            [option]: ''
-        }, () => {
-            onChange && onChange({option, value: ''})
-        })
+            backgroundColor: '',
+        });
     }
 
     renderOption = () => {
         const {
             option, backgroundColor, backgroundImage
         } = this.state;
+        const { guid, componentProps = {} } = this.props;
+
+        /*set properties*/
+        const options = {
+            baseUrl: `${config.api}/commonUploadFile/uploadImageFiles`,
+            chooseAndUpload: true,
+            dataType: 'multipart/form-data',
+            fileFieldName: 'file',
+            uploadSuccess: (props) => {
+                const { data } = props;
+                const url = `${data[0].imageDomain}/${data[0].suffixUrl}`;
+
+                this.setState({
+                    backgroundImage: url,
+                });
+
+                editComponentByGuid(
+                    guid,
+                    ['componentProps', 'style', 'layout', 'backgroundImage'],
+                    `url(${url})`
+                );
+            }
+        }
 
         switch (option) {
             case 'backgroundColor':
@@ -89,11 +119,14 @@ class Background extends PureComponent {
                 )
             case 'backgroundImage':
                 return (
-                    <Input
-                        placeholder="请填写图片连接"
-                        defaultValue={backgroundImage}
-                        onChange={(e) => this.handleChange(`url(${e.target.value})`)}
-                    />
+                    <FileUpload options={options}>
+                        <Input
+                            ref="chooseAndUpload"
+                            placeholder="点击上传图片"
+                            defaultValue={backgroundImage}
+                            value={backgroundImage}
+                        />
+                    </FileUpload>
                 )
             default:
                 return null;

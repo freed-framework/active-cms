@@ -62,6 +62,7 @@ class BasicEdit extends PureComponent {
     static propTypes = {
         target: PropTypes.string,
         guid: PropTypes.string,
+        componentProps: PropTypes.objectOf(PropTypes.any),
     }
 
     static defaultProps = {
@@ -87,23 +88,6 @@ class BasicEdit extends PureComponent {
                 ...props
             })
         }
-    }
-
-    /**
-     * 背景颜色修改
-     */
-    onBackgroundChange = ({option, value}) => {
-        const { guid, target } = this.props;
-
-        const keys = target ?
-            ['componentProps', 'style', target, option] :
-            ['componentProps', 'style', option];
-
-        editComponentByGuid(
-            guid,
-            keys,
-            value,
-        );
     }
 
     /**
@@ -205,7 +189,7 @@ class BasicEdit extends PureComponent {
     render() {
         const { target, guid, componentProps, pub } = this.props;
         // 这里的componentProps 应该从 defaultValue merge
-        // const { style = {} } = componentProps;
+        const { style = {} } = componentProps;
         const propsStyle = this.state;
         const borderProps = {
             style: propsStyle,
@@ -369,9 +353,9 @@ class BasicEdit extends PureComponent {
                         className="inline-block"
                     >
                         <Background
+                            guid={guid}
                             backgroundImage={this.state.backgroundImage}
                             backgroundColor={this.state.backgroundColor}
-                            onChange={this.onBackgroundChange}
                         />
                     </div>
                 </div>

@@ -14,19 +14,19 @@ const config: Config = {
                 isDefault: true,
                 name: 'detail',
                 value: 'detail/index.html?id=',
-                defaultValue: '',
+                defaultValue: '请输入id',
                 ch: '详情'
             },
             {
                 name: 'hybrid',
                 value: 'hybrid://100/detail?id=',
-                defaultValue: '',
+                defaultValue: '请输入id',
                 ch: '应用'
             },
             {
                 name: 'activityPage',
                 value: 'activityPage/index.html?id=',
-                defaultValue: '',
+                defaultValue: '请输入id',
                 ch: '活动'
             },
         ]
