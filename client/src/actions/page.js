@@ -16,6 +16,9 @@ export const getPageData = (id) => dispatch => (
                     tile = {},
                     content = [],
                     activeId = null,
+                    pageType,
+                    pushId,
+                    _id
                 } = res.data;
 
                 dispatch({
@@ -26,6 +29,9 @@ export const getPageData = (id) => dispatch => (
                         tile,
                         content,
                         activeId,
+                        pageType,
+                        pushId,
+                        _id
                     }
                 })
             })

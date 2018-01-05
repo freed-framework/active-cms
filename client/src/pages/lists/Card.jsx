@@ -154,7 +154,7 @@ export default class Card extends PureComponent {
             onOk: () => {
                 deletePage(data._id)
                     .then(() => {
-                        message.error('删除页面成功')
+                        message.success('删除页面成功')
                         this.props.onFetchList()
                     })
                     .catch(() => {
@@ -293,7 +293,7 @@ export default class Card extends PureComponent {
     }
 
     render() {
-        const { data = {}, current, reg, user } = this.props;
+        const { data = {}, current, reg, user, owerUser } = this.props;
         const { formNow, progress, isPushing } = this.state;
         const isOwer = user._id === data.owerUser._id;
 
@@ -323,7 +323,7 @@ export default class Card extends PureComponent {
                             })
                         }
                     >
-                        <span className={'page-list-card-user'}>{`作者：${user.userDspName}`}</span>
+                        <span className={'page-list-card-user'}>{`作者：${owerUser.userDspName}`}</span>
                         <span className={'page-list-card-type'}>{data.fork ? '非' : '原'}</span>
                     </div>
                 </div>

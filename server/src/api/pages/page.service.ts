@@ -197,11 +197,12 @@ export class PageService {
      * 分享页面给指定用户
      * @param param {Onject} 分享参数
      */
-    async share(param) {
+    async share(param, user) {
         const { userId, pageId } = param;
         const result = await shareService.add({
             user: userId,
-            page: pageId
+            page: pageId,
+            owerUser: user._id
         })
         return CommonService.commonResponse(result);
     }

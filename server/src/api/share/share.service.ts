@@ -2,14 +2,14 @@
  * @file fork.service.ts
  * @author shijh
  *
- * share service 
+ * share service
  */
 
 import { Component } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import ShareModel from './share.model';
 
-@Component() 
+@Component()
 export class ShareService {
     async findOne(param, populate = '') {
         return await ShareModel.findOne(param)
@@ -72,6 +72,7 @@ export class ShareService {
                 .skip(start)
                 .limit(pageSize * 1)
                 .populate('page', {content: 0})
+                .populate('owerUser', {_id: 1, userDspName: 1})
                 .exec((err, doc) => {
                     return doc;
                 }

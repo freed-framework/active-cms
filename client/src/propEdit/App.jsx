@@ -53,10 +53,10 @@ export default class EditAttr extends PureComponent {
             editable = [],
             config = {},
             topWrappedModule = null,
+            componentProps = {}
         } = this.props;
 
         const {
-            componentProps = {},
             activeId,
         } = this.state;
 

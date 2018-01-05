@@ -68,11 +68,12 @@ export class PageController {
     }
 
     @Post('/share')
-    async share(@Response() res, @Body() body: SharePageDto) {
+    async share(@Request() req, @Response() res, @Body() body: SharePageDto) {
         const { users } = body;
+        const { user } = req;
         users.forEach(element => {
             const { userId, pageId } = element;
-            this.service.share({userId, pageId});
+            this.service.share({userId, pageId}, user);
         });
         res.status(HttpStatus.OK).json({code: 200, message: '分享成功', data: []});
     }

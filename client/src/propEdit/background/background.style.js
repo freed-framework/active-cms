@@ -6,6 +6,5 @@ export const InputWrap = styled.div`
 `
 
 export const propInner = styled.div`
-    padding: 16px 10px;
     min-width: 200px;
 `

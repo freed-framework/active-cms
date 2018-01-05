@@ -3,7 +3,7 @@
  * @Author: shijh
  * @CreateDate: 2017-12-15 10:57:34
  * @Last Modified by: shijh
- * @Last Modified time: 2017-12-15 10:58:46
+ * @Last Modified time: 2018-01-04 16:25:28
  *
  * 新建编辑页menu
  */
@@ -11,6 +11,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { is } from 'immutable';
+import { withRouter } from 'react-router';
 import Font from 'font';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,6 +23,7 @@ import { getUser } from '../../actions/user';
 @connect(
     state => ({
         user: state.toJS().user.data,
+        page: state.toJS().page,
     }),
     dispatch => bindActionCreators({
         getUser
@@ -33,17 +35,33 @@ class TopMenu extends PureComponent {
     }
     constructor(props) {
         super(props);
+        const { location } = props;
 
         this.state = {
             visible: props.visible,
+            isEidt: location.pathname.indexOf('/edit/') > -1
         }
     }
+
+    componentDidMount() {
+        const { history } = this.props;
+        this.unPage = history.listen(loc => {
+            this.setState({
+                isEidt: loc.pathname.indexOf('/edit/') > -1
+            })
+        })
+    }
+
     componentWillReceiveProps(nextProps) {
         if (!is(this.state.visible, nextProps.visible)) {
             this.setState({
                 visible: nextProps.visible,
             });
         }
+    }
+
+    componentWillUnmount() {
+        this.unPage();
     }
 
     /**
@@ -69,7 +87,7 @@ class TopMenu extends PureComponent {
     }
 
     render() {
-        const { visible } = this.state;
+        const { visible, isEidt } = this.state;
         const clsMenu = classNames('ec-editor-menu', {
             'ec-editor-menu-hide': !visible,
         });
@@ -78,15 +96,18 @@ class TopMenu extends PureComponent {
                 className={clsMenu}
             >
                 <div className="triangle-left" />
-                <Button
-                    className="ec-editor-btn"
+                {
+                    isEidt &&
+                    <Button
+                        className="ec-editor-btn"
 
-                    size="small"
-                    onClick={viewer}
-                >
-                    <Icon type="eye-o" />
-                    <span>预览</span>
-                </Button>
+                        size="small"
+                        onClick={viewer}
+                    >
+                        <Icon type="eye-o" />
+                        <span>预览</span>
+                    </Button>
+                }
                 <Button
                     className="ec-editor-btn guide-steps-handler"
                     data-guide={'{"step": 4, "tip": "此按钮为保存按钮", "delay": 600, "nextStep": 5}'}
@@ -96,15 +117,18 @@ class TopMenu extends PureComponent {
                     <Icon type="save" />
                     <span>保存</span>
                 </Button>
-                <Button
-                    className="ec-editor-btn guide-steps-handler"
-                    data-guide={'{"step": 7, "tip": "点击发布"}'}
-                    size="small"
-                    onClick={handlePush}
-                >
-                    <Icon type="appstore-o" />
-                    <span>发布</span>
-                </Button>
+                {
+                    isEidt &&
+                    <Button
+                        className="ec-editor-btn guide-steps-handler"
+                        data-guide={'{"step": 7, "tip": "点击发布"}'}
+                        size="small"
+                        onClick={handlePush}
+                    >
+                        <Icon type="appstore-o" />
+                        <span>发布</span>
+                    </Button>
+                }
                 <Button
                     className="ec-editor-btn"
                     size="small"
@@ -128,4 +152,4 @@ class TopMenu extends PureComponent {
     }
 }
 
-export default TopMenu;
+export default withRouter(TopMenu);
