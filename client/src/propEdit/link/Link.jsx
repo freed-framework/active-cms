@@ -7,18 +7,19 @@
 import React, { PureComponent } from 'react';
 import { is, fromJS } from 'immutable';
 import { Input, Select } from 'antd';
-import { is, fromJS } from 'immutable';
 import { editComponentByGuid } from '../../pages/editor/App';
 
 const Option = Select.Option;
 
-function parseUrl(url) {
+function parseUrl(url = '') {
     const hy = /^((hybrid):\/\/.*id=)(.*)$/ig;
     const res = hy.exec(url);
     const hy2 = /^((detail)\/index\.html\?id=)(.*)$/ig;
     const res2 = hy2.exec(url);
     const hy3 = /^((activityPage)\/index\.html\?id=)(.*)$/ig;
     const res3 = hy3.exec(url);
+    const hy4 = /^((https?):\/\/)(.+)$/ig;
+    const res4 = hy4.exec(url);
 
     if (res) {
         return res;
@@ -32,88 +33,82 @@ function parseUrl(url) {
         return res3;
     }
 
+    if (res4) {
+        return res4;
+    }
+
     return ''
 }
 
-class ImgUrl extends PureComponent {
+class Link extends PureComponent {
     constructor(props) {
         super(props);
 
         const { componentProps } = props;
 
-        let url = [];
+        componentProps.url = 'http://baidu.com';
+
+        let urlArr = [];
         if (!componentProps.url) {
             const getDef = this.getMappingDefault() || {};
-            url = ['', getDef.value, getDef.name, '']
+            urlArr = ['', getDef.value, getDef.name, '']
         } else {
-            url = parseUrl(componentProps.url || '');
+            urlArr = parseUrl(componentProps.url);
         }
 
         this.state = {
-            // 跳转地址
-            url: componentProps.url || '',
-
             // 跳转地址的前缀
-            before: url[1],
+            before: urlArr[1] || '',
 
             // 默认选中项
-            defSelect: url[2],
+            defSelect: urlArr[2],
 
             // 表单值
-            value: url[3],
+            value: urlArr[3],
 
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(fromJS(this.props.componentProps.url), fromJS(nextProps.componentProps.url))) {
-            let url = [];
+        if (this.props.componentProps.url !== nextProps.componentProps.url) {
+            let urlArr = [];
 
             if (!nextProps.componentProps.url) {
                 const getDef = this.getMappingDefault() || {};
-                url = ['', getDef.value, getDef.name, '']
+                urlArr = ['', getDef.value, getDef.name, '']
             } else {
-                url = parseUrl(nextProps.componentProps.url || '');
+                urlArr = parseUrl(nextProps.componentProps.url);
             }
 
             this.setState({
                 // 跳转地址的前缀
-                before: url[1],
+                before: urlArr[1],
 
                 // 默认选中项
-                defSelect: url[2],
+                defSelect: urlArr[2],
 
-                // 表单值
-                value: url[3],
+                // 填入的跳转值
+                value: urlArr[3],
 
             })
         }
     }
 
-    // 判断数据是否变化
-    componentWillReceiveProps(nextProps) {
-        if (this.props.componentProps.url !== nextProps.componentProps.url) {
-            this.setState({
-                url: nextProps.componentProps.url,
-            })
-        }
-    }
-
-    handleKeyUp = (event) => {
-        if (event.keyCode !== 13) return false;
-        const attr = event.currentTarget.getAttribute('data-attr');
-        const value = event.currentTarget.value;
-
-        this.setState({
-            [attr]: value,
-        });
-
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', attr],
-            value
-        );
-    }
+    // handleKeyUp = (event) => {
+    //     if (event.keyCode !== 13) return false;
+    //     // const attr = event.currentTarget.getAttribute('data-attr');
+    //     const value = event.currentTarget.value;
+    //
+    //     // this.setState({
+    //     //     [attr]: value,
+    //     // });
+    //
+    //     editComponentByGuid(
+    //         this.props.guid,
+    //         ['componentProps', 'url'],
+    //         value
+    //     );
+    // }
 
     handleChangeBefore = (val) => {
         this.setState({
@@ -123,15 +118,16 @@ class ImgUrl extends PureComponent {
     }
 
     handleChangeUrl = (event) => {
-        const attr = event.currentTarget.getAttribute('data-attr');
-        const value = event.currentTarget.value;
+        // const attr = event.currentTarget.getAttribute('data-attr');
+        // const value = event.currentTarget.value;
         const before = this.state.before;
+        const value = this.state.value;
 
         const url = before + value;
-console.log(url)
+
         editComponentByGuid(
             this.props.guid,
-            ['componentProps', attr],
+            ['componentProps', 'url'],
             url
         );
     }
@@ -153,15 +149,9 @@ console.log(url)
             return null;
         }
 
-        const mapping = editModelMapping;
+        const def = editModelMapping.filter(item => item.isDefault);
 
-        if (!mapping) {
-            return null;
-        }
-
-        const def = mapping.filter(item => item.isDefault);
-
-        return def.length === 1 ? def[0] : null;
+        return def[0] || null;
     }
 
     /**
@@ -177,19 +167,13 @@ console.log(url)
             return null;
         }
 
-        const mapping = editModelMapping;
-
-        if (!mapping) {
-            return null;
-        }
-
         return (
             <Select
                 onChange={this.handleChangeBefore}
-                value={defSelect || def.name}
+                value={defSelect}
                 style={{ width: 90 }}
             >
-                {mapping.map(item => (
+                {editModelMapping.map(item => (
                     <Option key={item.name} value={item.value}>{item.name}</Option>
                 ))}
             </Select>
@@ -208,11 +192,10 @@ console.log(url)
                 <label htmlFor="">跳转链接</label>
                 <Input
                     data-guid={guid}
-                    data-attr="url"
                     placeholder={placeholder}
                     value={value}
                     addonBefore={
-                        this.getUrlBefore(mappingDefault)
+                        this.getUrlBefore()
                     }
                     onChange={this.handleChange}
                     onPressEnter={this.handleChangeUrl}
@@ -222,10 +205,10 @@ console.log(url)
     }
 }
 
-ImgUrl.defaultProps = {
+Link.defaultProps = {
     componentProps: {
         url: '',
     }
 }
 
-export default ImgUrl;
+export default Link;

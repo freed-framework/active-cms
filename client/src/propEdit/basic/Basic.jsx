@@ -5,7 +5,7 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { is } from 'immutable';
+import { is, fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import mitt from 'mitt';
@@ -80,7 +80,7 @@ class BasicEdit extends PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!is(this.props.componentProps, nextProps.componentProps)) {
+        if (!is(fromJS(this.props.componentProps), fromJS(nextProps.componentProps))) {
             const { style = {}, ...others } = nextProps.componentProps;
             const props = styleProps2State(style, this.props.target);
 

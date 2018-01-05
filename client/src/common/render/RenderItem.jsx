@@ -29,9 +29,9 @@ class RenderItem extends PureComponent {
     }
 
     render() {
-        const { item, module } = this.props;
+        const { item, module, isEdit } = this.props;
 
-        if (!item.children || item.children.length === 0) {
+        if (isEdit && (!item.children || item.children.length === 0)) {
             return (
                 <AppComponent {...this.props}>
                     {() => (

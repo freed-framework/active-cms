@@ -9,3 +9,11 @@ html, body, #root {
 .ec-editor-canvas {
     background: #fff;
 }
+
+.tmc-click-area {
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
