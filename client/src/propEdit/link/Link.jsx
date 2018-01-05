@@ -46,8 +46,6 @@ class Link extends PureComponent {
 
         const { componentProps } = props;
 
-        componentProps.url = 'http://baidu.com';
-
         let urlArr = [];
         if (!componentProps.url) {
             const getDef = this.getMappingDefault() || {};

@@ -23,6 +23,7 @@ class ClickArea extends React.PureComponent<ClickAreaProps, any> {
             <div
                 id={id}
                 className={className}
+                data-url={this.props.url}
                 {...(dataTable && { ...dataTable })}
                 style={{
                     ...(style && { ...style.layout })
