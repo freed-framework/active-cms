@@ -18,10 +18,10 @@ export class LocalService {
     /**
      * 获取本地上传zip列表
      */
-    async get(query) {
+    async get(query, user) {
         const { content, pageSize, page } = query;
         const start = (page - 1) * pageSize;
-        const param = {title: {$regex: content, $options: 'i'}};
+        const param = {title: {$regex: content, $options: 'i'}, createUser: user._id};
 
         const result = await Promise.all([
             LocalModel.count(param).exec((err, count) => {

@@ -6,7 +6,7 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Popover, Input, Row, Col, Select } from 'antd';
+import { Popover, Input, Row, Col, Select, Icon } from 'antd';
 import * as FileUpload from 'react-fileupload';
 
 import ColorPicker from '../colorPicker';
@@ -65,7 +65,7 @@ class Background extends PureComponent {
 
     handleClear = () => {
         const { option } = this.state;
-        const { guid, backgroundColor, onChange } = this.props;
+        const { guid, backgroundColor } = this.props;
         editComponentByGuid(
             guid,
             ['componentProps', 'style', 'layout', 'backgroundColor'],
@@ -73,6 +73,19 @@ class Background extends PureComponent {
         );
         this.setState({
             backgroundColor: '',
+        });
+    }
+
+    handleImageClear = (e) => {
+        e.preventDefault();
+        const { guid, backgroundImage } = this.props;
+        editComponentByGuid(
+            guid,
+            ['componentProps', 'style', 'layout', 'backgroundImage'],
+            ''
+        );
+        this.setState({
+            backgroundImage: '',
         });
     }
 
@@ -126,6 +139,9 @@ class Background extends PureComponent {
                             defaultValue={backgroundImage}
                             value={backgroundImage}
                         />
+                        <span className="close-btn-position">
+                            <Icon type="close-circle-o" onClick={this.handleImageClear} />
+                        </span>
                     </FileUpload>
                 )
             default:

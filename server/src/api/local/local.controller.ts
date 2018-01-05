@@ -80,10 +80,10 @@ export class LocalController {
 
     @Get()
     async get(@Request() req, @Response() res, @Param() param) {
-        const { query } = req;
+        const { query, user } = req;
         const { content = '', pageSize = 10, page = 1 } = query;
 
-        res.status(HttpStatus.OK).json(await this.service.get({ content, pageSize, page }));
+        res.status(HttpStatus.OK).json(await this.service.get({ content, pageSize, page }, user));
     }
 
     @Get('/remove/:id')

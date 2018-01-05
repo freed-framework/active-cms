@@ -13,7 +13,7 @@ import * as Styled from './picker.style';
 
 /**
  * 格式化rgba字符转
- * @param {string} color 颜色rgba字符串 
+ * @param {string} color 颜色rgba字符串
  * @return {Object|undefined} result {r: x, g: x, b: x, a: x} | undefined
  */
 function parseRGBA(color = '') {
@@ -77,8 +77,10 @@ class ColorPicker extends PureComponent {
                 <Styled.ColorInputWrap>
                     <Input
                         value={showColor}
-                        suffix={<Icon type="close-circle-o" onClick={this.handleClear} />}
                     />
+                    <span className="close-btn-position">
+                        <Icon type="close-circle-o" onClick={this.handleClear} />
+                    </span>
                 </Styled.ColorInputWrap>
             </Popover>
         )
