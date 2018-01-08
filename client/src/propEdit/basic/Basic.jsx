@@ -21,6 +21,13 @@ import './basic.scss';
 const Option = Select.Option;
 const emitter = mitt();
 
+/**
+ * 判断是否是排除的
+ * @param arr exclude: ['background', 'border']
+ * @param key xxx
+ */
+const isExclude = (arr = [], key) => arr.indexOf(key) !== -1;
+
 const styleProps2State = (style, target) => {
     const propsStyle = style[target] || {};
     const obj = {};
@@ -187,7 +194,7 @@ class BasicEdit extends PureComponent {
     }
 
     render() {
-        const { target, guid, componentProps, pub } = this.props;
+        const { target, guid, componentProps, pub, componentConfig = {} } = this.props;
         // 这里的componentProps 应该从 defaultValue merge
         const { style = {} } = componentProps;
         const propsStyle = this.state;
@@ -196,6 +203,7 @@ class BasicEdit extends PureComponent {
             target,
             guid,
         };
+        const exclude = componentConfig.exclude;
 
         return (
             <div className="ec-editor-basic">
@@ -322,43 +330,51 @@ class BasicEdit extends PureComponent {
                             />
                         </div>
                     </Col>
-                    <Col span={24}>
-                        <div>
-                            <label htmlFor="">溢出设置</label>
-                            <Select
-                                defaultValue={propsStyle.overflow || 'visible'}
-                                onChange={this.handleChangeOverflow}
-                            >
-                                <Option value="visible">默认方式</Option>
-                                <Option value="hidden">隐藏</Option>
-                                <Option value="scroll">滚动</Option>
-                                <Option value="auto">自动</Option>
-                                <Option value="inherit">父元素继承</Option>
-                            </Select>
-                        </div>
-                    </Col>
-                </Row>
-                <div className="ec-editor-basic-props ec-editor-basic-props-border">
-                    <label htmlFor="">边框</label>
-                    <BorderEdit { ...borderProps } />
-                </div>
 
-                <div className="ec-editor-basic-props ec-editor-basic-props-background">
-                    <label
-                        htmlFor=""
-                    >
-                        背景
-                    </label>
-                    <div
-                        className="inline-block"
-                    >
-                        <Background
-                            guid={guid}
-                            backgroundImage={this.state.backgroundImage}
-                            backgroundColor={this.state.backgroundColor}
-                        />
+                    {!isExclude(exclude, 'overflow') &&
+                        <Col span={24}>
+                            <div>
+                                <label htmlFor="">溢出设置</label>
+                                <Select
+                                    defaultValue={propsStyle.overflow || 'visible'}
+                                    onChange={this.handleChangeOverflow}
+                                >
+                                    <Option value="visible">默认方式</Option>
+                                    <Option value="hidden">隐藏</Option>
+                                    <Option value="scroll">滚动</Option>
+                                    <Option value="auto">自动</Option>
+                                    <Option value="inherit">父元素继承</Option>
+                                </Select>
+                            </div>
+                        </Col>
+                    }
+                </Row>
+
+                {!isExclude(exclude, 'border') &&
+                    <div className="ec-editor-basic-props ec-editor-basic-props-border">
+                        <label htmlFor="">边框</label>
+                        <BorderEdit { ...borderProps } />
                     </div>
-                </div>
+                }
+
+                {!isExclude(exclude, 'background') &&
+                    <div className="ec-editor-basic-props ec-editor-basic-props-background">
+                        <label
+                            htmlFor=""
+                        >
+                            背景
+                        </label>
+                        <div
+                            className="inline-block"
+                        >
+                            <Background
+                                guid={guid}
+                                backgroundImage={this.state.backgroundImage}
+                                backgroundColor={this.state.backgroundColor}
+                            />
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

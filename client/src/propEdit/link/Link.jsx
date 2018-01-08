@@ -49,9 +49,8 @@ const getMappingDefault = (editModelMapping) => {
         return null;
     }
 
-    const def = editModelMapping.filter(item => item.isDefault);
-
-    return def[0] || null;
+    // Object or undefined
+    return editModelMapping.find(item => item.isDefault);
 }
 
 /**

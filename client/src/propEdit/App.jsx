@@ -11,6 +11,13 @@ import PropTypes from 'prop-types';
 import * as EditItem from './export';
 import './propsEdit.scss';
 
+/**
+ * 获取单个组件的配置
+ * @param arr [{component: xxx}, ...],
+ * @param key key
+ */
+const getComponentConfig = (arr, key) => arr.find(item => item.component === key);
+
 export default class EditAttr extends PureComponent {
     static propTypes = {
         editable: PropTypes.arrayOf(PropTypes.any),
@@ -83,6 +90,7 @@ export default class EditAttr extends PureComponent {
                            {components.map((componentKey, i) => {
                                // 对应的编辑组件
                                const EditComponent = EditItem[componentKey];
+                               const componentConfig = getComponentConfig(editable, componentKey);
 
                                // 将 {component}/index.ts 的 config 中的可编辑项与需要传递到编辑组件的属性进行合并
                                const props = {
@@ -94,6 +102,8 @@ export default class EditAttr extends PureComponent {
                                    },
                                    children: this.props.children,
                                    componentProps,
+                                   // 当前组件对应的配置
+                                   componentConfig,
                                };
 
                                return (
