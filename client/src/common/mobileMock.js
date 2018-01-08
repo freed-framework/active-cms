@@ -20,6 +20,7 @@ const calc = (width) => {
     }
 
     rate = 100 * (clientWidth / 750);
+
     docEl.style.fontSize = `${rate}px`;
 };
 

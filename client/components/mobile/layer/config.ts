@@ -20,7 +20,7 @@ const config: Config = {
     defaultValues: {
         style: {
             layout: {
-                padding: 0,
+                height: 180,
             }
         }
     }

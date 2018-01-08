@@ -37,7 +37,7 @@ class Viewer extends PureComponent {
                 document.title = data.title;
 
                 if (data.pageType === 'mobile') {
-                    calc();
+                    calc(750);
                     window.addEventListener(resizeEvt, calc, false);
                 }
 
