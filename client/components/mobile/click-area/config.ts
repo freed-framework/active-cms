@@ -10,12 +10,14 @@ const config: Config = {
     editable: [
         {
             component: ['Link', 'Basic'],
+            // component: ['Link'],
             target: 'layout',
             name: '外容器',
 
             // 针对于编辑模式的配置, 与 topWrappedModule 对应
             editModelMapping: [
                 {
+                    isDefault: true,
                     name: 'http',
                     value: 'http://',
                     defaultValue: '请输入链接',
@@ -26,7 +28,6 @@ const config: Config = {
                     defaultValue: '请输入链接',
                 },
                 {
-                    isDefault: true,
                     name: 'detail',
                     value: 'detail/index.html?id=',
                     defaultValue: '请输入id',

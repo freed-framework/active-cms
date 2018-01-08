@@ -116,10 +116,12 @@ class Link extends PureComponent {
     }
 
     handleChangeUrl = (event) => {
-        // const attr = event.currentTarget.getAttribute('data-attr');
-        // const value = event.currentTarget.value;
-        const before = this.state.before;
-        const value = this.state.value;
+        const { value, before } = this.state;
+
+        if (!before) {
+            console.log('before or value null');
+            return;
+        }
 
         const url = before + value;
 
@@ -164,11 +166,11 @@ class Link extends PureComponent {
         if (!editModelMapping) {
             return null;
         }
-
+console.log(def)
         return (
             <Select
                 onChange={this.handleChangeBefore}
-                value={defSelect}
+                value={defSelect || def.name}
                 style={{ width: 90 }}
             >
                 {editModelMapping.map(item => (
@@ -193,7 +195,7 @@ class Link extends PureComponent {
                     placeholder={placeholder}
                     value={value}
                     addonBefore={
-                        this.getUrlBefore()
+                        this.getUrlBefore(mappingDefault)
                     }
                     onChange={this.handleChange}
                     onPressEnter={this.handleChangeUrl}
