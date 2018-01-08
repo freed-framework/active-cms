@@ -10,7 +10,6 @@ const config: Config = {
     editable: [
         {
             component: ['Link', 'Basic'],
-            // component: ['Link'],
             target: 'layout',
             name: '外容器',
 

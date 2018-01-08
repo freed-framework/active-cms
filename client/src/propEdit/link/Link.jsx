@@ -37,89 +37,77 @@ function parseUrl(url = '') {
         return res4;
     }
 
-    return ''
+    return [];
+}
+
+/**
+ * 获取 mapping 中的默认值
+ * @return {*}
+ */
+const getMappingDefault = (editModelMapping) => {
+    if (!editModelMapping) {
+        return null;
+    }
+
+    const def = editModelMapping.filter(item => item.isDefault);
+
+    return def[0] || null;
+}
+
+/**
+ * 获取要更新的 state 数据
+ * @return {*}
+ */
+const getUpdateState = (url, editModelMapping) => {
+    const urlArr = parseUrl(url);
+    const getDef = getMappingDefault(editModelMapping) || {};
+
+    return {
+        // 跳转地址的前缀
+        before: urlArr[1] || getDef.value,
+
+        // 默认选中项
+        defSelect: urlArr[2] || getDef.name,
+
+        // 表单值
+        value: urlArr[3] || '',
+    }
 }
 
 class Link extends PureComponent {
     constructor(props) {
         super(props);
 
-        const { componentProps } = props;
-
-        let urlArr = [];
-        if (!componentProps.url) {
-            const getDef = this.getMappingDefault() || {};
-            urlArr = ['', getDef.value, getDef.name, '']
-        } else {
-            urlArr = parseUrl(componentProps.url);
-        }
+        const { componentProps, editModelMapping } = props;
+        const values = getUpdateState(componentProps.url, editModelMapping);
 
         this.state = {
-            // 跳转地址的前缀
-            before: urlArr[1] || '',
-
-            // 默认选中项
-            defSelect: urlArr[2],
-
-            // 表单值
-            value: urlArr[3],
-
+            ...values,
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.componentProps.url !== nextProps.componentProps.url) {
-            let urlArr = [];
-
-            if (!nextProps.componentProps.url) {
-                const getDef = this.getMappingDefault() || {};
-                urlArr = ['', getDef.value, getDef.name, '']
-            } else {
-                urlArr = parseUrl(nextProps.componentProps.url);
-            }
+            const values = getUpdateState(nextProps.componentProps.url, nextProps.editModelMapping);
 
             this.setState({
-                // 跳转地址的前缀
-                before: urlArr[1],
-
-                // 默认选中项
-                defSelect: urlArr[2],
-
-                // 填入的跳转值
-                value: urlArr[3],
-
+                ...values,
             })
         }
     }
-
-    // handleKeyUp = (event) => {
-    //     if (event.keyCode !== 13) return false;
-    //     // const attr = event.currentTarget.getAttribute('data-attr');
-    //     const value = event.currentTarget.value;
-    //
-    //     // this.setState({
-    //     //     [attr]: value,
-    //     // });
-    //
-    //     editComponentByGuid(
-    //         this.props.guid,
-    //         ['componentProps', 'url'],
-    //         value
-    //     );
-    // }
 
     handleChangeBefore = (val) => {
         this.setState({
             before: val,
             defSelect: val
-        })
+        }, () => this.handleChangeUrl());
     }
 
-    handleChangeUrl = (event) => {
+    handleChangeUrl = () => {
         const { value, before } = this.state;
 
         if (!before) {
-            console.log('before or value null');
+            console.info('Set before pls.');
             return;
         }
 
@@ -139,34 +127,18 @@ class Link extends PureComponent {
     }
 
     /**
-     * 获取 mapping 中的默认值
-     * @return {*}
-     */
-    getMappingDefault() {
-        const { topWrappedModule, editModelMapping } = this.props;
-
-        if (!editModelMapping) {
-            return null;
-        }
-
-        const def = editModelMapping.filter(item => item.isDefault);
-
-        return def[0] || null;
-    }
-
-    /**
      * 获取输入款的前缀
      * @param def mapping 中的默认配置
      * @return {*}
      */
     getUrlBefore(def = {}) {
-        const { topWrappedModule, editModelMapping } = this.props;
+        const { editModelMapping } = this.props;
         const { defSelect } = this.state;
 
         if (!editModelMapping) {
             return null;
         }
-console.log(def)
+
         return (
             <Select
                 onChange={this.handleChangeBefore}
@@ -181,10 +153,9 @@ console.log(def)
     }
 
     render() {
-        const { guid, componentProps = {} } = this.props;
+        const { guid, editModelMapping } = this.props;
         const { value } = this.state;
-
-        const mappingDefault = this.getMappingDefault();
+        const mappingDefault = getMappingDefault(editModelMapping);
         const placeholder = mappingDefault && mappingDefault.defaultValue || '请输入链接地址';
 
         return (
