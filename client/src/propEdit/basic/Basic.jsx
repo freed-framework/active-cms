@@ -280,88 +280,98 @@ class BasicEdit extends PureComponent {
                             />
                         </div>
                     </Col>
-                    <Col span={24}>
-                        <Row>
-                            <Col span={12}>
-                                <div>
-                                    <label htmlFor="">定位</label>
-                                    <Select
-                                        defaultValue={propsStyle.position || 'static'}
-                                        onChange={this.handleChangePositionType}
-                                    >
-                                        <Option value="static">默认方式</Option>
-                                        <Option value="relative">相对定位</Option>
-                                        <Option value="absolute">绝对定位</Option>
-                                        <Option value="fixed">浮动定位</Option>
-                                    </Select>
-                                    <Tooltip
-                                        placement="bottom"
-                                        title="使用 '绝对定位' 的时候，请将外层布局的定位设置为 '相对定位' 或其他并设置 '高度'。当定位为 '默认方式' 的时候 '上下左右' 的值无法体现在画布中"
-                                    >
-                                        &nbsp;<Icon type="question-circle" />
-                                    </Tooltip>
-                                </div>
-                            </Col>
-                            <Col span={12}>
-                                <div className="ec-editor-basic-zIndex">
-                                    <label htmlFor="">Z轴</label>
-                                    <InputNumber
-                                        data-attr={"zIndex"}
-                                        onChange={this.handleZChange}
-                                        value={this.state.zIndex}
-                                    />
-                                </div>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-top">
-                            <label htmlFor="">上</label>
-                            <input
-                                type="text"
-                                data-attr="top"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.top}
-                            />
-                        </div>
-                    </Col>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
-                            <label htmlFor="">下</label>
-                            <input
-                                type="text"
-                                data-attr="bottom"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.bottom}
-                            />
-                        </div>
-                    </Col>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-left">
-                            <label htmlFor="">左</label>
-                            <input
-                                type="text"
-                                data-attr="left"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.left}
-                            />
-                        </div>
-                    </Col>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-right">
-                            <label htmlFor="">右</label>
-                            <input
-                                type="text"
-                                data-attr="right"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.right}
-                            />
-                        </div>
-                    </Col>
+                    {!isExclude(exclude, 'position') &&
+                        <Col span={24}>
+                            <Row>
+                                <Col span={12}>
+                                    <div>
+                                        <label htmlFor="">定位</label>
+                                        <Select
+                                            defaultValue={propsStyle.position || 'static'}
+                                            onChange={this.handleChangePositionType}
+                                        >
+                                            <Option value="static">默认方式</Option>
+                                            <Option value="relative">相对定位</Option>
+                                            <Option value="absolute">绝对定位</Option>
+                                            <Option value="fixed">浮动定位</Option>
+                                        </Select>
+                                        <Tooltip
+                                            placement="bottom"
+                                            title="使用 '绝对定位' 的时候，请将外层布局的定位设置为 '相对定位' 或其他并设置 '高度'。当定位为 '默认方式' 的时候 '上下左右' 的值无法体现在画布中"
+                                        >
+                                            &nbsp;<Icon type="question-circle" />
+                                        </Tooltip>
+                                    </div>
+                                </Col>
+                                <Col span={12}>
+                                    <div className="ec-editor-basic-zIndex">
+                                        <label htmlFor="">Z轴</label>
+                                        <InputNumber
+                                            data-attr={"zIndex"}
+                                            onChange={this.handleZChange}
+                                            value={this.state.zIndex}
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                    }
+                    {!isExclude(exclude, 'position') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-top">
+                                <label htmlFor="">上</label>
+                                <input
+                                    type="text"
+                                    data-attr="top"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.top}
+                                />
+                            </div>
+                        </Col>
+                    }
+                    {!isExclude(exclude, 'position') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
+                                <label htmlFor="">下</label>
+                                <input
+                                    type="text"
+                                    data-attr="bottom"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.bottom}
+                                />
+                            </div>
+                        </Col>
+                    }
+                    {!isExclude(exclude, 'position') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-left">
+                                <label htmlFor="">左</label>
+                                <input
+                                    type="text"
+                                    data-attr="left"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.left}
+                                />
+                            </div>
+                        </Col>
+                    }
+                    {!isExclude(exclude, 'position') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-right">
+                                <label htmlFor="">右</label>
+                                <input
+                                    type="text"
+                                    data-attr="right"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.right}
+                                />
+                            </div>
+                        </Col>
+                    }
 
                     {!isExclude(exclude, 'overflow') &&
                         <Col span={24}>

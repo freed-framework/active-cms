@@ -9,7 +9,8 @@ const config: Config = {
         position: ['left', 'top', 'width', 'height'],
     },
     iconType: 'layers',
-    menus: ['mobile/layer', 'mobile/img', 'mobile/list', 'mobile/click-area'],
+    // , 'mobile/click-area'
+    menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
     editable: [
         {
             component: 'Basic',

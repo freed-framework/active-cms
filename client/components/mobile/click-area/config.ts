@@ -21,7 +21,7 @@ const config: Config = {
             /**
              * Basic 组件要排除的可编辑属性
              */
-            exclude: ['background', 'border', 'overflow'],
+            exclude: ['background', 'border', 'overflow', 'position'],
         },
     ],
     defaultValues: {
