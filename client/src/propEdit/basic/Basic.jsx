@@ -280,7 +280,8 @@ class BasicEdit extends PureComponent {
                             />
                         </div>
                     </Col>
-                    {!isExclude(exclude, 'position') &&
+                    {/* TODO 移动端需要兼容这些定位方式 */}
+                    {/* {!isExclude(exclude, 'position') &&
                         <Col span={24}>
                             <Row>
                                 <Col span={12}>
@@ -371,7 +372,7 @@ class BasicEdit extends PureComponent {
                                 />
                             </div>
                         </Col>
-                    }
+                    } */}
 
                     {!isExclude(exclude, 'overflow') &&
                         <Col span={24}>
