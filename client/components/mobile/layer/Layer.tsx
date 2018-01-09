@@ -28,7 +28,12 @@ class Layer extends React.PureComponent<LayerProps, any> {
                 className={className}
                 {...(dataTable && { ...dataTable })}
                 style={{
-                    ...(style && {...style.layout, 'backgroundPosition': 'top center', 'backgroundRepeat': 'no-repeat'})
+                    ...(style && {
+                        ...style.layout,
+                        'backgroundPosition': 'top center',
+                        'backgroundRepeat': 'no-repeat',
+                        'background-size': 'contain'
+                    })
                 }}
             >
                 {this.props.children}
