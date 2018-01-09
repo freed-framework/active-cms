@@ -455,11 +455,11 @@ class App extends PureComponent {
             }),
         });
 
-        if (guid) {
-            if (guid !== page.activeId) {
-                this.props.setActiveInfo(guid);
-            }
-        } else {
+        if (guid && guid !== page.activeId) {
+            this.props.setActiveInfo(guid);
+        }
+
+        if (!guid && page.activeId) {
             this.props.clearActiveInfo();
         }
     }

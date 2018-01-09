@@ -64,7 +64,7 @@ class Util {
 
             // relative 减去 距离上一个文档流的距离
             const pleft = isDomOffset ? parentNodeInfo.left : 0;
-            const ptop = isDomOffset ? prevDomTop + parentNodeInfo.top : 0;
+            const ptop = isDomOffset ? parentNodeInfo.top : 0;
 
             info.left = info.left - pleft - margin[3];
             info.top = info.top - ptop - margin[0];
