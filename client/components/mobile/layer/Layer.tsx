@@ -32,7 +32,7 @@ class Layer extends React.PureComponent<LayerProps, any> {
                         ...style.layout,
                         'backgroundPosition': 'top center',
                         'backgroundRepeat': 'no-repeat',
-                        'background-size': 'contain'
+                        'background-size': 'cover'
                     })
                 }}
             >

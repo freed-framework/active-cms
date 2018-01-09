@@ -31,7 +31,7 @@ class List extends React.PureComponent<ListProps, any> {
                         ...style.layout,
                         'backgroundPosition': 'top center',
                         'backgroundRepeat': 'no-repeat',
-                        'background-size': 'contain'
+                        'background-size': 'cover'
                     })
                 }}
             >
