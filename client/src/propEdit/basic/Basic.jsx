@@ -130,19 +130,19 @@ class BasicEdit extends PureComponent {
             return;
         }
 
-        const { target } = this.props;
-        // const props = {
-        //     ...this.state,
-        //     ...rect,
-        // };
-
-        // this.setState({
-        //     ...props
-        // });
+        const { target, componentConfig = {} } = this.props;
 
         if (style[target]) {
+            const updateInfo = {};
+
+            Object.keys(rect).forEach(k => {
+                if (!isExclude(componentConfig.exclude, k)) {
+                    updateInfo[k] = rect[k];
+                }
+            });
+
             const info = Util.fixRectByPosition(
-                rect,
+                updateInfo,
                 style[target],
                 options,
             );
@@ -222,6 +222,7 @@ class BasicEdit extends PureComponent {
             guid,
         };
         const exclude = componentConfig.exclude;
+        const widthExclude = isExclude(exclude, 'width');
 
         return (
             <div className="ec-editor-basic">
@@ -233,10 +234,12 @@ class BasicEdit extends PureComponent {
                                 type="text"
                                 data-guid={guid}
                                 data-attr="width"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.width}
-                                disabled={isExclude(exclude, 'width')}
+                                disabled={widthExclude}
+                                {...(!widthExclude && {
+                                    onChange: this.handleChange,
+                                    onKeyUp: this.handleKeyUp,
+                                    value: this.state.width,
+                                })}
                             />
                         </div>
                     </Col>

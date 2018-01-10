@@ -8,7 +8,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 const Tips = (props) => {
-    const { rect = {}, isVisible, name } = props;
+    const { rect, isVisible, name } = props;
     const styles = isVisible ? rect : {};
 
     return (

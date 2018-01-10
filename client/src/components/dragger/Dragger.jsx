@@ -5,23 +5,31 @@
  * Des
  */
 import React, { PureComponent } from 'react';
-import { is } from 'immutable';
+import { is, fromJS } from 'immutable';
 import classNames from 'classnames';
 import './dragger.scss';
 
 const TYPE = {
     DRAG: 'DRAG',
     RESIZE: 'RESIZE',
-}
+};
 
 class Dragger extends PureComponent {
     static defaultProps = {
         disabled: false,
         minWidth: 20,
         minHeight: 20,
+        /**
+         * x: 允许在 x 上移动
+         * y: 允许在 y 上移动
+         * width: 允许改变宽度
+         * height: 允许改变高度
+         */
         position: {
             x: true,
             y: true,
+            width: true,
+            height: true,
         },
         onClick: () => {},
         onChangeStart: () => {},
@@ -72,27 +80,50 @@ class Dragger extends PureComponent {
     }
 
      componentWillReceiveProps(nextProps) {
-         if (!is(this.props.rect, nextProps.rect)) {
-             this.setState({
-                 rect: nextProps.rect,
-             });
-         }
-
          if (this.props.disabled !== nextProps.disabled) {
              this.disabled = nextProps.disabled;
          }
 
-         if (!is(this.props.position, nextProps.position)) {
+         if (!is(fromJS(this.props.position), fromJS(nextProps.position))) {
              this.position = nextProps.position;
          }
 
-         if (!is(this.props.parentArea, nextProps.parentArea)) {
+         if (!is(fromJS(this.props.parentArea), fromJS(nextProps.parentArea))) {
              this.setArea(nextProps.parentArea);
+         }
+
+         if (!is(fromJS(this.props.rect), fromJS(nextProps.rect))) {
+             this.setState({
+                 rect: nextProps.rect,
+             });
          }
     }
 
      componentDidUpdate() {
         // Do
+    }
+
+    /**
+     * 判断是否允许在该属性上操作
+     * @param rect { x, y, width, height }
+     */
+    filterRect(rect) {
+        const info = {
+            ...((this.position.x && rect.left) && {
+                left: rect.left,
+            }),
+            ...((this.position.y && rect.top) && {
+                top: rect.top,
+            }),
+            ...((this.position.width && rect.width) && {
+                width: rect.width,
+            }),
+            ...((this.position.height && rect.height) && {
+                height: rect.height,
+            }),
+        }
+
+        return info;
     }
 
     setArea(parentArea) {
@@ -182,8 +213,13 @@ class Dragger extends PureComponent {
         // 改变大小
         if (this.type === TYPE.RESIZE) {
             if (x && y) {
-                step.width = (x - this.click.x) * dpi + this.start.width;
-                step.height = (y - this.click.y) * dpi + this.start.height;
+                step.width = this.position.width ?
+                    (x - this.click.x) * dpi + this.start.width :
+                    this.start.width;
+
+                step.height = this.position.height ?
+                    (y - this.click.y) * dpi + this.start.height :
+                    this.start.height;
             }
 
             data.start = {
@@ -197,8 +233,13 @@ class Dragger extends PureComponent {
         // 改变位置
         if (this.type === TYPE.DRAG) {
             if (x && y) {
-                step.left = (x - this.click.x) * dpi + this.start.x;
-                step.top = (y - this.click.y) * dpi + this.start.y;
+                step.left = this.position.x ?
+                    (x - this.click.x) * dpi + this.start.x :
+                    this.start.x;
+
+                step.top = this.position.y ?
+                    (y - this.click.y) * dpi + this.start.y :
+                    this.start.y;
             }
 
             data.start = {
@@ -344,13 +385,15 @@ class Dragger extends PureComponent {
      * @param data
      */
     update(data) {
+        const rect = {
+            ...this.state.rect,
+            ...data,
+        };
+
         this.setState({
-            rect: {
-                ...this.state.rect,
-                ...data,
-            }
+            rect,
         }, () => {
-            this.props.onChange(this.state.rect);
+            this.props.onChange(this.filterRect(rect));
         });
     }
 
