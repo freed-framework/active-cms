@@ -2,4 +2,10 @@
     label {
         padding-right: 10px;
     }
+
+    input[disabled] {
+        cursor: not-allowed;
+        color: #444;
+        opacity: 0.6;
+    }
 }

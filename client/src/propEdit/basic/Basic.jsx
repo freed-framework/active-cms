@@ -236,6 +236,7 @@ class BasicEdit extends PureComponent {
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp}
                                 value={this.state.width}
+                                disabled={isExclude(exclude, 'width')}
                             />
                         </div>
                     </Col>
@@ -249,6 +250,7 @@ class BasicEdit extends PureComponent {
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp}
                                 value={this.state.height}
+                                disabled={isExclude(exclude, 'height')}
                             />
                         </div>
                     </Col>
