@@ -222,27 +222,25 @@ class BasicEdit extends PureComponent {
             guid,
         };
         const exclude = componentConfig.exclude;
-        const widthExclude = isExclude(exclude, 'width');
 
         return (
             <div className="ec-editor-basic">
                 <Row>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-width">
-                            <label htmlFor="">宽度</label>
-                            <input
-                                type="text"
-                                data-guid={guid}
-                                data-attr="width"
-                                disabled={widthExclude}
-                                {...(!widthExclude && {
-                                    onChange: this.handleChange,
-                                    onKeyUp: this.handleKeyUp,
-                                    value: this.state.width,
-                                })}
-                            />
-                        </div>
-                    </Col>
+                    {!isExclude(exclude, 'width') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-width">
+                                <label htmlFor="">宽度</label>
+                                <input
+                                    type="text"
+                                    data-guid={guid}
+                                    data-attr="width"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.width}
+                                />
+                            </div>
+                        </Col>
+                    }
                     <Col span={12}>
                         <div className="ec-editor-basic-props ec-editor-basic-props-height">
                             <label htmlFor="">高度</label>
