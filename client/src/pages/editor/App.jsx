@@ -563,8 +563,7 @@ class App extends PureComponent {
                 onOk: () => {
                     push({
                         id: pageData._id,
-                        zipId: pageData.pushId,
-                        activityName: pageData.title
+                        zipId: pageData.pushId
                     })
                         .then(() => {
                             message.success('推送成功');

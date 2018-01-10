@@ -4,6 +4,6 @@ import Render from '../../src/common/render/Render-pc';
 import FrameApp from 'freed-spa/lib/App';
 
 ReactDOM.render(
-    <Render data={[]} pageType="mobile" />,
+    <Render data={[]} pageType="pc" />,
     document.getElementById('topicRoot')
 );

@@ -280,8 +280,7 @@ export default class Card extends PureComponent {
                 })
                 push({
                     id: data._id,
-                    zipId: data.pushId,
-                    activityName: data.title
+                    zipId: data.pushId
                 }).then(() => {
                     this.props.onFetchList()
                 })
