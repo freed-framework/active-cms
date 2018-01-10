@@ -29,9 +29,10 @@ class RenderItem extends PureComponent {
     }
 
     render() {
-        const { item, module, isEdit } = this.props;
+        const { item, module, isEdit, isView } = this.props;
 
-        if (isEdit && (!item.children || item.children.length === 0)) {
+        // 编辑模式下才使用 placeholder
+        if (isEdit && (!item.children || item.children.length === 0) && !isView) {
             return (
                 <AppComponent {...this.props}>
                     {() => (

@@ -8,6 +8,11 @@ html, body, #root {
 
 .ec-editor-canvas {
     background: #fff;
+    height: 100%;
+
+    &-inner {
+        height: 100%;
+    }
 }
 
 .tmc-click-area {
