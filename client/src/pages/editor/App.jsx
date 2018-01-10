@@ -236,12 +236,27 @@ class App extends PureComponent {
         const target = event.target;
         const guid = target.getAttribute('id');
         const module = target.getAttribute('data-module');
-
+        const scale = params.type === 'mobile' ? 2 : 1;
         // 移动端的画布有特殊设置
         const parent = params.type === 'mobile' ? this.canvasInner : null;
         const rect = guid && target ? getRect(target, parent) : null;
 
         if (module && guid && rect) {
+            // 修正hover 图层可能会闪烁的问题
+            // 外层容器高度小于内部容器高度
+            const hoverParent = target.parentNode;
+            if (hoverParent) {
+                const hoverParentRect = hoverParent.getBoundingClientRect();
+
+                if (rect.width > hoverParentRect.width * scale) {
+                    rect.width = hoverParentRect.width * scale;
+                }
+
+                if (rect.height > hoverParentRect.height * scale) {
+                    rect.height = hoverParentRect.height * scale;
+                }
+            }
+
             this.setState({
                 hoverId: guid,
                 hoverRect: rect,
@@ -786,7 +801,7 @@ class App extends PureComponent {
                         <Dragger
                             parentArea={parentArea}
                             disabled={!draggable}
-                            position={draggable && draggable.position}
+                            position={draggable && draggable.position ? draggable.position : {}}
                             rect={rect}
                             dpi={dpi}
                             onChangeStart={() => {

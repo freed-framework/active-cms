@@ -10,8 +10,8 @@ import { getPage } from '../../services';
 import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
 import '../../css/reset-mobile.css';
-import '../editor/edit-module-hack.scss';
-import '../editor/app.scss';
+// import '../editor/edit-module-hack.scss';
+// import '../editor/app.scss';
 import './index.scss';
 
 class Viewer extends PureComponent {
@@ -37,7 +37,7 @@ class Viewer extends PureComponent {
                 document.title = data.title;
 
                 if (data.pageType === 'mobile') {
-                    calc(750);
+                    calc();
                     window.addEventListener(resizeEvt, calc, false);
                 }
 
@@ -68,6 +68,9 @@ class Viewer extends PureComponent {
                     <div className="ec-editor-canvas-inner">
                         <Render
                             data={this.state.data}
+                            // 这里较为特殊，要设置为 edit 方式，图片组件才能不使用 lazyload
+                            isEdit
+                            isView
                             pageType={this.state.pageType}
                         />
                     </div>

@@ -82,22 +82,35 @@ export const scrollDom = (outerEl, target, scale = 1) => {
  * @param {string} px
  * @param {number} rootFontSize
  */
-export const px2rem = (px, rootFontSize = 100) => (
-    px.replace(/(\d+)px/gi, (match, word) => (
-        `${Number(word) / rootFontSize}rem`
-    ))
-)
+// export const px2rem = (px) => {
+//     const fontSize = window.document.documentElement.style.fontSize || '100px';
+//     const num = Number(fontSize.replace('px', ''));
+//
+//     return px.replace(/(\d+)px/gi, (match, word) => (
+//         `${Number(word) / num}rem`
+//     ))
+// };
 
 /**
  * 直接将数字(string number)转换为 rem
  * @param px
- * @param rootFontSize
  */
-export const num2rem = (px, rootFontSize = 100) => (
-    px.toString().replace(/(\d+)$/gi, (match, word) => (
-        `${Number(word) / rootFontSize}rem`
-    ))
-)
+export const num2rem = (px) => {
+    // 获取当前 fontSize
+    const fontSize = window.document.documentElement.style.fontSize || '100px';
+    const num = Number(fontSize.replace('px', ''));
+    let str = px;
+
+    if (typeof str === 'number') {
+        str = parseInt(str, 10);
+    }
+
+    const r = str.toString().replace(/(\d+)[px]*/gi, (match, word) => {
+        return `${Number(word) / num}rem`;
+    });
+
+    return r;
+}
 
 /**
  * 转换数据

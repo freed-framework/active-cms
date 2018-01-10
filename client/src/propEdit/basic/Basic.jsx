@@ -130,19 +130,19 @@ class BasicEdit extends PureComponent {
             return;
         }
 
-        const { target } = this.props;
-        // const props = {
-        //     ...this.state,
-        //     ...rect,
-        // };
-
-        // this.setState({
-        //     ...props
-        // });
+        const { target, componentConfig = {} } = this.props;
 
         if (style[target]) {
+            const updateInfo = {};
+
+            Object.keys(rect).forEach(k => {
+                if (!isExclude(componentConfig.exclude, k)) {
+                    updateInfo[k] = rect[k];
+                }
+            });
+
             const info = Util.fixRectByPosition(
-                rect,
+                updateInfo,
                 style[target],
                 options,
             );
@@ -226,19 +226,21 @@ class BasicEdit extends PureComponent {
         return (
             <div className="ec-editor-basic">
                 <Row>
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-width">
-                            <label htmlFor="">宽度</label>
-                            <input
-                                type="text"
-                                data-guid={guid}
-                                data-attr="width"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.width}
-                            />
-                        </div>
-                    </Col>
+                    {!isExclude(exclude, 'width') &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-width">
+                                <label htmlFor="">宽度</label>
+                                <input
+                                    type="text"
+                                    data-guid={guid}
+                                    data-attr="width"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.width}
+                                />
+                            </div>
+                        </Col>
+                    }
                     <Col span={12}>
                         <div className="ec-editor-basic-props ec-editor-basic-props-height">
                             <label htmlFor="">高度</label>
@@ -249,6 +251,7 @@ class BasicEdit extends PureComponent {
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp}
                                 value={this.state.height}
+                                disabled={isExclude(exclude, 'height')}
                             />
                         </div>
                     </Col>

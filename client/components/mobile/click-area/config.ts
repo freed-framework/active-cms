@@ -6,7 +6,12 @@ const config: Config = {
     className: 'tmc-click-area',
     displayName: '点击区域',
     draggable: {
-        position: ['left', 'top', 'width', 'height'],
+        position: {
+            x: true,
+            y: true,
+            width: true,
+            height: true,
+        },
     },
     editable: [
         {

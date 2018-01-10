@@ -57,43 +57,36 @@ class MobileList extends PureComponent {
     handleChange = (event) => {
         const value = event.currentTarget.value;
         const name = event.currentTarget.name;
+        const attr = event.currentTarget.getAttribute('data-attr');
 
-        if (name === 'cols') {
-            this.changeValue(
-                ['componentProps', 'cols'],
-                'cols',
-                value
-            );
+        this.setState({
+            [attr]: value,
+        });
+    }
+
+    handleKeyUp = (event) => {
+        if (event.keyCode !== 13) return;
+
+        const attr = event.currentTarget.getAttribute('data-attr');
+        let keys = [];
+
+        if (attr === 'cols') {
+            keys = ['componentProps', 'cols'];
+        } else {
+            keys = ['componentProps', 'extendsProps', 'style', 'layout', attr];
         }
 
-        if (name === 'childPadding') {
-            this.changeValue(
-                ['componentProps', 'extendsProps', 'style', 'layout','padding'],
-                'padding',
-                value
-            );
-        }
+        const value = this.state[attr];
 
-        if (name === 'childHeight') {
-            this.changeValue(
-                ['componentProps', 'extendsProps', 'style', 'layout','height'],
-                'height',
-                value
-            );
-        }
+        this.changeValue(keys, value);
     }
 
     /**
      * 修改数据
      * @param keys 要修改的外部数据的位置
-     * @param k 当前 state 的key
      * @param value 数据值
      */
-    changeValue(keys, k, value) {
-        this.setState({
-            [k]: value,
-        });
-
+    changeValue(keys, value) {
         editComponentByGuid(
             this.props.guid,
             keys,
@@ -158,28 +151,33 @@ class MobileList extends PureComponent {
                         <input
                             type="text"
                             data-guid={guid}
-                            name="cols"
+                            data-attr="cols"
                             onChange={this.handleChange}
+                            onKeyUp={this.handleKeyUp}
                             value={this.state.cols}
                         />
                     </p>
+                    {/* child padding */}
                     <p>
                         <label htmlFor="">图片内边距</label>
                         <input
                             type="text"
                             data-guid={guid}
-                            name="childPadding"
+                            data-attr="padding"
                             onChange={this.handleChange}
+                            onKeyUp={this.handleKeyUp}
                             value={this.state.padding}
                         />
                     </p>
+                    {/* child height */}
                     <p>
                         <label htmlFor="">图片高度</label>
                         <input
                             type="text"
                             data-guid={guid}
-                            name="childHeight"
+                            data-attr="height"
                             onChange={this.handleChange}
+                            onKeyUp={this.handleKeyUp}
                             value={this.state.height}
                         />
                     </p>

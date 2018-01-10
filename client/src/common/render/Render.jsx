@@ -13,6 +13,7 @@ class App extends PureComponent {
         pageType: null,
         isEdit: false,
         outerEl: null,
+        isView: false,
     }
 
     /**
@@ -49,10 +50,6 @@ class App extends PureComponent {
             </div>
         );
     }
-}
-
-App.defaultProps = {
-    data: [],
 }
 
 export default App;
