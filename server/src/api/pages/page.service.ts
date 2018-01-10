@@ -289,8 +289,8 @@ export class PageService {
                     id,
                     uploadUserId: userId,
                     content: newPage.content,
-                    title: newPage.title,
-                    pageType: newPage.pageType
+                    activityName: page.title,
+                    pageType: page.pageType
                 }
             }, (err, response, res) => {
                 if (err) {
