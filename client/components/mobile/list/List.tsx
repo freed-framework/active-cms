@@ -27,7 +27,12 @@ class List extends React.PureComponent<ListProps, any> {
                 className={`${className} tmc-list-cols-${cols}`}
                 {...(dataTable && { ...dataTable })}
                 style={{
-                    ...(style && {...style.layout, 'backgroundPosition': 'top center', 'backgroundRepeat': 'no-repeat'})
+                    ...(style && {
+                        ...style.layout,
+                        'backgroundPosition': 'top center',
+                        'backgroundRepeat': 'no-repeat',
+                        'background-size': 'cover'
+                    })
                 }}
             >
                 { this.props.children }

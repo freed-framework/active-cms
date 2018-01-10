@@ -11,7 +11,7 @@ const apiMap = {
 
 const publishMap = {
     development: "http://sit.db.com/html/",
-    production: "https://xcrapp.yatang.com.cn/html/",
+    production: "http://xcrapp.yatang.com.cn/sc/html/",
     test: "http://sit.db.com/html/"
 }
 
