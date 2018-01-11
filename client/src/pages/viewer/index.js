@@ -64,7 +64,7 @@ class Viewer extends PureComponent {
 
         return (
             <div className={wrapCls}>
-                <div className="ec-editor-canvas">
+                <div className="ec-editor-canvas ec-editor-view">
                     <div className="ec-editor-canvas-inner">
                         <Render
                             data={this.state.data}

@@ -11,6 +11,13 @@ import { editComponentByGuid } from '../../pages/editor/App';
 
 const Option = Select.Option;
 
+const matchers = {
+    hybrid: /^((hybrid):\/\/.*id=)(.*)$/ig,
+    detail: /^((detail)\/index\.html\?id=)(.*)$/ig,
+    activityPage: /^((activityPage)\/index\.html\?id=)(.*)$/ig,
+    http: /^((https?):\/\/)(.+)$/ig,
+};
+
 function parseUrl(url = '') {
     const hy = /^((hybrid):\/\/.*id=)(.*)$/ig;
     const res = hy.exec(url);
