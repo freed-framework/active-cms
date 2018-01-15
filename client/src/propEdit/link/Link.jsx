@@ -47,6 +47,12 @@ const urlBefore = [
         defaultValue: '请输入id',
         ch: '活动'
     },
+    {
+        name: 'others',
+        value: '',
+        defaultValue: '请输入跳转地址',
+        ch: '其他'
+    },
 ];
 
 /**
@@ -105,28 +111,33 @@ function parseUrl(url = '') {
  * 获取要更新的 state 数据
  * @return {*}
  */
-const getUpdateState = (url, key) => {
+const getUpdateSettings = (url, key) => {
+    const getDef = getDefault(key) || {};
+
     // url 没有任何值
     if (!url) {
-        const getDef = getDefault(key) || {};
-
         return {
             before: getDef.name,
             value: '',
+            placeholder: getDef.defaultValue,
         }
     }
 
     const urlArr = parseUrl(url);
+    const name = urlArr[2] || 'others';
+    const finder = urlBefore.find(item => item.name === name);
 
     return {
         // 跳转地址的前缀
-        before: urlArr[1] || 'others',
+        before: urlArr[1] || '',
 
         // 默认选中项
-        // defSelect: urlArr[2] || getDef.name,
+        name,
 
         // 表单值
         value: urlArr[3] || '',
+
+        placeholder: finder && finder.defaultValue ? finder.defaultValue : '',
     }
 }
 
@@ -135,7 +146,7 @@ class Link extends PureComponent {
         super(props);
 
         const { componentProps, topWrappedModule } = props;
-        const values = getUpdateState(componentProps.url, topWrappedModule);
+        const values = getUpdateSettings(componentProps.url, topWrappedModule);
 
         this.state = {
             value: values.value,
@@ -186,14 +197,14 @@ class Link extends PureComponent {
                 {urlBefore.map(item => (
                     <Option key={item.name} value={item.value}>{item.name}</Option>
                 ))}
-                <Option key="others" value="">Others</Option>
             </Select>
         )
     }
 
     render() {
-        const { guid } = this.props;
-        const placeholder = '请输入链接地址';
+        const { guid, topWrappedModule, componentProps } = this.props;
+        const { value } = this.state;
+        const { placeholder } = this.settings;
 
         return (
             <div className="ec-editor-basic-props ec-editor-props-link">
@@ -201,7 +212,7 @@ class Link extends PureComponent {
                 <Input
                     data-guid={guid}
                     placeholder={placeholder}
-                    value={this.state.value}
+                    value={value}
                     addonBefore={
                         this.getUrlBefore()
                     }
