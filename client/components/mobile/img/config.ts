@@ -1,5 +1,4 @@
 /// <reference path="../../config.d.ts" />
-import EditModelMapping from '../../common/editModelMapping';
 
 const config: Config = {
     name: 'mobile/img',
@@ -9,8 +8,6 @@ const config: Config = {
     editable: [{
         label: '图片地址',
         component: 'ImgUrl',
-
-        editModelMapping: EditModelMapping.url,
     }]
 };
 
