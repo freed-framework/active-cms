@@ -1,5 +1,4 @@
 /// <reference path="../../config.d.ts" />
-import EditModelMapping from '../../common/editModelMapping';
 
 const config: Config = {
     name: 'mobile/click-area',
@@ -16,8 +15,6 @@ const config: Config = {
     editable: [
         {
             component: 'Link',
-
-            editModelMapping: EditModelMapping.url,
         },
         {
             component: 'Basic',

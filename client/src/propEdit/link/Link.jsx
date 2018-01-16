@@ -11,6 +11,73 @@ import { editComponentByGuid } from '../../pages/editor/App';
 
 const Option = Select.Option;
 
+const urlMapping = {
+    'mobile/list': ['detail'],
+}
+
+/**
+ * 针对于编辑模式的配置, 与 topWrappedModule 对应
+ */
+const urlBefore = [
+    {
+        name: 'http',
+        value: 'http://',
+        defaultValue: '请输入链接',
+    },
+    {
+        name: 'https',
+        value: 'https://',
+        defaultValue: '请输入链接',
+    },
+    {
+        name: 'detail',
+        value: 'detail/index.html?id=',
+        defaultValue: '请输入id',
+        ch: '详情'
+    },
+    {
+        name: 'hybrid',
+        value: 'hybrid://100/detail?id=',
+        defaultValue: '请输入id',
+        ch: '应用'
+    },
+    {
+        name: 'activityPage',
+        value: 'activityPage/index.html?id=',
+        defaultValue: '请输入id',
+        ch: '活动'
+    },
+    {
+        name: 'others',
+        value: '',
+        defaultValue: '请输入跳转地址',
+        ch: '其他'
+    },
+];
+
+/**
+ * 查找默认选项
+ * @param key topWrappedModule
+ * @return null, undefined, Object
+ */
+const getDefault = (key) => {
+    const arr = urlMapping[key];
+    let def = null;
+
+    if (arr) {
+        def = urlBefore.find(item => arr.indexOf(item.name) !== -1);
+    }
+
+    return def;
+}
+
+const matchers = {
+    hybrid: /^((hybrid):\/\/.*id=)(.*)$/ig,
+    detail: /^((detail)\/index\.html\?id=)(.*)$/ig,
+    activityPage: /^((activityPage)\/index\.html\?id=)(.*)$/ig,
+    http: /^((https?):\/\/)(.+)$/ig,
+};
+
 function parseUrl(url = '') {
     const hy = /^((hybrid):\/\/.*id=)(.*)$/ig;
     const res = hy.exec(url);
@@ -41,35 +108,36 @@ function parseUrl(url = '') {
 }
 
 /**
- * 获取 mapping 中的默认值
- * @return {*}
- */
-const getMappingDefault = (editModelMapping) => {
-    if (!editModelMapping) {
-        return null;
-    }
-
-    // Object or undefined
-    return editModelMapping.find(item => item.isDefault);
-}
-
-/**
  * 获取要更新的 state 数据
  * @return {*}
  */
-const getUpdateState = (url, editModelMapping) => {
+const getUpdateSettings = (url, key) => {
+    const getDef = getDefault(key) || {};
+
+    // url 没有任何值
+    if (!url) {
+        return {
+            before: getDef.name,
+            value: '',
+            placeholder: getDef.defaultValue,
+        }
+    }
+
     const urlArr = parseUrl(url);
-    const getDef = getMappingDefault(editModelMapping) || {};
+    const name = urlArr[2] || 'others';
+    const finder = urlBefore.find(item => item.name === name);
 
     return {
         // 跳转地址的前缀
-        before: urlArr[1] || getDef.value,
+        before: urlArr[1] || '',
 
         // 默认选中项
-        defSelect: urlArr[2] || getDef.name,
+        name,
 
         // 表单值
         value: urlArr[3] || '',
+
+        placeholder: finder && finder.defaultValue ? finder.defaultValue : '',
     }
 }
 
@@ -77,40 +145,27 @@ class Link extends PureComponent {
     constructor(props) {
         super(props);
 
-        const { componentProps, editModelMapping } = props;
-        const values = getUpdateState(componentProps.url, editModelMapping);
+        const { componentProps, topWrappedModule } = props;
+        const values = getUpdateSettings(componentProps.url, topWrappedModule);
 
         this.state = {
+            value: values.value,
+        }
+
+        this.settings = {
             ...values,
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.componentProps.url !== nextProps.componentProps.url) {
-            const values = getUpdateState(nextProps.componentProps.url, nextProps.editModelMapping);
-
-            this.setState({
-                ...values,
-            })
-        }
-    }
-
     handleChangeBefore = (val) => {
-        this.setState({
-            before: val,
-            defSelect: val
-        }, () => this.handleChangeUrl());
+        this.settings.before = val;
+
+        this.handleChangeUrl();
     }
 
     handleChangeUrl = () => {
-        const { value, before } = this.state;
-
-        if (!before) {
-            console.info('Set before pls.');
-            return;
-        }
-
-        const url = before + value;
+        const { value } = this.state;
+        const url = this.settings.before + value;
 
         editComponentByGuid(
             this.props.guid,
@@ -130,21 +185,16 @@ class Link extends PureComponent {
      * @param def mapping 中的默认配置
      * @return {*}
      */
-    getUrlBefore(def = {}) {
-        const { editModelMapping } = this.props;
-        const { defSelect } = this.state;
-
-        if (!editModelMapping) {
-            return null;
-        }
+    getUrlBefore() {
+        const { before } = this.settings;
 
         return (
             <Select
                 onChange={this.handleChangeBefore}
-                value={defSelect || def.name}
+                value={before}
                 style={{ width: 90 }}
             >
-                {editModelMapping.map(item => (
+                {urlBefore.map(item => (
                     <Option key={item.name} value={item.value}>{item.name}</Option>
                 ))}
             </Select>
@@ -152,10 +202,9 @@ class Link extends PureComponent {
     }
 
     render() {
-        const { guid, editModelMapping } = this.props;
+        const { guid, topWrappedModule, componentProps } = this.props;
         const { value } = this.state;
-        const mappingDefault = getMappingDefault(editModelMapping);
-        const placeholder = mappingDefault && mappingDefault.defaultValue || '请输入链接地址';
+        const { placeholder } = this.settings;
 
         return (
             <div className="ec-editor-basic-props ec-editor-props-link">
@@ -165,7 +214,7 @@ class Link extends PureComponent {
                     placeholder={placeholder}
                     value={value}
                     addonBefore={
-                        this.getUrlBefore(mappingDefault)
+                        this.getUrlBefore()
                     }
                     onChange={this.handleChange}
                     onPressEnter={this.handleChangeUrl}

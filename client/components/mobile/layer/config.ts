@@ -24,7 +24,7 @@ const config: Config = {
     defaultValues: {
         style: {
             layout: {
-                height: 180,
+                // height: 180,
             }
         }
     }
