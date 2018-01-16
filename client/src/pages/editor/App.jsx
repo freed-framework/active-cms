@@ -322,9 +322,9 @@ class App extends PureComponent {
         const { page } = this.props;
 
         // 待优化
-        // if (is(fromJS(data), fromJS(page.content))) {
-        //     return;
-        // }
+        if (is(fromJS(data), fromJS(page.content))) {
+            return;
+        }
 
         this.props.setPageContent(data).then(() => callback());
 
