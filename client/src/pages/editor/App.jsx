@@ -148,7 +148,7 @@ class App extends PureComponent {
     }
 
     componentDidMount() {
-        const { pageData = {}, match = {} } = this.props;
+        const { match = {} } = this.props;
         const { params = {} } = match;
 
         this.canvas.addEventListener('click', this.handleActive, false);
@@ -171,6 +171,9 @@ class App extends PureComponent {
     }
 
     componentWillUnmount() {
+        const { match = {} } = this.props;
+        const { params = {} } = match;
+        
         emitter.off('delete', this.mittDelete);
         emitter.off('add', this.mittAdd);
         emitter.off('save', this.mittSave);
