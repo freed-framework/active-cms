@@ -15,7 +15,7 @@ import './pubComps.scss';
 import piclist2 from '../../images/icon-svg/piclist2.svg';
 
 const guideList = {
-    'mobile/layer': {
+    'mobile/list': {
         step: 1,
         tip: "此按钮为添加功能块按钮",
         trigger: "click",

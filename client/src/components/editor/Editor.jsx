@@ -74,22 +74,23 @@ class Editor extends PureComponent {
         const { match, data, outerEl } = this.props;
         const { params } = match;
 
-        if (data.length === 0) {
-            return (
-                <PlaceHolder
-                    name="请添加内容"
-                    iconType="def"
-                />
-            );
-        }
-
         return (
-            <Render
-                data={data}
-                pageType={params.type}
-                outerEl={outerEl}
-                isEdit={true}
-            />
+            <div>
+                {
+                    data.length === 0
+                    ? <PlaceHolder
+                        name="请添加内容"
+                        iconType="def"
+                    />
+                    : <Render
+                        data={data}
+                        pageType={params.type}
+                        outerEl={outerEl}
+                        isEdit
+                    />
+                }
+            </div>
+
         );
     }
 }
