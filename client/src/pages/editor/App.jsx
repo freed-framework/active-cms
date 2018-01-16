@@ -21,15 +21,17 @@ import { withRouter } from 'react-router-dom';
 import * as FileUpload from 'react-fileupload';
 import { getUser } from '../../actions/user';
 import {
+    getPageData,
     setPageTileData,
     setPageTitle,
     setPageContent,
     setActiveInfo,
     getActiveInfo,
     clearActiveInfo,
+    setPageThumbnail,
     clearPage,
 } from '../../actions/page';
-import icon from '../../images/icon-svg/icon.svg';
+import { calc, resizeEvt } from '../../common/mobileMock';
 import loader from '../../common/loader/loader';
 import Guide from '../../components/guide';
 import { Continue } from '../../components/guide/App';
@@ -37,6 +39,7 @@ import { updateBasicProps } from '../../propEdit/basic';
 import { getToken, getStyle } from '../../utils';
 import Dragger from '../../components/dragger';
 const url = require('../../images/list-placeholder.png');
+import icon from '../../images/icon-svg/icon.svg';
 import './app.scss';
 
 const FormItem = Form.Item;
@@ -51,7 +54,9 @@ const emitter = mitt();
     dispatch => bindActionCreators({
         getUser,
         setRect,
+        getPageData,
         setPageTileData,
+        setPageThumbnail,
         setPageTitle,
         setPageContent,
         setActiveInfo,
@@ -107,21 +112,13 @@ class App extends PureComponent {
              * 后端返回的原始数据
              * 该数据包含层级关系，components.App module config 等数据 不包含在此
              */
-            data: props.data,
+            data: [],
 
             /**
              * 复制数据
              */
             copyData: null,
 
-            /**
-             * 默认新建页面标题
-             */
-            title: '我的新页面' || props.pageData.title,
-            /**
-             * 是否是编辑
-             */
-            isEdit: !!props.pageData,
             /**
              * 保存弹出框
              */
@@ -151,24 +148,26 @@ class App extends PureComponent {
     }
 
     componentDidMount() {
-        const { pageData = {} } = this.props;
-        // let $oldData = fromJS(this.state.data);
-        // this.props.user(12312312).then(data => {
+        const { pageData = {}, match = {} } = this.props;
+        const { params = {} } = match;
 
-        // })
-        // // 定时保存每分钟保存一次
-        // // this.timer = Observable.interval(60000).subscribe(() => {
-        // //     const $newData = fromJS(this.state.data);
-        // //
-        // //     // 数据修改了才保存
-        // //     if (!is($oldData, $newData)) {
-        // //         this.mittSave('定时保存成功！');
-        // //         $oldData = $newData;
-        // //     }
-        // // })
         this.canvas.addEventListener('click', this.handleActive, false);
         this.canvas.addEventListener('mouseover', this.handleHover);
         // this.canvas.addEventListener('mouseout', this.handleOut);
+
+        // 移动端模拟
+        if (params.type === 'mobile') {
+            calc(750);
+            window.addEventListener(resizeEvt, calc, false);
+        }
+
+        // 请求页面数据
+        if (params.id) {
+            this.props.getPageData(params.id)
+                .then(() => {
+                    this.saveTileData(this.props.page.content)
+                });
+        }
     }
 
     componentWillUnmount() {
@@ -190,18 +189,9 @@ class App extends PureComponent {
         // this.canvas.removeEventListener('mouseout', this.handleOut);
 
         this.props.clearPage();
-    }
 
-    componentWillReceiveProps(nextProps) {
-        if (!is(fromJS(nextProps.data), fromJS(this.props.data))) {
-            this.saveData(nextProps.data);
-        }
-
-        if (!is(fromJS(nextProps.pageData), fromJS(this.props.pageData))) {
-            this.setState({
-                title: nextProps.pageData.title,
-                thumbnail: nextProps.pageData.thumbnail
-            });
+        if (params.type === 'mobile') {
+            window.removeEventListener(resizeEvt, calc, false);
         }
     }
 
@@ -332,19 +322,21 @@ class App extends PureComponent {
         const { page } = this.props;
 
         // 待优化
-        if (is(fromJS(data), fromJS(page.content))) {
-            console.log('saveData: not change');
-            return;
-        }
+        // if (is(fromJS(data), fromJS(page.content))) {
+        //     return;
+        // }
 
-        this.props.setPageContent(data)
-            .then(() => callback());
+        this.props.setPageContent(data).then(() => callback());
 
+        this.saveTileData(data);
+    }
+
+    saveTileData(data = []) {
         // 平铺的绑定了 App 的数据
         const tileData = {};
-        const result = this.data2Tile(data);
+        const promiseList = this.data2Tile(data);
 
-        Promise.all(result).then(values => {
+        Promise.all(promiseList).then(values => {
             values.forEach(v => {
                 tileData[v.guid] = {...v};
             });
@@ -484,17 +476,6 @@ class App extends PureComponent {
     }
 
     /**
-     * 在弹框中设置页面标题
-     * @param e
-     */
-    handleChange = (e) => {
-        alert(123)
-        this.setState({
-            title: e.target.value
-        })
-    }
-
-    /**
      * 弹出保存弹出框
      */
     mittSave = (text) => {
@@ -539,7 +520,7 @@ class App extends PureComponent {
                     title,
                     pageType: params.type,
                     content: page.content,
-                    thumbnail: this.state.thumbnail
+                    thumbnail: page.thumbnail
                 }).then((res) => {
                     message.success('保存成功')
                     this.$oldData = fromJS(page.content);
@@ -553,7 +534,7 @@ class App extends PureComponent {
                     page: {
                         content: page.content,
                         title: title,
-                        thumbnail: this.state.thumbnail
+                        thumbnail: page.thumbnail
                     }
                 }).then(() => {
                     this.$oldData = fromJS(page.content);
@@ -567,7 +548,7 @@ class App extends PureComponent {
     }
 
     mittPush = () => {
-        const { pageData = {}, page } = this.props;
+        const { page } = this.props;
         const { $oldData } = this;
         const $now = fromJS(page.content);
 
@@ -577,19 +558,18 @@ class App extends PureComponent {
                 content: '',
                 onOk: () => {
                     push({
-                        id: pageData._id,
-                        zipId: pageData.pushId
-                    })
-                        .then(() => {
-                            message.success('推送成功');
-                        })
-                        .catch(() => { })
+                        id: page._id,
+                        zipId: page.pushId
+                    }).then(() => {
+                        message.success('推送成功');
+                    }).catch(() => { })
                 },
                 onCancel() { },
             });
 
             return false;
         }
+
         Modal.warning({
             title: '请先保存当前修改',
             content: '',
@@ -717,11 +697,8 @@ class App extends PureComponent {
             uploadSuccess: (props) => {
                 const img = props.data[0];
 
-                this.setState({
-                    thumbnail: `${img.imageDomain}/${img.suffixUrl}`
-                }, () => {
-                    message.success('上传成功，请保存！');
-                })
+                this.props.setPageThumbnail(`${img.imageDomain}/${img.suffixUrl}`);
+                message.success('上传成功，请保存！');
             }
         }
 
@@ -867,7 +844,7 @@ class App extends PureComponent {
                                     rules: [{
                                         required: true, message: '请输入页面标题！',
                                     }],
-                                    initialValue: this.state.title
+                                    initialValue: page.title
                                 })(
                                     <Input
                                         className="guide-steps-handler"
@@ -900,7 +877,7 @@ class App extends PureComponent {
                                 >
                                     <img
                                         style={{width: '287px'}}
-                                        src={this.state.thumbnail || url} />
+                                        src={page.thumbnail || url} />
                                 </div>
                             </FormItem>
                         </Form>

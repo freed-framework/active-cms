@@ -5,6 +5,7 @@
  * 异步加载组件
  */
 import resolveData from './resolveData';
+import * as Components from '../../../components/mobile';
 
 const loader = (item, topWrappedModule) => {
     // 如果已经有组件被创建，则直接 resolve
