@@ -25,6 +25,10 @@ const config: Config = {
              */
             exclude: ['background', 'border', 'overflow', 'position'],
         },
+        {
+            component: 'Modal',
+            name: "弹出框内容"
+        },
     ],
     defaultValues: {
         style: {

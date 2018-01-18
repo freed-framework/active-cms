@@ -12,7 +12,7 @@ const config: Config = {
         },
     },
     iconType: 'layers',
-    menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
+    menus: ['mobile/layer', 'mobile/img', 'mobile/list', 'mobile/click-area'],
     editable: [
         {
             component: 'Basic',
