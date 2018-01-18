@@ -22,6 +22,7 @@ import MobileList from './mobileList';
 import ClickArea from './clickArea';
 import EditDataNumber from './editDataNumber';
 import Link from './link';
+import Modal from './modal';
 
 export {
     /**
@@ -83,4 +84,8 @@ export {
     MobileList,
     ClickArea,
     EditDataNumber,
+    /**
+     * 弹出框设置
+     */
+    Modal,
 }

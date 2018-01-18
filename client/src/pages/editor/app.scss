@@ -54,6 +54,7 @@ body {
     }
 
     &-inner {
+        position: relative;
         .tmc-img {
             img, .imgWarp {
                 @extend .pointer-events-disabled;
@@ -64,6 +65,20 @@ body {
             overflow: hidden;
         }
     }
+
+    // &-header {
+    //     width: 378px;
+    //     // background-color: #000;
+    //     margin: 0 auto;
+    //     img {
+    //         width: 100%;
+    //     }
+    // }
+
+    // &-footer {
+    //     position: absolute;
+    //     bottom: 0;
+    // }
 }
 
 .ec-editor-pc {

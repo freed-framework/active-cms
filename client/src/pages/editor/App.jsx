@@ -773,6 +773,9 @@ class App extends PureComponent {
                     ref={ref => { this.canvas = ref }}
                     className="ec-editor-canvas"
                 >
+                    {/* <div className="ec-editor-canvas-header">
+                        <img src={require('../../images/phone-top.png')} alt="手机头部图片" />
+                    </div> */}
                     <div
                         className="ec-editor-canvas-inner"
                         ref={ref => { this.canvasInner = ref }}
@@ -827,6 +830,7 @@ class App extends PureComponent {
                             outerEl={this.canvasInner}
                         />
                     </div>
+                    {/* <div className="ec-editor-canvas-footer">footer</div> */}
                 </div>
 
                 {/* Guide */}
