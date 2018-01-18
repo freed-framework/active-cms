@@ -15,9 +15,6 @@ const config: Config = {
     },
     editable: [
         {
-            component: 'Link',
-        },
-        {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
@@ -26,6 +23,9 @@ const config: Config = {
              */
             exclude: ['background', 'border', 'overflow', 'position'],
             // exclude: ['border', 'overflow'],
+        },
+        {
+            component: 'Link',
         },
         {
             component: 'Modal',

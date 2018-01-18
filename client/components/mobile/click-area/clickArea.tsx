@@ -15,13 +15,13 @@ class ClickArea extends React.PureComponent<any, any> {
         super(props);
 
         this.state = {
-            showExplain: false
+            showExplain: props.showExplain,
         }
     }
 
     handleClick = () => {
-        const { showModal } = this.props;
-        if (showModal) {
+        const { hasModal } = this.props;
+        if (hasModal) {
             this.setState({
                 showExplain: true
             })
@@ -43,7 +43,7 @@ class ClickArea extends React.PureComponent<any, any> {
 
     render() {
         const {
-            id, style, className, dataTable, isEdit, showModal = false,
+            id, style, className, dataTable, isEdit, hasModal = false,
             modalBtn = '确认', modalContent = '暂无内容...', modalTitle = '说明',
             modalTop = '100', modalWidth = '90%'
         } = this.props;
@@ -60,7 +60,7 @@ class ClickArea extends React.PureComponent<any, any> {
                 onClick={this.handleClick}
             >
                 {this.props.children}
-                {this.state.showExplain && showModal &&
+                {this.state.showExplain && hasModal &&
                     <Explain
                         maskClosable
                         title={modalTitle}
