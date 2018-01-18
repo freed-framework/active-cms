@@ -24,8 +24,8 @@ const config: Config = {
             /**
              * Basic 组件要排除的可编辑属性
              */
-            // exclude: ['background', 'border', 'overflow', 'position'],
-            exclude: ['border', 'overflow'],
+            exclude: ['background', 'border', 'overflow', 'position'],
+            // exclude: ['border', 'overflow'],
         },
     ],
     defaultValues: {
@@ -36,11 +36,8 @@ const config: Config = {
              */
             layout: {
                 position: 'absolute',
-                // position: 'static',
                 width: '260',
                 height: '120',
-                // left: 0,
-                // top: 0,
             }
         }
     }
