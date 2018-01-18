@@ -15,17 +15,17 @@ const config: Config = {
     },
     editable: [
         {
-            component: 'Link',
-        },
-        {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
             /**
              * Basic 组件要排除的可编辑属性
              */
-            // exclude: ['background', 'border', 'overflow', 'position'],
-            exclude: ['border', 'overflow'],
+            exclude: ['background', 'border', 'overflow', 'position'],
+            // exclude: ['border', 'overflow'],
+        },
+        {
+            component: 'Link',
         },
         {
             component: 'Modal',
@@ -40,11 +40,8 @@ const config: Config = {
              */
             layout: {
                 position: 'absolute',
-                // position: 'static',
                 width: '260',
                 height: '120',
-                // left: 0,
-                // top: 0,
             }
         }
     }
