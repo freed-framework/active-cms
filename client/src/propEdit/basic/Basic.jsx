@@ -78,7 +78,7 @@ class BasicEdit extends PureComponent {
 
     constructor(props) {
         super(props);
-        const { componentProps = {}, target } = props;
+        const { componentProps = {}, target, defaultValues } = props;
         const { style = {} } = componentProps;
 
         this.state = styleProps2State(style, target);
@@ -89,6 +89,7 @@ class BasicEdit extends PureComponent {
     componentWillReceiveProps(nextProps) {
         if (!is(fromJS(this.props.componentProps), fromJS(nextProps.componentProps))) {
             const { style = {}, ...others } = nextProps.componentProps;
+
             const props = styleProps2State(style, this.props.target);
 
             this.setState({
@@ -284,7 +285,7 @@ class BasicEdit extends PureComponent {
                         </div>
                     </Col>
                     {/* TODO 移动端需要兼容这些定位方式 */}
-                    {/* {!isExclude(exclude, 'position') &&
+                    {!isExclude(exclude, 'position') &&
                         <Col span={24}>
                             <Row>
                                 <Col span={12}>
@@ -375,7 +376,7 @@ class BasicEdit extends PureComponent {
                                 />
                             </div>
                         </Col>
-                    } */}
+                    }
 
                     {!isExclude(exclude, 'overflow') &&
                         <Col span={24}>

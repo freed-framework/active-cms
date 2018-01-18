@@ -173,7 +173,7 @@ class App extends PureComponent {
     componentWillUnmount() {
         const { match = {} } = this.props;
         const { params = {} } = match;
-        
+
         emitter.off('delete', this.mittDelete);
         emitter.off('add', this.mittAdd);
         emitter.off('save', this.mittSave);
@@ -787,7 +787,9 @@ class App extends PureComponent {
                             onChangeStart={() => {
                                 this.prevRect = rect;
                             }}
-                            onChange={info => this.props.setRect(info)}
+                            onChange={info => {
+                                this.props.setRect(info);
+                            }}
                             onChangeEnd={info => {
                                 this.updateBasic(info);
 

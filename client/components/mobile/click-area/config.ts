@@ -4,6 +4,7 @@ const config: Config = {
     name: 'mobile/click-area',
     className: 'tmc-click-area',
     displayName: '点击区域',
+    isCommon: true,
     draggable: {
         position: {
             x: true,
@@ -23,7 +24,8 @@ const config: Config = {
             /**
              * Basic 组件要排除的可编辑属性
              */
-            exclude: ['background', 'border', 'overflow', 'position'],
+            // exclude: ['background', 'border', 'overflow', 'position'],
+            exclude: ['border', 'overflow'],
         },
     ],
     defaultValues: {
@@ -33,8 +35,8 @@ const config: Config = {
              * 为了避免元素 绝对定位 导致展示效果类似 fixed
              */
             layout: {
-                // position: 'absolute',
-                position: 'static',
+                position: 'absolute',
+                // position: 'static',
                 width: '260',
                 height: '120',
                 // left: 0,
