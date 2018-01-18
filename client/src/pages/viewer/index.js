@@ -10,8 +10,8 @@ import { getPage } from '../../services';
 import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
 import '../../css/reset-mobile.css';
-// import '../editor/edit-module-hack.scss';
-// import '../editor/app.scss';
+import '../editor/edit-module-hack.scss';
+import '../editor/app.scss';
 import './index.scss';
 
 class Viewer extends PureComponent {

@@ -1,7 +1,7 @@
 @import "../../css/common.scss";
 
 .ec-editor-layer-cake {
-    @include bezierAnimate('out-back');
+    @include bezierAnimate();
     z-index: 88;
     position: fixed;
     left: 80px;

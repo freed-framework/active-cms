@@ -38,14 +38,22 @@ class App extends PureComponent {
     }
 
     render() {
+        let styles = {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            top: 0,
+            left: 0,
+        };
+
+        const outerStyle = !this.props.isView ? styles : {
+            position: 'relative',
+            height: '100%',
+            'overflow-y': 'scroll',
+        };
+
         return (
-            <div style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                top: 0,
-                left: 0,
-            }}>
+            <div style={outerStyle}>
                 {this.loop(this.props.data)}
             </div>
         );
