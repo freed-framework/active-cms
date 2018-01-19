@@ -15,10 +15,13 @@ const config: Config = {
     menus: ['mobile/layer', 'mobile/img', 'mobile/list', 'mobile/click-area'],
     editable: [
         {
+            component: 'Term',
+        },
+        {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
-            exclude: ['width'],
+            exclude: ['width', 'position'],
         },
     ],
     defaultValues: {

@@ -21,8 +21,12 @@ const config: Config = {
             /**
              * Basic 组件要排除的可编辑属性
              */
-            exclude: ['background', 'border', 'overflow', 'position'],
-            // exclude: ['border', 'overflow'],
+            exclude: [
+                'background',
+                'border',
+                'overflow',
+                'position:static,relative,fixed',
+            ],
         },
         {
             component: 'Link',

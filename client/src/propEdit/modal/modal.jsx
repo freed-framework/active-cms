@@ -4,175 +4,48 @@ import { Checkbox, Row, Col, Input } from 'antd';
 import { editComponentByGuid } from '../../pages/editor/App';
 import './modal.scss';
 
-const CheckboxGroup = Checkbox.Group;
-
 class Modal extends PureComponent {
     static propTypes = {
         guid: PropTypes.string,
         componentProps: PropTypes.objectOf(PropTypes.any),
     }
 
-    // constructor(props) {
-    //     super(props);
-    //
-    //     const {
-    //         componentProps = {}
-    //     } = this.props;
-    //     const {
-    //         hasModal = false, modalBtn, modalContent, modalTop,
-    //         modalWidth, modalTitle
-    //     } = componentProps;
-    //
-    //     this.state = {
-    //         // isVisible: false,
-    //         // hasModal,
-    //         // modalBtn,
-    //         // modalContent,
-    //         // modalTop,
-    //         // modalWidth,
-    //         // modalTitle
-    //     }
-    // }
+    /**
+     * checkbox
+     * @param e
+     */
+    handleChangeCheckbox = (e) => {
+        const key = e.target['data-key'];
 
-    handlePreviewCheck = (e) => {
         editComponentByGuid(
             this.props.guid,
-            ['componentProps', 'showExplain'],
+            ['componentProps', key],
             e.target.checked
         );
     }
 
     /**
-     * 切换选中
+     * input
+     * @param e
      */
-    handleCheck = (e) => {
-        console.log(e.target.checked)
-        // this.setState({
-        //     hasModal: !this.state.hasModal
-        // }, () => {
-        //     editComponentByGuid(
-        //         this.props.guid,
-        //         ['componentProps', 'hasModal'],
-        //         this.state.hasModal
-        //     );
-        // });
+    handleChangeData = (e) => {
+        const { componentProps = {} } = this.props;
+        const key = e.target.getAttribute('data-key');
+        const data = {
+            [key]: e.target.value,
+        };
 
-        // this.setState({
-        //     isVisible: !this.state.isVisible
-        // });
+        // 当改变 modal 数据的时候，自动展示出 modal
+        const autoModalVisible = componentProps.hasModal && !componentProps.showExplain;
+        if (autoModalVisible) {
+            data.showExplain = true;
+        }
 
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', 'hasModal'],
-            e.target.checked
-        );
-    }
-
-    /**
-     * 修改title
-     */
-    handleTitle = (e) => {
-        console.log(e)
         editComponentByGuid(
             this.props.guid,
             ['componentProps'],
-            {
-                modalTitle: e.target.value,
-                showExplain: true,
-            }
+            data
         );
-    }
-
-    /**
-     * 修改内容
-     */
-    handleContent = (e) => {
-        const { value } = e.target;
-
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', 'modalContent'],
-            value
-        );
-        // this.setState({
-        //     modalContent: value
-        // }, () => {
-        //     editComponentByGuid(
-        //         this.props.guid,
-        //         ['componentProps', 'modalContent'],
-        //         value
-        //     );
-        // })
-    }
-
-    /**
-     * 切换按钮文字
-     */
-    handleBtn = (e) => {
-        const { value } = e.target;
-
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', 'modalBtn'],
-            value
-        );
-        // this.setState({
-        //     modalBtn: value
-        // }, () => {
-        //     editComponentByGuid(
-        //         this.props.guid,
-        //         ['componentProps', 'modalBtn'],
-        //         value
-        //     );
-        // })
-    }
-
-    /**
-     * 修改到顶部的距离
-     */
-    handleTop = (e) => {
-        const { value } = e.target;
-
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', 'modalTop'],
-            value
-        );
-        // this.setState({
-        //     modalTop: value
-        // }, () => {
-        //     editComponentByGuid(
-        //         this.props.guid,
-        //         ['componentProps', 'modalTop'],
-        //         value
-        //     );
-        // })
-    }
-
-    /**
-     * 修改弹窗宽度
-     */
-    handleWidth = (e) => {
-        const { value } = e.target;
-
-        editComponentByGuid(
-            this.props.guid,
-            ['componentProps', 'modalWidth'],
-            value
-        );
-        // this.setState({
-        //     modalWidth: value
-        // }, () => {
-        //     editComponentByGuid(
-        //         this.props.guid,
-        //         ['componentProps', 'modalWidth'],
-        //         value
-        //     );
-        // })
-    }
-
-    onChange = (v) => {
-        console.log(v)
     }
 
     render() {
@@ -197,7 +70,8 @@ class Modal extends PureComponent {
                     <Col span={12}>
                         <Checkbox
                             checked={hasModal}
-                            onChange={this.handleCheck}
+                            data-key="hasModal"
+                            onChange={this.handleChangeCheckbox}
                         >
                             使用弹出框
                         </Checkbox>
@@ -206,7 +80,8 @@ class Modal extends PureComponent {
                         <Checkbox
                             defaultChecked={hasModal}
                             checked={isVisbile}
-                            onChange={this.handlePreviewCheck}
+                            data-key="showExplain"
+                            onChange={this.handleChangeCheckbox}
                         >
                             预览
                         </Checkbox>
@@ -216,7 +91,8 @@ class Modal extends PureComponent {
                     <Col>标题</Col>
                     <Col span={24}>
                         <Input
-                            onChange={this.handleTitle}
+                            data-key="modalTitle"
+                            onChange={this.handleChangeData}
                             value={modalTitle}
                         />
                     </Col>
@@ -226,7 +102,8 @@ class Modal extends PureComponent {
                     <Col span={24}>
                         <Input
                             type="textarea"
-                            onChange={this.handleContent}
+                            data-key="modalContent"
+                            onChange={this.handleChangeData}
                             value={modalContent}
                         />
                     </Col>
@@ -235,7 +112,8 @@ class Modal extends PureComponent {
                     <Col>按钮文字</Col>
                     <Col span={24}>
                         <Input
-                            onChange={this.handleBtn}
+                            data-key="modalBtn"
+                            onChange={this.handleChangeData}
                             value={modalBtn}
                         />
                     </Col>
@@ -245,8 +123,8 @@ class Modal extends PureComponent {
                         <label htmlFor="">上</label>
                         <input
                             type="text"
-                            data-attr="top"
-                            onChange={this.handleTop}
+                            data-key="modalTop"
+                            onChange={this.handleChangeData}
                             value={modalTop}
                         />
                     </div>
@@ -255,8 +133,8 @@ class Modal extends PureComponent {
                         <label htmlFor="">宽度</label>
                         <input
                             type="text"
-                            data-attr="left"
-                            onChange={this.handleWidth}
+                            data-key="modalWidth"
+                            onChange={this.handleChangeData}
                             value={modalWidth}
                         />
                     </div>
