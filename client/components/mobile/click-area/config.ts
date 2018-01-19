@@ -4,7 +4,6 @@ const config: Config = {
     name: 'mobile/click-area',
     className: 'tmc-click-area',
     displayName: '点击区域',
-    isCommon: true,
     draggable: {
         position: {
             x: true,
