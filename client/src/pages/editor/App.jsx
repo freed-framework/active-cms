@@ -168,6 +168,10 @@ class App extends PureComponent {
                     this.saveTileData(this.props.page.content)
                 });
         }
+        // test
+        else {
+            this.saveData([{"guid":"ec-module-4b345712-e37f-4c41-97a5-b8831bc97bb3","name":"mobile/layer","componentProps":{"style":{"layout":{}},"termDates":[1516373550439,1516428240000]}}])
+        }
     }
 
     componentWillUnmount() {
@@ -517,7 +521,7 @@ class App extends PureComponent {
                 message.error('请输入标题');
                 return;
             }
-
+console.log(JSON.stringify(page.content))
             if (!id || id === 'new') {
                 addPage({
                     title,

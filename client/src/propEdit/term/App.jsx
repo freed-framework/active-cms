@@ -39,7 +39,7 @@ class App extends PureComponent {
                 allowClear
                 showTime={{ format: 'HH:mm' }}
                 format="YYYY-MM-DD HH:mm"
-                placeholder={['生效时间', '失效时间']}
+                placeholder={['开始时间', '结束时间']}
                 onChange={this.handleChangeDate}
             />
         )
