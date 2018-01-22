@@ -1,4 +1,4 @@
-/// <reference path="./list.d.ts" />
+/// <reference path="./List.d.ts" />
 import * as React from 'react';
 import config from './config';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';

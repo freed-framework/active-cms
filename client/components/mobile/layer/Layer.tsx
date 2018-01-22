@@ -4,9 +4,8 @@
  *
  * Des
  */
-/// <reference path="./layer.d.ts" />
+/// <reference path="./Layer.d.ts" />
 import * as React from 'react';
-import classNames from 'classnames';
 import config from './config';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import Term from '../../common/term';
@@ -16,10 +15,6 @@ import './layer.scss';
     config,
 })
 class Layer extends React.PureComponent<LayerProps, any> {
-    componentWillReceiveProps(nextProps: LayerProps) {
-        // console.log(nextProps)
-    }
-
     render() {
         const {
             id,
@@ -39,7 +34,7 @@ class Layer extends React.PureComponent<LayerProps, any> {
                         ...style.layout,
                         'backgroundPosition': 'top center',
                         'backgroundRepeat': 'no-repeat',
-                        'background-size': 'cover'
+                        'backgroundSize': 'cover'
                     })
                 }}
             >
@@ -49,9 +44,7 @@ class Layer extends React.PureComponent<LayerProps, any> {
 
         if (termDates) {
             return (
-                <Term
-                    range={termDates}
-                >
+                <Term range={termDates}>
                     {Content}
                 </Term>
             );

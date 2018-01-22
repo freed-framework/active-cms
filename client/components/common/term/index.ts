@@ -1,3 +1,3 @@
-import App from './App';
+import Term from './Term';
 
-export default App;
+export default Term;

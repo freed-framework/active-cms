@@ -6,6 +6,9 @@ interface DefaultProps {
     style?: any;
     className?: string;
     dataTable?: any;
-    isEdit?: boolean,
+    isEdit?: boolean;
     extendsProps?: any;
+
+    // 是否设置时间段限制
+    termDates?: any;
 }
