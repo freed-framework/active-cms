@@ -5,36 +5,48 @@ class TermProps {
     range: number[];
 }
 
+const now = (): number => +new Date();
+
 class Term extends React.PureComponent<TermProps, any> {
     private timeLimit: TimeLimit;
+
+    /**
+     * 判断是否在指定范围内
+     * @param s 指定开始时间戳
+     * @param e 指定结束时间戳
+     * @return {boolean}
+     */
+    private isInRange(s?: number, e?: number) {
+        const n = now();
+        const { range } = this.props;
+        const start = s || range[0];
+        const end = e || range[1];
+
+        return n >= start && n <= end;
+    }
 
     constructor(props: TermProps) {
         super(props);
 
         this.state = {
-            inRange: true,
+            inRange: this.isInRange(),
         };
     }
 
     componentDidMount() {
-        let inRange = this.state.inRange;
-        const that = this;
         const range = this.props.range;
         const start = range[0];
         const end = range[1];
-        this.timeLimit = new TimeLimit(end - start);
+        this.timeLimit = new TimeLimit({
+            start,
+            end,
+        });
 
-        this.timeLimit.start(function() {
-            if (this.now() >= start && this.now() <= end) {
-                inRange = true;
-            } else {
-                inRange = false;
+        this.timeLimit.start((time: number, status: number) => {
+            const inRange = status === 1;
 
-                this.stop();
-            }
-
-            if (that.state.inRange !== inRange) {
-                that.setState({
+            if (this.state.inRange !== inRange) {
+                this.setState({
                     inRange,
                 });
             }
@@ -46,9 +58,6 @@ class Term extends React.PureComponent<TermProps, any> {
     }
 
     render() {
-        const range = this.props.range;
-        const start = range[0];
-        const end = range[1];
         const cls = `tmc-term ${!this.state.inRange ? 'tmc-term-hide' : ''}`;
 
         return (
