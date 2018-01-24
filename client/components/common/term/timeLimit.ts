@@ -21,23 +21,34 @@ class Options {
     delta?: number;
 }
 
+const defaultOptions: Options = {
+    start: 0,
+    end: 0,
+    delta: 1000,
+};
+
 class TimeLimit {
     private startTime: number;
     private endTime: number;
-    private timerId: number;
+    private timerId: number | null;
     private delta?: number;
 
     constructor(options: Options) {
+        const opts: Options = {
+            ...defaultOptions,
+            ...options,
+        };
+
         this.timerId = null;
         // 设置开始时间
-        this.startTime = options.start;
+        this.startTime = opts.start;
         // 设置结束时间
-        this.endTime = options.end;
+        this.endTime = opts.end;
         // 间隔检查时间 ms
-        this.delta = options.delta || 1000;
+        this.delta = opts.delta;
     }
 
-    public now(): number {
+    static now(): number {
         return +new Date();
     }
 
@@ -46,7 +57,7 @@ class TimeLimit {
      * @param fn
      */
     private tick(fn: Function): void {
-        const n = this.now();
+        const n = TimeLimit.now();
         const limitTime = this.endTime - n;
         const dur = this.endTime - this.startTime;
 
