@@ -1,16 +1,15 @@
-/// <reference path="./clickArea.d.ts" />
+/// <reference path="./ClickArea.d.ts" />
 import * as React from 'react';
 import config from './config';
 import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
-import Explain from './explain';
+import Explain from './Explain';
 import './clickArea.scss';
 
 @componentPropsHoc({
     config,
 })
 class ClickArea extends React.PureComponent<any, any> {
-
     constructor(props: any) {
         super(props);
 
@@ -37,13 +36,13 @@ class ClickArea extends React.PureComponent<any, any> {
     }
 
     toTag = (value: any) => {
-        const arr = escape(value).split('%0A');
+        const arr: any[] = escape(value).split('%0A');
         return unescape(arr.join('<br/>'));
     }
 
     render() {
         const {
-            id, style, className, dataTable, isEdit, hasModal = false,
+            id, style, className, dataTable, hasModal = false,
             modalBtn = '确认', modalContent = '暂无内容...', modalTitle = '说明',
             modalTop = '100', modalWidth = '90%'
         } = this.props;

@@ -49,7 +49,7 @@ class App extends PureComponent {
         const outerStyle = !this.props.isView ? styles : {
             position: 'relative',
             height: '100%',
-            'overflow-y': 'scroll',
+            overflowY: 'auto',
         };
 
         return (

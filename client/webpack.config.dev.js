@@ -88,6 +88,7 @@ var webpackConfig = {
         // 省略后缀
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
+            'react': path.resolve(__dirname, './node_modules/react'),
             'freed-multi': path.resolve(__dirname, './node_modules/freed-multi'),
         }
     },

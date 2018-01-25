@@ -1,3 +1,3 @@
-import ClickArea from './clickArea';
+import ClickArea from './ClickArea';
 
 export default ClickArea;

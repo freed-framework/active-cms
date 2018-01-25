@@ -4,10 +4,11 @@
  *
  * Des
  */
-/// <reference path="./layer.d.ts" />
+/// <reference path="./Layer.d.ts" />
 import * as React from 'react';
 import config from './config';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
+import Term from '../../common/term';
 import './layer.scss';
 
 @componentPropsHoc({
@@ -20,9 +21,10 @@ class Layer extends React.PureComponent<LayerProps, any> {
             style = {},
             dataTable,
             className,
+            termDates,
         } = this.props;
 
-        return (
+        const Content = (
             <div
                 id={id}
                 className={className}
@@ -32,13 +34,23 @@ class Layer extends React.PureComponent<LayerProps, any> {
                         ...style.layout,
                         'backgroundPosition': 'top center',
                         'backgroundRepeat': 'no-repeat',
-                        'background-size': 'cover'
+                        'backgroundSize': 'cover'
                     })
                 }}
             >
                 {this.props.children}
             </div>
-        )
+        );
+
+        if (termDates) {
+            return (
+                <Term range={termDates}>
+                    {Content}
+                </Term>
+            );
+        }
+
+        return Content;
     }
 }
 
