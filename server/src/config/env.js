@@ -15,6 +15,12 @@ const publishMap = {
     test: "http://sit.db.com/html/"
 }
 
+const domain = {
+    development: "http://wuget.yatang.com.cn",
+    production: "http://wuget-uat.yatang.com.cn",
+    test: "http://wuget-sit.yatang.com.cn"
+}
+
 var ENV = {
     /**
      * 外部地址
@@ -23,8 +29,7 @@ var ENV = {
     /**
      * 项目域名
      */
-    domain: nodeENV === 'production' ? 'http://wuget.yatang.com.cn' : 'http://www.iting.top',
-    // domain: "http://localhost:12345"
+    domain: domain[nodeENV],
     /**
      * zip包地址
      */
