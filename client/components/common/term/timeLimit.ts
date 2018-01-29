@@ -15,7 +15,7 @@ const TYPE = {
     ERROR: -2,
 };
 
-class Options {
+type Options = {
     start: number;
     end: number;
     delta?: number;
@@ -26,6 +26,8 @@ const defaultOptions: Options = {
     end: 0,
     delta: 1000,
 };
+
+const now = (): number => +new Date();
 
 class TimeLimit {
     private startTime: number;
@@ -48,16 +50,12 @@ class TimeLimit {
         this.delta = opts.delta;
     }
 
-    static now(): number {
-        return +new Date();
-    }
-
     /**
      * 定时器
      * @param fn
      */
     private tick(fn: Function): void {
-        const n = TimeLimit.now();
+        const n = now();
         const limitTime = this.endTime - n;
         const dur = this.endTime - this.startTime;
 
