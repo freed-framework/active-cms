@@ -16,8 +16,8 @@ const publishMap = {
 }
 
 const domain = {
-    development: "http://wuget.yatang.com.cn",
-    production: "http://wuget-uat.yatang.com.cn",
+    development: "http://wuget-uat.yatang.com.cn",
+    production: "http://wuget.yatang.com.cn",
     test: "http://wuget-sit.yatang.com.cn"
 }
 
