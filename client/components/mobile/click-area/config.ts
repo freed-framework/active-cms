@@ -1,5 +1,3 @@
-/// <reference path="../../config.d.ts" />
-
 const config: Config = {
     name: 'mobile/click-area',
     className: 'tmc-click-area',

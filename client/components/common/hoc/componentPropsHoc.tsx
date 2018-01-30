@@ -4,8 +4,7 @@
  *
  * 高阶组件
  */
-/// <reference path="../../config.d.ts" />
-/// <reference path="../../props.d.ts" />
+/// <reference path="../../typings/interface.d.ts" />
 import * as React from 'react';
 
 /**
@@ -58,13 +57,13 @@ const getClassNames = (...args: any[]) => {
     return arr.join(' ');
 }
 
-const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => class extends React.Component<DefaultProps, any> {
+const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => class extends React.Component<any, any> {
     /**
      * 自动给每个组件添加 config 配置
      */
     static config: any = args.config;
 
-    constructor(props: DefaultProps) {
+    constructor(props: any) {
         super(props);
 
         const conf = args.config;

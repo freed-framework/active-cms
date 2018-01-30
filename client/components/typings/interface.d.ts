@@ -22,3 +22,6 @@ interface DefaultProps {
     // 是否设置时间段限制
     termDates?: number[];
 }
+
+declare function escape(message: string): any;
+declare function unescape(message: string): any;

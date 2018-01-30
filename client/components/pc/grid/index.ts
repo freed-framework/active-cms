@@ -1,4 +1,3 @@
-/// <reference path="../../config.d.ts" />
 import Grid from './Grid';
 import './index.scss';
 

@@ -1,4 +1,3 @@
-/// <reference path="../../config.d.ts" />
 import hotMap from './hotMap';
 import './hotMap.scss';
 
