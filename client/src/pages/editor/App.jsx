@@ -579,11 +579,9 @@ class App extends PureComponent {
                     push({
                         id: pageData._id,
                         zipId: pageData.pushId
-                    })
-                        .then(() => {
-                            message.success('推送成功');
-                        })
-                        .catch(() => { })
+                    }).then(() => {
+                        message.success('推送成功');
+                    }).catch(() => { })
                 },
                 onCancel() { },
             });
