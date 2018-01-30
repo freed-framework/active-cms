@@ -1,0 +1,1 @@
+export interface LayerProps extends DefaultProps {}

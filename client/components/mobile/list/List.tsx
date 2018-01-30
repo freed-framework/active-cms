@@ -1,6 +1,6 @@
-/// <reference path="./List.d.ts" />
 import * as React from 'react';
 import config from './config';
+import { ListProps } from './interface';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
 import './list.scss';
 

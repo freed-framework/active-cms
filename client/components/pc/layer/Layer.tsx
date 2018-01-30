@@ -4,12 +4,11 @@
  *
  * Des
  */
-/// <reference path="./layer.d.ts" />
 import * as React from 'react';
 import config from './config';
 import './layer.scss';
 
-class Layer extends React.PureComponent<LayerProps, any> {
+class Layer extends React.PureComponent<any, any> {
     static config: Config = config;
 
     render() {
@@ -20,9 +19,6 @@ class Layer extends React.PureComponent<LayerProps, any> {
                 id={id}
                 className="tc-layer"
                 data-module={this.props.module}
-                style={{
-                    ...(style && {...style.layout, 'backgroundPosition': 'center center'})
-                }}
             >
                 {this.props.children}
             </div>

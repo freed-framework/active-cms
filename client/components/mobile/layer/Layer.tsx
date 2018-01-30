@@ -6,8 +6,8 @@
  */
 import * as React from 'react';
 import config from './config';
+import { LayerProps } from './interface';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
-// import { LayerProps } from './interface';
 import Term from '../../common/term';
 import './layer.scss';
 

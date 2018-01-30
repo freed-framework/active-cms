@@ -1,16 +1,16 @@
-/// <reference path="./ClickArea.d.ts" />
 import * as React from 'react';
 import config from './config';
 import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
+import { ClickAreaProps, escape, unescape } from './interface';
 import Explain from './Explain';
 import './clickArea.scss';
 
 @componentPropsHoc({
     config,
 })
-class ClickArea extends React.PureComponent<any, any> {
-    constructor(props: any) {
+class ClickArea extends React.PureComponent<ClickAreaProps, any> {
+    constructor(props: ClickAreaProps) {
         super(props);
 
         this.state = {
@@ -35,8 +35,8 @@ class ClickArea extends React.PureComponent<any, any> {
         })
     }
 
-    toTag = (value: any) => {
-        const arr: any[] = escape(value).split('%0A');
+    toTag = (value: string) => {
+        const arr: string[] = escape(value).split('%0A');
         return unescape(arr.join('<br/>'));
     }
 
