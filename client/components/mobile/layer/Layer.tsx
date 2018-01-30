@@ -4,10 +4,10 @@
  *
  * Des
  */
-/// <reference path="./Layer.d.ts" />
 import * as React from 'react';
 import config from './config';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
+// import { LayerProps } from './interface';
 import Term from '../../common/term';
 import './layer.scss';
 
@@ -15,7 +15,7 @@ import './layer.scss';
     config,
 })
 class Layer extends React.PureComponent<LayerProps, any> {
-    render() {
+    render(): JSX.Element {
         const {
             id,
             style = {},

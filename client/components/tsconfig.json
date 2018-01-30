@@ -10,7 +10,7 @@
             "scripthost",
             "es7"
         ],
-        "jsx": "preserve",
+        "jsx": "react",
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "allowJs": true,

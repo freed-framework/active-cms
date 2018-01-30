@@ -191,6 +191,7 @@ class List extends PureComponent {
         const { uploadData, isEidt } = this.state;
 
         validateFields((err, values) => {
+            console.log(values)
             if (err) return;
             const { upload, title } = values;
             const { file } = upload;
@@ -261,7 +262,8 @@ class List extends PureComponent {
                 sm: { span: 14 },
             },
         };
-        const props = {
+
+        const fileUploadProps = {
             accept: '.zip',
             showUploadList: true,
             dataType: 'multipart/form-data',
@@ -379,7 +381,7 @@ class List extends PureComponent {
                                         required: true, message: '请选择zip!',
                                     }],
                                 })(
-                                    <Dragger {...props}>
+                                    <Dragger {...fileUploadProps}>
                                         <p className="ant-upload-drag-icon">
                                             <Icon type="inbox" />
                                         </p>
