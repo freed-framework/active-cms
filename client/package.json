@@ -18,7 +18,7 @@
     "pre-commit"
   ],
   "dependencies": {
-    "antd": "2.10.4",
+    "antd": "^2.10.4",
     "antd-mobile": "2.0.3",
     "autoprefixer": "7.1.6",
     "babel-runtime": "6.x",
