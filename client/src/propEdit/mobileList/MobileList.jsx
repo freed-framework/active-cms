@@ -118,10 +118,10 @@ class MobileList extends PureComponent {
 
     showConfirm = () => {
         Modal.confirm({
-            title: 'Are you sure delete All Image?',
-            okText: 'Yes',
+            title: '确认全部删除?',
+            okText: '确认',
             okType: 'danger',
-            cancelText: 'No',
+            cancelText: '取消',
             onOk: () => this.changeData([]),
         });
     }

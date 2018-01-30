@@ -20,7 +20,7 @@ function upload(file) {
     return new Promise((resolve, reject) => {
         const { size, name, type, path, originalFilename } = file;
         const dstPath = './images/' + originalFilename;
-        
+
         const readStream = fs.createReadStream(path);
         const writeStream = fs.createWriteStream(dstPath);
 

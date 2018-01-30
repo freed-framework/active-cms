@@ -70,6 +70,7 @@ class App extends PureComponent {
         history: PropTypes.objectOf(PropTypes.any),
         pageData: PropTypes.objectOf(PropTypes.any),
         title: PropTypes.string,
+        getPageData: PropTypes.func,
     }
 
     static defaultProps = {
@@ -521,7 +522,7 @@ class App extends PureComponent {
                 message.error('请输入标题');
                 return;
             }
-console.log(JSON.stringify(page.content))
+
             if (!id || id === 'new') {
                 addPage({
                     title,
@@ -532,6 +533,7 @@ console.log(JSON.stringify(page.content))
                     message.success('保存成功')
                     this.$oldData = fromJS(page.content);
                     this.handleSaveCancel();
+                    this.props.getPageData(res.data.id);
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
             }
@@ -539,8 +541,8 @@ console.log(JSON.stringify(page.content))
                 editPage({
                     id,
                     page: {
+                        title,
                         content: page.content,
-                        title: title,
                         thumbnail: page.thumbnail
                     }
                 }).then(() => {
