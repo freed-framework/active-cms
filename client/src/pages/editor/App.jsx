@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { message, Modal, Input, Icon, Form, Button } from 'antd';
+import { message, Modal, Input, Form, Button } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren, getDisplayName } from '../../common/util/util';
 import module from '../../common/module';

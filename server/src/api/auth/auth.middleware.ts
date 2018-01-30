@@ -6,7 +6,6 @@ import logger from '../../common/logger.utils';
 
 @Middleware()
 export class JwtMiddleware implements NestMiddleware {
-
     public resolve() {
         let message
         return async (req, res, next) => {
@@ -33,7 +32,6 @@ export class JwtMiddleware implements NestMiddleware {
         }
     }
 }
-
 
 @Middleware()
 export class LogInMiddleware implements NestMiddleware {

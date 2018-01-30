@@ -1,7 +1,6 @@
 import {
     Module, MiddlewaresConsumer, RequestMethod,
 } from '@nestjs/common';
-
 import { FolderController } from './folder.controller';
 import { FolderService } from './folder.service';
 
