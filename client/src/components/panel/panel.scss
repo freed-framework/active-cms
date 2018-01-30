@@ -45,6 +45,13 @@ $layoutWidth: 300px;
             width: 120px;
         }
 
+        textarea {
+            border: 1px solid #2D2D32;
+            padding: 3px 5px;
+            background: #2D2D32;
+            color: #8E8E94;
+        }
+
         .ant-select-selection--single,
         .ec-edit-border-color,
         .ant-input-number,

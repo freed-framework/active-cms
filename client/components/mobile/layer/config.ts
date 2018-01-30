@@ -12,13 +12,21 @@ const config: Config = {
         },
     },
     iconType: 'layers',
-    menus: ['mobile/layer', 'mobile/img', 'mobile/list'],
+    menus: [
+        'mobile/layer',
+        'mobile/img',
+        'mobile/list',
+        'mobile/click-area'
+    ],
     editable: [
+        {
+            component: 'Term',
+        },
         {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
-            exclude: ['width'],
+            exclude: ['width', 'position'],
         },
     ],
     defaultValues: {

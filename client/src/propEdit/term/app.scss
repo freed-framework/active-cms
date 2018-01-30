@@ -1,0 +1,24 @@
+.ec-panel-main {
+    .ant-calendar-picker {
+        width: 250px !important;
+
+        .ant-calendar-picker-input {
+            background: #2D2D32;
+            color: #8E8E94;
+            border: 1px solid #2D2D32;
+        }
+
+        .ant-calendar-picker-clear {
+            background: none;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+}
+
+/**
+ * 编辑模式下，不将组件隐藏
+ */
+.tmc-term-hide {
+    display: block;
+    opacity: 0.2;
+}

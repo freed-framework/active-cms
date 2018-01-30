@@ -6,10 +6,6 @@ else
     name=$1
 fi
 
-echo "stop pm2..."
-pm2 stop all
-pm2 delete all
-
 echo "delete dist"
 rm -rf /var/web/active-cms/server/dist
 rm -rf /var/web/active-cms/ssr/lib
@@ -17,11 +13,9 @@ rm -rf /var/web/active-cms/client/dist
 rm -rf /var/web/active-cms/client/pkg-mobile
 rm -rf /var/web/active-cms/client/pkg-pc
 
-echo "start..."
-cd /var/web/active-cms
-
-echo "pull..."
-git pull
+echo "stop pm2..."
+pm2 stop all
+pm2 delete all
 
 echo "enter client ..."
 cd /var/web/active-cms/client

@@ -1,4 +1,4 @@
-/// <reference path="./img.d.ts" />
+/// <reference path="./Img.d.ts" />
 import * as React from 'react';
 import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import config from './config';

@@ -72,6 +72,49 @@ class Util {
 
         return info;
     }
+
+
+    /**
+     * 获取 components 组件下的 exclude 配置
+     * @param excludeArr, 需要排除的列表
+     * @param key
+     * @return {Object}
+     */
+    static attrExclude(excludeArr = [], key) {
+        const res = {
+            // 1: 排除
+            // 0: 部分排除
+            // -1: 不排除
+            code: -1,
+
+            // 当 code 为 0 的时候，需要被排除的子列表
+            sub: null,
+        };
+
+        for (let i = 0; i < excludeArr.length; i ++) {
+            const item = excludeArr[i];
+            const strArr = item.split(':');
+            // 对应 key
+            const name = strArr[0];
+            // 对应的 key 要排除的列表
+            const list = strArr[1];
+
+            if (name === key) {
+                // 部分排除
+                if (list) {
+                    res.code = 0;
+                    res.sub = list.split(',');
+                } else {
+                    // 完全匹配
+                    res.code = 1;
+                }
+
+                return res;
+            }
+        }
+
+        return res;
+    }
 }
 
 export default Util;

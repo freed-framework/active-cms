@@ -120,7 +120,7 @@ class PubComps extends PureComponent {
                                         }}
                                     >
 
-                                        {conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}
+                                        {conf.iconType && conf.iconType.indexOf('.svg') > -1 ? <img src={piclist2}/>: <Font type={conf.iconType} />}
                                         <span>{conf.displayName}</span>
                                     </div>
                                 </Col>

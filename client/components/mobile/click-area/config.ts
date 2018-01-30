@@ -14,16 +14,25 @@ const config: Config = {
     },
     editable: [
         {
-            component: 'Link',
-        },
-        {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
             /**
              * Basic 组件要排除的可编辑属性
              */
-            exclude: ['background', 'border', 'overflow', 'position'],
+            exclude: [
+                'background',
+                'border',
+                'overflow',
+                'position:static,relative,fixed',
+            ],
+        },
+        {
+            component: 'Link',
+        },
+        {
+            component: 'Modal',
+            name: "弹出框内容"
         },
     ],
     defaultValues: {
@@ -33,12 +42,9 @@ const config: Config = {
              * 为了避免元素 绝对定位 导致展示效果类似 fixed
              */
             layout: {
-                // position: 'absolute',
-                position: 'static',
+                position: 'absolute',
                 width: '260',
                 height: '120',
-                // left: 0,
-                // top: 0,
             }
         }
     }

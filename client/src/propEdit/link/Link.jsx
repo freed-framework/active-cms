@@ -6,12 +6,13 @@
  */
 import React, { PureComponent } from 'react';
 import { is, fromJS } from 'immutable';
-import { Input, Select } from 'antd';
+import { Input, Select, message } from 'antd';
 import { editComponentByGuid } from '../../pages/editor/App';
 
 const Option = Select.Option;
 
 const urlMapping = {
+    // 顶层组件为 list 的话，url 使用 detail 作为默认值
     'mobile/list': ['detail'],
 }
 
@@ -71,40 +72,33 @@ const getDefault = (key) => {
     return def;
 }
 
-const matchers = {
-    hybrid: /^((hybrid):\/\/.*id=)(.*)$/ig,
-    detail: /^((detail)\/index\.html\?id=)(.*)$/ig,
-    activityPage: /^((activityPage)\/index\.html\?id=)(.*)$/ig,
-    http: /^((https?):\/\/)(.+)$/ig,
-};
+const matchers = [
+    // hybrid
+    /^((hybrid):\/\/.*id=)(.*)$/ig,
+    // detail
+    /^((detail)\/index\.html\?id=)(.*)$/ig,
+    // activityPage
+    /^((activityPage)\/index\.html\?id=)(.*)$/ig,
+    // http
+    /^((https?):\/\/)(.+)$/ig,
+];
 
+/**
+ * 将 url 字符串根据相应的规则修改为数组
+ * @param url
+ * @return {Array}
+ */
 function parseUrl(url = '') {
-    const hy = /^((hybrid):\/\/.*id=)(.*)$/ig;
-    const res = hy.exec(url);
-    const hy2 = /^((detail)\/index\.html\?id=)(.*)$/ig;
-    const res2 = hy2.exec(url);
-    const hy3 = /^((activityPage)\/index\.html\?id=)(.*)$/ig;
-    const res3 = hy3.exec(url);
-    const hy4 = /^((https?):\/\/)(.+)$/ig;
-    const res4 = hy4.exec(url);
+    let expr = null;
+    matchers.forEach(v => {
+        const match = new RegExp(v).exec(url);
 
-    if (res) {
-        return res;
-    }
+        if (match) {
+            expr = match;
+        }
+    });
 
-    if (res2) {
-        return res2;
-    }
-
-    if (res3) {
-        return res3;
-    }
-
-    if (res4) {
-        return res4;
-    }
-
-    return [];
+    return expr === null ? [] : expr;
 }
 
 /**
@@ -165,6 +159,13 @@ class Link extends PureComponent {
 
     handleChangeUrl = () => {
         const { value } = this.state;
+        const { before } = this.settings;
+
+        if (before === undefined) {
+            message.error('请选择链接前缀');
+            return;
+        }
+
         const url = this.settings.before + value;
 
         editComponentByGuid(

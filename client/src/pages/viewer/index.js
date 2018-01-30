@@ -9,9 +9,9 @@ import classNames from 'classnames';
 import { getPage } from '../../services';
 import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
+import '../editor/app.scss';
+// 调用 App 的reset css
 import '../../css/reset-mobile.css';
-// import '../editor/edit-module-hack.scss';
-// import '../editor/app.scss';
 import './index.scss';
 
 class Viewer extends PureComponent {

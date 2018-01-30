@@ -21,13 +21,6 @@ import './basic.scss';
 const Option = Select.Option;
 const emitter = mitt();
 
-/**
- * 判断是否是排除的
- * @param arr exclude: ['background', 'border']
- * @param key xxx
- */
-const isExclude = (arr = [], key) => arr.indexOf(key) !== -1;
-
 const styleProps2State = (style, target) => {
     const propsStyle = style[target] || {};
     const obj = {};
@@ -78,7 +71,7 @@ class BasicEdit extends PureComponent {
 
     constructor(props) {
         super(props);
-        const { componentProps = {}, target } = props;
+        const { componentProps = {}, target, defaultValues } = props;
         const { style = {} } = componentProps;
 
         this.state = styleProps2State(style, target);
@@ -98,7 +91,7 @@ class BasicEdit extends PureComponent {
     }
 
     /**
-     * 回车修改元数据
+     * 回车修改源数据
      */
     handleKeyUp = (event) => {
         if (event.keyCode !== 13) return;
@@ -136,7 +129,7 @@ class BasicEdit extends PureComponent {
             const updateInfo = {};
 
             Object.keys(rect).forEach(k => {
-                if (!isExclude(componentConfig.exclude, k)) {
+                if (Util.attrExclude(componentConfig.exclude, k).code !== 1) {
                     updateInfo[k] = rect[k];
                 }
             });
@@ -222,11 +215,27 @@ class BasicEdit extends PureComponent {
             guid,
         };
         const exclude = componentConfig.exclude;
+        const excludePosition = Util.attrExclude(exclude, 'position');
+        const positionList = [
+            {
+                name: 'static',
+                app: <Option key="static" value="static">默认定位</Option>,
+            }, {
+                name: 'relative',
+                app: <Option key="relative" value="relative">相对定位</Option>,
+            }, {
+                name: 'absolute',
+                app: <Option key="absolute" value="absolute">绝对定位</Option>,
+            }, {
+                name: 'fixed',
+                app: <Option key="fixed" value="fixed">浮动定位</Option>,
+            }
+        ];
 
         return (
             <div className="ec-editor-basic">
                 <Row>
-                    {!isExclude(exclude, 'width') &&
+                    {Util.attrExclude(exclude, 'width').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-width">
                                 <label htmlFor="">宽度</label>
@@ -251,7 +260,6 @@ class BasicEdit extends PureComponent {
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp}
                                 value={this.state.height}
-                                disabled={isExclude(exclude, 'height')}
                             />
                         </div>
                     </Col>
@@ -283,8 +291,7 @@ class BasicEdit extends PureComponent {
                             />
                         </div>
                     </Col>
-                    {/* TODO 移动端需要兼容这些定位方式 */}
-                    {/* {!isExclude(exclude, 'position') &&
+                    {excludePosition.code !== 1 &&
                         <Col span={24}>
                             <Row>
                                 <Col span={12}>
@@ -294,10 +301,14 @@ class BasicEdit extends PureComponent {
                                             defaultValue={propsStyle.position || 'static'}
                                             onChange={this.handleChangePositionType}
                                         >
-                                            <Option value="static">默认方式</Option>
-                                            <Option value="relative">相对定位</Option>
-                                            <Option value="absolute">绝对定位</Option>
-                                            <Option value="fixed">浮动定位</Option>
+                                            {positionList.map(item => {
+                                                // 在排除列表中的话则展示
+                                                if (excludePosition.sub) {
+                                                    return excludePosition.sub.indexOf(item.name) === -1 ? item.app : null;
+                                                } else {
+                                                    return item.app;
+                                                }
+                                            })}
                                         </Select>
                                         <Tooltip
                                             placement="bottom"
@@ -309,7 +320,7 @@ class BasicEdit extends PureComponent {
                                 </Col>
                                 <Col span={12}>
                                     <div className="ec-editor-basic-zIndex">
-                                        <label htmlFor="">Z轴</label>
+                                        <label htmlFor="">Z 轴</label>
                                         <InputNumber
                                             data-attr={"zIndex"}
                                             onChange={this.handleZChange}
@@ -320,7 +331,7 @@ class BasicEdit extends PureComponent {
                             </Row>
                         </Col>
                     }
-                    {!isExclude(exclude, 'position') &&
+                    {Util.attrExclude(exclude, 'position').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-top">
                                 <label htmlFor="">上</label>
@@ -334,7 +345,7 @@ class BasicEdit extends PureComponent {
                             </div>
                         </Col>
                     }
-                    {!isExclude(exclude, 'position') &&
+                    {Util.attrExclude(exclude, 'position').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-buttom">
                                 <label htmlFor="">下</label>
@@ -348,7 +359,7 @@ class BasicEdit extends PureComponent {
                             </div>
                         </Col>
                     }
-                    {!isExclude(exclude, 'position') &&
+                    {Util.attrExclude(exclude, 'position').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-left">
                                 <label htmlFor="">左</label>
@@ -362,7 +373,7 @@ class BasicEdit extends PureComponent {
                             </div>
                         </Col>
                     }
-                    {!isExclude(exclude, 'position') &&
+                    {Util.attrExclude(exclude, 'position').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-right">
                                 <label htmlFor="">右</label>
@@ -375,9 +386,9 @@ class BasicEdit extends PureComponent {
                                 />
                             </div>
                         </Col>
-                    } */}
+                    }
 
-                    {!isExclude(exclude, 'overflow') &&
+                    {Util.attrExclude(exclude, 'overflow').code !== 1 &&
                         <Col span={24}>
                             <div>
                                 <label htmlFor="">溢出设置</label>
@@ -396,14 +407,14 @@ class BasicEdit extends PureComponent {
                     }
                 </Row>
 
-                {!isExclude(exclude, 'border') &&
+                {Util.attrExclude(exclude, 'border').code !== 1 &&
                     <div className="ec-editor-basic-props ec-editor-basic-props-border">
                         <label htmlFor="">边框</label>
                         <BorderEdit { ...borderProps } />
                     </div>
                 }
 
-                {!isExclude(exclude, 'background') &&
+                {Util.attrExclude(exclude, 'background').code !== 1 &&
                     <div className="ec-editor-basic-props ec-editor-basic-props-background">
                         <label
                             htmlFor=""
