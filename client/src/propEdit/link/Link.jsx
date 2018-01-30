@@ -111,7 +111,7 @@ const getUpdateSettings = (url, key) => {
     // url 没有任何值
     if (!url) {
         return {
-            before: getDef.name,
+            before: getDef.value,
             value: '',
             placeholder: getDef.defaultValue,
         }
