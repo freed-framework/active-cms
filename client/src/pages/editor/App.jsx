@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { fromJS, is } from 'immutable';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { message, Modal, Input, Icon, Form, Button } from 'antd';
+import { message, Modal, Input, Form, Button } from 'antd';
 import mitt from 'mitt';
 import { getRect, createChildren, getDisplayName } from '../../common/util/util';
 import module from '../../common/module';
@@ -70,6 +70,7 @@ class App extends PureComponent {
         history: PropTypes.objectOf(PropTypes.any),
         pageData: PropTypes.objectOf(PropTypes.any),
         title: PropTypes.string,
+        getPageData: PropTypes.func,
     }
 
     static defaultProps = {
@@ -167,10 +168,6 @@ class App extends PureComponent {
                 .then(() => {
                     this.saveTileData(this.props.page.content)
                 });
-        }
-        // test
-        else {
-            this.saveData([{"guid":"ec-module-4b345712-e37f-4c41-97a5-b8831bc97bb3","name":"mobile/layer","componentProps":{"style":{"layout":{}},"termDates":[1516373550439,1516428240000]}}])
         }
     }
 
@@ -521,7 +518,7 @@ class App extends PureComponent {
                 message.error('请输入标题');
                 return;
             }
-console.log(JSON.stringify(page.content))
+
             if (!id || id === 'new') {
                 addPage({
                     title,
@@ -532,6 +529,7 @@ console.log(JSON.stringify(page.content))
                     message.success('保存成功')
                     this.$oldData = fromJS(page.content);
                     this.handleSaveCancel();
+                    this.props.getPageData(res.data.id);
                     this.props.history.replace(`/mobile/edit/${res.data.id}${location.hash}`)
                 })
             }
@@ -539,8 +537,8 @@ console.log(JSON.stringify(page.content))
                 editPage({
                     id,
                     page: {
+                        title,
                         content: page.content,
-                        title: title,
                         thumbnail: page.thumbnail
                     }
                 }).then(() => {
