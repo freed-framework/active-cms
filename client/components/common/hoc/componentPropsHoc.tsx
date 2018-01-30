@@ -4,7 +4,6 @@
  *
  * 高阶组件
  */
-/// <reference path="../../typings/interface.d.ts" />
 import * as React from 'react';
 
 /**
@@ -57,13 +56,13 @@ const getClassNames = (...args: any[]) => {
     return arr.join(' ');
 }
 
-const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => class extends React.Component<any, any> {
+const componentPropsHoc = (args: any): Function => (WrappedComponent: any) => class extends React.Component<DefaultProps, any> {
     /**
      * 自动给每个组件添加 config 配置
      */
     static config: any = args.config;
 
-    constructor(props: any) {
+    constructor(props: DefaultProps) {
         super(props);
 
         const conf = args.config;

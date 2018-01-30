@@ -1,5 +1,3 @@
-
-/// <reference path="../../typings/interface.d.ts" />
 import * as React from 'react';
 
 const findBorders = (styles: any) => {
