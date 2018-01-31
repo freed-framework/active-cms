@@ -2,7 +2,7 @@ import * as React from 'react';
 import config from './config';
 import redirect from '../../../node_modules/freed-multi/lib/native/redirect';
 import componentPropsHoc from '../../common/hoc/componentPropsHoc';
-import { ClickAreaProps, escape, unescape } from './interface';
+import { ClickAreaProps } from './interface';
 import Explain from './Explain';
 import './clickArea.scss';
 

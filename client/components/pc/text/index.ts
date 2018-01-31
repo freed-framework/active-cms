@@ -1,4 +1,3 @@
-/// <reference path="../../config.d.ts" />
 import Text from './Text';
 
 export const config: Config = {

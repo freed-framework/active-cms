@@ -1,3 +1,5 @@
+
+
 export interface ClickAreaProps extends DefaultProps {
     url?: string;
     componentProps?: any;
@@ -8,7 +10,5 @@ export interface ClickAreaProps extends DefaultProps {
     modalTitle?: string;
     showExplain?: boolean;
     hasModal?: boolean;
+    isDefaultShow?: boolean;
 }
-
-export declare function escape(message: string): any;
-export declare function unescape(message: string): any;

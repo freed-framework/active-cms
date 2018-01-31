@@ -4,8 +4,6 @@
  *
  * 高阶组件
  */
-/// <reference path="../../config.d.ts" />
-/// <reference path="../../props.d.ts" />
 import * as React from 'react';
 
 /**

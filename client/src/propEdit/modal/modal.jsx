@@ -5,6 +5,15 @@ import { editComponentByGuid } from '../../pages/editor/App';
 import './modal.scss';
 
 class Modal extends PureComponent {
+    constructor(props) {
+        super(props);
+        const { componentProps = {} } = this.props;
+
+        this.state = {
+            ...componentProps,
+        };
+    }
+
     static propTypes = {
         guid: PropTypes.string,
         componentProps: PropTypes.objectOf(PropTypes.any),
@@ -31,15 +40,16 @@ class Modal extends PureComponent {
     handleChangeData = (e) => {
         const { componentProps = {} } = this.props;
         const key = e.target.getAttribute('data-key');
-        const data = {
-            [key]: e.target.value,
-        };
 
-        // 当改变 modal 数据的时候，自动展示出 modal
-        const autoModalVisible = componentProps.hasModal && !componentProps.showExplain;
-        if (autoModalVisible) {
-            data.showExplain = true;
-        }
+        this.setState({
+            [key]: e.target.value,
+        });
+    }
+
+    handleSubmitData = (e) => {
+        const data = {
+            ...this.state
+        };
 
         editComponentByGuid(
             this.props.guid,
@@ -52,13 +62,16 @@ class Modal extends PureComponent {
         const { componentProps = {} } = this.props;
         const {
             hasModal,
+            showExplain,
+        } = componentProps;
+
+        const {
             modalBtn,
+            modalTitle,
             modalContent,
             modalTop,
             modalWidth,
-            modalTitle,
-            showExplain,
-        } = componentProps;
+        } = this.state;
 
         // 如果使用弹出框并且展示
         const isVisbile = showExplain && hasModal;
@@ -76,25 +89,68 @@ class Modal extends PureComponent {
                             使用弹出框
                         </Checkbox>
                     </Col>
+                    {hasModal &&
+                        <Col span={12}>
+                            <Checkbox
+                                defaultChecked={isVisbile}
+                                checked={isVisbile}
+                                data-key="showExplain"
+                                onChange={this.handleChangeCheckbox}
+                            >
+                                显示弹出框
+                            </Checkbox>
+                        </Col>
+                    }
+                </Row>
+                <Row>
                     <Col span={12}>
-                        <Checkbox
-                            defaultChecked={hasModal}
-                            checked={isVisbile}
-                            data-key="showExplain"
-                            onChange={this.handleChangeCheckbox}
-                        >
-                            预览
-                        </Checkbox>
+                        <div className="ec-editor-basic-props">
+                            <label htmlFor="">标题</label>
+                            <Input
+                                data-key="modalTitle"
+                                onChange={this.handleChangeData}
+                                onPressEnter={this.handleSubmitData}
+                                value={modalTitle}
+                            />
+                        </div>
+                    </Col>
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props">
+                            <label htmlFor="">按钮文字</label>
+                            <Input
+                                data-key="modalBtn"
+                                onChange={this.handleChangeData}
+                                onPressEnter={this.handleSubmitData}
+                                value={modalBtn}
+                            />
+                        </div>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>标题</Col>
-                    <Col span={24}>
-                        <Input
-                            data-key="modalTitle"
-                            onChange={this.handleChangeData}
-                            value={modalTitle}
-                        />
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-top">
+                            <label htmlFor="">上</label>
+                            <Input
+                                type="text"
+                                data-key="modalTop"
+                                onChange={this.handleChangeData}
+                                onPressEnter={this.handleSubmitData}
+                                value={modalTop}
+                            />
+                        </div>
+                    </Col>
+
+                    <Col span={12}>
+                        <div className="ec-editor-basic-props ec-editor-basic-props-left">
+                            <label htmlFor="">宽度</label>
+                            <Input
+                                type="text"
+                                data-key="modalWidth"
+                                onChange={this.handleChangeData}
+                                onPressEnter={this.handleSubmitData}
+                                value={modalWidth}
+                            />
+                        </div>
                     </Col>
                 </Row>
                 <Row>
@@ -104,40 +160,11 @@ class Modal extends PureComponent {
                             type="textarea"
                             data-key="modalContent"
                             onChange={this.handleChangeData}
+                            onPressEnter={this.handleSubmitData}
+                            onBlur={this.handleSubmitData}
                             value={modalContent}
                         />
                     </Col>
-                </Row>
-                <Row>
-                    <Col>按钮文字</Col>
-                    <Col span={24}>
-                        <Input
-                            data-key="modalBtn"
-                            onChange={this.handleChangeData}
-                            value={modalBtn}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <div className="ec-editor-basic-props ec-editor-basic-props-top">
-                        <label htmlFor="">上</label>
-                        <input
-                            type="text"
-                            data-key="modalTop"
-                            onChange={this.handleChangeData}
-                            value={modalTop}
-                        />
-                    </div>
-
-                    <div className="ec-editor-basic-props ec-editor-basic-props-left">
-                        <label htmlFor="">宽度</label>
-                        <input
-                            type="text"
-                            data-key="modalWidth"
-                            onChange={this.handleChangeData}
-                            value={modalWidth}
-                        />
-                    </div>
                 </Row>
             </div>
         )
