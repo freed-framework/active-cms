@@ -10,4 +10,5 @@ export interface ClickAreaProps extends DefaultProps {
     modalTitle?: string;
     showExplain?: boolean;
     hasModal?: boolean;
+    isDefaultShow?: boolean;
 }
