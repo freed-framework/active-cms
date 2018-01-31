@@ -64,6 +64,18 @@ body {
         .tmc-layer {
             overflow: hidden;
         }
+
+        .tmc-click-area {
+            border: 1px solid #333;
+
+            .editor-placeholder {
+                opacity: 0.1;
+            }
+
+            &:hover {
+                border-color: #111;
+            }
+        }
     }
 
     // &-header {
