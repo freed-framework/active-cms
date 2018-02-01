@@ -250,19 +250,21 @@ class BasicEdit extends PureComponent {
                             </div>
                         </Col>
                     }
-                    <Col span={12}>
-                        <div className="ec-editor-basic-props ec-editor-basic-props-height">
-                            <label htmlFor="">高度</label>
-                            <input
-                                type="text"
-                                data-guid={guid}
-                                data-attr="height"
-                                onChange={this.handleChange}
-                                onKeyUp={this.handleKeyUp}
-                                value={this.state.height}
-                            />
-                        </div>
-                    </Col>
+                    {Util.attrExclude(exclude, 'width').code !== 1 &&
+                        <Col span={12}>
+                            <div className="ec-editor-basic-props ec-editor-basic-props-height">
+                                <label htmlFor="">高度</label>
+                                <input
+                                    type="text"
+                                    data-guid={guid}
+                                    data-attr="height"
+                                    onChange={this.handleChange}
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.height}
+                                />
+                            </div>
+                        </Col>
+                    }
                 </Row>
                 <Row>
                     <Col span={12}>

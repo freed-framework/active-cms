@@ -14,7 +14,7 @@ const config: Config = {
         'mobile/layer',
         'mobile/img',
         'mobile/list',
-        'mobile/click-area'
+        // 'mobile/click-area'
     ],
     editable: [
         {
@@ -24,7 +24,7 @@ const config: Config = {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
-            exclude: ['width', 'position'],
+            exclude: ['height', 'width', 'position'],
         },
     ],
     defaultValues: {
