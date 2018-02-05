@@ -250,7 +250,7 @@ class BasicEdit extends PureComponent {
                             </div>
                         </Col>
                     }
-                    {Util.attrExclude(exclude, 'width').code !== 1 &&
+                    {Util.attrExclude(exclude, 'height').code !== 1 &&
                         <Col span={12}>
                             <div className="ec-editor-basic-props ec-editor-basic-props-height">
                                 <label htmlFor="">高度</label>
