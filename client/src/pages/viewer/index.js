@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { getPage } from '../../services';
 import Render from '../../common/render/Render';
 import { calc, resizeEvt } from '../../common/mobileMock';
-import '../editor/app.scss';
+// import '../editor/app.scss';
 // 调用 App 的reset css
 import '../../css/reset-mobile.css';
 import './index.scss';
@@ -63,19 +63,13 @@ class Viewer extends PureComponent {
         })
 
         return (
-            <div className={wrapCls}>
-                <div className="ec-editor-canvas ec-editor-view">
-                    <div className="ec-editor-canvas-inner">
-                        <Render
-                            data={this.state.data}
-                            // 这里较为特殊，要设置为 edit 方式，图片组件才能不使用 lazyload
-                            isEdit
-                            isView
-                            pageType={this.state.pageType}
-                        />
-                    </div>
-                </div>
-            </div>
+            <Render
+                data={this.state.data}
+                // 这里较为特殊，要设置为 edit 方式，图片组件才能不使用 lazyload
+                isEdit
+                isView
+                pageType={this.state.pageType}
+            />
         )
     }
 }

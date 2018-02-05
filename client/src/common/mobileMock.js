@@ -40,7 +40,7 @@ const antdFlex = (baseFontSize, fontscale) => {
  * 是否指定宽度
  * @param width
  */
-const calc = (width) => {
+const calc = (baseFontSize, fontscale) => {
     // const clientWidth = width || docEl.clientWidth;
     //
     // if (!clientWidth) {
@@ -50,7 +50,7 @@ const calc = (width) => {
     // rate = 100 * (clientWidth / 750);
     //
     // docEl.style.fontSize = `${rate}px`;
-    antdFlex();
+    antdFlex(baseFontSize, fontscale);
 };
 
 /**
