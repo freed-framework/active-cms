@@ -14,7 +14,7 @@ const config: Config = {
         'mobile/layer',
         'mobile/img',
         'mobile/list',
-        // 'mobile/click-area'
+        'mobile/click-area'
     ],
     editable: [
         {
@@ -29,9 +29,7 @@ const config: Config = {
     ],
     defaultValues: {
         style: {
-            layout: {
-                // height: 180,
-            }
+            layout: {}
         }
     }
 };

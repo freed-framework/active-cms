@@ -95,9 +95,9 @@ export const scrollDom = (outerEl, target, scale = 1) => {
  * 直接将数字(string number)转换为 rem
  * @param px
  */
-export const num2rem = (px) => {
+export const num2rem = (px, rootFontSize) => {
     // 获取当前 fontSize
-    const fontSize = window.document.documentElement.style.fontSize || '100px';
+    const fontSize = '100px';
     const num = Number(fontSize.replace('px', ''));
     let str = px;
 
