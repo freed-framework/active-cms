@@ -158,7 +158,8 @@ class App extends PureComponent {
 
         // 移动端模拟
         if (params.type === 'mobile') {
-            calc(750);
+            // 默认是 100px ，但是这里外层容器被 缩放了一半，所以这里把 font-size 调整到 2倍
+            calc(100 * 2);
             window.addEventListener(resizeEvt, calc, false);
         }
 

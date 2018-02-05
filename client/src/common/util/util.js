@@ -117,7 +117,7 @@ export const num2rem = (px, rootFontSize) => {
  * @param data
  */
 export const transPx = (data) => {
-    const transExpr = /^(width|height|padding|margin)$/;
+    const transExpr = /^(width|height|padding|margin|left|top|right|bottom)$/;
     const trans = JSON.parse(JSON.stringify(data));
 
     Object.keys(trans).forEach(k => {
