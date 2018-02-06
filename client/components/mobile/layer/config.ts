@@ -3,12 +3,12 @@ const config: Config = {
     className: 'tmc-layer',
     isCommon: true,
     displayName: '布局',
-    draggable: {
-        position: {
-            y: true,
-            height: true,
-        },
-    },
+    // draggable: {
+    //     position: {
+    //         y: true,
+    //         height: true,
+    //     },
+    // },
     iconType: 'layers',
     menus: [
         'mobile/layer',
@@ -24,12 +24,18 @@ const config: Config = {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
-            exclude: ['width', 'position'],
+            exclude: [
+                'width', 
+                'height',
+                'position'
+            ],
         },
     ],
     defaultValues: {
         style: {
-            layout: {}
+            layout: {
+                overflow: 'hidden'
+            }
         }
     }
 };

@@ -3,7 +3,6 @@
  * @author denglingbo
  * 适用于移动端
  */
-
 const docEl = document.documentElement;
 const resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
 let rate;
@@ -36,20 +35,25 @@ const antdFlex = (baseFontSize, fontscale) => {
     doc.documentElement.style.fontSize = `${_baseFontSize / 2 * dpr * _fontscale}px`;
 }
 
+// const calc2 = (baseFontSize) => {
+//     const width = baseFontSize * 7.5;
+//     const clientWidth = width || docEl.clientWidth;
+    
+//     if (!clientWidth) {
+//         return;
+//     }
+    
+//     rate = 100 * (clientWidth / 750);
+    
+//     docEl.style.fontSize = `${rate}px`;
+// }
+
 /**
  * 是否指定宽度
  * @param width
  */
 const calc = (baseFontSize, fontscale) => {
-    // const clientWidth = width || docEl.clientWidth;
-    //
-    // if (!clientWidth) {
-    //     return;
-    // }
-    //
-    // rate = 100 * (clientWidth / 750);
-    //
-    // docEl.style.fontSize = `${rate}px`;
+    // calc2(100);
     antdFlex(baseFontSize, fontscale);
 };
 

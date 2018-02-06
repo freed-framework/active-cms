@@ -38,7 +38,6 @@ class Viewer extends PureComponent {
 
                 if (data.pageType === 'mobile') {
                     calc();
-                    window.addEventListener(resizeEvt, calc, false);
                 }
 
                 this.setState({
@@ -52,7 +51,7 @@ class Viewer extends PureComponent {
 
     componentWillUnmount() {
         if (this.state.pageType === 'mobile') {
-            window.removeEventListener(resizeEvt, calc, false);
+            // window.removeEventListener(resizeEvt, calc, false);
         }
     }
 

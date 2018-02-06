@@ -160,7 +160,6 @@ class App extends PureComponent {
         if (params.type === 'mobile') {
             // 默认是 100px ，但是这里外层容器被 缩放了一半，所以这里把 font-size 调整到 2倍
             calc(100 * 2);
-            window.addEventListener(resizeEvt, calc, false);
         }
 
         // 请求页面数据
@@ -196,7 +195,7 @@ class App extends PureComponent {
         this.props.clearPage();
 
         if (params.type === 'mobile') {
-            window.removeEventListener(resizeEvt, calc, false);
+            // window.removeEventListener(resizeEvt, calc, false);
         }
     }
 

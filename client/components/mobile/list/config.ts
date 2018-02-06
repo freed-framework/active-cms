@@ -14,7 +14,10 @@ const config: Config = {
             component: 'Basic',
             target: 'layout',
             name: '外容器',
-            exclude: ['width'],
+            exclude: [
+                'width',
+                'height'
+            ],
         },
     ],
 

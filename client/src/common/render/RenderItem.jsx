@@ -10,6 +10,31 @@ import AppComponent from '../AppComponent';
 import { scrollDom } from '../util/util';
 import PlaceHolder from '../../components/placeholder';
 
+/**
+ * 如果存在 background 也不展示 placeholder
+ * @param {*} objs
+ */
+const hasBackground = (objs = {}) => {
+    let got = false;
+
+    Object.keys(objs).forEach(k => {
+        const val = objs[k];
+
+        if (typeof val === 'object') {
+            got = hasBackground(val);
+        }
+
+        if (typeof val === 'string'
+            && (k === 'backgroundColor' || k === 'backgroundImage')
+            && val !== ''
+        ) {
+            got = true;
+        }
+    });
+
+    return got;
+}
+
 @LazyerHoc
 class RenderItem extends PureComponent {
     componentDidUpdate() {
@@ -30,9 +55,16 @@ class RenderItem extends PureComponent {
 
     render() {
         const { item, module, isEdit, isView } = this.props;
-
-        // 编辑模式下才使用 placeholder
-        if (isEdit && (!item.children || item.children.length === 0) && !isView) {
+        const { componentProps = {} } = item;
+        
+        if (// 编辑模式下才使用 placeholder
+            isEdit 
+            && (!item.children || item.children.length === 0)
+            // 存在 background 也不展示 placeholder
+            && !hasBackground(componentProps.style)
+            // 预览模式不展示 placeholder
+            && !isView
+        ) {
             return (
                 <AppComponent {...this.props}>
                     {() => (
