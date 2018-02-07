@@ -124,18 +124,20 @@ function toFixed(number, precision) {
     return Math.round(wholeNumber / 10) * 10 / multiplier;
 }
 
+const pxReg = /(\d+(\.\d+)?)[px]*/gi;
+
 /**
  * 将px 转换为视角单位
  * @param {*} px 
  */
 const px2viewport = (px) => (
-    px.toString().replace(/(\d+)[px]*/gi, (match, word) => {
-        const pixel = Number(word);
+    px.toString().replace(pxReg, (match, word) => {
+        const pixel = parseFloat(word);
 
         if (pixel === 0) {
             return pixel;
         }
-
+        
         return `${toFixed(pixel / 750 * 100, 5)}vw`;
     })
 );
@@ -157,6 +159,7 @@ export const transPx = (data) => {
                 const expr = transExpr.exec(key);
 
                 if (expr) {
+                    console.log(key, px2viewport(item[key]))
                     item[key] = px2viewport(item[key]);
                 }
             });
