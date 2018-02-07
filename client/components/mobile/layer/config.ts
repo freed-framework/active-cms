@@ -3,12 +3,12 @@ const config: Config = {
     className: 'tmc-layer',
     isCommon: true,
     displayName: '布局',
-    // draggable: {
-    //     position: {
-    //         y: true,
-    //         height: true,
-    //     },
-    // },
+    draggable: {
+        position: {
+            y: true,
+            height: true,
+        },
+    },
     iconType: 'layers',
     menus: [
         'mobile/layer',
