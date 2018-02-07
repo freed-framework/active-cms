@@ -54,7 +54,7 @@ const antdFlex = (baseFontSize, fontscale) => {
  */
 const calc = (baseFontSize, fontscale) => {
     // calc2(100);
-    antdFlex(baseFontSize, fontscale);
+    // antdFlex(baseFontSize, fontscale);
 };
 
 /**

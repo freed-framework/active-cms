@@ -113,6 +113,62 @@ export const num2rem = (px, rootFontSize) => {
 }
 
 /**
+ * 
+ * @param {*} number 
+ * @param {*} precision 保留几位小数
+ */
+function toFixed(number, precision) {
+    let multiplier = Math.pow(10, precision + 1);
+    let wholeNumber = Math.floor(number * multiplier);
+
+    return Math.round(wholeNumber / 10) * 10 / multiplier;
+}
+
+// 视角方向
+const vdir = {
+    x: ['width', 'left', 'right'],
+    y: ['height', 'top', 'bottom'],
+    other: ['margin', 'padding'],
+};
+
+const rootViewport = {
+    x: 750,
+    y: 1334,
+};
+
+const getVDir = (pxNum, type) => {
+    let vstr = '';
+
+    Object.keys(vdir).forEach(k => {
+        const arr = vdir[k];
+
+        if (arr.indexOf(type) > -1) {
+            const vsize = rootViewport[k];
+            const pixel = Number(pxNum);
+
+            vstr = `${pixel / 750 * 100}vw`;
+        }
+    });
+
+    return vstr;
+}
+
+/**
+ * 将px 转换为视角单位
+ * @param {*} px 
+ * @param {*} type 
+ */
+const px2viewport = (px, type) => {
+    const pxStr = px.toString();
+
+    return pxStr.replace(/(\d+)[px]*/gi, (match, word) => {
+        const pixel = Number(word);
+
+        return `${pixel / 750 * 100}vw`;
+    });
+}
+
+/**
  * 转换数据
  * @param data
  */
@@ -125,8 +181,10 @@ export const transPx = (data) => {
 
         if (item) {
             Object.keys(item).forEach(key => {
-                if (transExpr.test(key)) {
-                    item[key] = num2rem(item[key]);
+                const expr = transExpr.exec(key);
+
+                if (expr) {
+                    item[key] = px2viewport(item[key], expr[1]);
                 }
             });
         }

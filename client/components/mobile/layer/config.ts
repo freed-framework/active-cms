@@ -26,7 +26,7 @@ const config: Config = {
             name: '外容器',
             exclude: [
                 'width', 
-                'height',
+                // 'height',
                 'position'
             ],
         },

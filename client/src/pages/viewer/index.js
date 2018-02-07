@@ -64,8 +64,8 @@ class Viewer extends PureComponent {
         return (
             <Render
                 data={this.state.data}
-                // 这里较为特殊，要设置为 edit 方式，图片组件才能不使用 lazyload
-                isEdit
+                // 这里较为特殊，要设置为 edit 方式，图片组件才能不使用 lazyload, 暂时屏蔽
+                isEdit={false}
                 isView
                 pageType={this.state.pageType}
             />

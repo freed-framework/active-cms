@@ -36,7 +36,7 @@ const AppComponent = (props) => {
     const extendsProps = Object.assign({}, props.extendsProps);
 
     // 移动端数据转换
-    if (props.pageType === 'mobile') {
+    if (props.pageType === 'mobile' && !props.isEdit) {
         if (componentProps && componentProps.style) {
             componentProps.style = transPx(componentProps.style);
         }
