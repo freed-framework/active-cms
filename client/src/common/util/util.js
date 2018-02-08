@@ -142,7 +142,7 @@ const px2viewport = (px) => (
     })
 );
 
-const transExpr = /^(width|.*height|left|top|right|bottom|padding.*|margin.*|border.*)\:?/;
+const transExpr = /^(width|.*height|left|top|right|bottom|padding.*|margin.*|border.*)/;
 
 /**
  * 转换数据
@@ -159,7 +159,6 @@ export const transPx = (data) => {
                 const expr = transExpr.exec(key);
 
                 if (expr) {
-                    console.log(key, px2viewport(item[key]))
                     item[key] = px2viewport(item[key]);
                 }
             });
